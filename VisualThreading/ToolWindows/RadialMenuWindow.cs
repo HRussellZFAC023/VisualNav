@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace VisualThreading
 {
-    public class RadialMenu : BaseToolWindow<RadialMenu>
+    public class RadialMenuWindow : BaseToolWindow<RadialMenuWindow>
     {
         public override string GetTitle(int toolWindowId) => "Radial Menu for Visual Threading";
 

@@ -8,6 +8,7 @@ namespace VisualThreading
         public RadialMenuControl()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
