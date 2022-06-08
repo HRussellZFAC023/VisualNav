@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace VisualThreading
 {
-    public class ToolWindow1 : BaseToolWindow<ToolWindow1>
+    public class RadialDial : BaseToolWindow<RadialDial>
     {
         public override string GetTitle(int toolWindowId) => "ToolWindow1";
 
@@ -14,7 +14,7 @@ namespace VisualThreading
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            return Task.FromResult<FrameworkElement>(new ToolWindow1Control());
+            return Task.FromResult<FrameworkElement>(new RadialDialControl());
         }
 
         [Guid("0ea6b182-db3a-4f77-abf4-492c7b31036b")]

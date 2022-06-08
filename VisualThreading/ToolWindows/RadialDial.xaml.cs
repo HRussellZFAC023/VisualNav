@@ -3,16 +3,16 @@ using System.Windows.Controls;
 
 namespace VisualThreading
 {
-    public partial class ToolWindow1Control : UserControl
+    public partial class RadialDialControl : UserControl
     {
-        public ToolWindow1Control()
+        public RadialDialControl()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            VS.MessageBox.Show("ToolWindow1Control", "Button clicked");
+            VS.MessageBox.Show("RadialDialControl", "Button clicked");
         }
     }
 }
