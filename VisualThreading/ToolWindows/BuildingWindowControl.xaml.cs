@@ -1,5 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace VisualThreading
 {
@@ -10,9 +13,7 @@ namespace VisualThreading
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            VS.MessageBox.Show("BuildingWindowControl", "Button clicked");
-        }
+
     }
+
 }

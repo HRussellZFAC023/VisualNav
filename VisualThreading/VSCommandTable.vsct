@@ -35,6 +35,16 @@
 					<LocCanonicalName>.View.VisualThreading</LocCanonicalName>
 				</Strings>
 			</Button>
+
+			<Button guid="VisualThreading" id="OpenBuildingWindow" priority="0x0100" type="Button">
+				<Parent guid="VSMainMenu" id="View.DevWindowsGroup.OtherWindows.Group1" />
+				<Icon guid="ImageCatalogGuid" id="Processor" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>Open Building Window</ButtonText>
+					<LocCanonicalName>.View.BuildingWindow</LocCanonicalName>
+				</Strings>
+			</Button>
 		</Buttons>
 	</Commands>
 
@@ -43,6 +53,7 @@
 			<IDSymbol name="MyMenuGroup" value="0x0001" />
 			<IDSymbol name="MyCommand" value="0x0100" />
 			<IDSymbol name="OpenVisualThreading" value="0x0200" />
+			<IDSymbol name="OpenBuildingWindow" value="0x0300" />
 		</GuidSymbol>
 	</Symbols>
 </CommandTable>
