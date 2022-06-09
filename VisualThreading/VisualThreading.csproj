@@ -45,6 +45,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\OpenCommandPreiew.cs" />
     <Compile Include="Commands\OpenRadialMenu.cs" />
     <Compile Include="Commands\OpenVisualThreadingCommand.cs" />
     <Compile Include="Options\General1.cs" />
