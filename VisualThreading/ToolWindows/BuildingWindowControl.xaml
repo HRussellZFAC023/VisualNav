@@ -13,7 +13,30 @@
              d:DesignWidth="300"
              Name="MyToolWindow">
 
-    
+    <Grid ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Label Name ="if" Content="if" Background="Green" Height ="28" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="39"  />
+            <Label Name ="ifelse" Content="ifelse" Background="Green" Height ="28" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,45,0,0"  />
+            <Label Name ="while" Content="while" Background="Green" Height ="28" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,89,0,0"  />
+        </Grid>
+
+        <Grid Background="AliceBlue" AllowDrop="True"
+              Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+
+        </Grid>
+
+        <Button Grid.Row="1" Grid.Column="2">Finish</Button>
+    </Grid>
 
 
 </UserControl>
