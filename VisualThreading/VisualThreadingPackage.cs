@@ -14,6 +14,7 @@ namespace VisualThreading
     [ProvideOptionPage(typeof(OptionsProvider.General1Options), "Visual Threading", "General1", 0, 0, true, SupportsProfiles = true)]
     [ProvideToolWindow(typeof(VisualThreadingWindow.Pane))]
     [ProvideToolWindow(typeof(RadialDial.Pane))]
+    [ProvideToolWindow(typeof(CommandWindow.Pane))]
     public sealed class VisualThreadingPackage : ToolkitPackage
     {
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)

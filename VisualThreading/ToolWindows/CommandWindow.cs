@@ -8,7 +8,7 @@ namespace VisualThreading
 {
     public class CommandWindow : BaseToolWindow<CommandWindow>
     {
-        public override string GetTitle(int toolWindowId) => "Command Window";
+        public override string GetTitle(int toolWindowId) => "Preview Command";
 
         public override Type PaneType => typeof(Pane);
 
@@ -17,12 +17,12 @@ namespace VisualThreading
             return Task.FromResult<FrameworkElement>(new CommandWindowControl());
         }
 
-        [Guid("b7972b7c-5b87-457b-b858-33669cd9027c")]
+        [Guid("8d4fca2b-a66b-485a-a01f-58a3b98aa35e")]
         internal class Pane : ToolWindowPane
         {
             public Pane()
             {
-                BitmapImageMoniker = KnownMonikers.Thread;
+                BitmapImageMoniker = KnownMonikers.ToolWindow;
             }
         }
     }
