@@ -1,0 +1,21 @@
+{
+  "RadialMenu": [
+    {
+      "project_type": [ "c#" ],
+      "text": "visual threading commands for c#",
+      "commands": [
+        {
+          "text": "if",
+          "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements#the-if-statement"
+        },
+        {
+          "text": "switch",
+          "url": "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/statements/selection-statements#the-switch-statement"
+        }
+        
+      ],
+      "UI": [],
+      "Symbols": []
+    }
+  ]
+}

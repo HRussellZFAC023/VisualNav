@@ -12,9 +12,10 @@ namespace VisualThreading
 
         public override Type PaneType => typeof(Pane);
 
-        public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
+        public override async Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            return Task.FromResult<FrameworkElement>(new CommandWindowControl());
+            var commands = await Schema.Schema.LoadAsync();
+            return new CommandWindowControl(commands);
         }
 
         [Guid("8d4fca2b-a66b-485a-a01f-58a3b98aa35e")]
