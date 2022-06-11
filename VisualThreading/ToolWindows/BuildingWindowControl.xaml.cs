@@ -18,12 +18,16 @@ namespace VisualThreading
 
         private void Label_DragEnter(object sender, DragEventArgs e)
         {
-            Console.WriteLine("Label_DragEnter========================");
-
             if (e.Data.GetDataPresent(DataFormats.Text))
             {
                 e.Effects = DragDropEffects.Copy;
             }
+        }
+
+        protected override void OnDragOver(DragEventArgs e)
+        {
+            base.OnDragOver(e);
+            e.Handled = true;
         }
 
         private void Label_Drop(object sender, DragEventArgs e)
@@ -55,49 +59,16 @@ namespace VisualThreading
                 Console.WriteLine("text block");
                 label.Content = ((TextBlock)e.Data.GetData(typeof(TextBlock)));
             }
+
+            e.Handled = true;
         }
 
-        private void Grid_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effects = DragDropEffects.Copy;
-            }
-        }
-
-        private void Grid_Drop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) // drop file
-            {
-                string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-                Bitmap bmp = new Bitmap(path);
-                ImageSource img = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-
-                myImg.Source = img;
-
-            }
-        }
-
-
-        private void If_block_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                // Package the data.
-                DataObject data = new DataObject();
-                data.SetData(DataFormats.StringFormat, e.Source.ToString());
-
-                // Initiate the drag-and-drop operation.
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
-            }
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBox_TextChanged_variable(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        private void TextBox_TextChanged_operator(object sender, TextChangedEventArgs e)
         {
 
         }
