@@ -18,11 +18,9 @@ namespace VisualThreading
 
         private void Label_DragEnter(object sender, DragEventArgs e)
         {
-            Console.WriteLine("Label_DragEnter========================");
-
             if (e.Data.GetDataPresent(DataFormats.Text))
             {
-                e.Effects = DragDropEffects.Copy;
+                e.Effects = DragDropEffects.Move;
             }
         }
 
@@ -65,8 +63,10 @@ namespace VisualThreading
             }
         }
 
+
         private void Grid_Drop(object sender, DragEventArgs e)
         {
+
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) // drop file
             {
                 string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
@@ -75,33 +75,23 @@ namespace VisualThreading
 
                 myImg.Source = img;
 
+                if (path.Contains("elif"))
+                {
+                    present.Content = "if...else if block";
+                } else if (path.Contains("if"))
+                {
+                    present.Content = "if block";
+                }
+
             }
         }
 
-
-        private void If_block_MouseMove(object sender, MouseEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                // Package the data.
-                DataObject data = new DataObject();
-                data.SetData(DataFormats.StringFormat, e.Source.ToString());
-
-                // Initiate the drag-and-drop operation.
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
-            }
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+            myImg.Source = null;
+            present.Content = "";
 
         }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
     }
 
 }
