@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using EnvDTE;
+using Microsoft.VisualStudio.Text;
 
 namespace VisualThreading
 {
@@ -15,7 +17,15 @@ namespace VisualThreading
         public override async Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
             var commands = await Schema.Schema.LoadAsync();
-            return new CommandWindowControl(commands);
+            var buffer = await VS.Documents.GetActiveDocumentViewAsync();
+            var fileExt = "";
+            if (buffer != null && buffer.TextBuffer != null)
+            {
+                fileExt =
+                System.IO.Path.GetExtension(buffer.TextBuffer.GetFileName());
+            }
+
+            return new CommandWindowControl(commands, fileExt);
         }
 
         [Guid("8d4fca2b-a66b-485a-a01f-58a3b98aa35e")]

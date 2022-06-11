@@ -15,7 +15,7 @@
              Name="MyToolWindow">
     <Grid>
 
-        <StackPanel Orientation="Vertical" Name="Widgets" Margin="0,0,0,0">
-        </StackPanel>
+        <StackPanel Orientation="Vertical" Name="Widgets" Margin="0,0,0,0"/>
+
     </Grid>
 </UserControl>

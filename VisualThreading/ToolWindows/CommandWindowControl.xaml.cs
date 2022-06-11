@@ -1,37 +1,59 @@
 ﻿using System.Diagnostics;
-using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 
 namespace VisualThreading
 {
     public partial class CommandWindowControl : UserControl
     {
         private readonly Schema.Schema _commands;
-        private string currentCommand;
-        private const string Language = "c#";
+        private string _currentCommand;
+        private string _currentLanguage; // file extension for language
 
-        public CommandWindowControl(Schema.Schema commands)
+        public CommandWindowControl(Schema.Schema commands, string language)
         {
             _commands = commands;
-            currentCommand = "";
+            _currentCommand = "";
+            _currentLanguage = language;
             InitializeComponent();
 
-            SetCurrentCommand("If"); // temporary
-            UpdateCommands();
+            SetCurrentCommand("If");
+            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection event
+        }
+
+        private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var fileExt = "";
+            if (e.To != null)
+            {
+                var buffer = e.To.Name;
+                fileExt =
+                        System.IO.Path.GetExtension(buffer);
+            }
+            SetCurrentLanguage(fileExt);
         }
 
         // TODO: call this from Radial Dial
         private void SetCurrentCommand(string command)
         {
-            currentCommand = command;
+            _currentCommand = command;
+            UpdateCommands();
+        }
+
+        private void SetCurrentLanguage(string language)
+        {
+            _currentLanguage = language;
+            UpdateCommands();
+            Debug.WriteLine("called: " + language); //debug
         }
 
         private void UpdateCommands()
         {
+            Widgets.Children.Clear();
             foreach (var entry in _commands.RadialMenu)
             {
-                if (!entry.Project_type.Contains(Language))
+                if (!entry.FileExt.Equals(_currentLanguage))
                 {
                     continue;
                 }
@@ -41,18 +63,19 @@ namespace VisualThreading
 
                 foreach (var link in entry.Commands)
                 {
+                    if (link.Text != _currentCommand)
+                    {
+                        continue;
+                    }
+
                     var hyperlink = new Label { Content = link.Text };
-                    //var hl = new Hyperlink() { NavigateUri = new Uri(link.Url), text
+                    var hl = new Hyperlink { NavigateUri = new Uri(link.Url) };
+                    hl.Inlines.Add(link.Text);
                     Widgets.Children.Add(hyperlink);
                 }
 
                 Debug.WriteLine(entry.Text);
             }
-        }
-
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            VS.MessageBox.Show("CommandWindowControl", "Button clicked");
         }
     }
 }

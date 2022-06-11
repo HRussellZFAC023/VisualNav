@@ -25,7 +25,7 @@ namespace VisualThreading.Schema
 
     public class Radialmenu
     {
-        public string[] Project_type { get; set; }
+        public string FileExt { get; set; }
         public string Text { get; set; }
         public Command[] Commands { get; set; }
         public object[] UI { get; set; }
