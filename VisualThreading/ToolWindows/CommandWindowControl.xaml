@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="VisualThreading.CommandWindowControl"
+﻿<UserControl x:Class="VisualThreading.ToolWindows.CommandWindowControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,14 +8,13 @@
              xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
              xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
              xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
-             toolkit:Themes.UseVsTheme="False"
+             toolkit:Themes.UseVsTheme="True"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300"
              Name="MyToolWindow">
     <Grid>
 
-        <StackPanel Orientation="Vertical" Name="Widgets" Margin="0,0,0,0"/>
-
+        <StackPanel Orientation="Vertical" Name="Widgets" Margin="0,0,0,0" />
     </Grid>
 </UserControl>

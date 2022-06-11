@@ -1,4 +1,6 @@
-﻿namespace VisualThreading
+﻿using VisualThreading.ToolWindows;
+
+namespace VisualThreading.Commands
 {
     [Command(PackageIds.OpenRadialMenu)]
     internal sealed class OpenRadialMenu : BaseCommand<OpenRadialMenu>

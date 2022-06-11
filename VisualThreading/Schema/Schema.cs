@@ -6,9 +6,11 @@ namespace VisualThreading.Schema
 {
     public class Schema
     {
+        /// <summary>
+        /// Private constructor singleton
+        /// </summary>
         private Schema()
-        {
-        }
+        { }
 
         public Radialmenu[] RadialMenu { get; set; }
 
@@ -28,7 +30,7 @@ namespace VisualThreading.Schema
         public string FileExt { get; set; }
         public string Text { get; set; }
         public Command[] Commands { get; set; }
-        public object[] UI { get; set; }
+        public object[] Ui { get; set; }
         public object[] Symbols { get; set; }
     }
 

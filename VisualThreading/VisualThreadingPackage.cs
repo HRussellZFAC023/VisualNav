@@ -4,6 +4,8 @@ global using System;
 global using Task = System.Threading.Tasks.Task;
 using System.Runtime.InteropServices;
 using System.Threading;
+using VisualThreading.Options;
+using VisualThreading.ToolWindows;
 
 namespace VisualThreading
 {

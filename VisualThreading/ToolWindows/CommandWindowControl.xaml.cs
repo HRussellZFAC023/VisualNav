@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 
-namespace VisualThreading
+namespace VisualThreading.ToolWindows
 {
     public partial class CommandWindowControl : UserControl
     {
