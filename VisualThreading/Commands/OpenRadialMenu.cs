@@ -5,7 +5,7 @@
     {
         protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
         {
-            await ToolWindow1.ShowAsync();
+            await RadialDial.ShowAsync();
         }
     }
 }

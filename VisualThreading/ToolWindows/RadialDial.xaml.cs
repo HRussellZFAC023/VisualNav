@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace VisualThreading
 {
-    public partial class ToolWindow1Control : UserControl
+    public partial class RadialDialControl : UserControl
     {
         
 
@@ -36,7 +36,7 @@ namespace VisualThreading
             }
         }
 
-        public ToolWindow1Control()
+        public RadialDialControl()
         {
             InitializeComponent();
 
@@ -167,5 +167,4 @@ namespace VisualThreading
             };
         }
 
-    }
 }

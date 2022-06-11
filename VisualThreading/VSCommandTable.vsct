@@ -18,11 +18,20 @@
 		<Buttons>
 			<Button guid="VisualThreading" id="OpenRadialMenu" priority="0x0100" type="Button">
 				<Parent guid="VisualThreading" id="MyMenuGroup" />
-				<Icon guid="ImageCatalogGuid" id="Processor" />
+				<Icon guid="ImageCatalogGuid" id="PieChart" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
-					<ButtonText>Radial Menu - Visual Threading</ButtonText>
+					<ButtonText>Command Pallet - Visual Threading</ButtonText>
 					<LocCanonicalName>.View.RadialMenu</LocCanonicalName>
+				</Strings>
+			</Button>
+			<Button guid="VisualThreading" id="OpenCommandPreview" priority="0x0100" type="Button">
+				<Parent guid="VisualThreading" id="MyMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="Thread" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>Command Preview - Visual Threading</ButtonText>
+					<LocCanonicalName>.View.CommandPreview</LocCanonicalName>
 				</Strings>
 			</Button>
 
@@ -42,7 +51,8 @@
 		<GuidSymbol name="VisualThreading" value="{46a432ab-b925-4851-a214-65069de24b60}">
 			<IDSymbol name="MyMenuGroup" value="0x0001" />
 			<IDSymbol name="OpenRadialMenu" value="0x0100" />
-			<IDSymbol name="OpenVisualThreading" value="0x0200" />
+			<IDSymbol name="OpenCommandPreview" value="0x0101" />
+			<IDSymbol name="OpenVisualThreading" value="0x0102" />
 		</GuidSymbol>
 	</Symbols>
 </CommandTable>

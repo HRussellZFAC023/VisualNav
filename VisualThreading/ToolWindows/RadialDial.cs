@@ -6,23 +6,23 @@ using System.Windows;
 
 namespace VisualThreading
 {
-    public class VisualThreadingWindow : BaseToolWindow<VisualThreadingWindow>
+    public class RadialDial : BaseToolWindow<RadialDial>
     {
-        public override string GetTitle(int toolWindowId) => "VisualThreadingWindow";
+        public override string GetTitle(int toolWindowId) => "Command Pallet";
 
         public override Type PaneType => typeof(Pane);
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            return Task.FromResult<FrameworkElement>(new VisualThreadingWindowControl());
+            return Task.FromResult<FrameworkElement>(new RadialDialControl());
         }
 
-        [Guid("a9784502-89e5-4df8-bfed-de973fdb4e5c")]
+        [Guid("0ea6b182-db3a-4f77-abf4-492c7b31036b")]
         internal class Pane : ToolWindowPane
         {
             public Pane()
             {
-                BitmapImageMoniker = KnownMonikers.ToolWindow;
+                BitmapImageMoniker = KnownMonikers.PieChart;
             }
         }
     }
