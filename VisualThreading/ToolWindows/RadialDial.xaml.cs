@@ -166,5 +166,5 @@ namespace VisualThreading
                 isOpen = true;
             };
         }
-
+    }
 }
