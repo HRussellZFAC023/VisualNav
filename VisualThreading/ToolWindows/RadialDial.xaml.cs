@@ -1,16 +1,21 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 using RadialMenu.Controls;
-using System.Windows.Media;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
+using RadialMenu.Controls;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
-
+using System.Windows.Controls;
+using System.Windows.Media;
 namespace VisualThreading
 {
     public partial class RadialDialControl : UserControl
     {
-        
+        Dictionary<string, List<RadialMenuItem>> menuCollection = new Dictionary<string, List<RadialMenuItem>>();
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -22,20 +27,6 @@ namespace VisualThreading
             }
         }
 
-        private bool isOpen = false;
-        public bool IsOpen
-        {
-            get
-            {
-                return isOpen;
-            }
-            set
-            {
-                isOpen = value;
-                RaisePropertyChanged();
-            }
-        }
-
         public RadialDialControl()
         {
             InitializeComponent();
@@ -44,13 +35,11 @@ namespace VisualThreading
             {
                 new RadialMenuItem
                 {
-                    Content = new TextBlock { Text = "Thread" },
-                    ArrowBackground = Brushes.Transparent
+                    Content = new TextBlock { Text = "Thread" }
                 },
                 new RadialMenuItem
                 {
-                    Content = new TextBlock { Text = "Test" },
-                    ArrowBackground = Brushes.Transparent
+                    Content = new TextBlock { Text = "Test" }
                 },
                 new RadialMenuItem
                 {
@@ -64,7 +53,6 @@ namespace VisualThreading
 
             // Set default menu to Main menu
             MainMenu.Items = MainMenuItems;
-
 
             var ThreadSubMenu = new List<RadialMenuItem>
             {
@@ -130,41 +118,37 @@ namespace VisualThreading
                 }
             };
 
+            menuCollection.Add("ThreadSubMenu", ThreadSubMenu);
+            menuCollection.Add("TestSubMenu", TestSubMenu);
+            menuCollection.Add("CodeSubMenu", CodeSubMenu);
+            menuCollection.Add("UISubMenu", UISubMenu);
+            menuCollection.Add("MainMenuItems", MainMenuItems);
+
+
             // Go to ThreadSubMenu
-            MainMenuItems[0].Click += async (sender, args) =>
-            {
-                isOpen = false;
-                await Task.Delay(400);
-                MainMenu.Items = ThreadSubMenu;
-                isOpen = true;
-            };
-            
+            MainMenuItems[0].Click += (sender, e) => RadialDialControl_Click(sender, e, "ThreadSubMenu");
+
             // Go to TestSubMenu
-            MainMenuItems[1].Click += async (sender, args) =>
-            {
-                isOpen = false;
-                await Task.Delay(400);
-                MainMenu.Items = TestSubMenu;
-                isOpen = true;
-            };
+            MainMenuItems[1].Click += (sender, e) => RadialDialControl_Click(sender, e, "TestSubMenu");
 
             // Go to CodeSubMenu
-            MainMenuItems[2].Click += async (sender, args) =>
-            {
-                isOpen = false;
-                await Task.Delay(400);
-                MainMenu.Items = CodeSubMenu;
-                isOpen = true;
-            };
+            MainMenuItems[2].Click += (sender, e) => RadialDialControl_Click(sender, e, "CodeSubMenu");
 
             // Go to UISubMenu
-            MainMenuItems[3].Click += async (sender, args) =>
+            MainMenuItems[3].Click += (sender, e) => RadialDialControl_Click(sender, e, "UISubMenu");
+
+            // Back to Home on center item
+            MainMenu.CentralItem.Click += (sender, e) => RadialDialControl_Click(sender, e, "MainMenuItems");
+
+        }
+        private void RadialDialControl_Click(object sender, RoutedEventArgs e, String subMenu)
+                    {
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                isOpen = false;
-                await Task.Delay(400);
-                MainMenu.Items = UISubMenu;
-                isOpen = true;
-            };
+                await Task.Delay(100);
+                MainMenu.Items = menuCollection[subMenu];
+            }
+            ).FireAndForget();
         }
     }
 }
