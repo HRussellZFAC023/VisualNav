@@ -6,18 +6,18 @@ using System.Windows;
 
 namespace VisualThreading
 {
-    public class ToolWindow1 : BaseToolWindow<ToolWindow1>
+    public class CommandPreview : BaseToolWindow<CommandPreview>
     {
-        public override string GetTitle(int toolWindowId) => "ToolWindow1";
+        public override string GetTitle(int toolWindowId) => "CommandPreview";
 
         public override Type PaneType => typeof(Pane);
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            return Task.FromResult<FrameworkElement>(new ToolWindow1Control());
+            return Task.FromResult<FrameworkElement>(new CommandPreviewControl());
         }
 
-        [Guid("0ea6b182-db3a-4f77-abf4-492c7b31036b")]
+        [Guid("2d4c9b3a-5fdf-4546-b1e4-76e89a4002d1")]
         internal class Pane : ToolWindowPane
         {
             public Pane()

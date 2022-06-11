@@ -1,0 +1,54 @@
+{
+  "RadialMenu": [
+    {
+      "fileExt": ".cs",
+      "text": "visual threading commands for c#",
+      "commands": [
+        {
+          "text": "if",
+          "url": "/Schema/csharp/if.png"
+        },
+        {
+          "text": "else",
+          "url": "/Schema/csharp/else.png"
+        },
+        {
+          "text": "switch",
+          "url": "/Schema/csharp/switch.png"
+        }
+      ],
+      "UI": [
+
+      ],
+      "Symbols": [
+
+      ]
+    },
+    {
+      "fileExt": "",
+      "text": "No file is loaded",
+      "commands": [
+
+      ],
+      "UI": [
+
+      ],
+      "Symbols": [
+
+      ]
+    },
+    {
+      "fileExt": ".xaml",
+      "text": "Support for xaml is not implemented",
+      "commands": [
+
+      ],
+      "UI": [
+
+      ],
+      "Symbols": [
+
+      ]
+    }
+  ]
+}

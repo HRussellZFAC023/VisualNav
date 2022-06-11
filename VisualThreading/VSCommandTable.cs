@@ -22,6 +22,7 @@ namespace VisualThreading
     {
         public const int MyMenuGroup = 0x0001;
         public const int OpenRadialMenu = 0x0100;
-        public const int OpenVisualThreading = 0x0200;
+        public const int OpenCommandPreview = 0x0101;
+        public const int OpenVisualThreading = 0x0102;
     }
 }
