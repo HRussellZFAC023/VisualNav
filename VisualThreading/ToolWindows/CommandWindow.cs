@@ -1,12 +1,11 @@
 ﻿using Microsoft.VisualStudio.Imaging;
+using Microsoft.VisualStudio.Text;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using EnvDTE;
-using Microsoft.VisualStudio.Text;
 
-namespace VisualThreading
+namespace VisualThreading.ToolWindows
 {
     public class CommandWindow : BaseToolWindow<CommandWindow>
     {

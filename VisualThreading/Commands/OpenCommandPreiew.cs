@@ -1,4 +1,6 @@
-﻿namespace VisualThreading
+﻿using VisualThreading.ToolWindows;
+
+namespace VisualThreading.Commands
 {
     [Command(PackageIds.OpenCommandPreview)]
     internal sealed class OpenCommandPreview : BaseCommand<OpenCommandPreview>

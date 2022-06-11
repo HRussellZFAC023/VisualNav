@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace VisualThreading
+namespace VisualThreading.ToolWindows
 {
     public class VisualThreadingWindow : BaseToolWindow<VisualThreadingWindow>
     {
