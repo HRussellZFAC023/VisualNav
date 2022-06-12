@@ -24,6 +24,12 @@ namespace VisualThreading
             }
         }
 
+        protected override void OnDragOver(DragEventArgs e)
+        {
+            base.OnDragOver(e);
+            e.Handled = true;
+        }
+
         private void Label_Drop(object sender, DragEventArgs e)
         {
             Console.WriteLine(e.Data.GetFormats());
@@ -53,43 +59,18 @@ namespace VisualThreading
                 Console.WriteLine("text block");
                 label.Content = ((TextBlock)e.Data.GetData(typeof(TextBlock)));
             }
+
+            e.Handled = true;
         }
 
-        private void Grid_DragEnter(object sender, DragEventArgs e)
+        private void TextBox_TextChanged_variable(object sender, TextChangedEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effects = DragDropEffects.Copy;
-            }
+
         }
 
-
-        private void Grid_Drop(object sender, DragEventArgs e)
+        private void TextBox_TextChanged_operator(object sender, TextChangedEventArgs e)
         {
 
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) // drop file
-            {
-                string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-                Bitmap bmp = new Bitmap(path);
-                ImageSource img = Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-
-                myImg.Source = img;
-
-                if (path.Contains("elif"))
-                {
-                    present.Content = "if...else if block";
-                } else if (path.Contains("if"))
-                {
-                    present.Content = "if block";
-                }
-
-            }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            myImg.Source = null;
-            present.Content = "";
 
         }
     }

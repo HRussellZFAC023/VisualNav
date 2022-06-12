@@ -9,40 +9,78 @@
     xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
-    Name="MyToolWindow"
-    d:DesignHeight="800"
-    d:DesignWidth="800"
-    mc:Ignorable="d">
-    <Grid Width="1327" HorizontalAlignment="Left">
-        <Grid
-            Margin="0,0,664,278"
-            AllowDrop="True"
-            Background="AliceBlue"
-            DragEnter="Grid_DragEnter"
-            Drop="Grid_Drop">
-            <Image x:Name="myImg" />
-        </Grid>
+    Name="BuildingWindow"
+    d:DesignHeight="500"
+    d:DesignWidth="1000"
+    mc:Ignorable="d"
+>
 
-        <Grid Margin="0,527,663,10">
-            <Button
-                Width="143"
-                Height="64"
-                Margin="46,38,0,0"
+    <Grid ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <TextBox
+                Width="120"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Click="Button_Click"
-                Content="Clean" />
-
-            <Button
-                x:Name="present"
-                Width="134"
-                Height="82"
-                Margin="332,24,0,0"
-                HorizontalAlignment="Left"
+                Background="AntiqueWhite"
+                Text="Variable"
+                TextChanged="TextBox_TextChanged_variable"
+                TextWrapping="Wrap" 
+            />
+            <TextBox
+                Width="120"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Content="" />
-
+                Background="Green"
+                Text="Operater"
+                TextChanged="TextBox_TextChanged_operator"
+                TextWrapping="Wrap" 
+                Margin="0,28,0,0" 
+            />
+            <TextBox
+                Width="118"
+                Height="52"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Background="Aqua"
+                Text="if ( conditions ) {&#xD;&#xA;    statements&#xD;&#xA;}"
+                Margin="0,56,0,0" 
+            />
+            <TextBox
+                Width="118"
+                Height="81"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Background="Yellow"
+                Text="if ( conditions ) {&#xD;&#xA;    statements&#xD;&#xA;} else {&#xD;&#xA;    statements&#xD;&#xA;}"
+                Margin="0,118,0,0" 
+            />
         </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+            <Label
+                x:Name="label_1"
+                Background="AliceBlue"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                AllowDrop="True"
+                Content=""
+                DragEnter="Label_DragEnter"
+                Drop="Label_Drop"
+                Height="391" Width="592" 
+            />
+        </Grid>
+
+        <Button Grid.Row="1" Grid.Column="2">Insert To Code</Button>
     </Grid>
 
 </UserControl>
