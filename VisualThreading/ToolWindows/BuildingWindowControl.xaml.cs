@@ -85,6 +85,27 @@ namespace VisualThreading
                 label_1.Content = "";
             }
         }
+
+        private void TextBox_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void textblock_MouseMove(object sender, MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                // Package the data.
+                DataObject data = new DataObject();
+                data.SetData(DataFormats.Text, textblock.Text);
+
+                // Initiate the drag-and-drop operation.
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
+            }
+
+            e.Handled = true;
+        }
     }
 
 }

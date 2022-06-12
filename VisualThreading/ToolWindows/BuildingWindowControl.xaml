@@ -9,78 +9,89 @@
     xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
+    xmlns:visuals="http://np.com/visuals"
     Name="BuildingWindow"
     d:DesignHeight="500"
     d:DesignWidth="1000"
-    mc:Ignorable="d"
->
+    mc:Ignorable="d">
 
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
             <TextBox
+                x:Name="variable"
                 Width="120"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Background="AntiqueWhite"
+                MouseMove="TextBox_MouseMove"
                 Text="Variable"
                 TextChanged="TextBox_TextChanged_variable"
-                TextWrapping="Wrap" 
-            />
+                TextWrapping="Wrap" />
             <TextBox
                 Width="120"
+                Margin="0,28,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Background="Green"
                 Text="Operater"
                 TextChanged="TextBox_TextChanged_operator"
-                TextWrapping="Wrap" 
-                Margin="0,28,0,0" 
-            />
+                TextWrapping="Wrap" />
             <TextBox
                 Width="118"
                 Height="52"
+                Margin="0,56,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Background="Aqua"
-                Text="if ( conditions ) {&#xD;&#xA;    statements&#xD;&#xA;}"
-                Margin="0,56,0,0" 
-            />
+                Text="if ( conditions ) {&#xD;&#xA;    statements&#xD;&#xA;}" />
             <TextBox
                 Width="118"
                 Height="81"
+                Margin="0,118,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Background="Yellow"
-                Text="if ( conditions ) {&#xD;&#xA;    statements&#xD;&#xA;} else {&#xD;&#xA;    statements&#xD;&#xA;}"
-                Margin="0,118,0,0" 
-            />
+                Text="if ( conditions ) {&#xD;&#xA;    statements&#xD;&#xA;} else {&#xD;&#xA;    statements&#xD;&#xA;}" />
+            <TextBlock
+                x:Name="textblock"
+                Margin="5,218,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="AliceBlue"
+                MouseMove="textblock_MouseMove"
+                Text="TextBlock"
+                TextWrapping="Wrap" />
+
         </Grid>
 
-        <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+        <Grid
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="2">
             <Label
                 x:Name="label_1"
-                Background="AliceBlue"
+                Width="592"
+                Height="391"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 AllowDrop="True"
+                Background="AliceBlue"
                 Content=""
                 DragEnter="Label_DragEnter"
-                Drop="Label_Drop"
-                Height="391" Width="592" 
-            />
+                Drop="Label_Drop" />
         </Grid>
 
-        <Button Grid.Row="1" Grid.Column="2" Click="Button_Click">Insert To Code</Button>
+        <Button Grid.Row="1" Grid.Column="2">Insert To Code</Button>
     </Grid>
 
 </UserControl>
