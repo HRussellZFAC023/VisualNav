@@ -73,6 +73,18 @@ namespace VisualThreading
 
 
         }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
+            var position = docView.TextView?.Selection.Start.Position.Position;
+
+            if (position.HasValue)
+            {
+                docView.TextBuffer.Insert(position.Value, label_1.Content.ToString());
+                label_1.Content = "";
+            }
+        }
     }
 
 }

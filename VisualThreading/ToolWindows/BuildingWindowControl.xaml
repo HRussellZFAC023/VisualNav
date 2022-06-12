@@ -80,7 +80,7 @@
             />
         </Grid>
 
-        <Button Grid.Row="1" Grid.Column="2">Insert To Code</Button>
+        <Button Grid.Row="1" Grid.Column="2" Click="Button_Click">Insert To Code</Button>
     </Grid>
 
 </UserControl>
