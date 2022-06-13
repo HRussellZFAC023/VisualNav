@@ -15,7 +15,7 @@ namespace VisualThreading.ToolWindows
 
             var mainMenuItems = new List<RadialMenuItem>
             {
-                new() { Content = new TextBlock { Text = "Test" }, Background = Brushes.AliceBlue, ArrowBackground = Brushes.Firebrick}, //  "Background" take Brushes.color
+                new() { Content = new TextBlock { Text = "Thread" }, Background = Brushes.AliceBlue, ArrowBackground = Brushes.Firebrick}, //  "Background" take Brushes.color
                 new() { Content = new TextBlock { Text = "Test" }, Background = Brushes.AliceBlue, ArrowBackground = Brushes.Firebrick},
                 new() { Content = new TextBlock { Text = "Code" }, Background = Brushes.AliceBlue, ArrowBackground = Brushes.Firebrick},
                 new() { Content = new TextBlock { Text = "UI" }, Background = Brushes.AliceBlue, ArrowBackground = Brushes.Firebrick}
