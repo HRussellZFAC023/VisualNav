@@ -1,29 +1,98 @@
-﻿using System.Drawing;
+﻿
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
 
 namespace VisualThreading
 {
     public partial class BuildingWindowControl : UserControl
     {
-        int top = 300;
+        public object draggedItem { get; set; }
+        public System.Windows.Point itemRelativePosition { get;  set; }
+
         public BuildingWindowControl()
         {
             InitializeComponent();
+            this.draggedItem = null;
         }
 
-        private void Label_DragEnter(object sender, DragEventArgs e)
+        private void Variable_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.Text))
+            Label label = sender as Label;
+
+            if (label != null && e.LeftButton == MouseButtonState.Pressed)
             {
-                e.Effects = DragDropEffects.Move;
+
+                DataObject data = new DataObject();
+                data.SetData("type", "variable");
+                data.SetData("text", Variable.Text);
+                data.SetData("background", Variable.Background);
+
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
+
             }
         }
+        private void Operator_MouseMove(object sender, MouseEventArgs e)
+        {
+            Label label = sender as Label;
+
+            if (label != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+
+                DataObject data = new DataObject();
+                data.SetData("type", "operator");
+                data.SetData("text", Operator.Text);
+                data.SetData("background", Operator.Background);
+
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
+
+                System.Diagnostics.Debug.WriteLine(data.GetData("text"));
+                System.Diagnostics.Debug.WriteLine(data.GetData("background"));
+
+            }
+        }
+        private void If_MouseMove(object sender, MouseEventArgs e)
+        {
+            Label label = sender as Label;
+
+            if (label != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+
+                DataObject data = new DataObject();
+                data.SetData("type", "if");
+                data.SetData("text", Iflabel.Text);
+                data.SetData("background", Iflabel.Background);
+
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
+
+            }
+        }
+        private void Ifelse_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.draggedItem = (UIElement)sender;
+            Label label = sender as Label;
+            var text = "if (                   ) { &#xD;&#xA;    } else { &#xD;&#xA;   } ";
+
+            if (label != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+
+                DataObject data = new DataObject();
+                data.SetData("type", "ifelse");
+                data.SetData("text", Ifelselabel.Text);
+                data.SetData("background", Ifelselabel.Background);
+
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
+
+            }
+        }
+
 
         protected override void OnDragOver(DragEventArgs e)
         {
@@ -31,121 +100,94 @@ namespace VisualThreading
             e.Handled = true;
         }
 
-        private async void Label_Drop(object sender, DragEventArgs e)
+
+        private void Canvas_Drop(object sender, DragEventArgs e)
         {
-            Console.WriteLine(e.Data.GetFormats());
-            Label label = sender as Label;
-            // drop text
-            if (e.Data.GetDataPresent(DataFormats.Text))
+            var dragText = e.Data.GetData("text");
+            var dragBackground = e.Data.GetData("background");
+            String dragType = (String)e.Data.GetData("type");
+
+            Point dropPoint = e.GetPosition(this.canvasLabels);
+
+            if (dragText != null && dragBackground != null)
             {
-                
-                object previousContext = label.Content;
-                object dragContext = e.Data.GetData(DataFormats.Text);
-
-                object conbination = (object)string.Join(" ", (string)previousContext, (string)dragContext);
-
-                label.Content = conbination;
-                
-                
-            }
-            else if (e.Data.GetDataPresent(DataFormats.FileDrop)) // drop file
-            {
-                string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-                TextBox TextBox = new TextBox()
+                Label copy = new Label();
+                if (dragType == "variable")
                 {
-                    Width = Double.NaN,
-                    Height = 85,
-                    AllowDrop = true,
-                    
-                };
-                TextBox.MouseMove += textbox_MouseMove;
-                TextBox.Background = System.Windows.Media.Brushes.AliceBlue;
-                TextBox.Margin = new Thickness(0, top, 0, 0);
-
-                if (path.Contains("elif"))
+                    copy = XamlReader.Parse(XamlWriter.Save(VariableLabel)) as Label;
+                } else if(dragType == "operator")
                 {
-                    TextBox.Text += "if ()";
-                    TextBox.Text += Environment.NewLine;
-                    TextBox.Text += "{";
-                    TextBox.Text += Environment.NewLine;
-                    TextBox.Text += "}";
-                    TextBox.Text += Environment.NewLine;
-                    TextBox.Text += "else if ()";
-                    TextBox.Text += Environment.NewLine;
-                    TextBox.Text += "{";
-                    TextBox.Text += Environment.NewLine;
-                    TextBox.Text += "}";
-
-                    grid1.Children.Add(TextBox);
-                    top += 90;
+                    copy = XamlReader.Parse(XamlWriter.Save(OperatorLabel)) as Label;
+                } else if(dragType == "if")
+                {
+                    copy = XamlReader.Parse(XamlWriter.Save(IfLabelLabel)) as Label;
+                } else if(dragType == "ifelse")
+                {
+                    copy = XamlReader.Parse(XamlWriter.Save(IfelseLabelLabel)) as Label;
                 }
 
+                copy.Margin = new Thickness(0, 0, 0, 0);
+                copy.Height = Double.NaN;
+                copy.Width = Double.NaN;
+                copy.FontSize = 24;
+                copy.FontWeight = FontWeights.Bold;
+                copy.MouseLeftButtonDown += Label_MouseLeftButtonDown;
+                ((Canvas)sender).Children.Add(copy);
 
-                // label.Content = System.IO.File.ReadAllText(path);
+                Canvas.SetLeft(copy, dropPoint.X);
+                Canvas.SetTop(copy, dropPoint.Y);
 
+
+            } else if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
+                string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+                if (path.Contains("elif"))
+                {
+                    Label label = new Label()
+                    {
+                        Height = Double.NaN,
+                        Width = Double.NaN,
+                        Content = (object)"if...else...",
+                        Margin = new Thickness(0, 300, 0, 0),
+                        Foreground = Brushes.Black,
+                        Background = Brushes.AntiqueWhite
+                    };
+
+                    
+                    
+                    history_list.Children.Add(label);
+                }
             }
 
             e.Handled = true;
         }
 
 
-        private void TextBox_TextChanged_variable(object sender, TextChangedEventArgs e)
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
-        }
-
-        private void TextBox_TextChanged_operator(object sender, TextChangedEventArgs e)
-        {
-
-
-        }
-
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
-            var position = docView.TextView?.Selection.Start.Position.Position;
-
-            if (position.HasValue)
-            {
-                docView.TextBuffer.Insert(position.Value, label_1.Content.ToString());
-                label_1.Content = "";
-            }
-        }
-
-        private void TextBox_MouseMove(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void textbox_MouseMove(object sender, MouseEventArgs e)
-        {
-            base.OnMouseMove(e);
-            TextBox textbBox = sender as TextBox;
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                // Package the data.
-                DataObject data = new DataObject();
-                data.SetData(DataFormats.Text, textbBox.Text);
-
-            }
-
+            this.draggedItem = (UIElement)sender;
+            itemRelativePosition = e.GetPosition((IInputElement)this.draggedItem);
             e.Handled = true;
         }
 
-        private void textblock_MouseMove(object sender, MouseEventArgs e)
+        private void CanvasLabel_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            base.OnMouseMove(e);
-            TextBox textbBox = sender as TextBox;
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                // Package the data.
-                DataObject data = new DataObject();
-                data.SetData(DataFormats.Text, textbBox.Text);
-
-                DragDrop.DoDragDrop(textbBox, data, DragDropEffects.Copy);
-            }
-
+            if (this.draggedItem == null)
+                return;
+            var newPos = e.GetPosition(canvasLabels) - itemRelativePosition;
+            Canvas.SetTop((UIElement)this.draggedItem, newPos.Y);
+            Canvas.SetLeft((UIElement)this.draggedItem, newPos.X);
+            canvasLabels.CaptureMouse();
             e.Handled = true;
+        }
+
+        private void CanvasLabel_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (this.draggedItem != null)
+            {
+                this.draggedItem = null;
+                canvasLabels.ReleaseMouseCapture();
+                e.Handled = true;
+            }
         }
 
     }
