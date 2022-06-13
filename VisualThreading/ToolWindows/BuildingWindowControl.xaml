@@ -27,57 +27,61 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
-            <TextBox
-                Width="120"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Background="AntiqueWhite"
-                Text="Variable"
-                TextChanged="TextBox_TextChanged_variable"
-                TextWrapping="Wrap" 
-            />
-            <TextBox
-                Width="120"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Background="Green"
-                Text="Operater"
-                TextChanged="TextBox_TextChanged_operator"
-                TextWrapping="Wrap" 
-                Margin="0,28,0,0" 
-            />
-            <TextBox
-                Width="118"
-                Height="52"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Background="Aqua"
-                Text="if ( conditions ) {&#xD;&#xA;    statements&#xD;&#xA;}"
-                Margin="0,56,0,0" 
-            />
-            <TextBox
-                Width="118"
-                Height="81"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Background="Yellow"
-                Text="if ( conditions ) {&#xD;&#xA;    statements&#xD;&#xA;} else {&#xD;&#xA;    statements&#xD;&#xA;}"
-                Margin="0,118,0,0" 
-            />
+
+            <Label HorizontalAlignment="Left" Width="99" MouseMove="Variable_MouseMove" x:Name="VariableLabel">
+                <Run 
+                    Background="red" 
+                    Text="Variable" 
+                    x:Name="Variable"
+                />
+            </Label>
+
+
+            <Label Margin="0,28,0,0" HorizontalAlignment="Left" Width="99" MouseMove="Operator_MouseMove" x:Name="OperatorLabel">
+                <Run 
+                    Background="Green" 
+                    x:Name="Operator"
+                    Text="Operater" 
+                />
+            </Label>
+
+
+
+            <Label Margin="0,60,0,0" HorizontalAlignment="Left" Width="99" MouseMove="If_MouseMove" x:Name="IfLabelLabel">
+                <Run 
+                    Background="Aqua" 
+                    x:Name="Iflabel"
+                    Text="if ( conditions ) { &#xD;&#xA;    statements&#xD;&#xA;} " 
+                />
+            </Label>
+
+
+            <Label Margin="0,116,0,0" HorizontalAlignment="Center" Width="99" MouseMove="Ifelse_MouseMove" x:Name="IfelseLabelLabel">
+                <Run 
+                    Background="yellow" 
+                    x:Name="Ifelselabel"
+                    Text="if ( conditions ) { &#xD;&#xA;    statements &#xD;&#xA;} else { &#xD;&#xA;    statements &#xD;&#xA;} " 
+                />
+            </Label>
+
+
         </Grid>
 
-        <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
-            <Label
-                x:Name="label_1"
-                Background="AliceBlue"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                AllowDrop="True"
-                Content=""
-                DragEnter="Label_DragEnter"
-                Drop="Label_Drop"
-                Height="391" Width="592" 
+        <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,0,19" Grid.RowSpan="2" Width="880">
+
+            <Canvas 
+                x:Name="canvasLabels" 
+                Height="342" Margin="78,50,0,0" Width="626" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                Background="Beige"
+                AllowDrop="True" 
+                Drop="Canvas_Drop"
+                PreviewMouseLeftButtonUp="CanvasLabel_PreviewMouseLeftButtonUp" 
+                PreviewMouseMove="CanvasLabel_PreviewMouseMove" 
             />
+
+
         </Grid>
 
         <Button Grid.Row="1" Grid.Column="2">Insert To Code</Button>
