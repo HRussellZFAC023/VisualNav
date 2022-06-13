@@ -26,7 +26,10 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0">
+        <Grid
+            x:Name="grid1"
+            Grid.Row="0"
+            Grid.Column="0">
             <TextBox
                 x:Name="variable"
                 Width="120"
@@ -64,17 +67,20 @@
                 Text="if ( conditions ) {&#xD;&#xA;    statements&#xD;&#xA;} else {&#xD;&#xA;    statements&#xD;&#xA;}" />
             <TextBlock
                 x:Name="textblock"
+                Width="105"
+                Height="22"
                 Margin="5,218,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Background="AliceBlue"
                 MouseMove="textblock_MouseMove"
-                Text="TextBlock"
+                Text="textblock"
                 TextWrapping="Wrap" />
 
         </Grid>
 
         <Grid
+            x:Name="grid2"
             Grid.Row="0"
             Grid.Column="1"
             Grid.ColumnSpan="2">
@@ -86,7 +92,6 @@
                 VerticalAlignment="Center"
                 AllowDrop="True"
                 Background="AliceBlue"
-                Content=""
                 DragEnter="Label_DragEnter"
                 Drop="Label_Drop" />
         </Grid>

@@ -11,6 +11,7 @@ namespace VisualThreading
 {
     public partial class BuildingWindowControl : UserControl
     {
+        int top = 300;
         public BuildingWindowControl()
         {
             InitializeComponent();
@@ -30,38 +31,63 @@ namespace VisualThreading
             e.Handled = true;
         }
 
-        private void Label_Drop(object sender, DragEventArgs e)
+        private async void Label_Drop(object sender, DragEventArgs e)
         {
             Console.WriteLine(e.Data.GetFormats());
             Label label = sender as Label;
             // drop text
             if (e.Data.GetDataPresent(DataFormats.Text))
             {
-
+                
                 object previousContext = label.Content;
                 object dragContext = e.Data.GetData(DataFormats.Text);
-                Console.WriteLine((string)previousContext);
-                Console.WriteLine((string)dragContext);
 
                 object conbination = (object)string.Join(" ", (string)previousContext, (string)dragContext);
 
                 label.Content = conbination;
-
+                
+                
             }
             else if (e.Data.GetDataPresent(DataFormats.FileDrop)) // drop file
             {
                 string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-                label.Content = System.IO.File.ReadAllText(path);
+                TextBox TextBox = new TextBox()
+                {
+                    Width = Double.NaN,
+                    Height = 85,
+                    AllowDrop = true,
+                    
+                };
+                TextBox.MouseMove += textbox_MouseMove;
+                TextBox.Background = System.Windows.Media.Brushes.AliceBlue;
+                TextBox.Margin = new Thickness(0, top, 0, 0);
 
-            }
-            else if (e.Data.GetDataPresent(typeof(TextBlock)))
-            {
-                Console.WriteLine("text block");
-                label.Content = ((TextBlock)e.Data.GetData(typeof(TextBlock)));
+                if (path.Contains("elif"))
+                {
+                    TextBox.Text += "if ()";
+                    TextBox.Text += Environment.NewLine;
+                    TextBox.Text += "{";
+                    TextBox.Text += Environment.NewLine;
+                    TextBox.Text += "}";
+                    TextBox.Text += Environment.NewLine;
+                    TextBox.Text += "else if ()";
+                    TextBox.Text += Environment.NewLine;
+                    TextBox.Text += "{";
+                    TextBox.Text += Environment.NewLine;
+                    TextBox.Text += "}";
+
+                    grid1.Children.Add(TextBox);
+                    top += 90;
+                }
+
+
+                // label.Content = System.IO.File.ReadAllText(path);
+
             }
 
             e.Handled = true;
         }
+
 
         private void TextBox_TextChanged_variable(object sender, TextChangedEventArgs e)
         {
@@ -91,21 +117,37 @@ namespace VisualThreading
 
         }
 
-        private void textblock_MouseMove(object sender, MouseEventArgs e)
+        private void textbox_MouseMove(object sender, MouseEventArgs e)
         {
             base.OnMouseMove(e);
+            TextBox textbBox = sender as TextBox;
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 // Package the data.
                 DataObject data = new DataObject();
-                data.SetData(DataFormats.Text, textblock.Text);
+                data.SetData(DataFormats.Text, textbBox.Text);
 
-                // Initiate the drag-and-drop operation.
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
             }
 
             e.Handled = true;
         }
+
+        private void textblock_MouseMove(object sender, MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            TextBox textbBox = sender as TextBox;
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                // Package the data.
+                DataObject data = new DataObject();
+                data.SetData(DataFormats.Text, textbBox.Text);
+
+                DragDrop.DoDragDrop(textbBox, data, DragDropEffects.Copy);
+            }
+
+            e.Handled = true;
+        }
+
     }
 
 }
