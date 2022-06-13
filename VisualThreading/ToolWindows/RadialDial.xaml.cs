@@ -47,7 +47,16 @@ namespace VisualThreading.ToolWindows
                 new(){ Content = new TextBlock { Text = "Operator" } },
                 new(){ Content = new TextBlock { Text = "Comparator" } }
             };
-
+            var IOSubMenu = new List<RadialMenuItem>
+            {
+                new(){ Content = new TextBlock { Text = "Print" } },
+                new(){ Content = new TextBlock { Text = "Write" } },
+                new(){ Content = new TextBlock { Text = "ReadKey" } },
+                new(){ Content = new TextBlock { Text = "UserInput" } },
+                new(){ Content = new TextBlock { Text = "UserInputLine" } },
+                new(){ Content = new TextBlock { Text = "OpenText" } },
+                new(){ Content = new TextBlock { Text = "WriteToFile" } }
+            };
             var methodKeywordSubMenu = new List<RadialMenuItem>
             {
                 new(){ Content = new TextBlock { Text = "Static" } },
@@ -57,35 +66,65 @@ namespace VisualThreading.ToolWindows
                 new(){ Content = new TextBlock { Text = "Internal" } },
                 new(){ Content = new TextBlock { Text = "Return" } }
             };
-
+            var conditionKeywordSubMenu = new List<RadialMenuItem>
+            {
+                new(){ Content = new TextBlock { Text = "If" } },
+                new(){ Content = new TextBlock { Text = "Else" } },
+                new(){ Content = new TextBlock { Text = "ElseIf" } },
+                new(){ Content = new TextBlock { Text = "Switch" } },
+                new(){ Content = new TextBlock { Text = "Case" } },
+            };
             var loopSubMenu = new List<RadialMenuItem>
             {
                 new(){ Content = new TextBlock { Text = "Break" } },
                 new(){ Content = new TextBlock { Text = "Continue" } },
                 new(){ Content = new TextBlock { Text = "For" } },
                 new(){ Content = new TextBlock { Text = "While" } }
-            }; 
+            };
+
+            var variableSubMenu = new List<RadialMenuItem>
+            {
+                new(){ Content = new TextBlock { Text = "Void" } },
+                new(){ Content = new TextBlock { Text = "Integer" } },
+                new(){ Content = new TextBlock { Text = "Double" } },
+                new(){ Content = new TextBlock { Text = "Character" }},
+                new(){ Content = new TextBlock { Text = "Boolean" } },
+                new(){ Content = new TextBlock { Text = "String" } },
+                new(){ Content = new TextBlock { Text = "Array" } }, 
+            };
 
             var operatorSubMenu = new List<RadialMenuItem>
             {
-                new(){ Content = new TextBlock { Text = "equal" } },
-                new(){ Content = new TextBlock { Text = "plus" } },
-                new(){ Content = new TextBlock { Text = "minus" } },
-                new(){ Content = new TextBlock { Text = "multiply" } },
-                new(){ Content = new TextBlock { Text = "divide" } },
-                new(){ Content = new TextBlock { Text = "modulus" } },
-                new(){ Content = new TextBlock { Text = "and" } },
-                new(){ Content = new TextBlock { Text = "or" } },
+                new(){ Content = new TextBlock { Text = "Equal" } },
+                new(){ Content = new TextBlock { Text = "Plus" } },
+                new(){ Content = new TextBlock { Text = "Minus" } },
+                new(){ Content = new TextBlock { Text = "Multiply" } },
+                new(){ Content = new TextBlock { Text = "Divide" } },
+                new(){ Content = new TextBlock { Text = "Modulus" } },
+                new(){ Content = new TextBlock { Text = "And" } },
+                new(){ Content = new TextBlock { Text = "Or" } },
                 new(){ Content = new TextBlock { Text = "()" } }
-
             };
-
+            var comparatorMenu = new List<RadialMenuItem>
+            {
+                new(){ Content = new TextBlock { Text = "&&" } },
+                new(){ Content = new TextBlock { Text = "||" } },
+                new(){ Content = new TextBlock { Text = "==" } },
+                new(){ Content = new TextBlock { Text = ">" } },
+                new(){ Content = new TextBlock { Text = "<" } },
+                new(){ Content = new TextBlock { Text = ">=" } },
+                new(){ Content = new TextBlock { Text = "<=" } },
+                new(){ Content = new TextBlock { Text = "!=" } },
+                new(){ Content = new TextBlock { Text = "()" } },
+            };
             var uiSubMenu = new List<RadialMenuItem>
             {
                 new() { Content = new TextBlock { Text = "Sub Item 1" } },
                 new() { Content = new TextBlock { Text = "Sub Item 2" } },
                 new() { Content = new TextBlock { Text = "Sub Item 3" } }
             };
+
+
 
             _menuCollection.Add("ThreadSubMenu", threadSubMenu);
             _menuCollection.Add("TestSubMenu", testSubMenu);
