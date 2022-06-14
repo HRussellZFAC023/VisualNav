@@ -46,12 +46,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    
     <Compile Include="Schema\Schema.cs" />
     <Compile Include="VisualStudioServices.cs" />
     <Compile Include="Commands\OpenCommandPreiew.cs" />
     <Compile Include="Commands\OpenRadialMenu.cs" />
-    <Compile Include="Commands\OpenVisualThreadingCommand.cs" />
     <Compile Include="Commands\OpenBuildingWindow.cs" />
     <Compile Include="Options\General1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,7 +65,6 @@
     <Compile Include="ToolWindows\BuildingWindowControl.xaml.cs">
       <DependentUpon>BuildingWindowControl.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="VisualThreadingPackage.cs" />
     <Compile Include="source.extension.cs">
       <AutoGen>True</AutoGen>

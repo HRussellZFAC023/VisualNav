@@ -14,16 +14,13 @@ namespace VisualThreading
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuids.VisualThreadingString)]
     [ProvideOptionPage(typeof(OptionsProvider.General1Options), "Visual Threading", "General1", 0, 0, true, SupportsProfiles = true)]
-    [ProvideToolWindow(typeof(VisualThreadingWindow.Pane))]
     [ProvideToolWindow(typeof(BuildingWindow.Pane), Style = VsDockStyle.Tabbed, Window = WindowGuids.SolutionExplorer)]
     [ProvideToolWindow(typeof(RadialDial.Pane))]
     [ProvideToolWindow(typeof(CommandWindow.Pane))]
-
-public sealed class VisualThreadingPackage : ToolkitPackage
+    public sealed class VisualThreadingPackage : ToolkitPackage
     {
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-
             await this.RegisterCommandsAsync();
             this.RegisterToolWindows();
         }
