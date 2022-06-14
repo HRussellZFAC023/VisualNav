@@ -9,6 +9,7 @@ namespace VisualThreading.ToolWindows
     public partial class RadialDialControl
     {
         private readonly Dictionary<string, List<RadialMenuItem>> _menuCollection = new();
+
         public RadialDialControl()
         {
             InitializeComponent();
@@ -17,8 +18,8 @@ namespace VisualThreading.ToolWindows
             {
                 // I the know the color looks bad
                 // Background controls the Fan-shaped area
-                // ArrowBackground controls the littel arrow on each button
-                // EdgeBackground controls the Edge of the Fan-shaped 
+                // ArrowBackground controls the little arrow on each button
+                // EdgeBackground controls the Edge of the Fan-shaped
                 new() { Content = new TextBlock { Text = "Thread" }, Background = Brushes.LightBlue, ArrowBackground = Brushes.LightBlue, EdgeBackground = Brushes.LightGreen},
                 new() { Content = new TextBlock { Text = "Test" }},
                 new() { Content = new TextBlock { Text = "Code" }},
@@ -63,20 +64,18 @@ namespace VisualThreading.ToolWindows
 
             // -----------------------------ThreadSubMenu-------------------------------------------------------------------
             threadSubMenu[0].Click += (sender, e) => RadialDialElement_Click(sender, e, "New Thread");
-            threadSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "New Thread");  // handles the mouse hover action, display corresponding preview 
+            threadSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "New Thread");  // handles the mouse hover action, display corresponding preview
             threadSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
             // -------------------------------------------------------------------------------------------------------------
 
-
             // -----------------------------Test sub menu-------------------------------------------------------------------
             testSubMenu[0].Click += (sender, e) => RadialDialElement_Click(sender, e, "Assert");
-            testSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "Assert");  // handles the mouse hover action, display corresponding preview 
+            testSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "Assert");  // handles the mouse hover action, display corresponding preview
             testSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
             // -------------------------------------------------------------------------------------------------------------
 
-
             // -----------------------------Test sub menu-------------------------------------------------------------------
-            codeSubMenu[0].Click += (sender, e) => RadialDialControl_Click(sender, e, "CodeSubMenu"); 
+            codeSubMenu[0].Click += (sender, e) => RadialDialControl_Click(sender, e, "CodeSubMenu");
             var IOSubMenu = new List<RadialMenuItem>
             {
                 new(){ Content = new TextBlock { Text = "Print" } },
@@ -161,39 +160,40 @@ namespace VisualThreading.ToolWindows
             codeSubMenu[6].Click += (sender, e) => RadialDialControl_Click(sender, e, "comparatorMenu");// Go to Comparator
             // -------------------------------------------------------------------------------------------------------------
 
-
             // -----------------------------UI sub menu---------------------------------------------------------------------
             uiSubMenu[0].Click += (sender, e) => RadialDialElement_Click(sender, e, "UISubMenu");
-            uiSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "UISubMenu");  // handles the mouse hover action, display corresponding preview 
+            uiSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "UISubMenu");  // handles the mouse hover action, display corresponding preview
             uiSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
             // -------------------------------------------------------------------------------------------------------------
-
 
             // Back to Home on center item
             MainMenu.CentralItem.Click += (sender, e) => RadialDialControl_Click(sender, e, "MainMenuItems");
         }
-        private void RadialDialElement_Click(object sender, RoutedEventArgs e, String element) // handles the eventuall element like a veriable 
+
+        private void RadialDialElement_Click(object sender, RoutedEventArgs e, String element) // handles the eventuall element like a veriable
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                // extract element to working area
+                // extract element to buidling area
                 MainMenu.Items = _menuCollection[element];
             }
             ).FireAndForget();
         }
 
-        private void RadialDialElement_Hover(object sender, RoutedEventArgs e, String PreviewName)  // handles the eventuall element like a veriable 
+        private void RadialDialElement_Hover(object sender, RoutedEventArgs e, String PreviewName)  // handles the eventuall element like a veriable
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
                 // take the name of the element and pull png file from json.
+
+                // update local field for observers
             }
             ).FireAndForget();
         }
 
-        private void RadialDialElement_ExitHover(object sender, RoutedEventArgs e)  // handles the eventuall element like a veriable 
+        private void RadialDialElement_ExitHover(object sender, RoutedEventArgs e)  // handles the eventuall element like a veriable
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {

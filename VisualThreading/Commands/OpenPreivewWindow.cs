@@ -7,7 +7,7 @@ namespace VisualThreading.Commands
     {
         protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
         {
-            await CommandWindow.ShowAsync();
+            await PreviewWindow.ShowAsync();
         }
     }
 }

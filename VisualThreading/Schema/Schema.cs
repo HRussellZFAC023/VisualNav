@@ -6,11 +6,8 @@ namespace VisualThreading.Schema
 {
     public class Schema
     {
-        /// <summary>
-        /// Private constructor singleton
-        /// </summary>
         private Schema()
-        { }
+        { /*(static members only)*/ }
 
         public Radialmenu[] RadialMenu { get; set; }
 

@@ -1,14 +1,17 @@
-﻿namespace VisualThreading
+﻿using EnvDTE;
+using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
+
+namespace VisualThreading
 {
     public static class VisualStudioServices
     {
-        public static EnvDTE.DTE DTE
+        public static DTE DTE
         {
             get;
             set;
         }
 
-        public static Microsoft.VisualStudio.OLE.Interop.IServiceProvider OLEServiceProvider
+        public static IServiceProvider OLEServiceProvider
         {
             get;
             set;
