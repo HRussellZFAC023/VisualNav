@@ -6,23 +6,23 @@ using System.Windows;
 
 namespace VisualThreading
 {
-    public class RadialMenuWindow : BaseToolWindow<RadialMenuWindow>
+    public class BuildingWindow : BaseToolWindow<BuildingWindow>
     {
-        public override string GetTitle(int toolWindowId) => "Radial Menu for Visual Threading";
+        public override string GetTitle(int toolWindowId) => "BuildingWindow";
 
         public override Type PaneType => typeof(Pane);
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            return Task.FromResult<FrameworkElement>(new RadialMenuControl());
+            return Task.FromResult<FrameworkElement>(new BuildingWindowControl());
         }
 
-        [Guid("94732a08-9fa8-4cd0-878d-1c272df1d2cd")]
+        [Guid("6a0155f8-b16a-4fba-90bb-8c9fab68de1b")]
         internal class Pane : ToolWindowPane
         {
             public Pane()
             {
-                BitmapImageMoniker = KnownMonikers.PieChart;
+                BitmapImageMoniker = KnownMonikers.ToolWindow;
             }
         }
     }
