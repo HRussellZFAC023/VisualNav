@@ -4,20 +4,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace VisualThreading.ToolWindows
+namespace VisualThreading
 {
-    public class VisualThreadingWindow : BaseToolWindow<VisualThreadingWindow>
+    public class CommandPreview : BaseToolWindow<CommandPreview>
     {
-        public override string GetTitle(int toolWindowId) => "VisualThreadingWindow";
+        public override string GetTitle(int toolWindowId) => "CommandPreview";
 
         public override Type PaneType => typeof(Pane);
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            return Task.FromResult<FrameworkElement>(new VisualThreadingWindowControl());
+            return Task.FromResult<FrameworkElement>(new CommandPreviewControl());
         }
 
-        [Guid("a9784502-89e5-4df8-bfed-de973fdb4e5c")]
+        [Guid("2d4c9b3a-5fdf-4546-b1e4-76e89a4002d1")]
         internal class Pane : ToolWindowPane
         {
             public Pane()

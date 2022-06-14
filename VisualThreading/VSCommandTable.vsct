@@ -9,25 +9,34 @@
 	<Commands package="VisualThreading">
 		<Groups>
 			<Group guid="VisualThreading" id="MyMenuGroup" priority="0x0600">
-				<Parent guid="VSMainMenu" id="Tools" />
+				<Parent guid="VSMainMenu" id="View" />
 			</Group>
 		</Groups>
 
 		<!--This section defines the elements the user can interact with, like a menu command or a button
         or combo box in a toolbar. -->
 		<Buttons>
-			<Button guid="VisualThreading" id="MyCommand" priority="0x0100" type="Button">
+			<Button guid="VisualThreading" id="OpenRadialMenu" priority="0x0100" type="Button">
 				<Parent guid="VisualThreading" id="MyMenuGroup" />
-				<Icon guid="ImageCatalogGuid" id="Processor" />
+				<Icon guid="ImageCatalogGuid" id="PieChart" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
-					<ButtonText>Visual Threading</ButtonText>
-					<LocCanonicalName>.Tools.VisualThreading</LocCanonicalName>
+					<ButtonText>Command Pallet - Visual Threading</ButtonText>
+					<LocCanonicalName>.View.RadialMenu</LocCanonicalName>
+				</Strings>
+			</Button>
+			<Button guid="VisualThreading" id="OpenCommandPreview" priority="0x0100" type="Button">
+				<Parent guid="VisualThreading" id="MyMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="Thread" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>Command Preview - Visual Threading</ButtonText>
+					<LocCanonicalName>.View.CommandPreview</LocCanonicalName>
 				</Strings>
 			</Button>
 
 			<Button guid="VisualThreading" id="OpenVisualThreading" priority="0x0100" type="Button">
-				<Parent guid="VSMainMenu" id="View.DevWindowsGroup.OtherWindows.Group1" />
+				<Parent guid="VisualThreading" id="MyMenuGroup" />
 				<Icon guid="ImageCatalogGuid" id="Processor" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
@@ -51,9 +60,12 @@
 	<Symbols>
 		<GuidSymbol name="VisualThreading" value="{46a432ab-b925-4851-a214-65069de24b60}">
 			<IDSymbol name="MyMenuGroup" value="0x0001" />
-			<IDSymbol name="MyCommand" value="0x0100" />
-			<IDSymbol name="OpenVisualThreading" value="0x0200" />
-			<IDSymbol name="OpenBuildingWindow" value="0x0300" />
+
+			<IDSymbol name="OpenRadialMenu" value="0x0100" />
+			<IDSymbol name="OpenCommandPreview" value="0x0101" />
+			<IDSymbol name="OpenVisualThreading" value="0x0102" />
+      <IDSymbol name="OpenBuildingWindow" value="0x0103" />
+
 		</GuidSymbol>
 	</Symbols>
 </CommandTable>

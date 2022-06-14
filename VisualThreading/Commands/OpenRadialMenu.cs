@@ -2,12 +2,12 @@
 
 namespace VisualThreading.Commands
 {
-    [Command(PackageIds.OpenVisualThreading)]
-    internal sealed class OpenVisualThreading : BaseCommand<OpenVisualThreading>
+    [Command(PackageIds.OpenRadialMenu)]
+    internal sealed class OpenRadialMenu : BaseCommand<OpenRadialMenu>
     {
         protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
         {
-            await VisualThreadingWindow.ShowAsync();
+            await RadialDial.ShowAsync();
         }
     }
 }

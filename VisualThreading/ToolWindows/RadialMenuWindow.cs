@@ -4,25 +4,25 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace VisualThreading.ToolWindows
+namespace VisualThreading
 {
-    public class VisualThreadingWindow : BaseToolWindow<VisualThreadingWindow>
+    public class RadialMenuWindow : BaseToolWindow<RadialMenuWindow>
     {
-        public override string GetTitle(int toolWindowId) => "VisualThreadingWindow";
+        public override string GetTitle(int toolWindowId) => "Radial Menu for Visual Threading";
 
         public override Type PaneType => typeof(Pane);
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            return Task.FromResult<FrameworkElement>(new VisualThreadingWindowControl());
+            return Task.FromResult<FrameworkElement>(new RadialMenuControl());
         }
 
-        [Guid("a9784502-89e5-4df8-bfed-de973fdb4e5c")]
+        [Guid("94732a08-9fa8-4cd0-878d-1c272df1d2cd")]
         internal class Pane : ToolWindowPane
         {
             public Pane()
             {
-                BitmapImageMoniker = KnownMonikers.ToolWindow;
+                BitmapImageMoniker = KnownMonikers.PieChart;
             }
         }
     }

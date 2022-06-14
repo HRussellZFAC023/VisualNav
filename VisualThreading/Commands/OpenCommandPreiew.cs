@@ -2,12 +2,12 @@
 
 namespace VisualThreading.Commands
 {
-    [Command(PackageIds.OpenVisualThreading)]
-    internal sealed class OpenVisualThreading : BaseCommand<OpenVisualThreading>
+    [Command(PackageIds.OpenCommandPreview)]
+    internal sealed class OpenCommandPreview : BaseCommand<OpenCommandPreview>
     {
         protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
         {
-            await VisualThreadingWindow.ShowAsync();
+            await CommandWindow.ShowAsync();
         }
     }
 }

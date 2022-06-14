@@ -4,6 +4,8 @@ global using System;
 global using Task = System.Threading.Tasks.Task;
 using System.Runtime.InteropServices;
 using System.Threading;
+using VisualThreading.Options;
+using VisualThreading.ToolWindows;
 
 namespace VisualThreading
 {
@@ -14,7 +16,10 @@ namespace VisualThreading
     [ProvideOptionPage(typeof(OptionsProvider.General1Options), "Visual Threading", "General1", 0, 0, true, SupportsProfiles = true)]
     [ProvideToolWindow(typeof(VisualThreadingWindow.Pane))]
     [ProvideToolWindow(typeof(BuildingWindow.Pane), Style = VsDockStyle.Tabbed, Window = WindowGuids.SolutionExplorer)]
-    public sealed class VisualThreadingPackage : ToolkitPackage
+    [ProvideToolWindow(typeof(RadialDial.Pane))]
+    [ProvideToolWindow(typeof(CommandWindow.Pane))]
+
+public sealed class VisualThreadingPackage : ToolkitPackage
     {
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
