@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
@@ -29,13 +30,13 @@ namespace VisualThreading.ToolWindows
             {
                 var buffer = e.To.Name;
                 fileExt =
-                        System.IO.Path.GetExtension(buffer);
+                        Path.GetExtension(buffer);
             }
             SetCurrentLanguage(fileExt);
         }
 
         // TODO: call this from Radial Dial
-        private void SetCurrentCommand(string command)
+        public void SetCurrentCommand(string command)
         {
             _currentCommand = command;
             UpdateCommands();
@@ -45,7 +46,6 @@ namespace VisualThreading.ToolWindows
         {
             _currentLanguage = language;
             UpdateCommands();
-            Debug.WriteLine("called: " + language); //debug
         }
 
         private void UpdateCommands()
@@ -58,7 +58,7 @@ namespace VisualThreading.ToolWindows
                     continue;
                 }
 
-                var languageDescription = new Label() { Content = entry.Text };
+                var languageDescription = new Label { Content = entry.Text };
                 Widgets.Children.Add(languageDescription);
 
                 foreach (var link in entry.Commands)

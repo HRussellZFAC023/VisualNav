@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace VisualThreading.Options
 {
-    internal partial class OptionsProvider
+    internal class OptionsProvider
     {
         // Register the options with this attribute on your package class:
         // [ProvideOptionPage(typeof(OptionsProvider.General1Options), "VisualThreading", "General1", 0, 0, true, SupportsProfiles = true)]

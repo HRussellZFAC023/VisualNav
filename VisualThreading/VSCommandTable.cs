@@ -5,8 +5,6 @@
 // ------------------------------------------------------------------------------
 namespace VisualThreading
 {
-    using System;
-    
     /// <summary>
     /// Helper class that exposes all GUIDs used across VS Package.
     /// </summary>

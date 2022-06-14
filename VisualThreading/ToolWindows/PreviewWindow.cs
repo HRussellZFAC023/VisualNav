@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Text;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using System.Windows;
 
 namespace VisualThreading.ToolWindows
 {
-    public class CommandWindow : BaseToolWindow<CommandWindow>
+    public class PreviewWindow : BaseToolWindow<PreviewWindow>
     {
         public override string GetTitle(int toolWindowId) => "Preview Command";
 
@@ -21,7 +22,7 @@ namespace VisualThreading.ToolWindows
             if (buffer != null && buffer.TextBuffer != null)
             {
                 fileExt =
-                System.IO.Path.GetExtension(buffer.TextBuffer.GetFileName());
+                Path.GetExtension(buffer.TextBuffer.GetFileName());
             }
 
             return new CommandWindowControl(commands, fileExt);

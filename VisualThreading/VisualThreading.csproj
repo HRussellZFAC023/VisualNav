@@ -48,18 +48,18 @@
   <ItemGroup>
     <Compile Include="Schema\Schema.cs" />
     <Compile Include="VisualStudioServices.cs" />
-    <Compile Include="Commands\OpenCommandPreiew.cs" />
+    <Compile Include="Commands\OpenPreivewWindow.cs" />
     <Compile Include="Commands\OpenRadialMenu.cs" />
     <Compile Include="Commands\OpenBuildingWindow.cs" />
     <Compile Include="Options\General1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolWindows\CommandWindow.cs" />
-    <Compile Include="ToolWindows\CommandWindowControl.xaml.cs">
-      <DependentUpon>CommandWindowControl.xaml</DependentUpon>
+    <Compile Include="ToolWindows\PreviewWindow.cs" />
+    <Compile Include="ToolWindows\PreviewWindowControl.xaml.cs">
+      <DependentUpon>PreviewWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolWindows\RadialDial.cs" />
-    <Compile Include="ToolWindows\RadialDial.xaml.cs">
-      <DependentUpon>RadialDial.xaml</DependentUpon>
+    <Compile Include="ToolWindows\RadialWindow.cs" />
+    <Compile Include="ToolWindows\RadialWindowControl.xaml.cs">
+      <DependentUpon>RadialWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\BuildingWindow.cs" />
     <Compile Include="ToolWindows\BuildingWindowControl.xaml.cs">
@@ -81,7 +81,6 @@
     <Content Include="Schema\schema.json">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="Schema\csharp\.gitkeep" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
       <Generator>VsixManifestGenerator</Generator>
@@ -135,11 +134,11 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ToolWindows\CommandWindowControl.xaml">
+    <Page Include="ToolWindows\PreviewWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ToolWindows\RadialDial.xaml">
+    <Page Include="ToolWindows\RadialWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

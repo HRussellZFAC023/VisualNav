@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace VisualThreading.ToolWindows
 {
-    public class RadialDial : BaseToolWindow<RadialDial>
+    public class RadialWindow : BaseToolWindow<RadialWindow>
     {
         public override string GetTitle(int toolWindowId) => "Command Pallet";
 

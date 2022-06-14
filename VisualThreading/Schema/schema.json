@@ -6,15 +6,15 @@
       "commands": [
         {
           "text": "if",
-          "url": "/Schema/csharp/if.png"
+          "url": "/Schema/csharp/preview/if.png"
         },
         {
           "text": "else",
-          "url": "/Schema/csharp/else.png"
+          "url": "/Schema/csharp/preview/else.png"
         },
         {
           "text": "switch",
-          "url": "/Schema/csharp/switch.png"
+          "url": "/Schema/csharp/preview/switch.png"
         }
       ],
       "UI": [
