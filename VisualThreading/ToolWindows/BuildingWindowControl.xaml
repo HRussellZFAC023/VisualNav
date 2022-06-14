@@ -6,10 +6,11 @@
     toolkit:Themes.UseVsTheme="True">
 
     <Grid ShowGridLines="True"
-          Height="100%"
-          Width="100%"
-          Background="{Binding Path=Background, Source={StaticResource WindowBackgroundBrush}}">
-        
+          MinHeight="287"
+          MinWidth="386"
+          Margin="0,0,0,0"
+          VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="15*" />
             <RowDefinition Height="2*" />
