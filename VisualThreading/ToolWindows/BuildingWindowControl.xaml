@@ -16,24 +16,36 @@
 
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Grid
+            Grid.Row="0"
+            Grid.Column="3"
+        >
+
+            <Button>cancel</Button>
+
+        </Grid>
+
+
+        <Grid
             x:Name="history_list"
             Grid.Row="0"
+            Grid.RowSpan="3"
             Grid.Column="0">
 
             <Label
                 x:Name="VariableLabel"
                 Width="99"
-                Margin="0,0,0,453"
                 HorizontalAlignment="Center"
                 MouseMove="Variable_MouseMove">
                 <Run
@@ -47,9 +59,8 @@
             <Label
                 x:Name="OperatorLabel"
                 Width="99"
-                Margin="0,28,0,426"
-                HorizontalAlignment="Center"
-                MouseMove="Operator_MouseMove">
+                HorizontalAlignment="Left"
+                MouseMove="Operator_MouseMove" Margin="0,26,0,-26">
                 <Run
                     x:Name="Operator"
                     Background="Green"
@@ -61,9 +72,8 @@
             <Label
                 x:Name="IfLabelLabel"
                 Width="99"
-                Margin="0,60,0,365"
-                HorizontalAlignment="Center"
-                MouseMove="If_MouseMove">
+                HorizontalAlignment="Left"
+                MouseMove="If_MouseMove" Margin="0,55,0,-55">
                 <Run
                     x:Name="Iflabel"
                     Background="Aqua"
@@ -74,9 +84,8 @@
             <Label
                 x:Name="IfelseLabelLabel"
                 Width="99"
-                Margin="0,116,0,276"
-                HorizontalAlignment="Center"
-                MouseMove="Ifelse_MouseMove">
+                HorizontalAlignment="Left"
+                MouseMove="Ifelse_MouseMove" Margin="0,121,0,-121">
                 <Run
                     x:Name="Ifelselabel"
                     Background="yellow"
@@ -106,21 +115,12 @@
         </Grid>
 
         <Grid
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Width="880"
-            Margin="0,0,0,19"
-            HorizontalAlignment="Right">
-
+            Grid.Column="1" Grid.Row="1"
+        >
             <Canvas
+                Width="400"
+                Height="400"
                 x:Name="canvasLabels"
-                Width="626"
-                Height="342"
-                Margin="78,50,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
                 AllowDrop="True"
                 Background="Beige"
                 DragEnter="canvasLabels_DragEnter"
@@ -128,11 +128,34 @@
                 MouseMove="canvasLabels_MouseMove"
                 PreviewMouseLeftButtonUp="CanvasLabel_PreviewMouseLeftButtonUp"
                 PreviewMouseMove="CanvasLabel_PreviewMouseMove"
-                ScrollViewer.HorizontalScrollBarVisibility="Visible" />
+                ScrollViewer.HorizontalScrollBarVisibility="Visible"
+            />
+        </Grid>
+
+        <Grid
+            Grid.Column="2" Grid.Row="1"
+        >
+            <RichTextBox
+                Width="400"
+                Height="400"
+                >
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Background="Red">Statement 1</Run>
+                        <Run Background="Green">Statement 2</Run>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
 
         </Grid>
 
-        <Button Grid.Row="1" Grid.Column="2">Insert To Code</Button>
+        <Grid
+            Grid.Row="2"
+            Grid.Column="3"
+            >
+            <Button Grid.Row="1" Grid.Column="2">Insert To Code</Button>
+        </Grid>
+
     </Grid>
 
 </UserControl>
