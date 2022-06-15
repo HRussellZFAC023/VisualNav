@@ -6,11 +6,11 @@ using System.Windows.Media;
 
 namespace VisualThreading.ToolWindows
 {
-    public partial class RadialDialControl
+    public partial class RadialWindowControl
     {
         private readonly Dictionary<string, List<RadialMenuItem>> _menuCollection = new();
 
-        public RadialDialControl()
+        public RadialWindowControl()
         {
             InitializeComponent();
 

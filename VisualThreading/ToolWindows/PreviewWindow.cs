@@ -25,7 +25,8 @@ namespace VisualThreading.ToolWindows
                 Path.GetExtension(buffer.TextBuffer.GetFileName());
             }
 
-            return new CommandWindowControl(commands, fileExt);
+            
+            return new PreviewWindowControl(commands, fileExt);
         }
 
         [Guid("8d4fca2b-a66b-485a-a01f-58a3b98aa35e")]
