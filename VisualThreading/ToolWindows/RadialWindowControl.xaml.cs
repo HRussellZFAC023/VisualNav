@@ -8,12 +8,12 @@ using static System.Windows.Forms.AxHost;
 
 namespace VisualThreading.ToolWindows
 {
-    public partial class RadialDialControl
+    public partial class RadialWindowControl
     {
         private readonly Dictionary<string, List<RadialMenuItem>> _menuCollection = new();
         private Stack state = new Stack();
         private String currentState = "";
-        public RadialDialControl()
+        public RadialWindowControl()
         {
             InitializeComponent();
             

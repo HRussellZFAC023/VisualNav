@@ -6,13 +6,13 @@ using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChange
 
 namespace VisualThreading.ToolWindows
 {
-    public partial class CommandWindowControl : UserControl
+    public partial class PreviewWindowControl : UserControl
     {
         private readonly Schema.Schema _commands;
         private string _currentCommand;
         private string _currentLanguage; // file extension for language
 
-        public CommandWindowControl(Schema.Schema commands, string language)
+        public PreviewWindowControl(Schema.Schema commands, string language)
         {
             _commands = commands;
             _currentCommand = "";
