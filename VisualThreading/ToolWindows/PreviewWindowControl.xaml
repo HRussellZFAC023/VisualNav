@@ -4,13 +4,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
-             toolkit:Themes.UseVsTheme="True"
-             mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
-             >
-    <Grid>
+             toolkit:Themes.UseVsTheme="True">
 
-        <StackPanel Orientation="Vertical" Name="Widgets" Margin="0,0,0,0" />
+    <Grid ShowGridLines="True"
+          Margin="0,0,0,0"
+          VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch"
+          MinWidth="200"
+          MinHeight="300">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Name="Widgets"  Grid.Row="0" Grid.Column="0" />
+
+        <StackPanel Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
+                    Orientation="Vertical" Name="Preview" Grid.Row="1" Grid.Column="0">
+        </StackPanel>
     </Grid>
 </UserControl>

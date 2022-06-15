@@ -18,6 +18,11 @@
           "text": "variable",
           "color": "#FFFF0000",
           "preview": "=\"var variable = value;\""
+        },
+        {
+          "text": "operator",
+          "color": "##FF008000",
+          "preview": "=\"operator = value;\""
         }
       ],
       "UI": [
