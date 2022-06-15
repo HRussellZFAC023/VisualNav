@@ -67,6 +67,7 @@
                     Text="if ( conditions ) { &#xD;&#xA;    statements &#xD;&#xA;} else { &#xD;&#xA;    statements &#xD;&#xA;} " />
             </TextBlock>
         </StackPanel>
+        
 
         <Canvas
             Grid.Column="1"
