@@ -2,25 +2,33 @@ using RadialMenu.Controls;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Collections;
+using static System.Windows.Forms.AxHost;
 
 namespace VisualThreading.ToolWindows
 {
     public partial class RadialWindowControl
     {
         private readonly Dictionary<string, List<RadialMenuItem>> _menuCollection = new();
-
+        private Stack state = new Stack();
+        private String currentState = "";
         public RadialWindowControl()
         {
             InitializeComponent();
-
+            
+            // comment out code use for icon displaying
+            // StackPanel threadPanel = new StackPanel();
+            // threadPanel.Children.Add(new Image { Source = new BitmapImage(new Uri("D:/visualthreading/VisualThreading/Resources/Icon.png", UriKind.RelativeOrAbsolute)) });
+            // threadPanel.Children.Add(new TextBlock { Text = "Thread" });
             var mainMenuItems = new List<RadialMenuItem>
             {
                 // I the know the color looks bad
                 // Background controls the Fan-shaped area
-                // ArrowBackground controls the little arrow on each button
-                // EdgeBackground controls the Edge of the Fan-shaped
-                new() { Content = new TextBlock { Text = "Thread" }, Background = Brushes.LightBlue, ArrowBackground = Brushes.LightBlue, EdgeBackground = Brushes.LightGreen},
+                // ArrowBackground controls the littel arrow on each button
+                // EdgeBackground controls the Edge of the Fan-shaped 
+                // new() { Content = threadPanel},
+                new() { Content = new TextBlock { Text = "Thread" }},
                 new() { Content = new TextBlock { Text = "Test" }},
                 new() { Content = new TextBlock { Text = "Code" }},
                 new() { Content = new TextBlock { Text = "UI" }}
@@ -64,15 +72,17 @@ namespace VisualThreading.ToolWindows
 
             // -----------------------------ThreadSubMenu-------------------------------------------------------------------
             threadSubMenu[0].Click += (sender, e) => RadialDialElement_Click(sender, e, "New Thread");
-            threadSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "New Thread");  // handles the mouse hover action, display corresponding preview
+            threadSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "New Thread");  // handles the mouse hover action, display corresponding preview 
             threadSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
             // -------------------------------------------------------------------------------------------------------------
 
+
             // -----------------------------Test sub menu-------------------------------------------------------------------
             testSubMenu[0].Click += (sender, e) => RadialDialElement_Click(sender, e, "Assert");
-            testSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "Assert");  // handles the mouse hover action, display corresponding preview
+            testSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "Assert");  // handles the mouse hover action, display corresponding preview 
             testSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
             // -------------------------------------------------------------------------------------------------------------
+
 
             // -----------------------------Test sub menu-------------------------------------------------------------------
             codeSubMenu[0].Click += (sender, e) => RadialDialControl_Click(sender, e, "CodeSubMenu");
@@ -160,40 +170,39 @@ namespace VisualThreading.ToolWindows
             codeSubMenu[6].Click += (sender, e) => RadialDialControl_Click(sender, e, "comparatorMenu");// Go to Comparator
             // -------------------------------------------------------------------------------------------------------------
 
+
             // -----------------------------UI sub menu---------------------------------------------------------------------
             uiSubMenu[0].Click += (sender, e) => RadialDialElement_Click(sender, e, "UISubMenu");
-            uiSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "UISubMenu");  // handles the mouse hover action, display corresponding preview
+            uiSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "UISubMenu");  // handles the mouse hover action, display corresponding preview 
             uiSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
             // -------------------------------------------------------------------------------------------------------------
 
-            // Back to Home on center item
-            MainMenu.CentralItem.Click += (sender, e) => RadialDialControl_Click(sender, e, "MainMenuItems");
-        }
 
-        private void RadialDialElement_Click(object sender, RoutedEventArgs e, String element) // handles the eventuall element like a veriable
+            // Back to Home on center item
+            MainMenu.CentralItem.Click += (sender, e) => RadialDialControl_Back(sender, e);
+        }
+        private void RadialDialElement_Click(object sender, RoutedEventArgs e, String element) // handles the eventuall element like a veriable 
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                // extract element to buidling area
+                // extract element to working area
                 MainMenu.Items = _menuCollection[element];
             }
             ).FireAndForget();
         }
 
-        private void RadialDialElement_Hover(object sender, RoutedEventArgs e, String PreviewName)  // handles the eventuall element like a veriable
+        private void RadialDialElement_Hover(object sender, RoutedEventArgs e, String PreviewName)  // handles the eventuall element like a veriable 
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
                 // take the name of the element and pull png file from json.
-
-                // update local field for observers
             }
             ).FireAndForget();
         }
 
-        private void RadialDialElement_ExitHover(object sender, RoutedEventArgs e)  // handles the eventuall element like a veriable
+        private void RadialDialElement_ExitHover(object sender, RoutedEventArgs e)  // handles the eventuall element like a veriable 
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
@@ -209,6 +218,36 @@ namespace VisualThreading.ToolWindows
             {
                 await Task.Delay(20);
                 MainMenu.Items = _menuCollection[subMenu];
+             
+                if (state.Count == 0)
+                {
+                    state.Push("MainMenuItems");
+                }
+                else
+                {
+                    state.Push(currentState);
+                }
+                currentState = subMenu;
+            }
+            ).FireAndForget();
+        }
+
+        private void RadialDialControl_Back(object sender, RoutedEventArgs e) // handles the subfolder element like loop
+        {
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Task.Delay(20);
+                String temp = "";
+                if (state.Count == 0)
+                {
+                    temp = "MainMenuItems";
+                }
+                else
+                {
+                    temp = state.Pop().ToString();
+                }
+                
+                MainMenu.Items = _menuCollection[temp];
             }
             ).FireAndForget();
         }
