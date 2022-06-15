@@ -21,7 +21,7 @@
         <radialMenu:RadialMenu IsOpen="true" Name="MainMenu">
             <radialMenu:RadialMenu.CentralItem>
                 <radialMenu:RadialMenuCentralItem>
-                    <StackPanel Background="White" VerticalAlignment="Center"
+                    <StackPanel VerticalAlignment="Center"
                                 theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
                         <imaging:CrispImage Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.Backwards}" />
                     </StackPanel>
