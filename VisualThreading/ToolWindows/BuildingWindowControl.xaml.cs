@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace VisualThreading.ToolWindows
@@ -20,37 +19,30 @@ namespace VisualThreading.ToolWindows
 
         private void Variable_MouseMove(object sender, MouseEventArgs e)
         {
-            if (sender is Label label && e.LeftButton == MouseButtonState.Pressed)
-            {
-                DataObject data = new DataObject();
-                data.SetData("type", "variable");
-                data.SetData("text", Variable.Text);
-                data.SetData("background", Variable.Background);
+            if (sender is not TextBlock || e.LeftButton != MouseButtonState.Pressed) return;
+            var data = new DataObject();
+            data.SetData("type", "variable");
+            data.SetData("text", Variable.Text);
+            data.SetData("background", Variable.Background);
 
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
-            }
+            DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
         }
 
         private void Operator_MouseMove(object sender, MouseEventArgs e)
         {
-            if (sender is Label && e.LeftButton == MouseButtonState.Pressed)
-            {
-                DataObject data = new DataObject();
-                data.SetData("type", "operator");
-                data.SetData("text", Operator.Text);
-                data.SetData("background", Operator.Background);
+            if (sender is not TextBlock || e.LeftButton != MouseButtonState.Pressed) return;
+            var data = new DataObject();
+            data.SetData("type", "operator");
+            data.SetData("text", Operator.Text);
+            data.SetData("background", Operator.Background);
 
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
-
-                Debug.WriteLine(data.GetData("text"));
-                Debug.WriteLine(data.GetData("background"));
-            }
+            DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
         }
 
         private void If_MouseMove(object sender, MouseEventArgs e)
         {
-            if (sender is not Label || e.LeftButton != MouseButtonState.Pressed) return;
-            DataObject data = new DataObject();
+            if (sender is not TextBlock label || e.LeftButton != MouseButtonState.Pressed) return;
+            var data = new DataObject();
             data.SetData("type", "if");
             data.SetData("text", Iflabel.Text);
             data.SetData("background", Iflabel.Background);
@@ -60,18 +52,13 @@ namespace VisualThreading.ToolWindows
 
         private void IfElse_MouseMove(object sender, MouseEventArgs e)
         {
-            DraggedItem = (UIElement)sender;
-            //var text = "if (                   ) { &#xD;&#xA;    } else { &#xD;&#xA;   } ";
+            if (sender is not TextBlock || e.LeftButton != MouseButtonState.Pressed) return;
+            var data = new DataObject();
+            data.SetData("type", "ifelse");
+            data.SetData("text", Ifelselabel.Text);
+            data.SetData("background", Ifelselabel.Background);
 
-            if (sender is Label label && e.LeftButton == MouseButtonState.Pressed)
-            {
-                DataObject data = new DataObject();
-                data.SetData("type", "ifelse");
-                data.SetData("text", Ifelselabel.Text);
-                data.SetData("background", Ifelselabel.Background);
-
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
-            }
+            DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
         }
 
         protected override void OnDragOver(DragEventArgs e)
@@ -84,61 +71,167 @@ namespace VisualThreading.ToolWindows
         {
             var dragText = e.Data.GetData("text");
             var dragBackground = e.Data.GetData("background");
-            string dragType = (string)e.Data.GetData("type");
+            var dragType = (string)e.Data.GetData("type");
 
-            Point dropPoint = e.GetPosition(canvasLabels);
+            var dropPoint = e.GetPosition(canvasLabels);
 
             if (dragText != null && dragBackground != null)
             {
-                Label copy = new Label();
+                /*Label copy = new Label();
                 if (dragType == "variable")
                 {
                     copy = XamlReader.Parse(XamlWriter.Save(VariableLabel)) as Label;
+                    copy.FontSize = 18;
                 }
                 else if (dragType == "operator")
                 {
                     copy = XamlReader.Parse(XamlWriter.Save(OperatorLabel)) as Label;
+                    copy.FontSize = 18;
                 }
                 else if (dragType == "if")
                 {
                     copy = XamlReader.Parse(XamlWriter.Save(IfLabelLabel)) as Label;
+                    copy.FontSize = 24;
                 }
                 else if (dragType == "ifelse")
                 {
                     copy = XamlReader.Parse(XamlWriter.Save(IfelseLabelLabel)) as Label;
+                    copy.FontSize = 24;
                 }
 
                 Debug.Assert(copy != null, nameof(copy) + " != null");
 
                 copy.Margin = new Thickness(0, 0, 0, 0);
-                copy.Height = double.NaN;
-                copy.Width = double.NaN;
-                copy.FontSize = 24;
+                copy.Height = Double.NaN;
+                copy.Width = Double.NaN;
                 copy.FontWeight = FontWeights.Bold;
                 copy.MouseLeftButtonDown += Label_MouseLeftButtonDown;
 
                 ((Canvas)sender).Children.Add(copy);
                 Canvas.SetLeft(copy, dropPoint.X);
-                Canvas.SetTop(copy, dropPoint.Y);
-            }
-            else if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string path = ((Array)e.Data.GetData(DataFormats.FileDrop))?.GetValue(0).ToString();
-                Debug.Assert(path != null, nameof(path) + " != null");
-                if (path.Contains("elif"))
-                {
-                    Label label = new Label
-                    {
-                        Height = double.NaN,
-                        Width = double.NaN,
-                        Content = "if...else...",
-                        Margin = new Thickness(0, 300, 0, 0),
-                        Foreground = Brushes.Black,
-                        Background = Brushes.AntiqueWhite
-                    };
+                Canvas.SetTop(copy, dropPoint.Y);*/
 
-                    history_list.Children.Add(label);
+                var tb = new TextBlock
+                {
+                    TextWrapping = TextWrapping.Wrap,
+                    Margin = new Thickness(0, 0, 0, 0)
+                };
+                tb.MouseLeftButtonDown += Label_MouseLeftButtonDown;
+
+                switch (dragType)
+                {
+                    case "variable":
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Red,
+                                Text = "Variable",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 18
+                            });
+                        break;
+
+                    case "operator":
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Green,
+                                Text = "Operator",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 18
+                            });
+                        break;
+
+                    case "if":
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Aqua,
+                                Text = "if (                                   ) {\n\t\n} ",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 24
+                            });
+                        break;
+
+                    case "ifelse":
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Yellow,
+                                Text = "if ( ",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 24
+                            });
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Yellow,
+                                Text = "           ",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 24
+                            });
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Yellow,
+                                Text = "           ",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 24
+                            });
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Yellow,
+                                Text = "           ",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 24
+                            });
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Yellow,
+                                Text = " ) { \n",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 24
+                            });
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Yellow,
+                                Text = "\t\n",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 24
+                            });
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Yellow,
+                                Text = "} else { \n",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 24
+                            });
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Yellow,
+                                Text = "\t\n",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 24
+                            });
+                        tb.Inlines.Add(
+                            new Run()
+                            {
+                                Background = Brushes.Yellow,
+                                Text = "} ",
+                                FontWeight = FontWeights.Bold,
+                                FontSize = 24
+                            });
+                        break;
                 }
+
+                ((Canvas)sender).Children.Add(tb);
+                Canvas.SetLeft(tb, dropPoint.X);
+                Canvas.SetTop(tb, dropPoint.Y);
             }
 
             e.Handled = true;
