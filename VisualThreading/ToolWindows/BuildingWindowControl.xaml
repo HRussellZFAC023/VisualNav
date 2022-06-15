@@ -28,42 +28,37 @@
 
         <Grid Grid.Row="0" Grid.Column="0">
 
-            <Label HorizontalAlignment="Left" Width="99" MouseMove="Variable_MouseMove" x:Name="VariableLabel">
-                <Run 
+            <TextBlock Width="99" Margin="0,10,0,0" TextWrapping="Wrap" MouseMove="Variable_MouseMove" x:Name="VariableLabel">
+			    <Run 
                     Background="red" 
                     Text="Variable" 
                     x:Name="Variable"
                 />
-            </Label>
+            </TextBlock>
 
-
-            <Label Margin="0,28,0,0" HorizontalAlignment="Left" Width="99" MouseMove="Operator_MouseMove" x:Name="OperatorLabel">
-                <Run 
+            <TextBlock Width="99" Margin="0,40,0,0" TextWrapping="Wrap" MouseMove="Operator_MouseMove" x:Name="OperatorLabel">
+			    <Run 
                     Background="Green" 
                     x:Name="Operator"
                     Text="Operater" 
                 />
-            </Label>
+            </TextBlock>
 
-
-
-            <Label Margin="0,60,0,0" HorizontalAlignment="Left" Width="99" MouseMove="If_MouseMove" x:Name="IfLabelLabel">
-                <Run 
+            <TextBlock Width="99" Margin="0,70,0,0" TextWrapping="Wrap" MouseMove="If_MouseMove" x:Name="IfLabelLabel">
+			    <Run 
                     Background="Aqua" 
                     x:Name="Iflabel"
                     Text="if ( conditions ) { &#xD;&#xA;    statements&#xD;&#xA;} " 
                 />
-            </Label>
+            </TextBlock>
 
-
-            <Label Margin="0,116,0,0" HorizontalAlignment="Center" Width="99" MouseMove="Ifelse_MouseMove" x:Name="IfelseLabelLabel">
-                <Run 
+            <TextBlock Width="99" Margin="0,130,0,0" TextWrapping="Wrap" MouseMove="Ifelse_MouseMove" x:Name="IfelseLabelLabel">
+			    <Run 
                     Background="yellow" 
                     x:Name="Ifelselabel"
                     Text="if ( conditions ) { &#xD;&#xA;    statements &#xD;&#xA;} else { &#xD;&#xA;    statements &#xD;&#xA;} " 
                 />
-            </Label>
-
+            </TextBlock>
 
         </Grid>
 
