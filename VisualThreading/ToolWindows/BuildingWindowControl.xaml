@@ -33,7 +33,8 @@
             <Label
                 x:Name="VariableLabel"
                 Width="99"
-                HorizontalAlignment="Left"
+                Margin="0,0,0,453"
+                HorizontalAlignment="Center"
                 MouseMove="Variable_MouseMove">
                 <Run
                     x:Name="Variable"
@@ -46,8 +47,8 @@
             <Label
                 x:Name="OperatorLabel"
                 Width="99"
-                Margin="0,28,0,0"
-                HorizontalAlignment="Left"
+                Margin="0,28,0,426"
+                HorizontalAlignment="Center"
                 MouseMove="Operator_MouseMove">
                 <Run
                     x:Name="Operator"
@@ -60,8 +61,8 @@
             <Label
                 x:Name="IfLabelLabel"
                 Width="99"
-                Margin="0,60,0,0"
-                HorizontalAlignment="Left"
+                Margin="0,60,0,365"
+                HorizontalAlignment="Center"
                 MouseMove="If_MouseMove">
                 <Run
                     x:Name="Iflabel"
@@ -73,7 +74,7 @@
             <Label
                 x:Name="IfelseLabelLabel"
                 Width="99"
-                Margin="0,116,0,0"
+                Margin="0,116,0,276"
                 HorizontalAlignment="Center"
                 MouseMove="Ifelse_MouseMove">
                 <Run
@@ -81,8 +82,27 @@
                     Background="yellow"
                     Text="if ( conditions ) { &#xD;&#xA;    statements &#xD;&#xA;} else { &#xD;&#xA;    statements &#xD;&#xA;} " />
             </Label>
-
-
+            <!--
+            <Label
+                x:Name="label1"
+                Width="85"
+                Height="42"
+                Margin="4,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Background="AliceBlue"
+                MouseMove="Label_MouseMove">
+                <TextBox
+                    x:Name="textbox1"
+                    Width="75"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="Orange"
+                    MouseMove="textbox1_MouseMove"
+                    Text="variable"
+                    TextWrapping="Wrap" />
+            </Label>
+            -->
         </Grid>
 
         <Grid
@@ -103,11 +123,12 @@
                 VerticalAlignment="Top"
                 AllowDrop="True"
                 Background="Beige"
+                DragEnter="canvasLabels_DragEnter"
                 Drop="Canvas_Drop"
+                MouseMove="canvasLabels_MouseMove"
                 PreviewMouseLeftButtonUp="CanvasLabel_PreviewMouseLeftButtonUp"
                 PreviewMouseMove="CanvasLabel_PreviewMouseMove"
                 ScrollViewer.HorizontalScrollBarVisibility="Visible" />
-
 
         </Grid>
 

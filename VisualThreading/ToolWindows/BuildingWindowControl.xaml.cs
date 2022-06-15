@@ -1,4 +1,5 @@
 ﻿
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -22,6 +23,14 @@ namespace VisualThreading
             InitializeComponent();
             this.draggedItem = null;
         }
+
+        Label preview_effect = new Label()
+        {
+            Width = Double.NaN,
+            Height = Double.NaN,
+            Opacity = 0.5
+        };
+
 
         private void Variable_MouseMove(object sender, MouseEventArgs e)
         {
@@ -114,7 +123,10 @@ namespace VisualThreading
                 Label copy = new Label();
                 if (dragType == "variable")
                 {
-                    copy = XamlReader.Parse(XamlWriter.Save(VariableLabel)) as Label;
+                    Label temp_label = e.Data.GetData("element") as Label;
+                    copy.Content = e.Data.GetData("text");
+                    copy.Background = (Brush)e.Data.GetData("background");
+                    
                 } else if(dragType == "operator")
                 {
                     copy = XamlReader.Parse(XamlWriter.Save(OperatorLabel)) as Label;
@@ -137,24 +149,43 @@ namespace VisualThreading
                 Canvas.SetLeft(copy, dropPoint.X);
                 Canvas.SetTop(copy, dropPoint.Y);
 
+                canvasLabels.Children.Remove(preview_effect);
 
-            } else if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
+            }
+            else if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
+                // create UI element based on image path
                 string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-                if (path.Contains("elif"))
+                if (path.Contains("variable"))
                 {
+                    TextBox textbox = new TextBox()
+                    {
+                        Text = "variable",
+                        Background = Brushes.Orange,
+                        Height = Double.NaN,
+                        Width = 75,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        TextWrapping = TextWrapping.Wrap
+                        
+                    };
+                    textbox.MouseMove += textbox1_MouseMove;
+
                     Label label = new Label()
                     {
-                        Height = Double.NaN,
-                        Width = Double.NaN,
-                        Content = (object)"if...else...",
-                        Margin = new Thickness(0, 300, 0, 0),
-                        Foreground = Brushes.Black,
+                        Height = 42,
+                        Width = 85,
+                        Content = textbox,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Margin = new Thickness(0, 0, 0, 0),
                         Background = Brushes.AntiqueWhite
+                        
                     };
 
-                    
+                    label.MouseMove += Label_MouseMove;
                     
                     history_list.Children.Add(label);
+                    canvasLabels.Children.Remove(preview_effect);
                 }
             }
 
@@ -176,7 +207,14 @@ namespace VisualThreading
             var newPos = e.GetPosition(canvasLabels) - itemRelativePosition;
             Canvas.SetTop((UIElement)this.draggedItem, newPos.Y);
             Canvas.SetLeft((UIElement)this.draggedItem, newPos.X);
+
+            Point dropPoint = e.GetPosition(preview_effect);
+
+            Canvas.SetLeft(preview_effect, dropPoint.X);
+            Canvas.SetTop(preview_effect, dropPoint.Y);
+
             canvasLabels.CaptureMouse();
+
             e.Handled = true;
         }
 
@@ -186,8 +224,73 @@ namespace VisualThreading
             {
                 this.draggedItem = null;
                 canvasLabels.ReleaseMouseCapture();
+
                 e.Handled = true;
             }
+        }
+
+        private void Label_MouseMove(object sender, MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+
+            Label label = sender as Label;
+
+            if (label != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+                TextBox textbox = label.Content as TextBox;
+                DataObject data = new DataObject();
+                data.SetData("type", "variable");
+                data.SetData("element", label);
+                data.SetData("text", textbox.Text);
+                data.SetData("background", textbox.Background);
+
+
+
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
+
+            }
+
+            e.Handled = true;
+        }
+
+        private void textbox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            e.Handled = true;
+        }
+
+        private void canvasLabels_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                preview_effect.Content = e.Data.GetData("text");
+                preview_effect.Background = (Brush)e.Data.GetData("background");
+
+                Point dropPoint = e.GetPosition(this.canvasLabels);
+
+                canvasLabels.Children.Remove(preview_effect);
+                canvasLabels.Children.Add(preview_effect);
+
+                Canvas.SetLeft(preview_effect, dropPoint.X);
+                Canvas.SetTop(preview_effect, dropPoint.Y);
+
+            }
+
+            e.Handled = true;
+
+        }
+
+        private void canvasLabels_MouseMove(object sender, MouseEventArgs e)
+        {
+
+            Point dropPoint = e.GetPosition(preview_effect);
+
+            var newPos = e.GetPosition(canvasLabels) - dropPoint;
+
+            Canvas.SetLeft(preview_effect, newPos.X);
+            Canvas.SetTop(preview_effect, newPos.Y);
+
+            e.Handled = true;
         }
 
     }
