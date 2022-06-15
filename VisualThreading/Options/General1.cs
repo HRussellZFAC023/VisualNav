@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel;
 using System.Runtime.InteropServices;
 
-namespace VisualThreading
+namespace VisualThreading.Options
 {
-    internal partial class OptionsProvider
+    internal class OptionsProvider
     {
         // Register the options with this attribute on your package class:
         // [ProvideOptionPage(typeof(OptionsProvider.General1Options), "VisualThreading", "General1", 0, 0, true, SupportsProfiles = true)]
         [ComVisible(true)]
-        public class General1Options : BaseOptionPage<General1> { }
+        public class General1Options : BaseOptionPage<General1>
+        { }
     }
 
     public class General1 : BaseOptionModel<General1>

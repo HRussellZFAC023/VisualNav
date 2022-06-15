@@ -1,85 +1,87 @@
 ﻿<UserControl
-    x:Class="VisualThreading.BuildingWindowControl"
+    x:Class="VisualThreading.ToolWindows.BuildingWindowControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
-    Name="BuildingWindow"
-    d:DesignHeight="500"
-    d:DesignWidth="1000"
-    mc:Ignorable="d"
->
-
-    <Grid ShowGridLines="True">
+    toolkit:Themes.UseVsTheme="True">
+    
+    <Grid ShowGridLines="True"
+          MinHeight="287"
+          MinWidth="386"
+          Margin="0,0,0,0"
+          VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="15*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="6*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0">
+        <StackPanel
+            x:Name="history_list"
+            Grid.Row="0"
+            Grid.Column="0">
 
-            <TextBlock Width="99" Margin="0,10,0,0" TextWrapping="Wrap" MouseMove="Variable_MouseMove" x:Name="VariableLabel">
-			    <Run 
-                    Background="red" 
-                    Text="Variable" 
+            <TextBlock
+                x:Name="VariableLabel"
+                HorizontalAlignment="Left"
+                MouseMove="Variable_MouseMove">
+                <Run
                     x:Name="Variable"
-                />
+                    Background="red"
+                    Text="Variable" />
             </TextBlock>
 
-            <TextBlock Width="99" Margin="0,40,0,0" TextWrapping="Wrap" MouseMove="Operator_MouseMove" x:Name="OperatorLabel">
-			    <Run 
-                    Background="Green" 
+            <TextBlock
+                x:Name="OperatorLabel"
+                HorizontalAlignment="Left"
+                MouseMove="Operator_MouseMove">
+                <Run
                     x:Name="Operator"
-                    Text="Operater" 
-                />
+                    Background="Green"
+                    Text="Operator" />
             </TextBlock>
 
-            <TextBlock Width="99" Margin="0,70,0,0" TextWrapping="Wrap" MouseMove="If_MouseMove" x:Name="IfLabelLabel">
-			    <Run 
-                    Background="Aqua" 
+            <TextBlock
+                x:Name="IfLabelLabel"
+                HorizontalAlignment="Left"
+                MouseMove="If_MouseMove">
+                <Run
                     x:Name="Iflabel"
                     Text="if ( conditions ) { &#xD;&#xA;    statements&#xD;&#xA;} " 
                 />
             </TextBlock>
 
-            <TextBlock Width="99" Margin="0,130,0,0" TextWrapping="Wrap" MouseMove="Ifelse_MouseMove" x:Name="IfelseLabelLabel">
-			    <Run 
-                    Background="yellow" 
+            <TextBlock
+                x:Name="IfelseLabelLabel"
+                HorizontalAlignment="Left"
+                MouseMove="IfElse_MouseMove">
+                <Run
                     x:Name="Ifelselabel"
-                    Text="if ( conditions ) { &#xD;&#xA;    statements &#xD;&#xA;} else { &#xD;&#xA;    statements &#xD;&#xA;} " 
-                />
+                    Background="yellow"
+                    Text="if ( conditions ) { &#xD;&#xA;    statements &#xD;&#xA;} else { &#xD;&#xA;    statements &#xD;&#xA;} " />
             </TextBlock>
+        </StackPanel>
 
-        </Grid>
+        <Canvas
+            Grid.Column="1"
+            Grid.Row="0"
+            x:Name="canvasLabels"
+            AllowDrop="True"
+            Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
+            Drop="Canvas_Drop"
+            PreviewMouseLeftButtonUp="CanvasLabel_PreviewMouseLeftButtonUp"
+            PreviewMouseMove="CanvasLabel_PreviewMouseMove"
+            ScrollViewer.HorizontalScrollBarVisibility="Visible" 
+            Margin="0,0,0,0" />
 
-        <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,0,19" Grid.RowSpan="2" Width="880">
-
-            <Canvas 
-                x:Name="canvasLabels" 
-                Height="342" Margin="78,50,0,0" Width="626" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" 
-                ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                Background="Beige"
-                AllowDrop="True" 
-                Drop="Canvas_Drop"
-                PreviewMouseLeftButtonUp="CanvasLabel_PreviewMouseLeftButtonUp" 
-                PreviewMouseMove="CanvasLabel_PreviewMouseMove" 
-            />
-
-
-        </Grid>
-
-        <Button Grid.Row="1" Grid.Column="2">Insert To Code</Button>
+        <Button Grid.Column="2" Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+            <Label Background="#00000000" FontWeight="Normal" FontStyle="Normal">Insert To Code</Label>
+        </Button>
     </Grid>
-
 </UserControl>

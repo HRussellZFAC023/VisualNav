@@ -4,25 +4,25 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace VisualThreading
+namespace VisualThreading.ToolWindows
 {
-    public class VisualThreadingWindow : BaseToolWindow<VisualThreadingWindow>
+    public class RadialWindow : BaseToolWindow<RadialWindow>
     {
-        public override string GetTitle(int toolWindowId) => "Visual Threading Window";
+        public override string GetTitle(int toolWindowId) => "Command Pallet";
 
         public override Type PaneType => typeof(Pane);
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            return Task.FromResult<FrameworkElement>(new VisualThreadingWindowControl());
+            return Task.FromResult<FrameworkElement>(new RadialDialControl());
         }
 
-        [Guid("159da447-c93c-4cb3-81f3-9da7686addb8")]
+        [Guid("0ea6b182-db3a-4f77-abf4-492c7b31036b")]
         internal class Pane : ToolWindowPane
         {
             public Pane()
             {
-                BitmapImageMoniker = KnownMonikers.Processor;
+                BitmapImageMoniker = KnownMonikers.PieChart;
             }
         }
     }
