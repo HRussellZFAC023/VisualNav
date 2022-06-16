@@ -72,19 +72,19 @@ namespace VisualThreading.ToolWindows
             // -----------------------------ThreadSubMenu-------------------------------------------------------------------
             threadSubMenu[0].Click += (sender, e) => RadialDialElement_Click(sender, e, "New Thread");
             threadSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "New Thread");  // handles the mouse hover action, display corresponding preview
-            threadSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
+            threadSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e, "New Thread"); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
             // -------------------------------------------------------------------------------------------------------------
 
             // -----------------------------Test sub menu-------------------------------------------------------------------
             testSubMenu[0].Click += (sender, e) => RadialDialElement_Click(sender, e, "Assert");
             testSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "Assert");  // handles the mouse hover action, display corresponding preview
-            testSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
+            testSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e, "Assert"); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
             // -------------------------------------------------------------------------------------------------------------
 
             // -----------------------------Test sub menu-------------------------------------------------------------------
             codeSubMenu[0].Click += (sender, e) => RadialDialControl_Click(sender, e, "CodeSubMenu");
             codeSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "CodeSubMenu"); 
-            codeSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e);
+            codeSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e, "CodeSubMenu");
             
             var IOSubMenu = new List<RadialMenuItem>
             {
@@ -173,11 +173,11 @@ namespace VisualThreading.ToolWindows
             // -----------------------------UI sub menu---------------------------------------------------------------------
             uiSubMenu[0].Click += (sender, e) => RadialDialElement_Click(sender, e, "UISubMenu");
             uiSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "UISubMenu");  // handles the mouse hover action, display corresponding preview
-            uiSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
+            uiSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e, "UISubMenu"); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
             // -------------------------------------------------------------------------------------------------------------
 
             // Back to Home on center item
-            MainMenu.CentralItem.Click += (sender, e) => RadialDialControl_Back(sender, e);
+            MainMenu.CentralItem.Click += (sender, e) => RadialDialControl_Back(sender, e, "Back");
         }
 
         private void RadialDialElement_Click(object sender, RoutedEventArgs e, String element) // handles the eventuall element like a veriable
