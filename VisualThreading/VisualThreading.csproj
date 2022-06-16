@@ -47,6 +47,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Schema\Schema.cs" />
+    <Compile Include="ToolWindows\SharedComponents\CodeBlockFactory.cs" />
     <Compile Include="VisualStudioServices.cs" />
     <Compile Include="Commands\OpenPreivewWindow.cs" />
     <Compile Include="Commands\OpenRadialMenu.cs" />

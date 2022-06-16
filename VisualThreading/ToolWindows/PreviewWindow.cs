@@ -19,7 +19,7 @@ namespace VisualThreading.ToolWindows
             var commands = await Schema.Schema.LoadAsync();
             var buffer = await VS.Documents.GetActiveDocumentViewAsync();
             var fileExt = "";
-            if (buffer != null && buffer.TextBuffer != null)
+            if (buffer?.TextBuffer != null)
             {
                 fileExt =
                 Path.GetExtension(buffer.TextBuffer.GetFileName());

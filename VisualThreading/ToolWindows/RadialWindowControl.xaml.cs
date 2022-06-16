@@ -218,15 +218,8 @@ namespace VisualThreading.ToolWindows
             {
                 await Task.Delay(20);
                 MainMenu.Items = _menuCollection[subMenu];
-             
-                if (state.Count == 0)
-                {
-                    state.Push("MainMenuItems");
-                }
-                else
-                {
-                    state.Push(currentState);
-                }
+
+                state.Push(state.Count == 0 ? "MainMenuItems" : currentState);
                 currentState = subMenu;
             }
             ).FireAndForget();
@@ -238,14 +231,7 @@ namespace VisualThreading.ToolWindows
             {
                 await Task.Delay(20);
                 String temp = "";
-                if (state.Count == 0)
-                {
-                    temp = "MainMenuItems";
-                }
-                else
-                {
-                    temp = state.Pop().ToString();
-                }
+                temp = state.Count == 0 ? "MainMenuItems" : state.Pop().ToString();
                 
                 MainMenu.Items = _menuCollection[temp];
             }

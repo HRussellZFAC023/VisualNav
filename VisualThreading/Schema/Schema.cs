@@ -34,6 +34,7 @@ namespace VisualThreading.Schema
     public class Command
     {
         public string Text { get; set; }
-        public string Url { get; set; }
+        public string Color { get; set; }
+        public string Preview { get; set; }
     }
 }

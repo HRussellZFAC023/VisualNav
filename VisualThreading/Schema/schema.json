@@ -6,23 +6,23 @@
       "commands": [
         {
           "text": "if",
-          "preview": "=\"if ( conditions ) { &#xD;&#xA;    statements&#xD;&#xA;} \"",
+          "preview": "if ( conditions ) {\n   statements\n}",
           "color": "#FF00FFFF"
         },
         {
           "text": "else",
           "color": "FFFFFF00",
-          "preview": "=\"else { &#xD;&#xA;    statements&#xD;&#xA;} \""
+          "preview": "else {\n   statements\n} "
         },
         {
           "text": "variable",
           "color": "#FFFF0000",
-          "preview": "=\"var variable = value;\""
+          "preview": "var variable = value;"
         },
         {
           "text": "operator",
           "color": "##FF008000",
-          "preview": "=\"operator = value;\""
+          "preview": "operator = value;"
         }
       ],
       "UI": [
