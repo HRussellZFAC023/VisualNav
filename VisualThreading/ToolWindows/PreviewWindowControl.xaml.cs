@@ -6,24 +6,24 @@ using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChange
 
 namespace VisualThreading.ToolWindows
 {
-    public partial class PreviewWindowControl
+    public partial class PreviewWindowControl : UserControl
     {
         private readonly Schema.Schema _commands;
         private string _currentCommand;
         private string _currentLanguage; // file extension for language
 
-        public void notify()
-        {
-            Console.WriteLine("Click Started!");  
+        //public void notify()
+        //{
+        //    Console.WriteLine("Click Started!");
 
-            OnClickCompleted();
-        }
+        //    OnClickCompleted();
+        //}
 
-        protected virtual void OnClickCompleted() //protected virtual method
-        {
-            //if ClickCompleted is not null then call delegate
-            ClickCompleted?.Invoke(); 
-        }
+        //protected virtual void OnClickCompleted() //protected virtual method
+        //{
+        //    //if ClickCompleted is not null then call delegate
+        //    ClickCompleted?.Invoke();
+        //}
 
         public PreviewWindowControl(Schema.Schema commands, string language)
         {
@@ -32,11 +32,11 @@ namespace VisualThreading.ToolWindows
             _currentLanguage = language;
             InitializeComponent();
 
-            SetCurrentCommand("if");
+            SetCurrentCommand("else");
             VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection event
 
-            RadialWindowControl rwc = RadialWindow.getRwc(); // error here.
-            rwc.register();
+            //RadialWindowControl rwc = RadialWindow.getRwc(); // error here.
+            //rwc.register();
         }
 
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
