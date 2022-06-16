@@ -197,20 +197,22 @@ namespace VisualThreading.ToolWindows
             {
                 await Task.Delay(20);
                 // take the name of the element and pull preview from json.
-                PreviewWindow.Instance.SetCurrentCommand("operator");
-                // BuilderWinidow.Instance.SetCurrentCommand("operator");
+                PreviewWindow.Instance.SetCurrentCommand(PreviewName.toLower());
+                BuilderWindow.Instance.SetCurrentCommand(PreviewName.toLower());
             }
             ).FireAndForget();
         }
 
-        private void RadialDialElement_ExitHover(object sender, RoutedEventArgs e)  // handles the eventuall element like a veriable
+        private void RadialDialElement_ExitHover(object sender, RoutedEventArgs e, String PreviewName)  // handles the eventuall element like a veriable
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
                 // clear preview area
                 PreviewWindow.Instance.SetCurrentCommand("");
-                /                /
+                
+                PreviewWindow.Instance.SetCurrentCommand(PreviewName.toLower());
+                BuilderWindow.Instance.SetCurrentCommand(PreviewName.toLower());
             }
             ).FireAndForget();
         }
@@ -230,7 +232,7 @@ namespace VisualThreading.ToolWindows
             ).FireAndForget();
         }
 
-        private void RadialDialControl_Back(object sender, RoutedEventArgs e) // handles the subfolder element like loop
+        private void RadialDialControl_Back(object sender, RoutedEventArgs e, String PreviewName) // handles the subfolder element like loop
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
@@ -239,7 +241,11 @@ namespace VisualThreading.ToolWindows
                 temp = state.Count == 0 ? "MainMenuItems" : state.Pop().ToString();
 
                 MainMenu.Items = _menuCollection[temp];
-            }                
+            }            
+                 
+                                                      
+                PreviewWindow.Instance.SetCurrentCommand(PreviewName.toLower());
+                BuilderWindow.Instance.SetCurrentCommand(PreviewName.toLower());
             ).FireAndForget();
         }
 
