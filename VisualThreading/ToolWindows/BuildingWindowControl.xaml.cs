@@ -118,6 +118,9 @@ namespace VisualThreading.ToolWindows
                 };
                 tb.MouseLeftButtonDown += Label_MouseLeftButtonDown;
 
+
+                addDraggedItem(tb, dragText, dragBackground, dragType);
+
                 switch (dragType)
                 {
                     case "variable":
@@ -235,6 +238,21 @@ namespace VisualThreading.ToolWindows
             }
 
             e.Handled = true;
+        }
+
+        private void addDraggedItem(TextBlock tb, object dragText, object dragBackground, string dragType)
+        {
+
+            
+            tb.Inlines.Add(
+                new Run()
+                {
+                    Background = (Brush)dragBackground,
+                    Text = (string)dragText,
+                    FontWeight = FontWeights.Bold,
+                    FontSize = 18
+                });
+            throw new NotImplementedException();
         }
 
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
