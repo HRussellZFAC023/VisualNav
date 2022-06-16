@@ -12,7 +12,7 @@
         {
           "text": "else",
           "preview": "else {\n   statements\n} ",
-          "color": "FFFFFF00"
+          "color": "#FFFFFF00"
         },
         {
           "text": "variable",

@@ -193,7 +193,9 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                // take the name of the element and pull png file from json.
+                // take the name of the element and pull preview from json.
+                PreviewWindow.Instance.SetCurrentCommand("operator");
+                // BuilderWinidow.Instance.SetCurrentCommand("operator");
             }
             ).FireAndForget();
         }
@@ -204,6 +206,8 @@ namespace VisualThreading.ToolWindows
             {
                 await Task.Delay(20);
                 // clear preview area
+                PreviewWindow.Instance.SetCurrentCommand("");
+                /                /
             }
             ).FireAndForget();
         }
@@ -218,19 +222,10 @@ namespace VisualThreading.ToolWindows
                 state.Push(state.Count == 0 ? "MainMenuItems" : currentState);
                 currentState = subMenu;
 
-                PreviewWindow.Instance.SetCurrentCommand("if");
+                PreviewWindow.Instance.SetCurrentCommand(subMenu.ToLower());
             }
             ).FireAndForget();
         }
-
-        //public void register()
-        //{
-        //    PreviewWindowControl.ClickCompleted += PreviewWindowControl_ClickCompleted; // register with an event
-        //    PreviewWindowControl.notify();
-
-        //    BuildingWindowControl.ClickCompleted += BuildingWindowControl_ClickCompleted; // register with an event
-        //    BuildingWindowControl.notify();
-        //}
 
         private void RadialDialControl_Back(object sender, RoutedEventArgs e) // handles the subfolder element like loop
         {
@@ -241,7 +236,7 @@ namespace VisualThreading.ToolWindows
                 temp = state.Count == 0 ? "MainMenuItems" : state.Pop().ToString();
 
                 MainMenu.Items = _menuCollection[temp];
-            }
+            }                
             ).FireAndForget();
         }
 

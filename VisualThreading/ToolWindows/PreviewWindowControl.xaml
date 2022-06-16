@@ -20,7 +20,6 @@
         <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" />
 
         <StackPanel Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
-                    Orientation="Vertical" Name="Preview" Grid.Row="1" Grid.Column="0"
-                    />
+                    Orientation="Vertical" Name="Preview" Grid.Row="1" Grid.Column="0" />
     </Grid>
 </UserControl>

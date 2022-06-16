@@ -11,6 +11,7 @@ namespace VisualThreading.ToolWindows
     public class PreviewWindow : BaseToolWindow<PreviewWindow>
     {
         public static PreviewWindowControl Instance;
+
         public override string GetTitle(int toolWindowId) => "Preview Command";
 
         public override Type PaneType => typeof(Pane);
@@ -38,7 +39,5 @@ namespace VisualThreading.ToolWindows
                 BitmapImageMoniker = KnownMonikers.ToolWindow;
             }
         }
-
-    
     }
 }
