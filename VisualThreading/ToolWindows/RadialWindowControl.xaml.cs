@@ -83,6 +83,9 @@ namespace VisualThreading.ToolWindows
 
             // -----------------------------Test sub menu-------------------------------------------------------------------
             codeSubMenu[0].Click += (sender, e) => RadialDialControl_Click(sender, e, "CodeSubMenu");
+            codeSubMenu[0].MouseEnter += (sender, e) => RadialDialElement_Hover(sender, e, "CodeSubMenu"); 
+            codeSubMenu[0].MouseLeave += (sender, e) => RadialDialElement_ExitHover(sender, e);
+            
             var IOSubMenu = new List<RadialMenuItem>
             {
                 new(){ Content = new TextBlock { Text = "Print" } },
