@@ -11,6 +11,19 @@ namespace VisualThreading.ToolWindows
         private object DraggedItem { get; set; }
         private Point ItemRelativePosition { get; set; }
 
+        public void notify()
+        {
+            Console.WriteLine("Process Started!");  
+
+            OnClickCompleted();
+        }
+
+        protected virtual void OnClickCompleted() //protected virtual method
+        {
+            //if ProcessCompleted is not null then call delegate
+            ClickCompleted?.Invoke(); 
+        }
+
         public BuildingWindowControl()
         {
             InitializeComponent();

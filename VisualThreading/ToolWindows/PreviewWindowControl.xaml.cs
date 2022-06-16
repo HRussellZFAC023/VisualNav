@@ -12,6 +12,19 @@ namespace VisualThreading.ToolWindows
         private string _currentCommand;
         private string _currentLanguage; // file extension for language
 
+        public void notify()
+        {
+            Console.WriteLine("Click Started!");  
+
+            OnClickCompleted();
+        }
+
+        protected virtual void OnClickCompleted() //protected virtual method
+        {
+            //if ClickCompleted is not null then call delegate
+            ClickCompleted?.Invoke(); 
+        }
+
         public PreviewWindowControl(Schema.Schema commands, string language)
         {
             _commands = commands;
@@ -21,6 +34,9 @@ namespace VisualThreading.ToolWindows
 
             SetCurrentCommand("if");
             VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection event
+
+            RadialWindowControl rwc = RadialWindow.getRwc(); // error here.
+            rwc.register();
         }
 
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)

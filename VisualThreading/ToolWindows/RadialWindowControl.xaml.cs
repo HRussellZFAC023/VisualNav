@@ -221,8 +221,19 @@ namespace VisualThreading.ToolWindows
 
                 state.Push(state.Count == 0 ? "MainMenuItems" : currentState);
                 currentState = subMenu;
+
+                // register();
             }
             ).FireAndForget();
+        }
+
+        public void register()
+        {
+            PreviewWindowControl.ClickCompleted += PreviewWindowControl_ClickCompleted; // register with an event
+            PreviewWindowControl.notify();
+
+            BuildingWindowControl.ClickCompleted += BuildingWindowControl_ClickCompleted; // register with an event
+            BuildingWindowControl.notify();
         }
 
         private void RadialDialControl_Back(object sender, RoutedEventArgs e) // handles the subfolder element like loop
@@ -236,6 +247,12 @@ namespace VisualThreading.ToolWindows
                 MainMenu.Items = _menuCollection[temp];
             }
             ).FireAndForget();
+        }
+
+        // event handler
+        public static void bl_ProcessCompleted()
+        {
+            Console.WriteLine("Process Completed!");
         }
     }
 }
