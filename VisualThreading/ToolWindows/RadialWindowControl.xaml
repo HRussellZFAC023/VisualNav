@@ -1,6 +1,6 @@
 ﻿<UserControl
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="VisualThreading.ToolWindows.RadialDialControl"
+    x:Class="VisualThreading.ToolWindows.RadialWindowControl"
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     toolkit:Themes.UseVsTheme="True"
     xmlns:radialMenu="clr-namespace:RadialMenu.Controls;assembly=RadialMenu"
@@ -21,7 +21,7 @@
         <radialMenu:RadialMenu IsOpen="true" Name="MainMenu">
             <radialMenu:RadialMenu.CentralItem>
                 <radialMenu:RadialMenuCentralItem>
-                    <StackPanel Background="White" VerticalAlignment="Center"
+                    <StackPanel VerticalAlignment="Center"
                                 theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
                         <imaging:CrispImage Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.Backwards}" />
                     </StackPanel>

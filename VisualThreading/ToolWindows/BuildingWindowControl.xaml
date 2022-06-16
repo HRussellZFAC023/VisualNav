@@ -53,6 +53,7 @@
                 MouseMove="If_MouseMove">
                 <Run
                     x:Name="Iflabel"
+                    Background="Aqua"
                     Text="if ( conditions ) { &#xD;&#xA;    statements&#xD;&#xA;} " 
                 />
             </TextBlock>
