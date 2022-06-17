@@ -14,8 +14,7 @@ namespace VisualThreading.ToolWindows
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            var rwc = new RadialWindowControl();
-            return Task.FromResult<FrameworkElement>(rwc);
+            return Task.FromResult<FrameworkElement>(new RadialWindowControl());
         }
 
         [Guid("0ea6b182-db3a-4f77-abf4-492c7b31036b")]
