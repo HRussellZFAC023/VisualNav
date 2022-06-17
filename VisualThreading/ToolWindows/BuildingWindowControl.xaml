@@ -5,7 +5,7 @@
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
     toolkit:Themes.UseVsTheme="True">
-    
+
     <Grid ShowGridLines="True"
           MinHeight="287"
           MinWidth="386"
@@ -54,8 +54,7 @@
                 <Run
                     x:Name="Iflabel"
                     Background="Aqua"
-                    Text="if ( conditions ) { &#xD;&#xA;    statements&#xD;&#xA;} " 
-                />
+                    Text="if ( conditions ) { &#xD;&#xA;    statements&#xD;&#xA;} " />
             </TextBlock>
 
             <TextBlock
@@ -68,7 +67,6 @@
                     Text="if ( conditions ) { &#xD;&#xA;    statements &#xD;&#xA;} else { &#xD;&#xA;    statements &#xD;&#xA;} " />
             </TextBlock>
         </StackPanel>
-        
 
         <Canvas
             Grid.Column="1"
@@ -79,7 +77,7 @@
             Drop="Canvas_Drop"
             PreviewMouseLeftButtonUp="CanvasLabel_PreviewMouseLeftButtonUp"
             PreviewMouseMove="CanvasLabel_PreviewMouseMove"
-            ScrollViewer.HorizontalScrollBarVisibility="Visible" 
+            ScrollViewer.HorizontalScrollBarVisibility="Visible"
             Margin="0,0,0,0" />
 
         <Button Grid.Column="2" Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">

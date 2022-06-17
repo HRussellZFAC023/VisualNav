@@ -11,18 +11,18 @@
         },
         {
           "text": "else",
-          "color": "FFFFFF00",
-          "preview": "else {\n   statements\n} "
+          "preview": "else {\n   statements\n} ",
+          "color": "#FFFFFF00"
         },
         {
           "text": "variable",
-          "color": "#FFFF0000",
-          "preview": "var variable = value;"
+          "preview": "var variable = value;",
+          "color": "#FFFF0000"
         },
         {
           "text": "operator",
-          "color": "##FF008000",
-          "preview": "operator = value;"
+          "preview": "operator = value;",
+          "color": "##FF008000"
         }
       ],
       "UI": [

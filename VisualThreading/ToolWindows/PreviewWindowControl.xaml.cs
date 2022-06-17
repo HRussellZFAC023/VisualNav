@@ -6,7 +6,7 @@ using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChange
 
 namespace VisualThreading.ToolWindows
 {
-    public partial class PreviewWindowControl
+    public partial class PreviewWindowControl : UserControl
     {
         private readonly Schema.Schema _commands;
         private string _currentCommand;

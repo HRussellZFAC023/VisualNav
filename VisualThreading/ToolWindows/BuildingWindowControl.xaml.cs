@@ -11,6 +11,19 @@ namespace VisualThreading.ToolWindows
         private object DraggedItem { get; set; }
         private Point ItemRelativePosition { get; set; }
 
+        //public void notify()
+        //{
+        //    Console.WriteLine("Process Started!");
+
+        //    OnClickCompleted();
+        //}
+
+        //protected virtual void OnClickCompleted() //protected virtual method
+        //{
+        //    //if ProcessCompleted is not null then call delegate
+        //    ClickCompleted?.Invoke();
+        //}
+
         public BuildingWindowControl()
         {
             InitializeComponent();
@@ -117,7 +130,6 @@ namespace VisualThreading.ToolWindows
                     Margin = new Thickness(0, 0, 0, 0)
                 };
                 tb.MouseLeftButtonDown += Label_MouseLeftButtonDown;
-
 
                 addDraggedItem(tb, dragText, dragBackground, dragType);
 
@@ -242,8 +254,6 @@ namespace VisualThreading.ToolWindows
 
         private void addDraggedItem(TextBlock tb, object dragText, object dragBackground, string dragType)
         {
-
-            
             tb.Inlines.Add(
                 new Run()
                 {
