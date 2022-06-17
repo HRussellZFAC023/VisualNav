@@ -1,9 +1,9 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using VisualThreading.ToolWindows.SharedComponents;
+using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 
 namespace VisualThreading.ToolWindows
 {
@@ -20,190 +20,24 @@ namespace VisualThreading.ToolWindows
             _currentLanguage = fileExt;
             InitializeComponent();
             DraggedItem = null;
+            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection event
         }
 
-        private void Variable_MouseMove(object sender, MouseEventArgs e)
+        private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is not TextBlock || e.LeftButton != MouseButtonState.Pressed) return;
-            var data = new DataObject();
-            data.SetData("type", "variable");
-            data.SetData("text", Variable.Text);
-            data.SetData("background", Variable.Background);
-
-            DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
-        }
-
-        private void Operator_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (sender is not TextBlock || e.LeftButton != MouseButtonState.Pressed) return;
-            var data = new DataObject();
-            data.SetData("type", "operator");
-            data.SetData("text", Operator.Text);
-            data.SetData("background", Operator.Background);
-
-            DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
-        }
-
-        private void If_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (sender is not TextBlock label || e.LeftButton != MouseButtonState.Pressed) return;
-            var data = new DataObject();
-            data.SetData("type", "if");
-            data.SetData("text", Iflabel.Text);
-            data.SetData("background", Iflabel.Background);
-
-            DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
-        }
-
-        private void IfElse_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (sender is not TextBlock || e.LeftButton != MouseButtonState.Pressed) return;
-            var data = new DataObject();
-            data.SetData("type", "ifelse");
-            data.SetData("text", Ifelselabel.Text);
-            data.SetData("background", Ifelselabel.Background);
-
-            DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
+            var fileExt = "";
+            if (e.To != null)
+            {
+                var buffer = e.To.Name;
+                fileExt =
+                    Path.GetExtension(buffer);
+            }
+            _currentLanguage = fileExt;
         }
 
         protected override void OnDragOver(DragEventArgs e)
         {
             base.OnDragOver(e);
-            e.Handled = true;
-        }
-
-        private void Canvas_Drop(object sender, DragEventArgs e)
-        {
-            var dragText = e.Data.GetData("text");
-            var dragBackground = e.Data.GetData("background");
-            var dragType = (string)e.Data.GetData("type");
-            var dropPoint = e.GetPosition(canvasLabels);
-
-            if (dragText != null && dragBackground != null)
-            {
-                var tb = new TextBlock
-                {
-                    TextWrapping = TextWrapping.Wrap,
-                    Margin = new Thickness(0, 0, 0, 0)
-                };
-                tb.MouseLeftButtonDown += Label_MouseLeftButtonDown;
-
-                switch (dragType)
-                {
-                    case "variable":
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Red,
-                                Text = "Variable",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 18
-                            });
-                        break;
-
-                    case "operator":
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Green,
-                                Text = "Operator",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 18
-                            });
-                        break;
-
-                    case "if":
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Aqua,
-                                Text = "if (                                   ) {\n\t\n} ",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 24
-                            });
-                        break;
-
-                    case "ifelse":
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Yellow,
-                                Text = "if ( ",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 24
-                            });
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Yellow,
-                                Text = "           ",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 24
-                            });
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Yellow,
-                                Text = "           ",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 24
-                            });
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Yellow,
-                                Text = "           ",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 24
-                            });
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Yellow,
-                                Text = " ) { \n",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 24
-                            });
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Yellow,
-                                Text = "\t\n",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 24
-                            });
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Yellow,
-                                Text = "} else { \n",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 24
-                            });
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Yellow,
-                                Text = "\t\n",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 24
-                            });
-                        tb.Inlines.Add(
-                            new Run()
-                            {
-                                Background = Brushes.Yellow,
-                                Text = "} ",
-                                FontWeight = FontWeights.Bold,
-                                FontSize = 24
-                            });
-                        break;
-                }
-
-                ((Canvas)sender).Children.Add(tb);
-                Canvas.SetLeft(tb, dropPoint.X);
-                Canvas.SetTop(tb, dropPoint.Y);
-            }
-
             e.Handled = true;
         }
 
@@ -243,6 +77,9 @@ namespace VisualThreading.ToolWindows
                 {
                     if (!command.Text.Equals(c)) { continue; }
                     var tb = CodeBlockFactory.CodeBlock(command);
+                    tb.MouseLeftButtonDown += Label_MouseLeftButtonDown;
+                    Canvas.SetLeft(tb, 0);
+                    Canvas.SetTop(tb, 0);
                     canvasLabels.Children.Add(tb);
                 }
             }

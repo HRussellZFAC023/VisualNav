@@ -6,82 +6,27 @@
     xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
     toolkit:Themes.UseVsTheme="True">
 
-    <Grid ShowGridLines="True"
-          MinHeight="287"
-          MinWidth="386"
-          Margin="0,0,0,0"
-          VerticalAlignment="Stretch"
-          HorizontalAlignment="Stretch">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="15*" />
-            <RowDefinition Height="2*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="8*" />
-            <ColumnDefinition Width="10*" />
-            <ColumnDefinition Width="6*" />
-        </Grid.ColumnDefinitions>
-
-        <StackPanel
-            x:Name="history_list"
-            Grid.Row="0"
-            Grid.Column="0">
-
-            <TextBlock
-                x:Name="VariableLabel"
-                HorizontalAlignment="Left"
-                MouseMove="Variable_MouseMove">
-                <Run
-                    x:Name="Variable"
-                    Background="red"
-                    Text="Variable" />
-            </TextBlock>
-
-            <TextBlock
-                x:Name="OperatorLabel"
-                HorizontalAlignment="Left"
-                MouseMove="Operator_MouseMove">
-                <Run
-                    x:Name="Operator"
-                    Background="Green"
-                    Text="Operator" />
-            </TextBlock>
-
-            <TextBlock
-                x:Name="IfLabelLabel"
-                HorizontalAlignment="Left"
-                MouseMove="If_MouseMove">
-                <Run
-                    x:Name="Iflabel"
-                    Background="Aqua"
-                    Text="if ( conditions ) { &#xD;&#xA;    statements&#xD;&#xA;} " />
-            </TextBlock>
-
-            <TextBlock
-                x:Name="IfelseLabelLabel"
-                HorizontalAlignment="Left"
-                MouseMove="IfElse_MouseMove">
-                <Run
-                    x:Name="Ifelselabel"
-                    Background="yellow"
-                    Text="if ( conditions ) { &#xD;&#xA;    statements &#xD;&#xA;} else { &#xD;&#xA;    statements &#xD;&#xA;} " />
-            </TextBlock>
-        </StackPanel>
+    <Grid
+        VerticalAlignment="Stretch"
+        HorizontalAlignment="Stretch"
+        MinWidth="200"
+        MinHeight="200"
+        Margin="0,0,0,0">
 
         <Canvas
-            Grid.Column="1"
-            Grid.Row="0"
             x:Name="canvasLabels"
             AllowDrop="True"
             Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
-            Drop="Canvas_Drop"
             PreviewMouseLeftButtonUp="CanvasLabel_PreviewMouseLeftButtonUp"
             PreviewMouseMove="CanvasLabel_PreviewMouseMove"
             ScrollViewer.HorizontalScrollBarVisibility="Visible"
             Margin="0,0,0,0" />
 
-        <Button Grid.Column="2" Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
-            <Label Background="#00000000" FontWeight="Normal" FontStyle="Normal">Insert To Code</Label>
-        </Button>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+                <Label Background="#00000000" FontWeight="Normal" FontStyle="Normal">Insert To Code</Label>
+            </Button>
+            <!-- Put more buttons here ! -->
+        </StackPanel>
     </Grid>
 </UserControl>

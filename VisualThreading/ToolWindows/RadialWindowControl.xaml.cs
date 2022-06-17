@@ -203,6 +203,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
+                BuildingWindow.Instance.SetCurrentCommand(element.ToLower());
                 // extract element to working area
                 MainMenu.Items = _menuCollection[element];
             }
@@ -233,11 +234,8 @@ namespace VisualThreading.ToolWindows
             {
                 await Task.Delay(20);
                 MainMenu.Items = _menuCollection[subMenu];
-
                 _state.Push(_state.Count == 0 ? "MainMenuItems" : _currentState);
                 _currentState = subMenu;
-
-                BuildingWindow.Instance.SetCurrentCommand(subMenu.ToLower());
             }
             ).FireAndForget();
         }

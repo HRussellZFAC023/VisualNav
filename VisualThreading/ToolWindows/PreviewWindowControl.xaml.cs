@@ -71,7 +71,7 @@ namespace VisualThreading.ToolWindows
                 {
                     if (!command.Text.Equals(_currentCommand)) { continue; }
                     Widgets.Children.Add(new Label { Content = command.Text });
-                    TextBlock tb = CodeBlockFactory.CodeBlock(command); // preview
+                    var tb = CodeBlockFactory.CodeBlock(command); // preview
                     tb.Margin = new Thickness(5);
                     Preview.Children.Add(tb);
                 }
