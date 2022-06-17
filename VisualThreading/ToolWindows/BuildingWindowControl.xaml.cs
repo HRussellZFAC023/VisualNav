@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using VisualThreading.ToolWindows.SharedComponents;
 
 namespace VisualThreading.ToolWindows
 {
@@ -10,22 +11,13 @@ namespace VisualThreading.ToolWindows
     {
         private object DraggedItem { get; set; }
         private Point ItemRelativePosition { get; set; }
+        private readonly Schema.Schema _commands;
+        private string _currentLanguage; // file extension for language
 
-        //public void notify()
-        //{
-        //    Console.WriteLine("Process Started!");
-
-        //    OnClickCompleted();
-        //}
-
-        //protected virtual void OnClickCompleted() //protected virtual method
-        //{
-        //    //if ProcessCompleted is not null then call delegate
-        //    ClickCompleted?.Invoke();
-        //}
-
-        public BuildingWindowControl()
+        public BuildingWindowControl(Schema.Schema commands, string fileExt)
         {
+            _commands = commands;
+            _currentLanguage = fileExt;
             InitializeComponent();
             DraggedItem = null;
         }
@@ -85,53 +77,16 @@ namespace VisualThreading.ToolWindows
             var dragText = e.Data.GetData("text");
             var dragBackground = e.Data.GetData("background");
             var dragType = (string)e.Data.GetData("type");
-
             var dropPoint = e.GetPosition(canvasLabels);
 
             if (dragText != null && dragBackground != null)
             {
-                /*Label copy = new Label();
-                if (dragType == "variable")
-                {
-                    copy = XamlReader.Parse(XamlWriter.Save(VariableLabel)) as Label;
-                    copy.FontSize = 18;
-                }
-                else if (dragType == "operator")
-                {
-                    copy = XamlReader.Parse(XamlWriter.Save(OperatorLabel)) as Label;
-                    copy.FontSize = 18;
-                }
-                else if (dragType == "if")
-                {
-                    copy = XamlReader.Parse(XamlWriter.Save(IfLabelLabel)) as Label;
-                    copy.FontSize = 24;
-                }
-                else if (dragType == "ifelse")
-                {
-                    copy = XamlReader.Parse(XamlWriter.Save(IfelseLabelLabel)) as Label;
-                    copy.FontSize = 24;
-                }
-
-                Debug.Assert(copy != null, nameof(copy) + " != null");
-
-                copy.Margin = new Thickness(0, 0, 0, 0);
-                copy.Height = Double.NaN;
-                copy.Width = Double.NaN;
-                copy.FontWeight = FontWeights.Bold;
-                copy.MouseLeftButtonDown += Label_MouseLeftButtonDown;
-
-                ((Canvas)sender).Children.Add(copy);
-                Canvas.SetLeft(copy, dropPoint.X);
-                Canvas.SetTop(copy, dropPoint.Y);*/
-
                 var tb = new TextBlock
                 {
                     TextWrapping = TextWrapping.Wrap,
                     Margin = new Thickness(0, 0, 0, 0)
                 };
                 tb.MouseLeftButtonDown += Label_MouseLeftButtonDown;
-
-                addDraggedItem(tb, dragText, dragBackground, dragType);
 
                 switch (dragType)
                 {
@@ -252,19 +207,6 @@ namespace VisualThreading.ToolWindows
             e.Handled = true;
         }
 
-        private void addDraggedItem(TextBlock tb, object dragText, object dragBackground, string dragType)
-        {
-            tb.Inlines.Add(
-                new Run()
-                {
-                    Background = (Brush)dragBackground,
-                    Text = (string)dragText,
-                    FontWeight = FontWeights.Bold,
-                    FontSize = 18
-                });
-            throw new NotImplementedException();
-        }
-
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DraggedItem = (UIElement)sender;
@@ -289,6 +231,21 @@ namespace VisualThreading.ToolWindows
             DraggedItem = null;
             canvasLabels.ReleaseMouseCapture();
             e.Handled = true;
+        }
+
+        public void SetCurrentCommand(string c)
+        {
+            foreach (var language in _commands.RadialMenu)
+            {
+                if (!language.FileExt.Equals(_currentLanguage)) { continue; }
+
+                foreach (var command in language.Commands)
+                {
+                    if (!command.Text.Equals(c)) { continue; }
+                    var tb = CodeBlockFactory.CodeBlock(command);
+                    canvasLabels.Children.Add(tb);
+                }
+            }
         }
     }
 }
