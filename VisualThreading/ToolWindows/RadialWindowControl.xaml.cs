@@ -81,11 +81,6 @@ namespace VisualThreading.ToolWindows
             testSubMenu[0].MouseLeave += (_, _) => RadialDialElement_ExitHover(); // handles the mouse left hover action(when mouse leaves a button), clear the preview area
             // -------------------------------------------------------------------------------------------------------------
 
-            // -----------------------------Test sub menu-------------------------------------------------------------------
-            // codeSubMenu[0].Click += (_, _) => RadialDialControl_Click("CodeSubMenu");
-            // codeSubMenu[0].MouseEnter += (_, _) => RadialDialElement_Hover("CodeSubMenu");
-            // codeSubMenu[0].MouseLeave += (_, _) => RadialDialElement_ExitHover();
-
             var ioSubMenu = new List<RadialMenuItem>
             {
                 new(){ Content = new TextBlock { Text = "Print" } },
@@ -203,7 +198,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                BuildingWindow.Instance.SetCurrentCommand(element.ToLower());
+                //BuildingWindow.Instance.SetCurrentCommand(element.ToLower());
                 // extract element to working area
                 MainMenu.Items = _menuCollection[element];
             }
@@ -216,7 +211,7 @@ namespace VisualThreading.ToolWindows
             {
                 await Task.Delay(20);
                 // take the name of the element and pull preview from json.
-                PreviewWindow.Instance.SetCurrentCommand(previewName.ToLower());
+                //PreviewWindow.Instance.SetCurrentCommand(previewName.ToLower());
                 //BuildingWindow.Instance.SetCurrentCommand(PreviewName.ToLower());
             }
             ).FireAndForget();
@@ -225,7 +220,7 @@ namespace VisualThreading.ToolWindows
         private void RadialDialElement_ExitHover()  // handles the eventuall element like a veriable
         {
             // clear preview area
-            PreviewWindow.Instance.SetCurrentCommand("");
+            //PreviewWindow.Instance.SetCurrentCommand("");
         }
 
         private void RadialDialControl_Click(string subMenu) // handles the subfolder element like loop
@@ -246,7 +241,7 @@ namespace VisualThreading.ToolWindows
             {
                 await Task.Delay(20);
                 var temp = _state.Count == 0 ? "MainMenuItems" : _state.Pop().ToString();
-
+                _currentState = temp;
                 MainMenu.Items = _menuCollection[temp];
             }
             ).FireAndForget();
