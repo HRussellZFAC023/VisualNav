@@ -203,7 +203,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                BuildingWindow.Instance.SetCurrentCommand(element.ToLower());
+                /*BuildingWindow.Instance.SetCurrentCommand(element.ToLower());*/
                 // extract element to working area
                 MainMenu.Items = _menuCollection[element];
             }

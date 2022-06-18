@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
 using VisualThreading.ToolWindows.SharedComponents;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 
@@ -77,5 +79,28 @@ namespace VisualThreading.ToolWindows
                 }
             }
         }
+
+        private void Label_MouseMove_From_List(object sender, MouseEventArgs e)
+        {
+            Label label = sender as Label;
+
+            if (label != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+                var type = label.Name;
+                var runObject = (Run)label.Content;
+                var bgColor = runObject.Background;
+                var text = runObject.Text;
+                DataObject data = new DataObject();
+                data.SetData("type", type);
+                data.SetData("background", bgColor);
+                data.SetData("text", text);
+                data.SetData("draggedItem", (UIElement)sender);
+                data.SetData("itemRelativePosition", e.GetPosition((UIElement)sender));
+
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
+
+            }
+        }
+
     }
 }

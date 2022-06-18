@@ -12,14 +12,75 @@
           HorizontalAlignment="Stretch"
           MinWidth="200"
           MinHeight="300">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="47*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="53*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" />
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="Beige">
+            <Grid>
+                <Label
+                    x:Name="VariableLabel"
+                    Width="99"
+                    Margin="0,0,0,453"
+                    HorizontalAlignment="Center"
+                    MouseMove="Label_MouseMove_From_List">
+                    <Run
+                        Background="red"
+                        Text="Variable1" /> 
+                </Label>
+
+
+                <Label
+                    x:Name="OperatorLabel"
+                    Width="99"
+                    Margin="0,28,0,426"
+                    HorizontalAlignment="Center"
+                    MouseMove="Label_MouseMove_From_List">
+                    <Run
+                        Background="Green"
+                        Text="Operater1" />
+                </Label>
+
+                <Label
+                    x:Name="IfStatementLabel"
+                    Width="99"
+                    Margin="0,60,0,365"
+                    HorizontalAlignment="Center"
+                    MouseMove="Label_MouseMove_From_List">
+                    <Run
+                        Background="Aqua"
+                        Text="if ( conditions ) { &#xD;&#xA;    statements&#xD;&#xA;} " />
+                </Label>
+
+
+                <Label
+                    x:Name="IfelseStatementLabel"
+                    Width="99"
+                    Margin="0,116,0,276"
+                    HorizontalAlignment="Center"
+                    MouseMove="Label_MouseMove_From_List">
+                    <Run
+                        Background="yellow"
+                        Text="if ( conditions ) { &#xD;&#xA;    statements &#xD;&#xA;} else { &#xD;&#xA;    statements &#xD;&#xA;} " 
+                        />
+
+                </Label>
+
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Name="Widgets" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="0,240,0,0" />
 
         <StackPanel Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
-                    Orientation="Vertical" Name="Preview" Grid.Row="1" Grid.Column="0" />
+                    Orientation="Vertical" Name="Preview" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" />
+
+
     </Grid>
 </UserControl>

@@ -5,15 +5,22 @@ using System.Windows.Input;
 using VisualThreading.ToolWindows.SharedComponents;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 using System.Collections.Generic;
+using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace VisualThreading.ToolWindows
 {
-    public partial class BuildingWindowControl
+    public partial class BuildingWindowControl : UserControl
     {
 
         public object draggedItem { get; set; }
         public object draggedItemType { get; set; }
         internal CodeValue codevalue { get; set; }
+
+        private readonly Schema.Schema _commands;
+        private string _currentLanguage; // file extension for language
+
+        private object DraggedItem { get; set; }
 
         private int id;
 
@@ -31,8 +38,20 @@ namespace VisualThreading.ToolWindows
             this.id = 0;
         }
 
+        private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var fileExt = "";
+            if (e.To != null)
+            {
+                var buffer = e.To.Name;
+                fileExt =
+                    Path.GetExtension(buffer);
+            }
+            _currentLanguage = fileExt;
+        }
 
-        private void Label_MouseMove_From_List(object sender, MouseEventArgs e)
+
+        /*private void Label_MouseMove_From_List(object sender, MouseEventArgs e)
         {
             Label label = sender as Label;
 
@@ -53,8 +72,7 @@ namespace VisualThreading.ToolWindows
                 DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
 
             }
-            _currentLanguage = fileExt;
-        }
+        }*/
 
         protected override void OnDragOver(DragEventArgs e)
         {
@@ -71,6 +89,11 @@ namespace VisualThreading.ToolWindows
             String dragType = (String)e.Data.GetData("type");
             var dragBackground = e.Data.GetData("background");
             String text = (String)e.Data.GetData("text");
+            object draggedItem = e.Data.GetData("draggedItem");
+            object itemRelativePosition = e.Data.GetData("itemRelativePosition");
+
+            this.draggedItem = (UIElement)draggedItem;
+            this.itemRelativePosition = (Point)itemRelativePosition;
 
             if (dragType != null && dragBackground != null)
             {
