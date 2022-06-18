@@ -3,59 +3,274 @@
     {
       "fileExt": ".cs",
       "text": "c#",
-      "commands": [
+      "Thread": [
         {
-          "text": "if",
-          "preview": "if ( conditions ) {\n   statements\n}",
+          "text": "New thread",
+          "preview": "",
           "color": "#FF00FFFF"
-        },
+        }
+      ],
+      "Test": [
         {
-          "text": "else",
-          "preview": "else {\n   statements\n} ",
-          "color": "#FFFFFF00"
-        },
+          "text": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF"
+        }
+      ],
+      "Code": [
         {
-          "text": "variable",
-          "preview": "var variable = value;",
-          "color": "#FFFF0000"
-        },
-        {
-          "text": "operator",
-          "preview": "operator = value;",
-          "color": "##FF008000"
+          "I/O": [
+            {
+              "text": "Write",
+              "preview": "Console.Write(\"Content Here\");",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "WriteLine",
+              "preview": "Console.WriteLine(\"Content Here\");",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "ReadKey",
+              "preview": "Console.ReadKey();",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "ReadInputLine",
+              "preview": "",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "OpenText",
+              "preview": "File.OpenText(path);",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "WritetoFiles",
+              "preview": "File.WriteAllText(path, createText)",
+              "color": "#FF00FFFF"
+            }
+          ],
+          "Method/Keyword": [
+            {
+              "text": "Static",
+              "preview": "static",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Public",
+              "preview": "public",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Private",
+              "preview": "private",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Protected",
+              "preview": "protected",
+              "color": "#FefeFFF"
+            },
+            {
+              "text": "Internal",
+              "preview": "internal",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Return",
+              "preview": "return;",
+              "color": "#FF00FFFF"
+            }
+          ],
+          "Condition": [
+            {
+              "text": "if",
+              "preview": "if ( conditions ) {\n   statements;\n}",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "else",
+              "preview": "else {\n   statements;\n} ",
+              "color": "#FFFFFF00"
+            },
+            {
+              "text": "else if",
+              "preview": "else if ( conditions ) {\n  statements;\n}",
+              "color": "#FFFF0000"
+            },
+            {
+              "text": "switch",
+              "preview": "switch ( conditions ) {\n  statements;\n}",
+              "color": "##FF008000"
+            },
+            {
+              "text": "case",
+              "preview": "case :",
+              "color": "##FF008000"
+            }
+          ],
+          "Loop": [
+            {
+              "text": "while",
+              "preview": "while ( conditions ){\n  statements;\n  i++;\n}",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "break",
+              "preview": "break;",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "for",
+              "preview": "for ( statement 1; statement 2; statement 3 ){\n  statements;\n}",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "continue",
+              "preview": "continue;",
+              "color": "#FF00FFFF"
+            }
+          ],
+          "Variables": [
+            {
+              "text": "Void",
+              "preview": "void",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Integer",
+              "preview": "Int",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Double",
+              "preview": "Double",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Character",
+              "preview": "Char",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Boolean",
+              "preview": "Bool",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "String",
+              "preview": "String",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Array",
+              "preview": "[]",
+              "color": "#FF00FFFF"
+            }
+          ],
+          "Operator": [
+            {
+              "text": "Equal",
+              "preview": "=",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Plus",
+              "preview": "+",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Minus",
+              "preview": "-",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Multiply",
+              "preview": "*",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Divide",
+              "preview": "/",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Mod",
+              "preview": "%",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "And",
+              "preview": "&",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "Or",
+              "preview": "|",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "()",
+              "preview": "()",
+              "color": "#FF00FFFF"
+            }
+          ],
+          "Comparetor": [
+            {
+              "text": "&&",
+              "preview": "&&",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "||",
+              "preview": "||",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "==",
+              "preview": "==",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": ">",
+              "preview": ">",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "<",
+              "preview": "<",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": ">=",
+              "preview": ">=",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "<=",
+              "preview": "<=",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "!=",
+              "preview": "!=",
+              "color": "#FF00FFFF"
+            },
+            {
+              "text": "()",
+              "preview": "()",
+              "color": "#FF00FFFF"
+            }
+          ]
         }
       ],
       "UI": [
-
-      ],
-      "Symbols": [
-
-      ]
-    },
-    {
-      "fileExt": "",
-      "text": "No file is loaded",
-      "commands": [
-
-      ],
-      "UI": [
-
-      ],
-      "Symbols": [
-
-      ]
-    },
-    {
-      "fileExt": ".xaml",
-      "text": "XAML",
-      "commands": [
-
-      ],
-      "UI": [
-
-      ],
-      "Symbols": [
-
+        {
+          "text": "New Window",
+          "preview": "",
+          "color": "#FF00FFFF"
+        }
       ]
     }
   ]
