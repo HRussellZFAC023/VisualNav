@@ -82,9 +82,9 @@ namespace VisualThreading.ToolWindows
             // -------------------------------------------------------------------------------------------------------------
 
             // -----------------------------Test sub menu-------------------------------------------------------------------
-            codeSubMenu[0].Click += (_, _) => RadialDialControl_Click("CodeSubMenu");
-            codeSubMenu[0].MouseEnter += (_, _) => RadialDialElement_Hover("CodeSubMenu");
-            codeSubMenu[0].MouseLeave += (_, _) => RadialDialElement_ExitHover();
+            // codeSubMenu[0].Click += (_, _) => RadialDialControl_Click("CodeSubMenu");
+            // codeSubMenu[0].MouseEnter += (_, _) => RadialDialElement_Hover("CodeSubMenu");
+            // codeSubMenu[0].MouseLeave += (_, _) => RadialDialElement_ExitHover();
 
             var ioSubMenu = new List<RadialMenuItem>
             {
