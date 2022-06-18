@@ -1,20 +1,14 @@
-﻿
-using System.Threading;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using VisualThreading.ToolWindows.SharedComponents;
+using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 using System.Collections.Generic;
 
-
-namespace VisualThreading
+namespace VisualThreading.ToolWindows
 {
-    public partial class BuildingWindowControl : UserControl
+    public partial class BuildingWindowControl
     {
 
         public object draggedItem { get; set; }
@@ -25,10 +19,13 @@ namespace VisualThreading
 
         public System.Windows.Point itemRelativePosition { get;  set; }
 
-        public BuildingWindowControl()
+        public BuildingWindowControl(Schema.Schema commands, string fileExt)
         {
+            _commands = commands;
+            _currentLanguage = fileExt;
             InitializeComponent();
-            this.draggedItem = null;
+            DraggedItem = null;
+            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection event
             this.draggedItemType = null;
             this.codevalue = new CodeValue();
             this.id = 0;
@@ -56,6 +53,7 @@ namespace VisualThreading
                 DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
 
             }
+            _currentLanguage = fileExt;
         }
 
         protected override void OnDragOver(DragEventArgs e)
@@ -1289,7 +1287,6 @@ namespace VisualThreading
             Canvas.SetLeft((UIElement)this.draggedItem, newPos.X);
 
             canvasLabels.CaptureMouse();
-
             e.Handled = true;
         }
 

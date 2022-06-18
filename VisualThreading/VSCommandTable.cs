@@ -5,8 +5,6 @@
 // ------------------------------------------------------------------------------
 namespace VisualThreading
 {
-    using System;
-    
     /// <summary>
     /// Helper class that exposes all GUIDs used across VS Package.
     /// </summary>
@@ -21,8 +19,8 @@ namespace VisualThreading
     internal sealed partial class PackageIds
     {
         public const int MyMenuGroup = 0x0001;
-        public const int MyCommand = 0x0100;
-        public const int OpenVisualThreading = 0x0200;
-        public const int OpenBuildingWindow = 0x0300;
+        public const int OpenRadialMenu = 0x0100;
+        public const int OpenCommandPreview = 0x0101;
+        public const int OpenBuildingWindow = 0x0102;
     }
 }

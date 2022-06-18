@@ -1,0 +1,62 @@
+{
+  "RadialMenu": [
+    {
+      "fileExt": ".cs",
+      "text": "c#",
+      "commands": [
+        {
+          "text": "if",
+          "preview": "if ( conditions ) {\n   statements\n}",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "else",
+          "preview": "else {\n   statements\n} ",
+          "color": "#FFFFFF00"
+        },
+        {
+          "text": "variable",
+          "preview": "var variable = value;",
+          "color": "#FFFF0000"
+        },
+        {
+          "text": "operator",
+          "preview": "operator = value;",
+          "color": "##FF008000"
+        }
+      ],
+      "UI": [
+
+      ],
+      "Symbols": [
+
+      ]
+    },
+    {
+      "fileExt": "",
+      "text": "No file is loaded",
+      "commands": [
+
+      ],
+      "UI": [
+
+      ],
+      "Symbols": [
+
+      ]
+    },
+    {
+      "fileExt": ".xaml",
+      "text": "XAML",
+      "commands": [
+
+      ],
+      "UI": [
+
+      ],
+      "Symbols": [
+
+      ]
+    }
+  ]
+}

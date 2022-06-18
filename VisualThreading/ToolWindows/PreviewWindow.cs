@@ -1,21 +1,20 @@
-﻿using System.IO;
-using Microsoft.VisualStudio.Imaging;
+﻿using Microsoft.VisualStudio.Imaging;
+using Microsoft.VisualStudio.Text;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.VisualStudio.Text;
-using VisualThreading.ToolWindows;
 
-namespace VisualThreading
+namespace VisualThreading.ToolWindows
 {
-    public class BuildingWindow : BaseToolWindow<BuildingWindow>
+    public class PreviewWindow : BaseToolWindow<PreviewWindow>
     {
-        public override string GetTitle(int toolWindowId) => "BuildingWindow";
+        public static PreviewWindowControl Instance;
+
+        public override string GetTitle(int toolWindowId) => "Preview Command";
 
         public override Type PaneType => typeof(Pane);
-
-        public static BuildingWindowControl Instance;
 
         public override async Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
@@ -25,13 +24,14 @@ namespace VisualThreading
             if (buffer?.TextBuffer != null)
             {
                 fileExt =
-                    Path.GetExtension(buffer.TextBuffer.GetFileName());
+                Path.GetExtension(buffer.TextBuffer.GetFileName());
             }
-            Instance = new BuildingWindowControl(commands, fileExt);
+
+            Instance = new PreviewWindowControl(commands, fileExt);
             return Instance;
         }
 
-        [Guid("6a0155f8-b16a-4fba-90bb-8c9fab68de1b")]
+        [Guid("8d4fca2b-a66b-485a-a01f-58a3b98aa35e")]
         internal class Pane : ToolWindowPane
         {
             public Pane()
