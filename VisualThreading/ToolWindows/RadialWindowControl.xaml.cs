@@ -246,7 +246,7 @@ namespace VisualThreading.ToolWindows
             {
                 await Task.Delay(20);
                 var temp = _state.Count == 0 ? "MainMenuItems" : _state.Pop().ToString();
-
+                _currentState = temp;
                 MainMenu.Items = _menuCollection[temp];
             }
             ).FireAndForget();
