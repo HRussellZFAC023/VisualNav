@@ -22,6 +22,13 @@ namespace VisualThreading.ToolWindows
 
         private object DraggedItem { get; set; }
 
+        Label preview_effect = new Label()
+        {
+            Width = Double.NaN,
+            Height = Double.NaN,
+            Opacity = 0.5
+        };
+
         private int id;
 
         public System.Windows.Point itemRelativePosition { get;  set; }
@@ -78,6 +85,37 @@ namespace VisualThreading.ToolWindows
         {
             base.OnDragOver(e);
             e.Handled = true;
+        }
+
+        private void canvasLabels_DragEnter(object sender, DragEventArgs e)
+        {
+            String dragType = (String)e.Data.GetData("type");
+            var dragBackground = e.Data.GetData("background");
+
+            if (dragType != null && dragBackground != null)
+            {
+                preview_effect.Content = e.Data.GetData("text");
+                preview_effect.Background = (Brush)e.Data.GetData("background");
+                Point dropPoint = e.GetPosition(this.canvasLabels);
+
+                if (canvasLabels.Children.Contains(preview_effect))
+                {
+                    preview_effect.Visibility = Visibility.Visible;
+                    Canvas.SetLeft(preview_effect, dropPoint.X);
+                    Canvas.SetTop(preview_effect, dropPoint.Y);
+                } else
+                {
+                    canvasLabels.Children.Remove(preview_effect);
+                    canvasLabels.Children.Add(preview_effect);
+                    Canvas.SetLeft(preview_effect, dropPoint.X);
+                    Canvas.SetTop(preview_effect, dropPoint.Y);
+                }
+
+                System.Diagnostics.Debug.WriteLine(dropPoint);
+            }
+
+            e.Handled = true;
+
         }
 
 
@@ -1206,7 +1244,8 @@ namespace VisualThreading.ToolWindows
                 }
 
             }
-
+            canvasLabels.Children.Remove(preview_effect);
+            this.draggedItem = null;
             e.Handled = true;
         }
 
@@ -1302,12 +1341,30 @@ namespace VisualThreading.ToolWindows
             /*System.Diagnostics.Debug.WriteLine("Canvas PreviewMouseMove");*/
 
             if (this.draggedItem == null)
+            {
                 return;
-            var newPos = e.GetPosition(canvasLabels) - this.itemRelativePosition;  // X Y => X' Y'
-            System.Diagnostics.Debug.WriteLine(newPos);
+            } else
+            {
+                var newPos = e.GetPosition(canvasLabels) - this.itemRelativePosition;  // X Y => X' Y'
+                System.Diagnostics.Debug.WriteLine(newPos);
 
-            Canvas.SetTop((UIElement)this.draggedItem, newPos.Y);
-            Canvas.SetLeft((UIElement)this.draggedItem, newPos.X);
+                int height_range = (int)(canvasLabels.ActualHeight / 5);
+                int width_range = (int)(canvasLabels.ActualWidth / 5);
+
+                if (newPos.Y < -50 || newPos.Y + height_range > canvasLabels.ActualHeight || newPos.X < -width_range || newPos.X + width_range > canvasLabels.ActualWidth)
+                {
+                    UIElement textBlock = this.draggedItem as UIElement;
+                    textBlock.Visibility = Visibility.Collapsed;
+
+                }
+                else
+                {
+                    UIElement textBlock = this.draggedItem as UIElement;
+                    textBlock.Visibility = Visibility.Visible;
+                    Canvas.SetTop((UIElement)this.draggedItem, newPos.Y);
+                    Canvas.SetLeft((UIElement)this.draggedItem, newPos.X);
+                }
+            }
 
             canvasLabels.CaptureMouse();
             e.Handled = true;
@@ -1321,6 +1378,13 @@ namespace VisualThreading.ToolWindows
 
             if (this.draggedItem != null)
             {
+
+                UIElement uiElement = this.draggedItem as UIElement;
+                if (uiElement.Visibility != Visibility.Visible)
+                {
+                    canvasLabels.Children.Remove(uiElement);
+                }
+
                 // 松开label拖动的一瞬间
                 System.Diagnostics.Debug.WriteLine(this.draggedItem.GetType());
 
@@ -1349,11 +1413,17 @@ namespace VisualThreading.ToolWindows
                 this.draggedItem = null;
                 canvasLabels.ReleaseMouseCapture();
 
-                e.Handled = true;
             }
+            canvasLabels.Children.Remove(preview_effect);
+            e.Handled = true;
+
         }
 
-
+        private void canvasLabels_DragLeave(object sender, DragEventArgs e)
+        {
+            preview_effect.Visibility = Visibility.Collapsed;
+            e.Handled = true;
+        }
     }
 
     class CodeValue
