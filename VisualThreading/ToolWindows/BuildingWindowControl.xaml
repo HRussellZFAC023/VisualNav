@@ -3,24 +3,26 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
-    xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
-    toolkit:Themes.UseVsTheme="True">
+    xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities">
 
     <Grid
-        VerticalAlignment="Stretch"
-        HorizontalAlignment="Stretch"
         MinWidth="200"
         MinHeight="200"
-        Margin="0,0,0,0">
+        Margin="0,0,0,0"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
 
         <Canvas
             x:Name="canvasLabels"
+            Margin="0,0,0,0"
             AllowDrop="True"
             Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
+            DragEnter="canvasLabels_DragEnter"
+            DragLeave="canvasLabels_DragLeave"
+            Drop="onDropCanvas"
             PreviewMouseLeftButtonUp="CanvasLabel_PreviewMouseLeftButtonUp"
             PreviewMouseMove="CanvasLabel_PreviewMouseMove"
-            ScrollViewer.HorizontalScrollBarVisibility="Visible"
-            Margin="0,0,0,0" />
+            ScrollViewer.HorizontalScrollBarVisibility="Visible" />
 
         <StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
@@ -28,5 +30,7 @@
             </Button>
             <!-- Put more buttons here ! -->
         </StackPanel>
+        
     </Grid>
+
 </UserControl>
