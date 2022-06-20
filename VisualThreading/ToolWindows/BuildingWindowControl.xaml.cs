@@ -34,9 +34,6 @@ namespace VisualThreading.ToolWindows
             Opacity = 0.5
         };
 
-        private int id;
-
-        public System.Windows.Point itemRelativePosition { get;  set; }
 
         public BuildingWindowControl(Schema.Schema commands, string fileExt)
         {
@@ -103,7 +100,7 @@ namespace VisualThreading.ToolWindows
         }
 
 
-        private void Canvas_Drop(object sender, DragEventArgs e)
+        private void onDropCanvas(object sender, DragEventArgs e)
         {
 
             System.Diagnostics.Debug.WriteLine("drop_on_canvas");
@@ -633,8 +630,7 @@ namespace VisualThreading.ToolWindows
 
                 System.Diagnostics.Debug.WriteLine(this.InsertedCode);
             }
-            canvasLabels.Children.Remove(preview_effect);
-            this.draggedItem = null;
+
             if (dragType == "ComparatorEqual")
             {
 
@@ -649,6 +645,7 @@ namespace VisualThreading.ToolWindows
             {
 
             }
+
 
         }
 
@@ -690,8 +687,42 @@ namespace VisualThreading.ToolWindows
             if (this.draggedItem == null)
             {
                 return;
-            } else
+            } 
+            else 
             {
+                // change all blocks' position for one element
+                var cur = (TextBlock)this.draggedItem;
+                if (cur.Name.Contains("Method"))
+                {
+                    var changedValue = e.GetPosition(canvasLabels) - this.preCanvasPos;
+                    this.preCanvasPos = e.GetPosition(canvasLabels);
+
+                    List<String> l = new List<string>();
+                    foreach (var item in cur.Inlines)
+                    {
+                        l.Add(item.Name);
+                    }
+
+                    for (int i = 0; i < this.InsertedCode.Count; i++)
+                    {
+                        var line = this.InsertedCode[i];
+                        for (int j = 0; j < line.Count; j++)
+                        {
+                            var block = line[j];
+                            if (l.Contains(block.name))
+                            {
+
+                                var pos = block.position;
+                                var changedPos = (pos.Item1 + changedValue.X, pos.Item2 + changedValue.Y);
+                                block.position = changedPos;
+                            }
+
+                        }
+                    }
+                }
+                
+
+
                 var newPos = e.GetPosition(canvasLabels) - this.itemRelativePosition;  // X Y => X' Y'
                 System.Diagnostics.Debug.WriteLine(newPos);
 
@@ -717,51 +748,7 @@ namespace VisualThreading.ToolWindows
             e.Handled = true;
         }
 
-        
 
-        private void CanvasLabel_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("Canvas PreviewMouseLeftButtonUp");
-
-            if (this.draggedItem != null)
-            {
-
-                UIElement uiElement = this.draggedItem as UIElement;
-                if (uiElement.Visibility != Visibility.Visible)
-                {
-                    canvasLabels.Children.Remove(uiElement);
-                }
-
-                // 松开label拖动的一瞬间
-                System.Diagnostics.Debug.WriteLine(this.draggedItem.GetType());
-
-                // change all blocks' position for one element
-                List<String> l = new List<string>();
-                foreach (var item in cur.Inlines)
-                {
-                    l.Add(item.Name);
-                }
-
-                for (int i = 0; i < this.InsertedCode.Count; i++)
-                {
-                    var line = this.InsertedCode[i];
-                    for (int j = 0; j < line.Count; j++)
-                    {
-                        var block = line[j];
-                        if (l.Contains(block.name))
-                        {
-
-                            var pos = block.position;
-                            var changedPos = (pos.Item1 + changedValue.X, pos.Item2 + changedValue.Y);
-                            block.position = changedPos;
-                        }
-
-                    }
-                }
-            }
-            
-            
-        }
 
         private void CanvasLabel_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -784,22 +771,6 @@ namespace VisualThreading.ToolWindows
             preview_effect.Visibility = Visibility.Collapsed;
             e.Handled = true;
         }
-    }
-
-    class CodeValue
-    {
-        public List<SpecialStatement> statements { get; set; }
-        public List<OperateVariable> variables { get; set; }
-        public List<OperateVariable> operators { get; set; }
-        public string value { get; set; }
-
-        public CodeValue()
-        {
-            this.statements = new List<SpecialStatement>();
-            this.variables = new List<OperateVariable>();
-            this.operators = new List<OperateVariable>();
-        }
-
     }
 
 
