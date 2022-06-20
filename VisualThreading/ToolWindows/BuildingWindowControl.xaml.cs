@@ -13,14 +13,19 @@ namespace VisualThreading.ToolWindows
     public partial class BuildingWindowControl : UserControl
     {
 
+        private int id;
         public object draggedItem { get; set; }
         public object draggedItemType { get; set; }
-        internal CodeValue codevalue { get; set; }
+        public Point itemRelativePosition { get; set; }
+
+        private Point preCanvasPos { get; set; }
+
+        private List<List<Block>> InsertedCode { get; set; }
+
 
         private readonly Schema.Schema _commands;
         private string _currentLanguage; // file extension for language
 
-        private object DraggedItem { get; set; }
 
         Label preview_effect = new Label()
         {
@@ -29,20 +34,19 @@ namespace VisualThreading.ToolWindows
             Opacity = 0.5
         };
 
-        private int id;
-
-        public System.Windows.Point itemRelativePosition { get;  set; }
 
         public BuildingWindowControl(Schema.Schema commands, string fileExt)
         {
             _commands = commands;
             _currentLanguage = fileExt;
             InitializeComponent();
-            DraggedItem = null;
             VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection event
+            
+            this.draggedItem = null;
             this.draggedItemType = null;
-            this.codevalue = new CodeValue();
+            this.InsertedCode = null;
             this.id = 0;
+            this.InsertedCode = new List<List<Block>>();
         }
 
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -57,29 +61,6 @@ namespace VisualThreading.ToolWindows
             _currentLanguage = fileExt;
         }
 
-
-        /*private void Label_MouseMove_From_List(object sender, MouseEventArgs e)
-        {
-            Label label = sender as Label;
-
-            if (label != null && e.LeftButton == MouseButtonState.Pressed)
-            {
-                var type = label.Name;
-                var runObject = (Run)label.Content;
-                var bgColor = runObject.Background;
-                var text = runObject.Text;
-                DataObject data = new DataObject();
-                data.SetData("type", type);
-                data.SetData("background", bgColor);
-                data.SetData("text", text);
-
-                this.draggedItem = (UIElement)sender;
-                this.itemRelativePosition = e.GetPosition((IInputElement)this.draggedItem);
-
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
-
-            }
-        }*/
 
         protected override void OnDragOver(DragEventArgs e)
         {
@@ -119,1195 +100,558 @@ namespace VisualThreading.ToolWindows
         }
 
 
-        private void Canvas_Drop(object sender, DragEventArgs e)
+        private void onDropCanvas(object sender, DragEventArgs e)
         {
 
-            System.Diagnostics.Debug.WriteLine("canvas_drop");
+            System.Diagnostics.Debug.WriteLine("drop_on_canvas");
 
             String dragType = (String)e.Data.GetData("type");
             var dragBackground = e.Data.GetData("background");
-            String text = (String)e.Data.GetData("text");
+            String dragText = (String)e.Data.GetData("text");
             object draggedItem = e.Data.GetData("draggedItem");
             object itemRelativePosition = e.Data.GetData("itemRelativePosition");
 
-            this.draggedItem = (UIElement)draggedItem;
-            this.itemRelativePosition = (Point)itemRelativePosition;
 
-            if (dragType != null && dragBackground != null)
+            if (draggedItem != null)
             {
-                TextBlock newLabel = new TextBlock();
-                newLabel.Margin = new Thickness(0, 0, 0, 0);
-                newLabel.Height = Double.NaN;
-                newLabel.Width = Double.NaN;
-                newLabel.FontSize = 18;
-                newLabel.MouseLeftButtonDown += Label_MouseLeftButtonDown;
-
-
-                // if statement
-                if (dragType == "IfStatementLabel") 
-                {
-                    System.Diagnostics.Debug.WriteLine("if statement");
-
-                    // 设置name
-                    newLabel.Name = "if" + this.id.ToString();
-                    this.id += 1;
-
-                    // 设置 shape
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = "if( ",
-                        Background = (Brush)dragBackground
-                    });
-
-                    // 添加一个block condition
-                    Run r = new Run();
-                    r.Text = "              ";
-                    r.Background = Brushes.Beige;
-                    var conditionName = "block" + this.id.ToString();
-                    r.Name = conditionName;
-                    RegisterName(r.Name, r);
-                    newLabel.Inlines.Add(r);
-                    this.id += 1;
-
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = " ) {\n",
-                        Background = (Brush)dragBackground
-                    });
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = "      ",
-                        Background = (Brush)dragBackground,
-
-                    });
-
-                    // 添加一个block statement
-                    Run r2 = new Run();
-                    r2.Text = "              ";
-                    r2.Background = Brushes.Beige;
-                    var statementName = "block" + this.id.ToString();
-                    r2.Name = statementName;
-                    RegisterName(r2.Name, r2);
-                    newLabel.Inlines.Add(r2);
-                    this.id += 1;
-
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = "\n}\n",
-                        Background = (Brush)dragBackground
-                    });
-
-                    // 把added element shape添加进canvas
-                    RegisterName(newLabel.Name, newLabel);
-                    ((Canvas)sender).Children.Add(newLabel);
-                    var pos = e.GetPosition(canvasLabels) - this.itemRelativePosition;  // X' Y'
-                    Canvas.SetLeft(newLabel, pos.X);
-                    Canvas.SetTop(newLabel, pos.Y);
-
-
-                    // 把 element value 添加进 codeValue
-                    OperateVariable condition = new OperateVariable()
-                    {
-                        name = conditionName,
-                        position = (pos.X + 25, pos.Y),
-                        width = 60,
-                        height = 20
-                    };
-                    
-                    OperateVariable s = new OperateVariable()
-                    {
-                        name = statementName,
-                        position = (pos.X + 40, pos.Y + 25),
-                        width = 60,
-                        height = 20
-                    };
-                    List<OperateVariable> s1 = new List<OperateVariable>();
-                    s1.Add(s);
-
-                    IfStatement oneIf = new IfStatement();
-                    oneIf.type = "if";
-                    oneIf.name = newLabel.Name;
-                    oneIf.addCondition(condition);
-                    oneIf.addStatement(s1);
-
-                    this.codevalue.statements.Add(oneIf);
-
-                    System.Diagnostics.Debug.WriteLine("add if statement successfully");
-                }
-
-
-                // if else statement
-                if (dragType == "IfelseStatementLabel")
-                {
-                    System.Diagnostics.Debug.WriteLine("if else statement");
-
-                    // 设置shape
-
-                    // 设置name
-                    newLabel.Name = "ifelse" + this.id.ToString();
-                    this.id += 1;
-
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = "if( ",
-                        Background = (Brush)dragBackground
-
-                    });
-
-                    // 添加一个block condition
-                    Run r1 = new Run();
-                    r1.Text = "              ";
-                    r1.Background = Brushes.Beige;
-                    var conditionName = "block" + this.id.ToString();
-                    r1.Name = conditionName;
-                    RegisterName(r1.Name, r1);
-                    newLabel.Inlines.Add(r1);
-                    this.id += 1;
-
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = " ) {\n",
-                        Background = (Brush)dragBackground
-
-                    });
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = "        ",
-                        Background = (Brush)dragBackground
-
-                    });
-
-                    // 添加第一个block statement
-                    Run r2 = new Run();
-                    r2.Text = "              ";
-                    r2.Background = Brushes.Beige;
-                    var statement1Name = "block" + this.id.ToString();
-                    r2.Name = statement1Name;
-                    RegisterName(r2.Name, r2);
-                    newLabel.Inlines.Add(r2);
-                    this.id += 1;
-
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = "} else {\n",
-                        Background = (Brush)dragBackground
-
-                    });
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = "      ",
-                        Background = (Brush)dragBackground
-
-                    });
-
-                    // 添加第二个block statement
-                    Run r3 = new Run();
-                    r3.Text = "              ";
-                    r3.Background = Brushes.Beige;
-                    var statement2Name = "block" + this.id.ToString();
-                    r3.Name = statement2Name;
-                    RegisterName(r3.Name, r3);
-                    newLabel.Inlines.Add(r3);
-                    this.id += 1;
-
-                    
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = "}\n",
-                        Background = (Brush)dragBackground
-
-                    });
-
-                    // 把新增 element 添加进 canvas
-                    RegisterName(newLabel.Name, newLabel);
-                    ((Canvas)sender).Children.Add(newLabel);
-                    var pos = e.GetPosition(canvasLabels) - this.itemRelativePosition;  // X' Y'
-                    Canvas.SetLeft(newLabel, pos.X);
-                    Canvas.SetTop(newLabel, pos.Y);
-
-                    // 把element添加到codeValue
-                    OperateVariable c1 = new OperateVariable()
-                    {
-                        name = conditionName,
-                        position = (pos.X + 25, pos.Y),
-                        width = 60,
-                        height = 20
-                    };
-                    
-                    OperateVariable s1 = new OperateVariable()
-                    {
-                        name = statement1Name,
-                        position = (pos.X + 40, pos.Y + 25),
-                        width = 60,
-                        height = 20
-                    };
-                    OperateVariable s2 = new OperateVariable()
-                    {
-                        name = statement2Name,
-                        position = (pos.X + 40, pos.Y + 75),
-                        width = 60,
-                        height = 20
-                    };
-                    List<OperateVariable> statement1 = new List<OperateVariable>();
-                    statement1.Add(s1);
-                    List<OperateVariable> statement2 = new List<OperateVariable>();
-                    statement2.Add(s2);
-
-                    IfElseStatement s = new IfElseStatement();
-                    s.type = "ifelse";
-                    s.name = newLabel.Name;
-                    s.addCondition(c1);
-                    s.addStatements1(statement1);
-                    s.addStatements2(statement2);
-
-                    this.codevalue.statements.Add(s);
-
-                    System.Diagnostics.Debug.WriteLine("add if else statement successfully");
-                }
-
-
-                // variable
-                if (dragType == "VariableLabel")
-                {
-
-                    System.Diagnostics.Debug.WriteLine("variable");
-
-                    newLabel.FontSize = 14;
-                    var flag = false;
-
-                    // 添加 element shape
-                    newLabel.Name = "variable" + this.id.ToString();
-                    this.id += 1;
-
-                    // add an element shape
-                    var t = "Variable1";
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = t,
-                        Background = (Brush)dragBackground
-                    });
-
-                    // 判断是否有block可以放置
-                    // 判断是否鼠标的位置在block的position上
-                    var newPos = e.GetPosition(canvasLabels) - this.itemRelativePosition;  // X' Y'
-                    var mousePos = e.GetPosition(canvasLabels);  // 鼠标位置
-                    System.Diagnostics.Debug.WriteLine((mousePos.X, mousePos.Y));
-
-
-                    if (this.codevalue.statements != null)
-                    {
-                        System.Diagnostics.Debug.WriteLine("有可以放置的block");
-                        // 有block，判断鼠标的位置是否在block的position上
-                        // 得到所有的block
-                        var ss = this.codevalue.statements;
-                        foreach (SpecialStatement s in ss)
-                        {
-                            if (s.type == "if")
-                            {
-                                var conList = ((IfStatement)s).conditions;
-                                var sList = ((IfStatement)s).statements;
-                                var wantedName = ((IfStatement)s).name;
-
-                                // condition block
-                                for(int i = 0; i < conList.Count; i++)
-                                {
-                                    OperateVariable block = conList[i];
-                                    if (CheckMousePosition(mousePos, block))
-                                    {
-                                        System.Diagnostics.Debug.WriteLine("在if的condition内");
-
-                                        flag = true;
-
-                                        // 添加shape
-
-                                        // 把label设置position 放置到block上
-                                        RegisterName(newLabel.Name, newLabel);
-                                        ((Canvas)sender).Children.Add(newLabel);
-                                        Canvas.SetLeft(newLabel, block.position.Item1);
-                                        Canvas.SetTop(newLabel, block.position.Item2);
-
-                                        // 给该condition添加一个额外的block
-                                        var addedConditionName = addNewBlockToCondition(sender, wantedName, block, dragBackground);
-
-
-                                        // 添加value
-
-                                        // 设置被drop的block的value
-                                        block.value = newLabel.Text;
-                                        block.type = "variable";
-                                        block.draggedLabelName = newLabel.Name;
-
-                                        // 添加variable在vodevalue的值
-                                        this.codevalue.variables.Add(new OperateVariable()
-                                        {
-                                            name = newLabel.Name,
-                                            value = newLabel.Text,
-                                            type = "variable",
-                                            position = (block.position.Item1, block.position.Item2),
-                                            width = 60,
-                                            height = 20
-                                        });
-
-                                        // 把新增的block添加到value里，注意position
-                                        OperateVariable c1 = new OperateVariable()
-                                        {
-                                            name = addedConditionName,
-                                            position = (block.position.Item1 + 85, block.position.Item2),
-                                            width = 60,
-                                            height = 20
-                                        };
-                                        conList.Add(c1);
-
-                                    }
-                                }
-
-                                for(int i = 0; i < sList.Count; i++)
-                                {
-                                    List<OperateVariable> st = sList[i];
-
-                                    for (int j = 0; j < st.Count; j++)
-                                    {
-                                        OperateVariable block = st[j];
-
-                                        if (CheckMousePosition(mousePos, block))
-                                        {
-                                            System.Diagnostics.Debug.WriteLine("在if的statement内");
-
-                                            flag = true;
-
-                                            // 添加shape
-
-                                            // 把label设置position 放置到block上
-                                            RegisterName(newLabel.Name, newLabel);
-                                            ((Canvas)sender).Children.Add(newLabel);
-                                            Canvas.SetLeft(newLabel, block.position.Item1);
-                                            Canvas.SetTop(newLabel, block.position.Item2);
-
-                                            // 设置被drop的block值
-                                            block.value = newLabel.Text;
-                                            block.type = "variable";
-                                            block.draggedLabelName = newLabel.Name;
-
-                                            // 添加variable在vodevalue的值
-                                            this.codevalue.variables.Add(new OperateVariable()
-                                            {
-                                                name = newLabel.Name,
-                                                value = newLabel.Text,
-                                                type = "variable",
-                                                position = (block.position.Item1, block.position.Item2),
-                                                width = 60,
-                                                height = 20
-                                            });
-
-                                            // 给该statement添加两个额外的block
-                                            if (j == 0)
-                                            {
-                                                var (addedStatementName1, addedStatementName2) = addNewBlockToStatement(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName1,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                                OperateVariable s1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName2,
-                                                    position = (block.position.Item1, block.position.Item2 + 25),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                List<OperateVariable> newStatement = new List<OperateVariable>();
-                                                newStatement.Add(s1);
-                                                sList.Add(newStatement);
-
-                                            } else
-                                            {
-                                                var addedStatementName = addNewBlockToCondition(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                            }
-                                            
-   
-                                        }
-                                    }
-                                }
-
-
-                            } else if(s.type == "ifelse")
-                            {
-                                var conList = ((IfElseStatement)s).conditions;
-                                var s1List = ((IfElseStatement)s).statements1;
-                                var s2List = ((IfElseStatement)s).statements2;
-                                var wantedName = ((IfElseStatement)s).name;
-
-                                for (int i = 0; i < conList.Count; i++)
-                                {
-                                    OperateVariable block = conList[i];
-
-                                    if (CheckMousePosition(mousePos, block))
-                                    {
-                                        System.Diagnostics.Debug.WriteLine("在ifelse的condition内");
-
-                                        flag = true;
-
-                                        // 添加shape
-
-                                        // 把label设置position 放置到block上
-                                        RegisterName(newLabel.Name, newLabel);
-                                        ((Canvas)sender).Children.Add(newLabel);
-                                        Canvas.SetLeft(newLabel, block.position.Item1);
-                                        Canvas.SetTop(newLabel, block.position.Item2);
-
-                                        // 给该condition添加一个额外的block
-                                        var addedConditionName = addNewBlockToCondition(sender, wantedName, block, dragBackground);
-
-
-                                        // 添加value
-
-                                        // 设置被drop的block值
-                                        block.value = newLabel.Text;
-                                        block.type = "variable";
-                                        block.draggedLabelName = newLabel.Name;
-
-                                        // 添加variable在vodevalue的值
-                                        this.codevalue.variables.Add(new OperateVariable()
-                                        {
-                                            name = newLabel.Name,
-                                            value = newLabel.Text,
-                                            type = "variable",
-                                            position = (block.position.Item1, block.position.Item2),
-                                            width = 60,
-                                            height = 20
-                                        });
-
-                                        // 把新增的block添加到value里，注意position
-                                        OperateVariable c1 = new OperateVariable()
-                                        {
-                                            name = addedConditionName,
-                                            position = (block.position.Item1 + 85, block.position.Item2),
-                                            width = 60,
-                                            height = 20
-                                        };
-                                        conList.Add(c1);
-
-                                        
-                                    }
-                                }
-
-                                for (int i = 0; i < s1List.Count; i++)
-                                {
-                                    List<OperateVariable> st = s1List[i];
-                                    for (int j = 0; j < st.Count; j++)
-                                    {
-                                        OperateVariable block = st[j];
-
-                                        if (CheckMousePosition(mousePos, block))
-                                        {
-                                            System.Diagnostics.Debug.WriteLine("在ifelse的statement1内");
-
-                                            flag = true;
-
-                                            // 添加shape
-
-                                            // 把label设置position 放置到block上
-                                            RegisterName(newLabel.Name, newLabel);
-                                            ((Canvas)sender).Children.Add(newLabel);
-                                            Canvas.SetLeft(newLabel, block.position.Item1);
-                                            Canvas.SetTop(newLabel, block.position.Item2);
-
-                                            // 设置被drop的block值
-                                            block.value = newLabel.Text;
-                                            block.type = "variable";
-                                            block.draggedLabelName = newLabel.Name;
-
-                                            // 添加variable在vodevalue的值
-                                            this.codevalue.variables.Add(new OperateVariable()
-                                            {
-                                                name = newLabel.Name,
-                                                value = newLabel.Text,
-                                                type = "variable",
-                                                position = (block.position.Item1, block.position.Item2),
-                                                width = 60,
-                                                height = 20
-                                            });
-
-                                            // 给该statement添加两个额外的block
-                                            if (j == 0)
-                                            {
-                                                var (addedStatementName1, addedStatementName2) = addNewBlockToStatement(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName1,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                                OperateVariable s1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName2,
-                                                    position = (block.position.Item1, block.position.Item2 + 25),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                List<OperateVariable> newStatement = new List<OperateVariable>();
-                                                newStatement.Add(s1);
-                                                s1List.Add(newStatement);
-
-                                            }
-                                            else
-                                            {
-                                                var addedStatementName = addNewBlockToCondition(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                            }
-
-
-                                        }
-                                    }
-                                }
-
-                                for (int i = 0; i < s2List.Count; i++)
-                                {
-                                    List<OperateVariable> st = s2List[i];
-                                    for (int j = 0; j < st.Count; j++)
-                                    {
-                                        OperateVariable block = st[j];
-
-                                        if (CheckMousePosition(mousePos, block))
-                                        {
-                                            System.Diagnostics.Debug.WriteLine("在ifelse的statement2内");
-
-                                            flag = true;
-
-                                            // 添加shape
-
-                                            // 把label设置position 放置到block上
-                                            RegisterName(newLabel.Name, newLabel);
-                                            ((Canvas)sender).Children.Add(newLabel);
-                                            Canvas.SetLeft(newLabel, block.position.Item1);
-                                            Canvas.SetTop(newLabel, block.position.Item2);
-
-                                            // 设置被drop的block值
-                                            block.value = newLabel.Text;
-                                            block.type = "variable";
-                                            block.draggedLabelName = newLabel.Name;
-
-                                            // 添加variable在vodevalue的值
-                                            this.codevalue.variables.Add(new OperateVariable()
-                                            {
-                                                name = newLabel.Name,
-                                                value = newLabel.Text,
-                                                type = "variable",
-                                                position = (block.position.Item1, block.position.Item2),
-                                                width = 60,
-                                                height = 20
-                                            });
-
-                                            // 给该statement添加两个额外的block
-                                            if (j == 0)
-                                            {
-                                                var (addedStatementName1, addedStatementName2) = addNewBlockToStatement(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName1,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                                OperateVariable s1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName2,
-                                                    position = (block.position.Item1, block.position.Item2 + 25),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                List<OperateVariable> newStatement = new List<OperateVariable>();
-                                                newStatement.Add(s1);
-                                                s2List.Add(newStatement);
-
-                                            }
-                                            else
-                                            {
-                                                var addedStatementName = addNewBlockToCondition(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                            }
-
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine("没有可以放置的block");
-                        // 没有可以放置的block，直接添加并放置
-                        // 添加到canvas
-                        ((Canvas)sender).Children.Add(newLabel);
-                        Canvas.SetLeft(newLabel, newPos.X);
-                        Canvas.SetTop(newLabel, newPos.Y);
-
-                        // 添加到codeValue
-                        this.codevalue.variables.Add(new OperateVariable()
-                        {
-                            name = newLabel.Name,
-                            value = newLabel.Text,
-                            type = "variable",
-                            position = (newPos.X + 85, newPos.Y + 25),
-                            width = 60,
-                            height = 20
-                        });
-                    }
-
-                    if(flag == false)
-                    {
-                        System.Diagnostics.Debug.WriteLine("不在block内");
-
-                        // 添加到canvas
-                        ((Canvas)sender).Children.Add(newLabel);
-                        Canvas.SetLeft(newLabel, newPos.X);
-                        Canvas.SetTop(newLabel, newPos.Y);
-
-                        // 添加到codeValue
-                        this.codevalue.variables.Add(new OperateVariable()
-                        {
-                            name = newLabel.Name,
-                            value = newLabel.Text,
-                            type = "variable",
-                            position = (newPos.X + 85, newPos.Y + 20),
-                            width = 60,
-                            height = 20
-                        });
-                    }
-
-                }
-
-                // operator
-                if (dragType == "OperatorLabel")
-                {
-
-                    System.Diagnostics.Debug.WriteLine("operator");
-
-                    newLabel.FontSize = 14;
-                    var flag = false;
-
-                    // 添加 element shape
-                    newLabel.Name = "operator" + this.id.ToString();
-                    this.id += 1;
-
-                    // add an element shape
-                    var t = "Operator1";
-                    newLabel.Inlines.Add(new Run()
-                    {
-                        Text = t,
-                        Background = (Brush)dragBackground
-                    });
-
-                    // 判断是否有block可以放置
-                    // 判断是否鼠标的位置在block的position上
-                    var newPos = e.GetPosition(canvasLabels) - this.itemRelativePosition;  // X' Y'
-                    var mousePos = e.GetPosition(canvasLabels);  // 鼠标位置
-                    System.Diagnostics.Debug.WriteLine((mousePos.X, mousePos.Y));
-
-
-                    if (this.codevalue.statements != null)
-                    {
-                        System.Diagnostics.Debug.WriteLine("有可以放置的block");
-                        // 有block，判断鼠标的位置是否在block的position上
-                        // 得到所有的block
-                        var ss = this.codevalue.statements;
-                        foreach (SpecialStatement s in ss)
-                        {
-                            if (s.type == "if")
-                            {
-                                var conList = ((IfStatement)s).conditions;
-                                var sList = ((IfStatement)s).statements;
-                                var wantedName = ((IfStatement)s).name;
-
-                                // condition block
-                                for (int i = 0; i < conList.Count; i++)
-                                {
-                                    OperateVariable block = conList[i];
-                                    if (CheckMousePosition(mousePos, block))
-                                    {
-                                        System.Diagnostics.Debug.WriteLine("在if的condition内");
-
-                                        flag = true;
-
-                                        // 添加shape
-
-                                        // 把label设置position 放置到block上
-                                        RegisterName(newLabel.Name, newLabel);
-                                        ((Canvas)sender).Children.Add(newLabel);
-                                        Canvas.SetLeft(newLabel, block.position.Item1);
-                                        Canvas.SetTop(newLabel, block.position.Item2);
-
-                                        // 给该condition添加一个额外的block
-                                        var addedConditionName = addNewBlockToCondition(sender, wantedName, block, dragBackground);
-
-
-                                        // 添加value
-
-                                        // 设置被drop的block的value
-                                        block.value = newLabel.Text;
-                                        block.type = "operator";
-                                        block.draggedLabelName = newLabel.Name;
-
-                                        // 添加variable在vodevalue的值
-                                        this.codevalue.variables.Add(new OperateVariable()
-                                        {
-                                            name = newLabel.Name,
-                                            value = newLabel.Text,
-                                            type = "operator",
-                                            position = (block.position.Item1, block.position.Item2),
-                                            width = 60,
-                                            height = 20
-                                        });
-
-                                        // 把新增的block添加到value里，注意position
-                                        OperateVariable c1 = new OperateVariable()
-                                        {
-                                            name = addedConditionName,
-                                            position = (block.position.Item1 + 25, block.position.Item2),
-                                            width = 60,
-                                            height = 20
-                                        };
-                                        conList.Add(c1);
-
-                                    }
-                                }
-
-                                for (int i = 0; i < sList.Count; i++)
-                                {
-                                    List<OperateVariable> st = sList[i];
-                                    for (int j = 0; j < st.Count; j++)
-                                    {
-                                        OperateVariable block = st[j];
-
-                                        if (CheckMousePosition(mousePos, block))
-                                        {
-                                            System.Diagnostics.Debug.WriteLine("在if的statement内");
-
-                                            flag = true;
-
-                                            // 添加shape
-
-                                            // 把label设置position 放置到block上
-                                            RegisterName(newLabel.Name, newLabel);
-                                            ((Canvas)sender).Children.Add(newLabel);
-                                            Canvas.SetLeft(newLabel, block.position.Item1);
-                                            Canvas.SetTop(newLabel, block.position.Item2);
-
-                                            // 设置被drop的block值
-                                            block.value = newLabel.Text;
-                                            block.type = "variable";
-                                            block.draggedLabelName = newLabel.Name;
-
-                                            // 添加variable在vodevalue的值
-                                            this.codevalue.variables.Add(new OperateVariable()
-                                            {
-                                                name = newLabel.Name,
-                                                value = newLabel.Text,
-                                                type = "variable",
-                                                position = (block.position.Item1, block.position.Item2),
-                                                width = 60,
-                                                height = 20
-                                            });
-
-                                            // 给该statement添加两个额外的block
-                                            if (j == 0)
-                                            {
-                                                var (addedStatementName1, addedStatementName2) = addNewBlockToStatement(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName1,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                                OperateVariable s1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName2,
-                                                    position = (block.position.Item1, block.position.Item2 + 25),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                List<OperateVariable> newStatement = new List<OperateVariable>();
-                                                newStatement.Add(s1);
-                                                sList.Add(newStatement);
-
-                                            }
-                                            else
-                                            {
-                                                var addedStatementName = addNewBlockToCondition(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                            }
-
-                                        }
-                                    }
-                                }
-
-                            }
-                            else if (s.type == "ifelse")
-                            {
-                                var conList = ((IfElseStatement)s).conditions;
-                                var s1List = ((IfElseStatement)s).statements1;
-                                var s2List = ((IfElseStatement)s).statements2;
-                                var wantedName = ((IfElseStatement)s).name;
-
-                                for (int i = 0; i < conList.Count; i++)
-                                {
-                                    OperateVariable block = conList[i];
-
-                                    if (CheckMousePosition(mousePos, block))
-                                    {
-                                        System.Diagnostics.Debug.WriteLine("在ifelse的condition内");
-
-                                        flag = true;
-
-                                        // 添加shape
-
-                                        // 把label设置position 放置到block上
-                                        RegisterName(newLabel.Name, newLabel);
-                                        ((Canvas)sender).Children.Add(newLabel);
-                                        Canvas.SetLeft(newLabel, block.position.Item1);
-                                        Canvas.SetTop(newLabel, block.position.Item2);
-
-                                        // 给该condition添加一个额外的block
-                                        var addedConditionName = addNewBlockToCondition(sender, wantedName, block, dragBackground);
-
-
-                                        // 添加value
-
-                                        // 设置被drop的block值
-                                        block.value = newLabel.Text;
-                                        block.type = "operator";
-                                        block.draggedLabelName = newLabel.Name;
-
-                                        // 添加variable在vodevalue的值
-                                        this.codevalue.variables.Add(new OperateVariable()
-                                        {
-                                            name = newLabel.Name,
-                                            value = newLabel.Text,
-                                            type = "operator",
-                                            position = (block.position.Item1, block.position.Item2),
-                                            width = 60,
-                                            height = 20
-                                        });
-
-                                        // 把新增的block添加到value里，注意position
-                                        OperateVariable c1 = new OperateVariable()
-                                        {
-                                            name = addedConditionName,
-                                            position = (block.position.Item1 + 25, block.position.Item2),
-                                            width = 60,
-                                            height = 20
-                                        };
-                                        conList.Add(c1);
-
-
-                                    }
-                                }
-
-                                for (int i = 0; i < s1List.Count; i++)
-                                {
-                                    List<OperateVariable> st = s1List[i];
-                                    for (int j = 0; j < st.Count; j++)
-                                    {
-                                        OperateVariable block = st[j];
-
-                                        if (CheckMousePosition(mousePos, block))
-                                        {
-                                            System.Diagnostics.Debug.WriteLine("在ifelse的statement1内");
-
-                                            flag = true;
-
-                                            // 添加shape
-
-                                            // 把label设置position 放置到block上
-                                            RegisterName(newLabel.Name, newLabel);
-                                            ((Canvas)sender).Children.Add(newLabel);
-                                            Canvas.SetLeft(newLabel, block.position.Item1);
-                                            Canvas.SetTop(newLabel, block.position.Item2);
-
-                                            // 设置被drop的block值
-                                            block.value = newLabel.Text;
-                                            block.type = "variable";
-                                            block.draggedLabelName = newLabel.Name;
-
-                                            // 添加variable在vodevalue的值
-                                            this.codevalue.variables.Add(new OperateVariable()
-                                            {
-                                                name = newLabel.Name,
-                                                value = newLabel.Text,
-                                                type = "variable",
-                                                position = (block.position.Item1, block.position.Item2),
-                                                width = 60,
-                                                height = 20
-                                            });
-
-                                            // 给该statement添加两个额外的block
-                                            if (j == 0)
-                                            {
-                                                var (addedStatementName1, addedStatementName2) = addNewBlockToStatement(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName1,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                                OperateVariable s1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName2,
-                                                    position = (block.position.Item1, block.position.Item2 + 25),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                List<OperateVariable> newStatement = new List<OperateVariable>();
-                                                newStatement.Add(s1);
-                                                s1List.Add(newStatement);
-
-                                            }
-                                            else
-                                            {
-                                                var addedStatementName = addNewBlockToCondition(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                            }
-                                        }  
-                                    }
-                                }
-
-                                for (int i = 0; i < s2List.Count; i++)
-                                {
-                                    List<OperateVariable> st = s2List[i];
-                                    for (int j = 0; j < st.Count; j++)
-                                    {
-                                        OperateVariable block = st[j];
-
-                                        if (CheckMousePosition(mousePos, block))
-                                        {
-                                            System.Diagnostics.Debug.WriteLine("在ifelse的statement2内");
-
-                                            flag = true;
-
-                                            // 添加shape
-
-                                            // 把label设置position 放置到block上
-                                            RegisterName(newLabel.Name, newLabel);
-                                            ((Canvas)sender).Children.Add(newLabel);
-                                            Canvas.SetLeft(newLabel, block.position.Item1);
-                                            Canvas.SetTop(newLabel, block.position.Item2);
-
-                                            // 设置被drop的block值
-                                            block.value = newLabel.Text;
-                                            block.type = "variable";
-                                            block.draggedLabelName = newLabel.Name;
-
-                                            // 添加variable在vodevalue的值
-                                            this.codevalue.variables.Add(new OperateVariable()
-                                            {
-                                                name = newLabel.Name,
-                                                value = newLabel.Text,
-                                                type = "variable",
-                                                position = (block.position.Item1, block.position.Item2),
-                                                width = 60,
-                                                height = 20
-                                            });
-
-                                            // 给该statement添加两个额外的block
-                                            if (j == 0)
-                                            {
-                                                var (addedStatementName1, addedStatementName2) = addNewBlockToStatement(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName1,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                                OperateVariable s1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName2,
-                                                    position = (block.position.Item1, block.position.Item2 + 25),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                List<OperateVariable> newStatement = new List<OperateVariable>();
-                                                newStatement.Add(s1);
-                                                s2List.Add(newStatement);
-
-                                            }
-                                            else
-                                            {
-                                                var addedStatementName = addNewBlockToCondition(sender, wantedName, block, dragBackground);
-                                                OperateVariable c1 = new OperateVariable()
-                                                {
-                                                    name = addedStatementName,
-                                                    position = (block.position.Item1 + 85, block.position.Item2),
-                                                    width = 60,
-                                                    height = 20
-                                                };
-                                                st.Add(c1);
-                                            }
-
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine("没有可以放置的block");
-                        // 没有可以放置的block，直接添加并放置
-                        // 添加到canvas
-                        RegisterName(newLabel.Name, newLabel);
-                        ((Canvas)sender).Children.Add(newLabel);
-                        Canvas.SetLeft(newLabel, newPos.X);
-                        Canvas.SetTop(newLabel, newPos.Y);
-
-                        // 添加到codeValue
-                        this.codevalue.variables.Add(new OperateVariable()
-                        {
-                            name = newLabel.Name,
-                            value = newLabel.Text,
-                            type = "operator",
-                            position = (newPos.X, newPos.Y),
-                            width = 60,
-                            height = 20
-                        });
-                    }
-
-                    if (flag == false)
-                    {
-                        System.Diagnostics.Debug.WriteLine("不在block内");
-
-                        // 添加到canvas
-                        RegisterName(newLabel.Name, newLabel);
-                        ((Canvas)sender).Children.Add(newLabel);
-                        Canvas.SetLeft(newLabel, newPos.X);
-                        Canvas.SetTop(newLabel, newPos.Y);
-
-                        // 添加到codeValue
-                        this.codevalue.variables.Add(new OperateVariable()
-                        {
-                            name = newLabel.Name,
-                            value = newLabel.Text,
-                            type = "operator",
-                            position = (newPos.X, newPos.Y),
-                            width = 60,
-                            height = 20
-                        });
-                    }
-
-                }
+                // new a TextBlock
+                TextBlock newTextBlock = new TextBlock();
+                newTextBlock.Margin = new Thickness(0, 0, 0, 0);
+                newTextBlock.Height = Double.NaN;
+                newTextBlock.Width = Double.NaN;
+                newTextBlock.FontSize = 18;
+                newTextBlock.MouseLeftButtonDown += Label_MouseLeftButtonDown;
+
+
+                // add the TextBlock to canvas
+                var newPos = e.GetPosition(canvasLabels) - this.itemRelativePosition;  // X' Y'
+                Point mousePos = e.GetPosition(canvasLabels);  // mouse position
+
+                addBlockToCanvas(sender, dragType, newTextBlock, dragBackground, (Point)newPos, mousePos);
 
             }
+
             canvasLabels.Children.Remove(preview_effect);
-            this.draggedItem = null;
             e.Handled = true;
         }
 
-  
+       
 
-        private String addNewBlockToCondition(object sender, string wantedName, OperateVariable block, Object dragBackground)
+        private void addBlockToCanvas(object sender, String dragType, TextBlock newTextBlock, Object dragBackground, Point pos, Point mousePos)
         {
-            System.Diagnostics.Debug.WriteLine(wantedName);
-            TextBlock wantedNode = (TextBlock)((Canvas)sender).FindName(wantedName);
-
-            System.Diagnostics.Debug.WriteLine(block.name);
-            Run wantedBlock = (Run)wantedNode.FindName(block.name);
-
-            Run r = new Run();
-            r.Text = "              ";
-            r.Background = Brushes.Beige;
-            var conditionName = "block" + this.id.ToString();
-            r.Name = conditionName;
-            this.id += 1;
-            RegisterName(r.Name, r);
-            wantedNode.Inlines.InsertAfter(wantedBlock, r);
-            return conditionName;
-
-        }
-
-        private (String, String) addNewBlockToStatement(object sender, string wantedName, OperateVariable block, Object dragBackground)
-        {
-            TextBlock wantedNode = (TextBlock)((Canvas)sender).FindName(wantedName);
-            Run wantedBlock = (Run)wantedNode.FindName(block.name);
-
-            Run r = new Run();
-            r.Text = "              ";
-            r.Background = Brushes.Beige;
-            var statementName = "block" + this.id.ToString();
-            r.Name = statementName;
-            this.id += 1;
-            RegisterName(r.Name, r);
-            wantedNode.Inlines.InsertAfter(wantedBlock, r);
-
-            Run r3 = new Run()
+            if(dragType == "Assignment")
             {
-                Text = "\n      ",
-                Background = wantedNode.Background,
+                newTextBlock.Name = "Assignment" + this.id.ToString();
+                this.id += 1;
 
-            };
-            wantedNode.Inlines.InsertAfter(r, r3);
+                Run r1 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = " = ",
+                    Background = (Brush)dragBackground
+                };
+                this.id += 1;
+                RegisterName(r1.Name, r1);
+                newTextBlock.Inlines.Add(r1);
 
-            Run r2 = new Run();
-            r2.Text = "              ";
-            r2.Background = Brushes.Beige;
-            var statementName2 = "block" + this.id.ToString();
-            r2.Name = statementName2;
-            this.id += 1;
-            RegisterName(r2.Name, r2);
-            wantedNode.Inlines.InsertAfter(r3, r2);
+                bool flag = false;
+                // if it is in the blank block position
+                for (int i = 0; i < this.InsertedCode.Count; i++)
+                {
+                    var line = this.InsertedCode[i];
+                    for (int j = 0; j < line.Count; j++)
+                    {
+                        var block = line[j];
 
-            return (statementName, statementName2);
+                        if (CheckMousePositionInBlock(mousePos, block) == true && block.isDropped == false)
+                        {
+                            System.Diagnostics.Debug.WriteLine("在block内");
+                            flag = true;
+                            // set value
+                            block.value = r1.Text;
+                            block.type = "Assignment";
+                            block.isDropped = true;
+
+
+                            // set shape in canvas
+                            Run changedBlock = (Run)((Canvas)sender).FindName(block.name);
+                            TextBlock parent = (TextBlock)changedBlock.Parent;
+                            changedBlock.Text = r1.Text;
+                            changedBlock.Background = (Brush)dragBackground;
+
+                            // add a new block
+                            Run r = new Run();
+                            r.Text = "          ";
+                            r.Background = Brushes.Beige;
+                            var addedConditionName = "block" + this.id.ToString();
+                            r.Name = addedConditionName;
+                            this.id += 1;
+                            RegisterName(r.Name, r);
+                            parent.Inlines.InsertAfter(changedBlock, r);
+
+                            Block b = new Block()
+                            {
+                                name = r.Name,
+                                value = r.Text,
+                                position = (block.position.Item1 + 30, block.position.Item2),
+                                width = 80,
+                                height = 20,
+                                isDropped = false
+                            };
+                            line.Insert(j + 1, b);
+                            for (int k = j + 2; k < line.Count; k++)
+                            {
+                                var item = line[k];
+                                var item1 = item.position.Item1 + 30;
+                                item.position = (item1, item.position.Item2);
+                            }
+                        }
+                    }
+                }
+
+                if (flag == false)
+                {
+                    ((Canvas)sender).Children.Add(newTextBlock);
+                    Canvas.SetLeft(newTextBlock, pos.X);
+                    Canvas.SetTop(newTextBlock, pos.Y);
+                }
+
+                System.Diagnostics.Debug.WriteLine(this.InsertedCode);
+
+            }
+
+            if (dragType == "Naming")
+            {
+                newTextBlock.Name = "Naming" + this.id.ToString();
+                this.id += 1;
+
+                Run r1 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = "nameABC",
+                    Background = (Brush)dragBackground
+                };
+                this.id += 1;
+                RegisterName(r1.Name, r1);
+                newTextBlock.Inlines.Add(r1);
+
+                bool flag = false;
+                // if it is in the blank block position
+                for (int i = 0; i < this.InsertedCode.Count; i++)
+                {
+                    var line = this.InsertedCode[i];
+                    for (int j = 0; j < line.Count; j++)
+                    {
+                        var block = line[j];
+
+                        if (CheckMousePositionInBlock(mousePos, block) == true && block.isDropped == false)
+                        {
+                            System.Diagnostics.Debug.WriteLine("在block内");
+                            flag = true;
+                            // set value
+                            block.value = r1.Text;
+                            block.type = "Naming";
+                            block.isDropped = true;
+
+
+                            // set shape in canvas
+                            Run changedBlock = (Run)((Canvas)sender).FindName(block.name);
+                            TextBlock parent = (TextBlock)changedBlock.Parent;
+                            changedBlock.Text = r1.Text;
+                            changedBlock.Background = (Brush)dragBackground;
+
+                            // add a new block
+                            Run r = new Run();
+                            r.Text = "          ";
+                            r.Background = Brushes.Beige;
+                            var addedConditionName = "block" + this.id.ToString();
+                            r.Name = addedConditionName;
+                            this.id += 1;
+                            RegisterName(r.Name, r);
+                            parent.Inlines.InsertAfter(changedBlock, r);
+
+                            Block b = new Block()
+                            {
+                                name = r.Name,
+                                value = r.Text,
+                                position = (block.position.Item1 + 60, block.position.Item2),
+                                width = 80,
+                                height = 20,
+                                isDropped = false
+                            };
+                            line.Insert(j + 1, b);
+                            for (int k = j + 2; k < line.Count; k++)
+                            {
+                                var item = line[k];
+                                var item1 = item.position.Item1 + 60;
+                                item.position = (item1, item.position.Item2);
+                            }
+                        }
+                    }
+                }
+
+                if (flag == false)
+                {
+                    ((Canvas)sender).Children.Add(newTextBlock);
+                    Canvas.SetLeft(newTextBlock, pos.X);
+                    Canvas.SetTop(newTextBlock, pos.Y);
+                }
+
+                System.Diagnostics.Debug.WriteLine(this.InsertedCode);
+            }
+
+            if (dragType == "MethodPublic")
+            {
+                // set a name/id
+                newTextBlock.Name = "MethodPublic" + this.id.ToString();
+                this.id += 1;
+                newTextBlock.Tag = true;
+
+                Run r1 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = " def ",
+                    Background = (Brush)dragBackground
+                };
+                this.id += 1;
+                RegisterName(r1.Name, r1);
+                newTextBlock.Inlines.Add(r1);
+
+                Block b1 = new Block()
+                {
+                    name = r1.Name,
+                    value = r1.Text,
+                    position = (pos.X, pos.Y),
+                    width = 40,
+                    height = 20,
+                    isDropped = true
+                };
+
+                Run r2 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = "             ",
+                    Background = Brushes.Beige
+                };
+                this.id += 1;
+                RegisterName(r2.Name, r2);
+                newTextBlock.Inlines.Add(r2);
+
+                Block b2 = new Block()
+                {
+                    name = r2.Name,
+                    value = r2.Text,
+                    position = (pos.X + 40, pos.Y),
+                    width = 80,
+                    height = 20,
+                    isDropped = false
+                };
+
+                Run r3 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = " ( ",
+                    Background = (Brush)dragBackground
+                };
+                this.id += 1;
+                RegisterName(r3.Name, r3);
+                newTextBlock.Inlines.Add(r3);
+
+                Block b3 = new Block()
+                {
+                    name = r3.Name,
+                    value = r3.Text,
+                    position = (pos.X + 120, pos.Y),
+                    width = 20,
+                    height = 20,
+                    isDropped = true
+                };
+
+                Run r4 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = "              ",
+                    Background = Brushes.Beige
+                };
+                this.id += 1;
+                RegisterName(r4.Name, r4);
+                newTextBlock.Inlines.Add(r4);
+
+                Block b4 = new Block()
+                {
+                    name = r4.Name,
+                    value = r4.Text,
+                    position = (pos.X + 140, pos.Y),
+                    width = 80,
+                    height = 20,
+                    isDropped = false
+                };
+
+                Run r5 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = " ) : \n",
+                    Background = (Brush)dragBackground
+                };
+                this.id += 1;
+                RegisterName(r5.Name, r5);
+                newTextBlock.Inlines.Add(r5);
+
+                Block b5 = new Block()
+                {
+                    name = r5.Name,
+                    value = r5.Text,
+                    position = (pos.X + 220, pos.Y),
+                    width = 30,
+                    height = 20,
+                    isDropped = true
+                };
+
+                Run r6 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = "\t",
+                    Background = (Brush)dragBackground
+                };
+                this.id += 1;
+                RegisterName(r6.Name, r6);
+                newTextBlock.Inlines.Add(r6);
+
+                Block b6 = new Block()
+                {
+                    name = r6.Name,
+                    value = r6.Text,
+                    position = (pos.X, pos.Y + 25),
+                    width = 80,
+                    height = 20,
+                    isDropped = true
+                };
+
+                Run r7 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = "              ",
+                    Background = Brushes.Beige
+                };
+                this.id += 1;
+                RegisterName(r7.Name, r7);
+                newTextBlock.Inlines.Add(r7);
+
+                Block b7 = new Block()
+                {
+                    name = r7.Name,
+                    value = r7.Text,
+                    position = (pos.X + 80, pos.Y + 25),
+                    width = 80,
+                    height = 20,
+                    isDropped = false
+                };
+
+                List<Block> line1 = new List<Block>();
+                line1.Add(b1);
+                line1.Add(b2);
+                line1.Add(b3);
+                line1.Add(b4);
+                line1.Add(b5);
+                List<Block> line2 = new List<Block>();
+                line2.Add(b6);
+                line2.Add(b7);
+                this.InsertedCode.Add(line1);
+                this.InsertedCode.Add(line2);
+
+                RegisterName(newTextBlock.Name, newTextBlock);
+                ((Canvas)sender).Children.Add(newTextBlock);
+                Canvas.SetLeft(newTextBlock, pos.X);
+                Canvas.SetTop(newTextBlock, pos.Y);
+
+            }
+
+            if (dragType == "VariableInteger")
+            {
+                newTextBlock.Name = "VariableInteger" + this.id.ToString();
+                this.id += 1;
+
+                Run r1 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = "Int a",
+                    Background = (Brush)dragBackground
+                };
+                this.id += 1;
+                RegisterName(r1.Name, r1);
+                newTextBlock.Inlines.Add(r1);
+
+                bool flag = false;
+                // if it is in the blank block position
+                for (int i = 0; i < this.InsertedCode.Count; i++)
+                {
+                    var line = this.InsertedCode[i];
+                    for (int j = 0; j < line.Count; j++)
+                    {
+                        var block = line[j];
+                        System.Diagnostics.Debug.WriteLine(block.position);
+                        System.Diagnostics.Debug.WriteLine(block.width);
+                        System.Diagnostics.Debug.WriteLine(block.height);
+                        if (CheckMousePositionInBlock(mousePos, block) == true && block.isDropped == false)
+                        {
+                            System.Diagnostics.Debug.WriteLine("在block内");
+                            flag = true;
+                            // set value
+                            block.value = r1.Text;
+                            block.type = "VariableInteger";
+                            block.isDropped = true;
+
+
+                            // set shape in canvas
+                            Run changedBlock = (Run)((Canvas)sender).FindName(block.name);
+                            TextBlock parent = (TextBlock)changedBlock.Parent;
+                            changedBlock.Text = r1.Text;
+                            changedBlock.Background = (Brush)dragBackground;
+
+                            // add a new block
+                            Run r = new Run();
+                            r.Text = "          ";
+                            r.Background = Brushes.Beige;
+                            var addedConditionName = "block" + this.id.ToString();
+                            r.Name = addedConditionName;
+                            this.id += 1;
+                            RegisterName(r.Name, r);
+                            parent.Inlines.InsertAfter(changedBlock, r);
+
+                            Block b = new Block()
+                            {
+                                name = r.Name,
+                                value = r.Text,
+                                position = (block.position.Item1 + 40, block.position.Item2),
+                                width = 80,
+                                height = 20,
+                                isDropped = false
+                            };
+                            line.Insert(j + 1, b);
+                            for (int k = j+2; k < line.Count; k++)
+                            {
+                                var item = line[k];
+                                var item1 = item.position.Item1 + 40;
+                                item.position = (item1, item.position.Item2);
+                            }
+
+                            
+                        }
+                    }
+                }
+
+                if (flag == false)
+                {
+                    ((Canvas)sender).Children.Add(newTextBlock);
+                    Canvas.SetLeft(newTextBlock, pos.X);
+                    Canvas.SetTop(newTextBlock, pos.Y);
+                }
+
+                System.Diagnostics.Debug.WriteLine(this.InsertedCode);
+            }
+
+            if (dragType == "OperatorAnd")
+            {
+                newTextBlock.Name = "OperatorAnd" + this.id.ToString();
+                this.id += 1;
+
+                Run r1 = new Run()
+                {
+                    Name = "block" + this.id.ToString(),
+                    Text = "AND",
+                    Background = (Brush)dragBackground
+                };
+                this.id += 1;
+                RegisterName(r1.Name, r1);
+                newTextBlock.Inlines.Add(r1);
+
+                bool flag = false;
+                // if it is in the blank block position
+                for (int i = 0; i < this.InsertedCode.Count; i++)
+                {
+                    var line = this.InsertedCode[i];
+                    for (int j = 0; j < line.Count; j++)
+                    {
+                        var block = line[j];
+                        System.Diagnostics.Debug.WriteLine(block.position);
+                        System.Diagnostics.Debug.WriteLine(block.width);
+                        System.Diagnostics.Debug.WriteLine(block.height);
+                        if (CheckMousePositionInBlock(mousePos, block) == true && block.isDropped == false)
+                        {
+                            System.Diagnostics.Debug.WriteLine("在block内");
+                            flag = true;
+                            // set value
+                            block.value = r1.Text;
+                            block.type = "OperatorAnd";
+                            block.isDropped = true;
+
+
+                            // set shape in canvas
+                            Run changedBlock = (Run)((Canvas)sender).FindName(block.name);
+                            TextBlock parent = (TextBlock)changedBlock.Parent;
+                            changedBlock.Text = r1.Text;
+                            changedBlock.Background = (Brush)dragBackground;
+
+                            // add a new block
+                            Run r = new Run();
+                            r.Text = "          ";
+                            r.Background = Brushes.Beige;
+                            var addedConditionName = "block" + this.id.ToString();
+                            r.Name = addedConditionName;
+                            this.id += 1;
+                            RegisterName(r.Name, r);
+                            parent.Inlines.InsertAfter(changedBlock, r);
+
+                            Block b = new Block()
+                            {
+                                name = r.Name,
+                                value = r.Text,
+                                position = (block.position.Item1 + 30, block.position.Item2),
+                                width = 80,
+                                height = 20,
+                                isDropped = false
+                            };
+                            line.Insert(j + 1, b);
+                            for (int k = j + 2; k < line.Count; k++)
+                            {
+                                var item = line[k];
+                                var item1 = item.position.Item1 + 80;
+                                item.position = (item1, item.position.Item2);
+                            }
+                        }
+                    }
+                }
+
+                if (flag == false)
+                {
+                    ((Canvas)sender).Children.Add(newTextBlock);
+                    Canvas.SetLeft(newTextBlock, pos.X);
+                    Canvas.SetTop(newTextBlock, pos.Y);
+                }
+
+                System.Diagnostics.Debug.WriteLine(this.InsertedCode);
+            }
+
+            if (dragType == "ComparatorEqual")
+            {
+
+            }
+
+            if (dragType == "ConditionIf")
+            {
+
+            }
+
+            if (dragType == "LoopWhile")
+            {
+
+            }
+
 
         }
 
 
-        private bool CheckMousePosition(Point mousePosition, OperateVariable block)
+        private bool CheckMousePositionInBlock(Point mousePosition, Block block)
         {
             var mouse_x = mousePosition.X;
             var mouse_y = mousePosition.Y;
@@ -1325,26 +669,61 @@ namespace VisualThreading.ToolWindows
 
         }
 
-
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("label MouseLeftButtonDown");
 
-            this.draggedItem = (UIElement)sender;
-            this.itemRelativePosition = e.GetPosition((IInputElement)this.draggedItem);  // 鼠标相对于指定元素的相对位置
+            this.draggedItem = (TextBlock)sender;
+            this.itemRelativePosition = e.GetPosition((TextBlock)this.draggedItem);  // 鼠标相对于指定元素的相对位置
+            this.preCanvasPos = e.GetPosition(canvasLabels);
+
             e.Handled = true;
         }
 
 
         private void CanvasLabel_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            /*System.Diagnostics.Debug.WriteLine("Canvas PreviewMouseMove");*/
+            System.Diagnostics.Debug.WriteLine("Canvas PreviewMouseMove");
 
             if (this.draggedItem == null)
             {
                 return;
-            } else
+            } 
+            else 
             {
+                // change all blocks' position for one element
+                var cur = (TextBlock)this.draggedItem;
+                if (cur.Name.Contains("Method"))
+                {
+                    var changedValue = e.GetPosition(canvasLabels) - this.preCanvasPos;
+                    this.preCanvasPos = e.GetPosition(canvasLabels);
+
+                    List<String> l = new List<string>();
+                    foreach (var item in cur.Inlines)
+                    {
+                        l.Add(item.Name);
+                    }
+
+                    for (int i = 0; i < this.InsertedCode.Count; i++)
+                    {
+                        var line = this.InsertedCode[i];
+                        for (int j = 0; j < line.Count; j++)
+                        {
+                            var block = line[j];
+                            if (l.Contains(block.name))
+                            {
+
+                                var pos = block.position;
+                                var changedPos = (pos.Item1 + changedValue.X, pos.Item2 + changedValue.Y);
+                                block.position = changedPos;
+                            }
+
+                        }
+                    }
+                }
+                
+
+
                 var newPos = e.GetPosition(canvasLabels) - this.itemRelativePosition;  // X Y => X' Y'
                 System.Diagnostics.Debug.WriteLine(newPos);
 
@@ -1370,7 +749,7 @@ namespace VisualThreading.ToolWindows
             e.Handled = true;
         }
 
-        
+
 
         private void CanvasLabel_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -1378,37 +757,6 @@ namespace VisualThreading.ToolWindows
 
             if (this.draggedItem != null)
             {
-
-                UIElement uiElement = this.draggedItem as UIElement;
-                if (uiElement.Visibility != Visibility.Visible)
-                {
-                    canvasLabels.Children.Remove(uiElement);
-                }
-
-                // 松开label拖动的一瞬间
-                System.Diagnostics.Debug.WriteLine(this.draggedItem.GetType());
-
-                if(this.draggedItem.GetType().Equals(typeof(TextBlock)))
-                {
-                    System.Diagnostics.Debug.WriteLine("11111111111111");
-                    var item = (TextBlock)this.draggedItem;
-                    var type = item.Text;
-                    System.Diagnostics.Debug.WriteLine(type);
-                }
-
-                // 只有variable和operator被拖动的时候
-                // if / if-else statement 拖动以后改block的位置
-
-
-                bool flag = false;
-                // 在drop的一瞬间，获取到鼠标的位置
-                var newPos = e.GetPosition(canvasLabels) - this.itemRelativePosition;  // X Y => X' Y'
-                var mousePosition = newPos;
-                System.Diagnostics.Debug.WriteLine(mousePosition);
-
-                // 判断鼠标位置离哪个框最近
-
-
 
                 this.draggedItem = null;
                 canvasLabels.ReleaseMouseCapture();
@@ -1437,93 +785,20 @@ namespace VisualThreading.ToolWindows
         }
     }
 
-    class CodeValue
-    {
-        public List<SpecialStatement> statements { get; set; }
-        public List<OperateVariable> variables { get; set; }
-        public List<OperateVariable> operators { get; set; }
-        public string value { get; set; }
 
-        public CodeValue()
-        {
-            this.statements = new List<SpecialStatement>();
-            this.variables = new List<OperateVariable>();
-            this.operators = new List<OperateVariable>();
-        }
-    }
-
-    class SpecialStatement
-    {
-        public String type { get; set; }
-        public int id { get; set; }
-    }
-
-    class IfStatement : SpecialStatement
-    {
-        public String name { get; set; }
-        public List<OperateVariable> conditions { get; set; }
-        public List<List<OperateVariable>> statements { get; set; }
-        public IfStatement()
-        {
-            this.conditions = new List<OperateVariable>();
-            this.statements = new List<List<OperateVariable>>();
-        }
-        public void addCondition(OperateVariable v)
-        {
-            this.conditions.Add(v);
-        }
-        public void addStatement(List<OperateVariable> s)
-        {
-            this.statements.Add(s);
-        }
-        public List<OperateVariable> getConditions()
-        {
-            return this.conditions;
-        }
-    }
-
-    class IfElseStatement: SpecialStatement
-    {
-        public String name { get; set; }
-        public List<OperateVariable> conditions { get; set; }
-        public List<List<OperateVariable>> statements1 { get; set; }
-        public List<List<OperateVariable>> statements2 { get; set; }
-
-        public IfElseStatement()
-        {
-            this.conditions = new List<OperateVariable>();
-            this.statements1 = new List<List<OperateVariable>>();
-            this.statements2 = new List<List<OperateVariable>>();
-        }
-
-        public void addCondition(OperateVariable v)
-        {
-            this.conditions.Add(v);
-        }
-        public void addStatements1(List<OperateVariable> s)
-        {
-            this.statements1.Add(s);
-        }
-        public void addStatements2(List<OperateVariable> s)
-        {
-            this.statements2.Add(s);
-        }
-
-    }
-
-
-    class OperateVariable
+    class Block
     {
         public String name { get; set; }
         public string value { get; set; }
         public string type { get; set; }
+
         public (double, double) position { get; set; }
         public int width { get; set; }
         public int height { get; set; }
 
-        public String draggedLabelName { get; set; }
+        public bool isDropped { get; set; }
 
     }
 
-
+    
 }

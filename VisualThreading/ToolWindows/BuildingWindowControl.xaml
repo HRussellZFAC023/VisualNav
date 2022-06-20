@@ -19,29 +19,18 @@
             Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
             DragEnter="canvasLabels_DragEnter"
             DragLeave="canvasLabels_DragLeave"
-            Drop="Canvas_Drop"
+            Drop="onDropCanvas"
             PreviewMouseLeftButtonUp="CanvasLabel_PreviewMouseLeftButtonUp"
             PreviewMouseMove="CanvasLabel_PreviewMouseMove"
             ScrollViewer.HorizontalScrollBarVisibility="Visible" />
 
-        <StackPanel
-            Margin="0,0,0,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Orientation="Horizontal">
-            <Button
-                x:Name="insert_button"
-                Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"
-                Click="insert_button_Click">
-                <Label
-                    Background="#00000000"
-                    FontStyle="Normal"
-                    FontWeight="Normal">
-                    Insert To Code
-                </Label>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+                <Label Background="#00000000" FontWeight="Normal" FontStyle="Normal">Insert To Code</Label>
             </Button>
-            <!--  Put more buttons here !  -->
+            <!-- Put more buttons here ! -->
         </StackPanel>
+        
     </Grid>
 
 </UserControl>
