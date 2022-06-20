@@ -18,6 +18,12 @@ namespace VisualThreading.Schema
         }
     }
 
+
+    public class Rootobject
+    {
+        public Radialmenu[] RadialMenu { get; set; }
+    }
+
     public class Radialmenu
     {
         public string fileExt { get; set; }
@@ -30,6 +36,8 @@ namespace VisualThreading.Schema
     {
         public string name { get; set; }
         public string parent { get; set; }
+        public string[] submenu { get; set; }
+        public string[] chidren { get; set; }
     }
 
     public class Command
@@ -39,6 +47,5 @@ namespace VisualThreading.Schema
         public string preview { get; set; }
         public string color { get; set; }
     }
-
 
 }

@@ -62,7 +62,7 @@
           "name": "Operator",
           "parent": "Code",
           "submenu": [],
-          "chidren": [ "Equal", "Plus", "Minus", "Multiply", "Divide", "Mod", "And", "()", ]
+          "chidren": [ "Equal", "Plus", "Minus", "Multiply", "Divide", "Mod", "And", "()" ]
         },
         {
           "name": "Comparetor",
