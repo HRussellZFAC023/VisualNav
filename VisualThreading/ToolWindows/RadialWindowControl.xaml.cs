@@ -57,20 +57,23 @@ namespace VisualThreading.ToolWindows
                         if (menu.ContainsKey(command.parent))
                         {
                             var temp = new RadialMenuItem { Content = new TextBlock { Text = command.text } };
+                            // ---------------------------This is the handler of the command, please make sure you fill in the one on line 71 as well---------------------------
                             // temp.Click += (_, _) => RadialDialControl_Click(); 
+                            // temp.MouseEnter += (_, _) => RadialDialElement_Hover();
+                            // temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
                             menu[command.parent].Add(temp);
                         }
                         else
                         {
                             menu.Add(command.parent, new List<RadialMenuItem> { });
                             var temp = new RadialMenuItem { Content = new TextBlock { Text = command.text } };
+                            // ---------------------------This is the handler of the command----------------------------------
                             // temp.Click += (_, _) => RadialDialControl_Click(); 
+                            // temp.MouseEnter += (_, _) => RadialDialElement_Hover();
+                            // temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
                             menu[command.parent].Add(temp);
                         }
-
-
-                    }  // Generate the command structure to the menu dictionary 
-                    
+                    }  // Generate the command structure to the menu dictionary               
                 }  // For each Language, generate menu, commands, links, and handler
 
             }
