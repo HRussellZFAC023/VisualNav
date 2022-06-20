@@ -1424,6 +1424,17 @@ namespace VisualThreading.ToolWindows
             preview_effect.Visibility = Visibility.Collapsed;
             e.Handled = true;
         }
+
+        private async void insert_button_Click(object sender, RoutedEventArgs e)
+        {
+            DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
+            var position = docView.TextView?.Selection.Start.Position.Position;
+
+            if (position.HasValue)
+            {
+                // docView.TextBuffer.Insert(position.Value, content to insert);
+            }
+        }
     }
 
     class CodeValue

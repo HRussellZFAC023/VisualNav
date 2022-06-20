@@ -24,7 +24,24 @@
             PreviewMouseMove="CanvasLabel_PreviewMouseMove"
             ScrollViewer.HorizontalScrollBarVisibility="Visible" />
 
-
+        <StackPanel
+            Margin="0,0,0,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal">
+            <Button
+                x:Name="insert_button"
+                Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"
+                Click="insert_button_Click">
+                <Label
+                    Background="#00000000"
+                    FontStyle="Normal"
+                    FontWeight="Normal">
+                    Insert To Code
+                </Label>
+            </Button>
+            <!--  Put more buttons here !  -->
+        </StackPanel>
     </Grid>
 
 </UserControl>
