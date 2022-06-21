@@ -79,6 +79,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\html\blocklyHTML.html" />
+    <Content Include="Resources\xml\blocklyWorkspace.xml" />
+    <Content Include="Resources\xml\blocklyToolbox.xml" />
     <Content Include="Schema\schema.json">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

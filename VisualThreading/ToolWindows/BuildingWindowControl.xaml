@@ -5,32 +5,46 @@
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities">
 
+
     <Grid
+        Height="308"
         MinWidth="200"
-        MinHeight="200"
-        Margin="0,0,0,0"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch">
+        MinHeight="200">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <Canvas
-            x:Name="canvasLabels"
-            Margin="0,0,0,0"
-            AllowDrop="True"
-            Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
-            DragEnter="canvasLabels_DragEnter"
-            DragLeave="canvasLabels_DragLeave"
-            Drop="onDropCanvas"
-            PreviewMouseLeftButtonUp="CanvasLabel_PreviewMouseLeftButtonUp"
-            PreviewMouseMove="CanvasLabel_PreviewMouseMove"
-            ScrollViewer.HorizontalScrollBarVisibility="Visible" />
-
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
-                <Label Background="#00000000" FontWeight="Normal" FontStyle="Normal">Insert To Code</Label>
-            </Button>
-            <!-- Put more buttons here ! -->
-        </StackPanel>
-        
+        <WebBrowser
+            Name="Browser"
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Width="auto"
+            Height="auto"
+            LoadCompleted="WebBrowser_LoadCompleted" />
+        <Button
+            Name="ShowCodeButton"
+            Grid.Row="1"
+            Grid.Column="0"
+            Width="150"
+            Height="25"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="ShowCodeButton_Click"
+            Content="Show Code From C#" />
+        <Button
+            Name="InsertCode"
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="150"
+            Height="25"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Insert code" />
     </Grid>
 
 </UserControl>
