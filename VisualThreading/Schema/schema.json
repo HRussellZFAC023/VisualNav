@@ -189,13 +189,13 @@
           "text": "switch",
           "parent": "Condition",
           "preview": "switch ( conditions ) {\n  statements;\n}",
-          "color": "##FF008000"
+          "color": "#FF008000"
         },
         {
           "text": "case",
           "parent": "Condition",
           "preview": "case :",
-          "color": "##FF008000"
+          "color": "#FF008000"
         },
         {
           "text": "while",
