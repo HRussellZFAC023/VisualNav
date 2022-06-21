@@ -1,13 +1,18 @@
+using Microsoft.VisualStudio.Imaging;
+using Microsoft.VisualStudio.PlatformUI;
 using RadialMenu.Controls;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace VisualThreading.ToolWindows
 {
     public partial class RadialWindowControl
     {
-        private readonly IDictionary<string, List<RadialMenuItem>> _menu = new Dictionary<string, List<RadialMenuItem>>(); // Store all menu levels without heriachy
+        private readonly IDictionary<string, List<RadialMenuItem>>
+            _menu = new Dictionary<string, List<RadialMenuItem>>(); // Store all menu levels without hierarchy
+
         private readonly Stack _state = new();
         private string _currentState = "";
 
@@ -31,45 +36,44 @@ namespace VisualThreading.ToolWindows
                 {
                     foreach (var menuItem in language.MenuItems)
                     {
-                        if (_menu.ContainsKey(menuItem.Parent))
+                        var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
+                        var item = new RadialMenuItem { Content = stackPanel };
+
+                        var image = new CrispImage { Width = 25, Height = 25, Moniker = KnownMonikers.Actor };
+
+                        var binding = new Binding("Background")
                         {
-                            var temp = new RadialMenuItem { Content = new TextBlock { Text = menuItem.Name } };
-                            temp.Click += (_, _) => RadialDialControl_Click(menuItem.Name); // Go to ThreadSubMenu
-                            _menu[menuItem.Parent].Add(temp);
-                        }
-                        else
-                        {
+                            Converter = new BrushToColorConverter(),
+                            RelativeSource =
+                                new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RadialWindow), 3)
+                        };
+
+                        image.SetBinding(ImageThemingUtilities.ImageBackgroundColorProperty, binding);
+
+                        stackPanel.Children.Add(new TextBlock { Text = menuItem.Name });
+                        stackPanel.Children.Add(image);
+
+                        item.Click += (_, _) => RadialDialControl_Click(menuItem.Name);
+
+                        if (!_menu.ContainsKey(menuItem.Parent))
                             _menu.Add(menuItem.Parent, new List<RadialMenuItem>());
-                            var temp = new RadialMenuItem { Content = new TextBlock { Text = menuItem.Name } };
-                            temp.Click += (_, _) => RadialDialControl_Click(menuItem.Name); // Go to ThreadSubMenu
-                            _menu[menuItem.Parent].Add(temp);
-                        }
+
+                        _menu[menuItem.Parent].Add(item);
                     }  // Generate the menu structure to the menu dictionary
 
                     MainMenu.Items = _menu["Main"];  // Set default menu to Main menu
-
                     foreach (var command in language.Commands)
                     {
-                        if (_menu.ContainsKey(command.Parent))
-                        {
-                            var temp = new RadialMenuItem { Content = new TextBlock { Text = command.Text } };
+                        var temp = new RadialMenuItem { Content = new TextBlock { Text = command.Text } };
+                        // This is the handler of the command
+                        temp.Click += (_, _) => RadialDialElement_Click(command);
+                        temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
+                        temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
 
-                            // This is the handler of the command
-                            temp.Click += (_, _) => RadialDialElement_Click(command);
-                            temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
-                            temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
-                            _menu[command.Parent].Add(temp);
-                        }
-                        else
-                        {
+                        if (!_menu.ContainsKey(command.Parent))
                             _menu.Add(command.Parent, new List<RadialMenuItem>());
-                            var temp = new RadialMenuItem { Content = new TextBlock { Text = command.Text } };
-                            // This is the handler of the command
-                            temp.Click += (_, _) => RadialDialElement_Click(command);
-                            temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
-                            temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
-                            _menu[command.Parent].Add(temp);
-                        }
+
+                        _menu[command.Parent].Add(temp);
                     }  // Generate the command structure to the menu dictionary
                 }  // For each Language, generate menu, Commands, links, and handler
             }
@@ -123,7 +127,6 @@ namespace VisualThreading.ToolWindows
                 var temp = _state.Count == 0 ? "Main" : _state.Pop().ToString();
                 _currentState = temp;
                 MainMenu.Items = _menu[temp];
-
             }
             ).FireAndForget();
         }
