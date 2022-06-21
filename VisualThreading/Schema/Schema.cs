@@ -1,12 +1,13 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace VisualThreading.Schema
 {
     public class Schema
     {
         public Radialmenu[] RadialMenu { get; set; }
+
         public static async Task<Schema> LoadAsync()
         {
             var dir = Path.GetDirectoryName(typeof(Schema).Assembly.Location);
@@ -18,7 +19,6 @@ namespace VisualThreading.Schema
         }
     }
 
-
     public class Rootobject
     {
         public Radialmenu[] RadialMenu { get; set; }
@@ -26,26 +26,26 @@ namespace VisualThreading.Schema
 
     public class Radialmenu
     {
-        public string fileExt { get; set; }
-        public string text { get; set; }
+        public string FileExt { get; set; }
+        public string Text { get; set; }
         public Menuitem[] MenuItems { get; set; }
-        public Command[] commands { get; set; }
+        public Command[] Commands { get; set; }
     }
 
     public class Menuitem
     {
-        public string name { get; set; }
-        public string parent { get; set; }
-        public string[] submenu { get; set; }
-        public string[] chidren { get; set; }
+        public string Name { get; set; }
+        public string Parent { get; set; }
+        public string[] Submenu { get; set; }
+        public string[] Children { get; set; }
+        public string Icon { get; set; }
     }
 
     public class Command
     {
-        public string text { get; set; }
-        public string parent { get; set; }
-        public string preview { get; set; }
-        public string color { get; set; }
+        public string Text { get; set; }
+        public string Parent { get; set; }
+        public string Preview { get; set; }
+        public string Color { get; set; }
     }
-
 }

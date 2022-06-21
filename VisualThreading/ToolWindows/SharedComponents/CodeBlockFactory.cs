@@ -10,7 +10,7 @@ namespace VisualThreading.ToolWindows.SharedComponents
     {
         public static TextBlock CodeBlock(Command command)
         {
-            Brush brush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(command.color)!);
+            Brush brush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(command.Color)!);
             var tb = new TextBlock
             {
                 TextWrapping = TextWrapping.Wrap,
@@ -21,7 +21,7 @@ namespace VisualThreading.ToolWindows.SharedComponents
                 new Run()
                 {
                     Background = brush,
-                    Text = command.preview,
+                    Text = command.Preview,
                     FontWeight = FontWeights.Bold,
                     FontSize = 18
                 }

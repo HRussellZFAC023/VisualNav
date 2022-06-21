@@ -63,8 +63,8 @@ namespace VisualThreading.ToolWindows
                 return;
 
             // widgets
-            Widgets.Children.Add(new Label { Content = _currentCommand.text });
-            // preview
+            Widgets.Children.Add(new Label { Content = _currentCommand.Text });
+            // Preview
             var tb = CodeBlockFactory.CodeBlock(_currentCommand);
             tb.Margin = new Thickness(5);
             Preview.Children.Add(tb);
