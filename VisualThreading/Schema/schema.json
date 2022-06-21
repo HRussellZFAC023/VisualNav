@@ -8,67 +8,78 @@
           "name": "Thread",
           "parent": "Main",
           "submenu": [],
-          "chidren": [ "New thread" ]
+          "children": [ "New thread" ],
+          "icon":  "Thread" 
         },
         {
           "name": "Test",
           "parent": "Main",
           "submenu": [],
-          "chidren": [ "Asset" ]
+          "children": [ "Asset" ],
+          "icon":  "Test" 
         },
         {
           "name": "Code",
           "parent": "Main",
           "submenu": [ "I/O", "Method/Keyword", "Condition", "Loop", "Variables", "Operator", "Comparetor" ],
-          "chidren": []
+          "children": [],
+          "icon": "Code"
         },
         {
           "name": "UI",
           "parent": "Main",
           "submenu": [],
-          "chidren": [ "New Window" ]
+          "children": [ "New Window" ],
+          "icon": "WindowsForm"
         },
         {
           "name": "I/O",
           "parent": "Code",
           "submenu": [],
-          "chidren": [ "Write", "WriteLine", "ReadKey", "ReadInputLine", "OpenText", "WritetoFiles" ]
+          "children": [ "Write", "WriteLine", "ReadKey", "ReadInputLine", "OpenText", "WritetoFiles" ],
+          "icon": "TextFile"
         },
         {
           "name": "Method/Keyword",
           "parent": "Code",
           "submenu": [],
-          "chidren": [ "Static", "Public", "Private", "Protected", "Internal", "Return" ]
+          "children": [ "Static", "Public", "Private", "Protected", "Internal", "Return" ],
+          "icon": "Method"
         },
         {
           "name": "Condition",
           "parent": "Code",
           "submenu": [],
-          "chidren": [ "if", "else", "else if" ]
+          "children": [ "if", "else", "else if" ],
+          "icon":  "MeasureTree" 
         },
         {
           "name": "Loop",
           "parent": "Code",
           "submenu": [],
-          "chidren": [ "switch", "case", "while", "break", "for", "continue" ]
+          "children": [ "switch", "case", "while", "break", "for", "continue" ],
+          "icon":  "While"
         },
         {
           "name": "Variables",
           "parent": "Code",
           "submenu": [],
-          "chidren": [ "Void", "Integer", "Double", "Character", "Boolean", "String", "Array" ]
+          "children": [ "Void", "Integer", "Double", "Character", "Boolean", "String", "Array" ],
+          "icon": "LocalVariable"
         },
         {
           "name": "Operator",
           "parent": "Code",
           "submenu": [],
-          "chidren": [ "Equal", "Plus", "Minus", "Multiply", "Divide", "Mod", "And", "()" ]
+          "children": [ "Equal", "Plus", "Minus", "Multiply", "Divide", "Mod", "And", "()" ],
+          "icon": "Operator"
         },
         {
-          "name": "Comparetor",
+          "name": "Comparator",
           "parent": "Code",
           "submenu": [],
-          "chidren": [ "&&", "||", "==", ">", "<", ">=", "<=", "!=", "()" ]
+          "children": [ "&&", "||", "==", ">", "<", ">=", "<=", "!=", "()" ],
+          "icon": "DecisionNode"
         }
       ],
       "commands": [

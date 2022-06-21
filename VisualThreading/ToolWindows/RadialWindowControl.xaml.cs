@@ -25,53 +25,53 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 var json = await Schema.Schema.LoadAsync();
-                var buffer = await VS.Documents.GetActiveDocumentViewAsync();
+                var buffer = await VS.Documents.GetActiveDocumentViewAsync(); // used to get language
 
                 foreach (var language in json.RadialMenu)
                 {
                     foreach (var menuItem in language.MenuItems)
                     {
-                        if (_menu.ContainsKey(menuItem.parent))
+                        if (_menu.ContainsKey(menuItem.Parent))
                         {
-                            var temp = new RadialMenuItem { Content = new TextBlock { Text = menuItem.name } };
-                            temp.Click += (_, _) => RadialDialControl_Click(menuItem.name); // Go to ThreadSubMenu
-                            _menu[menuItem.parent].Add(temp);
+                            var temp = new RadialMenuItem { Content = new TextBlock { Text = menuItem.Name } };
+                            temp.Click += (_, _) => RadialDialControl_Click(menuItem.Name); // Go to ThreadSubMenu
+                            _menu[menuItem.Parent].Add(temp);
                         }
                         else
                         {
-                            _menu.Add(menuItem.parent, new List<RadialMenuItem>());
-                            var temp = new RadialMenuItem { Content = new TextBlock { Text = menuItem.name } };
-                            temp.Click += (_, _) => RadialDialControl_Click(menuItem.name); // Go to ThreadSubMenu
-                            _menu[menuItem.parent].Add(temp);
+                            _menu.Add(menuItem.Parent, new List<RadialMenuItem>());
+                            var temp = new RadialMenuItem { Content = new TextBlock { Text = menuItem.Name } };
+                            temp.Click += (_, _) => RadialDialControl_Click(menuItem.Name); // Go to ThreadSubMenu
+                            _menu[menuItem.Parent].Add(temp);
                         }
                     }  // Generate the menu structure to the menu dictionary
 
                     MainMenu.Items = _menu["Main"];  // Set default menu to Main menu
 
-                    foreach (var command in language.commands)
+                    foreach (var command in language.Commands)
                     {
-                        if (_menu.ContainsKey(command.parent))
+                        if (_menu.ContainsKey(command.Parent))
                         {
-                            var temp = new RadialMenuItem { Content = new TextBlock { Text = command.text } };
+                            var temp = new RadialMenuItem { Content = new TextBlock { Text = command.Text } };
 
                             // This is the handler of the command
                             temp.Click += (_, _) => RadialDialElement_Click(command);
                             temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
                             temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
-                            _menu[command.parent].Add(temp);
+                            _menu[command.Parent].Add(temp);
                         }
                         else
                         {
-                            _menu.Add(command.parent, new List<RadialMenuItem>());
-                            var temp = new RadialMenuItem { Content = new TextBlock { Text = command.text } };
+                            _menu.Add(command.Parent, new List<RadialMenuItem>());
+                            var temp = new RadialMenuItem { Content = new TextBlock { Text = command.Text } };
                             // This is the handler of the command
                             temp.Click += (_, _) => RadialDialElement_Click(command);
                             temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
                             temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
-                            _menu[command.parent].Add(temp);
+                            _menu[command.Parent].Add(temp);
                         }
                     }  // Generate the command structure to the menu dictionary
-                }  // For each Language, generate menu, commands, links, and handler
+                }  // For each Language, generate menu, Commands, links, and handler
             }
             ).FireAndForget();
         }
@@ -83,7 +83,7 @@ namespace VisualThreading.ToolWindows
                 await Task.Delay(20);
                 BuildingWindow.Instance.SetCurrentCommand(element);
                 // extract element to working area
-                MainMenu.Items = _menu[element.text];
+                MainMenu.Items = _menu[element.Text];
             }
             ).FireAndForget();
         }
