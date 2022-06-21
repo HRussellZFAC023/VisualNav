@@ -1,15 +1,13 @@
 using RadialMenu.Controls;
 using System.Collections;
 using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Controls;
-
 
 namespace VisualThreading.ToolWindows
 {
     public partial class RadialWindowControl
     {
-        IDictionary<string, List<RadialMenuItem>> menu = new Dictionary<string, List<RadialMenuItem>>(); // Store all menu levels without heriachy
+        private readonly IDictionary<string, List<RadialMenuItem>> _menu = new Dictionary<string, List<RadialMenuItem>>(); // Store all menu levels without heriachy
         private readonly Stack _state = new();
         private string _currentState = "";
 
@@ -17,8 +15,6 @@ namespace VisualThreading.ToolWindows
         {
             InitializeComponent();
             RadialMenuGeneration();
-
-
 
             // Back to Home on center item
             MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
@@ -35,101 +31,98 @@ namespace VisualThreading.ToolWindows
                 {
                     foreach (var menuItem in language.MenuItems)
                     {
-                        if (menu.ContainsKey(menuItem.parent))
+                        if (_menu.ContainsKey(menuItem.parent))
                         {
                             var temp = new RadialMenuItem { Content = new TextBlock { Text = menuItem.name } };
                             temp.Click += (_, _) => RadialDialControl_Click(menuItem.name); // Go to ThreadSubMenu
-                            menu[menuItem.parent].Add(temp);
+                            _menu[menuItem.parent].Add(temp);
                         }
                         else
                         {
-                            menu.Add(menuItem.parent, new List<RadialMenuItem> { });
+                            _menu.Add(menuItem.parent, new List<RadialMenuItem>());
                             var temp = new RadialMenuItem { Content = new TextBlock { Text = menuItem.name } };
                             temp.Click += (_, _) => RadialDialControl_Click(menuItem.name); // Go to ThreadSubMenu
-                            menu[menuItem.parent].Add(temp);
+                            _menu[menuItem.parent].Add(temp);
                         }
-                    }  // Generate the menu structure to the menu dictionary 
+                    }  // Generate the menu structure to the menu dictionary
 
-                    MainMenu.Items = menu["Main"];  // Set default menu to Main menu
+                    MainMenu.Items = _menu["Main"];  // Set default menu to Main menu
 
                     foreach (var command in language.commands)
                     {
-                        if (menu.ContainsKey(command.parent))
+                        if (_menu.ContainsKey(command.parent))
                         {
                             var temp = new RadialMenuItem { Content = new TextBlock { Text = command.text } };
-                            // ---------------------------This is the handler of the command, please make sure you fill in the one on line 71 as well---------------------------
-                            // temp.Click += (_, _) => RadialDialControl_Click(); 
-                            // temp.MouseEnter += (_, _) => RadialDialElement_Hover();
-                            // temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
-                            menu[command.parent].Add(temp);
+
+                            // This is the handler of the command
+                            temp.Click += (_, _) => RadialDialElement_Click(command);
+                            temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
+                            temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
+                            _menu[command.parent].Add(temp);
                         }
                         else
                         {
-                            menu.Add(command.parent, new List<RadialMenuItem> { });
+                            _menu.Add(command.parent, new List<RadialMenuItem>());
                             var temp = new RadialMenuItem { Content = new TextBlock { Text = command.text } };
-                            // ---------------------------This is the handler of the command----------------------------------
-                            // temp.Click += (_, _) => RadialDialControl_Click(); 
-                            // temp.MouseEnter += (_, _) => RadialDialElement_Hover();
-                            // temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
-                            menu[command.parent].Add(temp);
+                            // This is the handler of the command
+                            temp.Click += (_, _) => RadialDialElement_Click(command);
+                            temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
+                            temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
+                            _menu[command.parent].Add(temp);
                         }
-                    }  // Generate the command structure to the menu dictionary               
+                    }  // Generate the command structure to the menu dictionary
                 }  // For each Language, generate menu, commands, links, and handler
-
             }
             ).FireAndForget();
         }
 
-        private void RadialDialElement_Click(string element) // handles the eventuall element like a veriable
+        private void RadialDialElement_Click(Schema.Command element)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                //BuildingWindow.Instance.SetCurrentCommand(element.ToLower());
+                BuildingWindow.Instance.SetCurrentCommand(element);
                 // extract element to working area
-                MainMenu.Items = menu[element];
+                MainMenu.Items = _menu[element.text];
             }
             ).FireAndForget();
         }
 
-        private void RadialDialElement_Hover(string previewName)  // handles the eventuall element like a veriable
+        private static void RadialDialElement_Hover(Schema.Command preview)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                // take the name of the element and pull preview from json.
-                //PreviewWindow.Instance.SetCurrentCommand(previewName.ToLower());
-                //BuildingWindow.Instance.SetCurrentCommand(PreviewName.ToLower());
+                PreviewWindow.Instance.SetCurrentCommand(preview);
             }
             ).FireAndForget();
         }
 
-        private void RadialDialElement_ExitHover()  // handles the eventuall element like a veriable
+        private static void RadialDialElement_ExitHover()
         {
-            // clear preview area
-            //PreviewWindow.Instance.SetCurrentCommand("");
+            PreviewWindow.Instance.ClearCurrentCommand();
         }
 
-        private void RadialDialControl_Click(string subMenu) // handles the subfolder element like loop
+        private void RadialDialControl_Click(string subMenu)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                MainMenu.Items = menu[subMenu];
+                MainMenu.Items = _menu[subMenu];
                 _state.Push(_state.Count == 0 ? "Main" : _currentState);
                 _currentState = subMenu;
             }
             ).FireAndForget();
         }
 
-        private void RadialDialControl_Back() // handles the subfolder element like loop
+        private void RadialDialControl_Back()
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
                 var temp = _state.Count == 0 ? "Main" : _state.Pop().ToString();
                 _currentState = temp;
-                MainMenu.Items = menu[temp];
+                MainMenu.Items = _menu[temp];
             }
             ).FireAndForget();
         }
