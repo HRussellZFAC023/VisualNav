@@ -12,6 +12,8 @@ namespace VisualThreading.ToolWindows
         {
             InitializeComponent();
             ShowCodeButton.IsEnabled = false;
+
+
             Browser.NavigateToString(System.IO.File.ReadAllText("../../Resources/html/blocklyHTML.html"));
         }
         private void ShowCodeButton_Click(object sender, RoutedEventArgs e)

@@ -1,19 +1,97 @@
-﻿<html>
+﻿<html lang="en">
+
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=10" />
+    <!--
+    <script src="/node_modules/blockly/blockly_compressed.js"></script>
+    <script src="/node_modules/blockly/blocks_compressed.js"></script>
+    <script src="/node_modules/blockly/javascript_compressed.js"></script>
+    <script src="/node_modules/blockly/msg/en.js"></script>
+    -->
     <script src="https://blockly-demo.appspot.com/static/blockly_compressed.js"></script>
     <script src="https://blockly-demo.appspot.com/static/blocks_compressed.js"></script>
     <script src="https://blockly-demo.appspot.com/static/javascript_compressed.js"></script>
     <script src="https://blockly-demo.appspot.com/static/msg/js/en.js"></script>
+
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-color: #fff;
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-weight: normal;
+            font-size: 140%;
+        }
+
+        table {
+            height: 100%;
+            width: 100%;
+        }
+
+        #blocklyArea {
+            height: 99%;
+        }
+    </style>
 </head>
 <body>
-    <div id="host" style="height: 480px; width: 600px;"></div>
+    <table>
+        <tr>
+            <td id="blocklyArea">
+            </td>
+        </tr>
+    </table>
+
+    <div id="blocklyDiv" style="position: absolute"></div>
+
+    <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+        <category name="Logic" colour="%{BKY_LOGIC_HUE}">
+            <block type="controls_if"></block>
+            <block type="logic_compare"></block>
+            <block type="logic_operation"></block>
+            <block type="logic_negate"></block>
+            <block type="logic_boolean"></block>
+        </category>
+        <category name="Loops" colour="%{BKY_LOOPS_HUE}">
+            <block type="controls_repeat_ext">
+                <value name="TIMES">
+                    <block type="math_number">
+                        <field name="NUM">10</field>
+                    </block>
+                </value>
+            </block>
+            <block type="controls_whileUntil"></block>
+        </category>
+        <category name="Math" colour="%{BKY_MATH_HUE}">
+            <block type="math_number">
+                <field name="NUM">123</field>
+            </block>
+            <block type="math_arithmetic"></block>
+            <block type="math_single"></block>
+        </category>
+        <category name="Text" colour="%{BKY_TEXTS_HUE}">
+            <block type="text"></block>
+            <block type="text_length"></block>
+            <block type="text_print"></block>
+        </category>
+    </xml>
+
     <script>
-        var workspace;
+        var demoWorkspace;
         function init(toolboxXML, workspaceXML) {
-            workspace = Blockly.inject('host',
+            var blocklyArea = document.getElementById('blocklyArea');
+            var blocklyDiv = document.getElementById('blocklyDiv');
+            demoWorkspace = Blockly.inject(blocklyDiv,
                 {
-                    toolbox: toolboxXML,
+                    media: 'https://unpkg.com/blockly/media/',
+                    toolbox: document.getElementById('toolbox'),
                     zoom:
                     {
                         controls: true,
@@ -25,12 +103,34 @@
                     },
                     trashcan: true
                 });
-            var wx = Blockly.Xml.textToDom(workspaceXML)
-            Blockly.Xml.domToWorkspace(wx, workspace);
+            var onresize = function (e) {
+                // Compute the absolute coordinates and dimensions of blocklyArea.
+                var element = blocklyArea;
+                var x = 0;
+                var y = 0;
+                do {
+                    x += element.offsetLeft;
+                    y += element.offsetTop;
+                    element = element.offsetParent;
+                } while (element);
+                // Position blocklyDiv over blocklyArea.
+                blocklyDiv.style.left = x + 'px';
+                blocklyDiv.style.top = y + 'px';
+                blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+                blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+                Blockly.svgResize(demoWorkspace);
+
+                console.log('resize');
+            };
+            window.addEventListener('resize', onresize, false);
+            onresize();
+            Blockly.svgResize(demoWorkspace);
         }
+
         function showCode() {
+            // Generate JavaScript code and display it.
             Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
             return code;
         }
     </script>
