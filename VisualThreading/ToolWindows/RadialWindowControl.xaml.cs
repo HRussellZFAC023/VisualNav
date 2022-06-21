@@ -123,6 +123,7 @@ namespace VisualThreading.ToolWindows
                 var temp = _state.Count == 0 ? "Main" : _state.Pop().ToString();
                 _currentState = temp;
                 MainMenu.Items = _menu[temp];
+
             }
             ).FireAndForget();
         }
