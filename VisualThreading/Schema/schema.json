@@ -9,19 +9,19 @@
           "parent": "Main",
           "submenu": [],
           "children": [ "New thread" ],
-          "icon":  "Thread" 
+          "icon": "Thread"
         },
         {
           "name": "Test",
           "parent": "Main",
           "submenu": [],
           "children": [ "Asset" ],
-          "icon":  "Test" 
+          "icon": "Test"
         },
         {
           "name": "Code",
           "parent": "Main",
-          "submenu": [ "I/O", "Method/Keyword", "Condition", "Loop", "Variables", "Operator", "Comparetor" ],
+          "submenu": [ "I/O", "Method/Keyword", "Condition", "Loop", "Variables", "Operator", "Comparator" ],
           "children": [],
           "icon": "Code"
         },
@@ -36,7 +36,7 @@
           "name": "I/O",
           "parent": "Code",
           "submenu": [],
-          "children": [ "Write", "WriteLine", "ReadKey", "ReadInputLine", "OpenText", "WritetoFiles" ],
+          "children": [ "Write", "WriteLine", "ReadKey", "ReadInputLine", "OpenText", "WriteToFiles" ],
           "icon": "TextFile"
         },
         {
@@ -51,14 +51,14 @@
           "parent": "Code",
           "submenu": [],
           "children": [ "if", "else", "else if" ],
-          "icon":  "MeasureTree" 
+          "icon": "MeasureTree"
         },
         {
           "name": "Loop",
           "parent": "Code",
           "submenu": [],
           "children": [ "switch", "case", "while", "break", "for", "continue" ],
-          "icon":  "While"
+          "icon": "While"
         },
         {
           "name": "Variables",
@@ -126,7 +126,7 @@
           "color": "#FF00FFFF"
         },
         {
-          "text": "WritetoFiles",
+          "text": "WriteToFiles",
           "parent": "I/O",
           "preview": "File.WriteAllText(path, createText);",
           "color": "#FF00FFFF"
@@ -319,55 +319,55 @@
         },
         {
           "text": "&&",
-          "parent": "Comparetor",
+          "parent": "Comparator",
           "preview": "&&",
           "color": "#FF00FFFF"
         },
         {
           "text": "||",
-          "parent": "Comparetor",
+          "parent": "Comparator",
           "preview": "||",
           "color": "#FF00FFFF"
         },
         {
           "text": "==",
-          "parent": "Comparetor",
+          "parent": "Comparator",
           "preview": "==",
           "color": "#FF00FFFF"
         },
         {
           "text": ">",
-          "parent": "Comparetor",
+          "parent": "Comparator",
           "preview": ">",
           "color": "#FF00FFFF"
         },
         {
           "text": "<",
-          "parent": "Comparetor",
+          "parent": "Comparator",
           "preview": "<",
           "color": "#FF00FFFF"
         },
         {
           "text": ">=",
-          "parent": "Comparetor",
+          "parent": "Comparator",
           "preview": ">=",
           "color": "#FF00FFFF"
         },
         {
           "text": "<=",
-          "parent": "Comparetor",
+          "parent": "Comparator",
           "preview": "<=",
           "color": "#FF00FFFF"
         },
         {
           "text": "!=",
-          "parent": "Comparetor",
+          "parent": "Comparator",
           "preview": "!=",
           "color": "#FF00FFFF"
         },
         {
           "text": "()",
-          "parent": "Comparetor",
+          "parent": "Comparator",
           "preview": "()",
           "color": "#FF00FFFF"
         },
@@ -384,7 +384,6 @@
       "text": "XAML",
       "MenuItems": [
         {
-
         }
       ]
     }
