@@ -3,59 +3,378 @@
     {
       "fileExt": ".cs",
       "text": "c#",
+      "MenuItems": [
+        {
+          "name": "Thread",
+          "parent": "Main",
+          "submenu": [],
+          "chidren": [ "New thread" ]
+        },
+        {
+          "name": "Test",
+          "parent": "Main",
+          "submenu": [],
+          "chidren": [ "Asset" ]
+        },
+        {
+          "name": "Code",
+          "parent": "Main",
+          "submenu": [ "I/O", "Method/Keyword", "Condition", "Loop", "Variables", "Operator", "Comparetor" ],
+          "chidren": []
+        },
+        {
+          "name": "UI",
+          "parent": "Main",
+          "submenu": [],
+          "chidren": [ "New Window" ]
+        },
+        {
+          "name": "I/O",
+          "parent": "Code",
+          "submenu": [],
+          "chidren": [ "Write", "WriteLine", "ReadKey", "ReadInputLine", "OpenText", "WritetoFiles" ]
+        },
+        {
+          "name": "Method/Keyword",
+          "parent": "Code",
+          "submenu": [],
+          "chidren": [ "Static", "Public", "Private", "Protected", "Internal", "Return" ]
+        },
+        {
+          "name": "Condition",
+          "parent": "Code",
+          "submenu": [],
+          "chidren": [ "if", "else", "else if" ]
+        },
+        {
+          "name": "Loop",
+          "parent": "Code",
+          "submenu": [],
+          "chidren": [ "switch", "case", "while", "break", "for", "continue" ]
+        },
+        {
+          "name": "Variables",
+          "parent": "Code",
+          "submenu": [],
+          "chidren": [ "Void", "Integer", "Double", "Character", "Boolean", "String", "Array" ]
+        },
+        {
+          "name": "Operator",
+          "parent": "Code",
+          "submenu": [],
+          "chidren": [ "Equal", "Plus", "Minus", "Multiply", "Divide", "Mod", "And", "()" ]
+        },
+        {
+          "name": "Comparetor",
+          "parent": "Code",
+          "submenu": [],
+          "chidren": [ "&&", "||", "==", ">", "<", ">=", "<=", "!=", "()" ]
+        }
+      ],
       "commands": [
         {
+          "text": "New thread",
+          "parent": "Thread",
+          "preview": "",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Assert",
+          "parent": "Test",
+          "preview": "",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Write",
+          "parent": "I/O",
+          "preview": "Console.Write(\"Content Here\");",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "WriteLine",
+          "parent": "I/O",
+          "preview": "Console.WriteLine(\"Content Here\");",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "ReadKey",
+          "parent": "I/O",
+          "preview": "Console.ReadKey();",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "ReadInputLine",
+          "parent": "I/O",
+          "preview": "",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "OpenText",
+          "parent": "I/O",
+          "preview": "File.OpenText(path);",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "WritetoFiles",
+          "parent": "I/O",
+          "preview": "File.WriteAllText(path, createText);",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Static",
+          "parent": "Method/Keyword",
+          "preview": "static",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Public",
+          "parent": "Method/Keyword",
+          "preview": "public",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Private",
+          "parent": "Method/Keyword",
+          "preview": "private",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Protected",
+          "parent": "Method/Keyword",
+          "preview": "protected",
+          "color": "#FefeFFF"
+        },
+        {
+          "text": "Internal",
+          "parent": "Method/Keyword",
+          "preview": "internal",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Return",
+          "parent": "Method/Keyword",
+          "preview": "return;",
+          "color": "#FF00FFFF"
+        },
+        {
           "text": "if",
-          "preview": "if ( conditions ) {\n   statements\n}",
+          "parent": "Condition",
+          "preview": "if ( conditions ) {\n   statements;\n}",
           "color": "#FF00FFFF"
         },
         {
           "text": "else",
-          "preview": "else {\n   statements\n} ",
+          "parent": "Condition",
+          "preview": "else {\n   statements;\n} ",
           "color": "#FFFFFF00"
         },
         {
-          "text": "variable",
-          "preview": "var variable = value;",
+          "text": "else if",
+          "parent": "Condition",
+          "preview": "else if ( conditions ) {\n  statements;\n}",
           "color": "#FFFF0000"
         },
         {
-          "text": "operator",
-          "preview": "operator = value;",
+          "text": "switch",
+          "parent": "Condition",
+          "preview": "switch ( conditions ) {\n  statements;\n}",
           "color": "##FF008000"
+        },
+        {
+          "text": "case",
+          "parent": "Condition",
+          "preview": "case :",
+          "color": "##FF008000"
+        },
+        {
+          "text": "while",
+          "parent": "Loop",
+          "preview": "while ( conditions ){\n  statements;\n  i++;\n}",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "break",
+          "parent": "Loop",
+          "preview": "break;",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "for",
+          "parent": "Loop",
+          "preview": "for ( statement 1; statement 2; statement 3 ){\n  statements;\n}",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "continue",
+          "parent": "Loop",
+          "preview": "continue;",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Void",
+          "parent": "Variables",
+          "preview": "void",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Integer",
+          "parent": "Variables",
+          "preview": "Int",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Double",
+          "parent": "Variables",
+          "preview": "Double",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Character",
+          "parent": "Variables",
+          "preview": "Char",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Boolean",
+          "parent": "Variables",
+          "preview": "Bool",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "String",
+          "parent": "Variables",
+          "preview": "String",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Array",
+          "parent": "Variables",
+          "preview": "[]",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Equal",
+          "parent": "Operator",
+          "preview": "=",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Plus",
+          "parent": "Operator",
+          "preview": "+",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Minus",
+          "parent": "Operator",
+          "preview": "-",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Multiply",
+          "parent": "Operator",
+          "preview": "*",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Divide",
+          "parent": "Operator",
+          "preview": "/",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Mod",
+          "parent": "Operator",
+          "preview": "%",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "And",
+          "parent": "Operator",
+          "preview": "&",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "Or",
+          "parent": "Operator",
+          "preview": "|",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "()",
+          "parent": "Operator",
+          "preview": "()",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "&&",
+          "parent": "Comparetor",
+          "preview": "&&",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "||",
+          "parent": "Comparetor",
+          "preview": "||",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "==",
+          "parent": "Comparetor",
+          "preview": "==",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": ">",
+          "parent": "Comparetor",
+          "preview": ">",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "<",
+          "parent": "Comparetor",
+          "preview": "<",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": ">=",
+          "parent": "Comparetor",
+          "preview": ">=",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "<=",
+          "parent": "Comparetor",
+          "preview": "<=",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "!=",
+          "parent": "Comparetor",
+          "preview": "!=",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "()",
+          "parent": "Comparetor",
+          "preview": "()",
+          "color": "#FF00FFFF"
+        },
+        {
+          "text": "New Window",
+          "parent": "UI",
+          "preview": "",
+          "color": "#FF00FFFF"
         }
-      ],
-      "UI": [
-
-      ],
-      "Symbols": [
-
-      ]
-    },
-    {
-      "fileExt": "",
-      "text": "No file is loaded",
-      "commands": [
-
-      ],
-      "UI": [
-
-      ],
-      "Symbols": [
-
       ]
     },
     {
       "fileExt": ".xaml",
       "text": "XAML",
-      "commands": [
+      "MenuItems": [
+        {
 
-      ],
-      "UI": [
-
-      ],
-      "Symbols": [
-
+        }
       ]
     }
   ]

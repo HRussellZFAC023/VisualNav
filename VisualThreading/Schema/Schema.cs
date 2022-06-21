@@ -1,20 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using System.Threading.Tasks;
+using Newtonsoft.Json;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace VisualThreading.Schema
 {
     public class Schema
     {
-        private Schema()
-        { /*(static members only)*/ }
-
         public Radialmenu[] RadialMenu { get; set; }
-
         public static async Task<Schema> LoadAsync()
         {
             var dir = Path.GetDirectoryName(typeof(Schema).Assembly.Location);
-            var file = Path.Combine(dir!, "Schema", "schema.json");
+            var file = Path.Combine(dir!, "Schema", "Schema.json");
 
             using var reader = new StreamReader(file);
             var json = await reader.ReadToEndAsync();
@@ -22,19 +18,34 @@ namespace VisualThreading.Schema
         }
     }
 
+
+    public class Rootobject
+    {
+        public Radialmenu[] RadialMenu { get; set; }
+    }
+
     public class Radialmenu
     {
-        public string FileExt { get; set; }
-        public string Text { get; set; }
-        public Command[] Commands { get; set; }
-        public object[] Ui { get; set; }
-        public object[] Symbols { get; set; }
+        public string fileExt { get; set; }
+        public string text { get; set; }
+        public Menuitem[] MenuItems { get; set; }
+        public Command[] commands { get; set; }
+    }
+
+    public class Menuitem
+    {
+        public string name { get; set; }
+        public string parent { get; set; }
+        public string[] submenu { get; set; }
+        public string[] chidren { get; set; }
     }
 
     public class Command
     {
-        public string Text { get; set; }
-        public string Color { get; set; }
-        public string Preview { get; set; }
+        public string text { get; set; }
+        public string parent { get; set; }
+        public string preview { get; set; }
+        public string color { get; set; }
     }
+
 }

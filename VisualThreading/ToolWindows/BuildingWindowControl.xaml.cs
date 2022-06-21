@@ -67,22 +67,15 @@ namespace VisualThreading.ToolWindows
             e.Handled = true;
         }
 
-        public void SetCurrentCommand(string c)
+        public void SetCurrentCommand(Schema.Command c)
         {
-            foreach (var language in _commands.RadialMenu)
-            {
-                if (!language.FileExt.Equals(_currentLanguage)) { continue; }
 
-                foreach (var command in language.Commands)
-                {
-                    if (!command.Text.Equals(c)) { continue; }
-                    var tb = CodeBlockFactory.CodeBlock(command);
-                    tb.MouseLeftButtonDown += Label_MouseLeftButtonDown;
-                    Canvas.SetLeft(tb, 0);
-                    Canvas.SetTop(tb, 0);
-                    canvasLabels.Children.Add(tb);
-                }
-            }
+            var tb = CodeBlockFactory.CodeBlock(c);
+            tb.MouseLeftButtonDown += Label_MouseLeftButtonDown;
+            Canvas.SetLeft(tb, 0);
+            Canvas.SetTop(tb, 0);
+            canvasLabels.Children.Add(tb);
+
         }
     }
 }
