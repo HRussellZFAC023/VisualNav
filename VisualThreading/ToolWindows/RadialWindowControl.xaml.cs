@@ -15,7 +15,7 @@ namespace VisualThreading.ToolWindows
 
         private readonly Stack _state = new();
         private string _currentState = "";
-
+        String progress = "";
         public RadialWindowControl()
         {
             InitializeComponent();
@@ -115,6 +115,14 @@ namespace VisualThreading.ToolWindows
                 MainMenu.Items = _menu[subMenu];
                 _state.Push(_state.Count == 0 ? "Main" : _currentState);
                 _currentState = subMenu;
+
+                progress = "";
+                foreach (var item in _state)
+                {
+                    progress = progress + " -> " + item;
+                }
+
+                ProgressText.Text = progress + subMenu;
             }
             ).FireAndForget();
         }
@@ -124,9 +132,18 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
+
+                progress = "";
+                foreach (var item in _state)
+                {
+                    progress = item + " -> " + progress;
+                }
+                ProgressText.Text = progress;
+
                 var temp = _state.Count == 0 ? "Main" : _state.Pop().ToString();
                 _currentState = temp;
                 MainMenu.Items = _menu[temp];
+
             }
             ).FireAndForget();
         }
