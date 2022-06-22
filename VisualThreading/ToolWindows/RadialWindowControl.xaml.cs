@@ -112,15 +112,13 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-
-
                 MainMenu.Items = _menu[subMenu];
                 _state.Push(_state.Count == 0 ? "Main" : _currentState);
                 _currentState = subMenu;
                 progress = "";
                 foreach (var item in _state)
                 {
-                    progress = item + " -> " + progress;
+                    progress = item + " ¡ú " + progress;
                 }
                 ProgressText.Text = progress + subMenu;
             }
@@ -138,7 +136,15 @@ namespace VisualThreading.ToolWindows
                     progress = "";
                     foreach (var item in _state)
                     {
-                        progress = item + " -> " + progress;
+                        if (progress.Equals(""))
+                        {
+                            progress = "" + item;
+                        }
+                        else
+                        {
+                            progress = item + " ¡ú " + progress;
+                        }
+
                     }
                     progress.Remove(progress.Length - 4);
                     ProgressText.Text = progress;
