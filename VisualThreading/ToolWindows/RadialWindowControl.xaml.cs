@@ -3,8 +3,10 @@ using Microsoft.VisualStudio.PlatformUI;
 using RadialMenu.Controls;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Data;
+using Microsoft.VisualStudio.Imaging.Interop;
 
 namespace VisualThreading.ToolWindows
 {
@@ -38,14 +40,18 @@ namespace VisualThreading.ToolWindows
                     {
                         var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
                         var item = new RadialMenuItem { Content = stackPanel };
+                        var icon = menuItem.Icon;
+                        PropertyInfo propertyInfo = typeof(KnownMonikers).GetProperty(menuItem.Icon);
 
-                        var image = new CrispImage { Width = 25, Height = 25, Moniker = KnownMonikers.Actor };
+                        var something = (ImageMoniker) propertyInfo.GetValue(null, null);
+
+                        var image = new CrispImage { Width = 25, Height = 25, Moniker = something };
 
                         var binding = new Binding("Background")
                         {
                             Converter = new BrushToColorConverter(),
                             RelativeSource =
-                                new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RadialWindow), 3)
+                                new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RadialWindow), 2)
                         };
 
                         image.SetBinding(ImageThemingUtilities.ImageBackgroundColorProperty, binding);
@@ -85,6 +91,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
+
                 BuildingWindow.Instance.SetCurrentCommand(element);
                 // extract element to working area
                 MainMenu.Items = _menu[element.Text];
