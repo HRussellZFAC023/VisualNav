@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Data;
 using Microsoft.VisualStudio.Imaging.Interop;
+using System.Windows.Media;
 
 namespace VisualThreading.ToolWindows
 {
@@ -24,6 +25,11 @@ namespace VisualThreading.ToolWindows
             RadialMenuGeneration();
 
             // Back to Home on center item
+            MainMenu.CentralItem = new RadialMenuCentralItem
+            {
+                Content = MainMenu.CentralItem,
+                Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#cccccc")
+            };
             MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
         }
 
@@ -39,11 +45,22 @@ namespace VisualThreading.ToolWindows
                     foreach (var menuItem in language.MenuItems)
                     {
                         var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
-                        var item = new RadialMenuItem { Content = stackPanel };
+                        // the text within the radial menu is not under control of VsTheme, however, the progress text box is.
+                        // so I decided to use a set color as beckground to prevent text from beging unreadable
+                        var item = new RadialMenuItem
+                        {
+                            Content = stackPanel,
+                            Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#cccccc"),
+                            Padding = 0,
+                            InnerRadius = 35,
+                            EdgePadding = 0,
+                            EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#606E76")
+                            // ArrowBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#696933") // not sure about this, white is probablly still better looking
+                        };
                         var icon = menuItem.Icon;
                         PropertyInfo propertyInfo = typeof(KnownMonikers).GetProperty(menuItem.Icon);
 
-                        var something = (ImageMoniker) propertyInfo.GetValue(null, null);
+                        var something = (ImageMoniker)propertyInfo.GetValue(null, null);
 
                         var image = new CrispImage { Width = 25, Height = 25, Moniker = something };
 
@@ -70,7 +87,20 @@ namespace VisualThreading.ToolWindows
                     MainMenu.Items = _menu["Main"];  // Set default menu to Main menu
                     foreach (var command in language.Commands)
                     {
-                        var temp = new RadialMenuItem { Content = new TextBlock { Text = command.Text } };
+                        var temp = new RadialMenuItem { 
+                            Content = new TextBlock { Text = command.Text },
+                            Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
+                            Padding = 1,
+                            InnerRadius = 35,
+                            OuterRadius = 150,
+                            ContentRadius = 85,
+                            EdgePadding = 0,
+                            EdgeInnerRadius = 130,
+                            ArrowRadius = 138,
+                            EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFE4A1"),
+                            ArrowBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#618EFF") // not sure about this, white is probablly still better looking
+
+                        };
                         // This is the handler of the command
                         temp.Click += (_, _) => RadialDialElement_Click(command);
                         temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
