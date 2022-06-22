@@ -6,11 +6,14 @@ namespace VisualThreading.ToolWindows
 {
     public partial class BuildingWindowControl : UserControl
     {
+
+        private Schema.Command currentCommand;
+
         public BuildingWindowControl(Schema.Schema commands, string fileExt)
         {
             InitializeComponent();
             ShowCodeButton.IsEnabled = false;
-
+            currentCommand = null;
             Browser.NavigateToString(System.IO.File.ReadAllText("../../Resources/html/blocklyHTML.html"));
         }
 
@@ -31,7 +34,18 @@ namespace VisualThreading.ToolWindows
 
         public void SetCurrentCommand(Schema.Command c)
         {
-            // TODO
+            // Color: #FF00FFFF
+            // Parent: Loop
+            // Preview: for ( statement 1; statement 2; statement 3 ){\n  statements;\n}
+            // Text: for
+            this.currentCommand = c;
+            var color = c.Color;
+            var parent = c.Parent;
+            var preview = c.Preview;
+            var text = c.Text;
+
+            Browser.InvokeScript("addNewBlockToArea", new object[] { parent, text, color });
+
         }
     }
 }

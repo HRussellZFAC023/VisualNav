@@ -2650,10 +2650,6 @@
     <Content Include="node_modules\xmlchars\xml\1.0\ed5.js" />
     <Content Include="node_modules\xmlchars\xml\1.1\ed2.js" />
     <Content Include="Resources\html\blocklyHTML.html" />
-    <Content Include="Resources\js\blockly_compressed.js" />
-    <Content Include="Resources\js\blocks_compressed.js" />
-    <Content Include="Resources\js\en.js" />
-    <Content Include="Resources\js\javascript_compressed.js" />
     <Content Include="Resources\xml\blocklyWorkspace.xml" />
     <Content Include="Resources\xml\blocklyToolbox.xml" />
     <Content Include="Schema\schema.json">
@@ -3187,6 +3183,7 @@
     <None Include="node_modules\xmlchars\xml\1.0\ed4.js.map" />
     <None Include="node_modules\xmlchars\xml\1.0\ed5.js.map" />
     <None Include="node_modules\xmlchars\xml\1.1\ed2.js.map" />
+    <None Include="Resources\blocks.json" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
       <Generator>VsixManifestGenerator</Generator>
