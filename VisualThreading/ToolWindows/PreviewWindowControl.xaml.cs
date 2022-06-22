@@ -11,17 +11,16 @@ namespace VisualThreading.ToolWindows
     public partial class PreviewWindowControl : UserControl
     {
         private readonly Schema.Schema _commands;
-        private string _currentCommand;
+        private Schema.Command _currentCommand;
         private string _currentLanguage; // file extension for language
 
         public PreviewWindowControl(Schema.Schema commands, string language)
         {
             _commands = commands;
-            _currentCommand = "";
+            _currentCommand = null;
             _currentLanguage = language;
             InitializeComponent();
 
-            SetCurrentCommand("if");
             VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection event
         }
 
@@ -37,8 +36,7 @@ namespace VisualThreading.ToolWindows
             SetCurrentLanguage(fileExt);
         }
 
-        // TODO: call this from Radial Dial
-        public void SetCurrentCommand(string command)
+        public void SetCurrentCommand(Schema.Command command)
         {
             _currentCommand = command;
             UpdateCommands();
@@ -61,23 +59,23 @@ namespace VisualThreading.ToolWindows
             // remove all elements
             Widgets.Children.Clear();
             Preview.Children.Clear();
-            foreach (var language in _commands.RadialMenu)
-            {
-                // file extension matches current language Eg c#
-                if (!language.FileExt.Equals(_currentLanguage)) { continue; }
-                var languageDescription = new Label { Content = language.Text };
-                Widgets.Children.Add(languageDescription); // Eg. Displays c#
 
-                // loop through each json "command" eg. "if", "else", "variable"....
-                foreach (var command in language.Commands)
-                {
-                    if (!command.Text.Equals(_currentCommand)) { continue; }
-                    Widgets.Children.Add(new Label { Content = command.Text });
-                    var tb = CodeBlockFactory.CodeBlock(command); // preview
-                    tb.Margin = new Thickness(5);
-                    Preview.Children.Add(tb);
-                }
-            }
+            // check if command is set
+            if (_currentCommand == null)
+                return;
+
+            // widgets
+            Widgets.Children.Add(new Label { Content = _currentCommand.Text });
+            // Preview
+            var tb = CodeBlockFactory.CodeBlock(_currentCommand);
+            tb.Margin = new Thickness(5);
+            Preview.Children.Add(tb);
+        }
+
+        public void ClearCurrentCommand()
+        {
+            _currentCommand = null;
+            UpdateCommands();
         }
 
         private void Label_MouseMove_From_List(object sender, MouseEventArgs e)

@@ -31,5 +31,23 @@ namespace VisualThreading.ToolWindows
             Browser.InvokeScript("init", new object[] { toolboxXML, workspaceXML });
         }
 
+        private void CanvasLabel_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (DraggedItem == null) return;
+            DraggedItem = null;
+            canvasLabels.ReleaseMouseCapture();
+            e.Handled = true;
+        }
+
+        public void SetCurrentCommand(Schema.Command c)
+        {
+
+            var tb = CodeBlockFactory.CodeBlock(c);
+            tb.MouseLeftButtonDown += Label_MouseLeftButtonDown;
+            Canvas.SetLeft(tb, 0);
+            Canvas.SetTop(tb, 0);
+            canvasLabels.Children.Add(tb);
+
+        }
     }
 }
