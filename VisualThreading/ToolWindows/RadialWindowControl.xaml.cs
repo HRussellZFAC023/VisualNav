@@ -85,6 +85,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
+
                 BuildingWindow.Instance.SetCurrentCommand(element);
                 // extract element to working area
                 MainMenu.Items = _menu[element.Text];

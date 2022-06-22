@@ -1,62 +1,34 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using VisualThreading.ToolWindows.SharedComponents;
-using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
+using System.Windows.Navigation;
 
 namespace VisualThreading.ToolWindows
 {
-    public partial class BuildingWindowControl
+    public partial class BuildingWindowControl : UserControl
     {
-        private object DraggedItem { get; set; }
-        private Point ItemRelativePosition { get; set; }
-        private readonly Schema.Schema _commands;
-        private string _currentLanguage; // file extension for language
 
         public BuildingWindowControl(Schema.Schema commands, string fileExt)
         {
-            _commands = commands;
-            _currentLanguage = fileExt;
             InitializeComponent();
-            DraggedItem = null;
-            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection event
+            ShowCodeButton.IsEnabled = false;
+
+
+            Browser.NavigateToString(System.IO.File.ReadAllText("../../Resources/html/blocklyHTML.html"));
+        }
+        private void ShowCodeButton_Click(object sender, RoutedEventArgs e)
+        {
+            var result = Browser.InvokeScript("showCode", new object[] { });
+            System.Windows.MessageBox.Show(result.ToString());
         }
 
-        private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void WebBrowser_LoadCompleted(object sender, NavigationEventArgs e)
         {
-            var fileExt = "";
-            if (e.To != null)
-            {
-                var buffer = e.To.Name;
-                fileExt =
-                    Path.GetExtension(buffer);
-            }
-            _currentLanguage = fileExt;
-        }
-
-        protected override void OnDragOver(DragEventArgs e)
-        {
-            base.OnDragOver(e);
-            e.Handled = true;
-        }
-
-        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DraggedItem = (UIElement)sender;
-            ItemRelativePosition = e.GetPosition((IInputElement)DraggedItem);
-            e.Handled = true;
-        }
-
-        private void CanvasLabel_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-            if (DraggedItem == null)
-                return;
-            var newPos = e.GetPosition(canvasLabels) - ItemRelativePosition;
-            Canvas.SetTop((UIElement)DraggedItem, newPos.Y);
-            Canvas.SetLeft((UIElement)DraggedItem, newPos.X);
-            canvasLabels.CaptureMouse();
-            e.Handled = true;
+            ShowCodeButton.IsEnabled = true;
+            var toolboxXML = System.IO.File.ReadAllText("../../Resources/xml/blocklyToolbox.xml");
+            var workspaceXML = System.IO.File.ReadAllText("../../Resources/xml/blocklyWorkspace.xml");
+            //Initialize blocky using toolbox and workspace
+            Browser.InvokeScript("init", new object[] { toolboxXML, workspaceXML });
         }
 
         private void CanvasLabel_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
