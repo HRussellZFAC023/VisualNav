@@ -12,131 +12,14 @@
           HorizontalAlignment="Stretch"
           MinWidth="200"
           MinHeight="300">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="47*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="53*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
             <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="Beige">
-            <Grid>
-                <Label
-                    x:Name="MethodPublic"
-                    Width="54"
-                    Margin="3,1,0,501"
-                    HorizontalAlignment="Left"
-                    MouseMove="Label_MouseMove_From_List">
-                    <Run
-                        Background="Pink"
-                        Text="public" />
-                </Label>
-
-                <Label
-                    x:Name="VariableInteger"
-                    Width="62"
-                    Margin="71,4,0,498"
-                    HorizontalAlignment="Left"
-                    MouseMove="Label_MouseMove_From_List">
-                    <Run
-                        Background="red"
-                        Text="integer" />
-                </Label>
-
-
-                <Label
-                    x:Name="OperatorAnd"
-                    Width="49"
-                    Margin="72,31,0,473"
-                    HorizontalAlignment="Left"
-                    MouseMove="Label_MouseMove_From_List">
-                    <Run
-                        Background="Green"
-                        Text="and" />
-                </Label>
-
-                <Label
-                    x:Name="Naming"
-                    Width="50"
-                    Margin="73,97,0,406"
-                    HorizontalAlignment="Left"
-                    MouseMove="Label_MouseMove_From_List">
-                    <Run
-                        Background="Purple"
-                        Text="name" />
-                </Label>
-
-                <Label
-                    x:Name="Assignment"
-                    Width="50"
-                    Margin="137,5,0,498"
-                    HorizontalAlignment="Left"
-                    MouseMove="Label_MouseMove_From_List">
-                    <Run
-                        Background="#FF805800"
-                        Text="assign" />
-                </Label>
-
-                <Label
-                    x:Name="ComparatorEqual"
-                    Width="42"
-                    Margin="74,62,0,441"
-                    HorizontalAlignment="Left"
-                    MouseMove="Label_MouseMove_From_List">
-                    <Run
-                        Background="Green"
-                        Text="==" />
-                </Label>
-
-                <Label
-                    x:Name="ConditionIf"
-                    Width="39"
-                    Margin="3,28,0,469"
-                    HorizontalAlignment="Left"
-                    MouseMove="Label_MouseMove_From_List">
-                    <Run
-                        Background="Aqua"
-                        Text="if" />
-                </Label>
-
-
-                <Label
-                    x:Name="ConditionIfelse"
-                    Width="53"
-                    Margin="4,49,0,431"
-                    HorizontalAlignment="Left"
-                    MouseMove="Label_MouseMove_From_List">
-                    <Run
-                        Background="yellow"
-                        Text="if-else" 
-                        />
-                </Label>
-
-                <Label
-                    x:Name="LoopWhile"
-                    Width="45"
-                    Margin="4,72,0,392"
-                    HorizontalAlignment="Left"
-                    MouseMove="Label_MouseMove_From_List">
-                    <Run
-                        Background="yellow"
-                        Text="while" 
-                        />
-
-                </Label>
-
-            </Grid>
-        </StackPanel>
-
-        <StackPanel Orientation="Horizontal" Name="Widgets" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="0,240,0,0" />
+        <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" />
 
         <StackPanel Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
-                    Orientation="Vertical" Name="Preview" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" />
-
-
+                    Orientation="Vertical" Name="Preview" Grid.Row="1" Grid.Column="0" />
     </Grid>
 </UserControl>
