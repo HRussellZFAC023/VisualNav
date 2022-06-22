@@ -12,35 +12,14 @@
           HorizontalAlignment="Stretch"
           MinWidth="200"
           MinHeight="300">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="47*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="53*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
+        <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" />
 
-        <StackPanel 
-            Orientation="Horizontal" 
-            Name="Widgets" 
-            Grid.Column="0" 
-            Grid.ColumnSpan="3" 
-            Grid.RowSpan="2" 
-            Margin="0,240,0,0" 
-            />
-
-        <StackPanel 
-            Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
-            Orientation="Vertical" 
-            Name="Preview" 
-            Grid.Row="1" 
-            Grid.Column="0" 
-            Grid.ColumnSpan="3" 
-            />
-
-
+        <StackPanel Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
+                    Orientation="Vertical" Name="Preview" Grid.Row="1" Grid.Column="0" />
     </Grid>
 </UserControl>
