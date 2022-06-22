@@ -24,11 +24,11 @@ namespace VisualThreading.ToolWindows
             InitializeComponent();
             RadialMenuGeneration();
 
-            // Back to Home on center item
+            // Back on center item
             MainMenu.CentralItem = new RadialMenuCentralItem
             {
                 Content = MainMenu.CentralItem,
-                Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#cccccc")
+                Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#DCEDF9")
             };
             MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
         }
@@ -50,12 +50,11 @@ namespace VisualThreading.ToolWindows
                         var item = new RadialMenuItem
                         {
                             Content = stackPanel,
-                            Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#cccccc"),
                             Padding = 0,
-                            InnerRadius = 35,
+                            InnerRadius = 10,
                             EdgePadding = 0,
-                            EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#606E76")
-                            // ArrowBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#696933") // not sure about this, white is probablly still better looking
+                            Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#DCEDF9"),
+                            EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#38499B")
                         };
                         var icon = menuItem.Icon;
                         PropertyInfo propertyInfo = typeof(KnownMonikers).GetProperty(menuItem.Icon);
@@ -89,17 +88,12 @@ namespace VisualThreading.ToolWindows
                     {
                         var temp = new RadialMenuItem { 
                             Content = new TextBlock { Text = command.Text },
-                            Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
-                            Padding = 1,
+                            Padding = 0,
                             InnerRadius = 35,
-                            OuterRadius = 150,
-                            ContentRadius = 85,
                             EdgePadding = 0,
-                            EdgeInnerRadius = 130,
-                            ArrowRadius = 138,
+                            // This color is just a place hodler, will adapt to the future json of the blockly defination of each code type
+                            Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
                             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFE4A1"),
-                            ArrowBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#618EFF") // not sure about this, white is probablly still better looking
-
                         };
                         // This is the handler of the command
                         temp.Click += (_, _) => RadialDialElement_Click(command);
