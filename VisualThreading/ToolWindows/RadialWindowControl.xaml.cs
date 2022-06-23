@@ -149,7 +149,7 @@ namespace VisualThreading.ToolWindows
                 progress = "";
                 foreach (var item in _state)
                 {
-                    progress = item + " ¡ú " + progress;
+                    progress = item + " â†’ " + progress;
                 }
                 ProgressText.Text = progress + subMenu;
             }
@@ -173,7 +173,7 @@ namespace VisualThreading.ToolWindows
                         }
                         else
                         {
-                            progress = item + " ¡ú " + progress;
+                            progress = item + " â†’ " + progress;
                         }
 
                     }
