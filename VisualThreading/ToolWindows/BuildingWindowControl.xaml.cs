@@ -6,15 +6,19 @@ namespace VisualThreading.ToolWindows
 {
     public partial class BuildingWindowControl : UserControl
     {
-
         private Schema.Command currentCommand;
+        private readonly string _workspace;
+        private readonly string _toolbox;
 
-        public BuildingWindowControl(Schema.Schema commands, string fileExt)
+        public BuildingWindowControl(Schema.Schema commands, string fileExt, string blockly, string toolbox, string workspace)
         {
             InitializeComponent();
             ShowCodeButton.IsEnabled = false;
             currentCommand = null;
-            Browser.NavigateToString(System.IO.File.ReadAllText("../../Resources/html/blocklyHTML.html"));
+            _toolbox = toolbox;
+            _workspace = workspace;
+
+            Browser.NavigateToString(blockly);
         }
 
         private void ShowCodeButton_Click(object sender, RoutedEventArgs e)
@@ -26,10 +30,7 @@ namespace VisualThreading.ToolWindows
         private void WebBrowser_LoadCompleted(object sender, NavigationEventArgs e)
         {
             ShowCodeButton.IsEnabled = true;
-            var toolboxXML = System.IO.File.ReadAllText("../../Resources/xml/blocklyToolbox.xml");
-            var workspaceXML = System.IO.File.ReadAllText("../../Resources/xml/blocklyWorkspace.xml");
-            //Initialize blocky using toolbox and workspace
-            Browser.InvokeScript("init", new object[] { toolboxXML, workspaceXML });
+            Browser.InvokeScript("init", _toolbox, _workspace);  //Initialize blocky using toolbox and workspace
         }
 
         public void SetCurrentCommand(Schema.Command c)
@@ -38,14 +39,13 @@ namespace VisualThreading.ToolWindows
             // Parent: Loop
             // Preview: for ( statement 1; statement 2; statement 3 ){\n  statements;\n}
             // Text: for
-            this.currentCommand = c;
+            currentCommand = c;
             var color = c.Color;
             var parent = c.Parent;
             var preview = c.Preview;
             var text = c.Text;
 
-            Browser.InvokeScript("addNewBlockToArea", new object[] { parent, text, color });
-
+            Browser.InvokeScript("addNewBlockToArea", parent, text, color);
         }
     }
 }
