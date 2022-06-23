@@ -8,7 +8,6 @@
     <script src="https://blockly-demo.appspot.com/static/javascript_compressed.js"></script>
     <script src="https://blockly-demo.appspot.com/static/msg/js/en.js"></script>
 
-
     <style>
         html, body {
             height: 100%;
@@ -50,6 +49,163 @@
 
     <script>
         var workspace;
+
+        var blocks_json = {
+            "Condition": [
+                {
+                    "type": "controls_if", // condition - if   
+                    "name": "if",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_if_else",    // else
+                    "name": "else",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_if_elseif",   // else if
+                    "name": "else if",
+                    "color": "",
+                    "toolboxitemid": ""
+                }
+            ],
+            "Loop": [
+                {
+                    "type": "controls_whileUntil", // while / until
+                    "name": "while",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_flow_statements",   // break
+                    "name": "break",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_repeat_ext",   // for
+                    "name": "for",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_flow_statements",  // continue
+                    "name": "continue",
+                    "color": "",
+                    "toolboxitemid": ""
+                }
+            ],
+            "Variables": [
+                {
+                    "type": "math_number",    // int
+                    "name": "Integer",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_number",    // double
+                    "name": "Double",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_boolean", // variable - boolean
+                    "name": "Boolean",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text",    // string
+                    "name": "String",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_create_empty",    // array
+                    "name": "Array",
+                    "color": "",
+                    "toolboxitemid": ""
+                }
+            ],
+            "Operator": [
+                {
+                    "type": "math_arithmetic",    // +
+                    "name": "Plus",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_arithmetic",    // -
+                    "name": "Minus",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_arithmetic",    // x
+                    "name": "Multiply",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_arithmetic",    // \
+                    "name": "Divide",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+            ],
+            "Comparator": [
+                {
+                    "type": "logic_operation",  // &&  AND
+                    "name": "&&",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_operation",   // || OR
+                    "name": "||",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare",   // ==  EQ
+                    "name": "==",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare",    // >  GT
+                    "name": ">",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare",    // <   LT
+                    "name": "<",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare", //   >= GTE
+                    "name": ">=",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare",    // <= LTE
+                    "name": "<=",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare", // !=
+                    "name": "!=",
+                    "color": "",
+                    "toolboxitemid": ""
+                }
+            ]
+        }
 
         function init(toolboxXML, workspaceXML) {
             var blocklyArea = document.getElementById('blocklyArea');
@@ -94,13 +250,25 @@
             Blockly.svgResize(workspace);
         }
 
-
         function addNewBlockToArea(parent, text, color) {
-            var blockName = "controls_if"
 
-            var newBlock = workspace.newBlock(blockName);
-            newBlock.initSvg();
-            newBlock.render();
+            var blocks = blocks_json[parent]
+            var blockType = null
+            var newBlock
+            blocks.forEach(function (block) {
+                if (block['name'] == text) {
+                    blockType = block['type']
+                }
+            });
+
+            if (blockType != null) {
+                newBlock = workspace.newBlock(blockType);
+                newBlock.initSvg();
+                newBlock.render();
+            } else {
+                console.log("nooooooooo")
+            }
+            
         }
 
         function showCode() {
@@ -109,6 +277,7 @@
             var code = Blockly.JavaScript.workspaceToCode(workspace);
             return code;
         }
+
     </script>
 </body>
 </html>
