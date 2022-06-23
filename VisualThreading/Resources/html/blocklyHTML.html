@@ -2,12 +2,7 @@
 
 <head>
     <meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=10" />
-    <!--
-    <script src="/node_modules/blockly/blockly_compressed.js"></script>
-    <script src="/node_modules/blockly/blocks_compressed.js"></script>
-    <script src="/node_modules/blockly/javascript_compressed.js"></script>
-    <script src="/node_modules/blockly/msg/en.js"></script>
-    -->
+
     <script src="https://blockly-demo.appspot.com/static/blockly_compressed.js"></script>
     <script src="https://blockly-demo.appspot.com/static/blocks_compressed.js"></script>
     <script src="https://blockly-demo.appspot.com/static/javascript_compressed.js"></script>
@@ -40,7 +35,9 @@
             height: 99%;
         }
     </style>
+
 </head>
+
 <body>
     <table>
         <tr>
@@ -51,47 +48,15 @@
 
     <div id="blocklyDiv" style="position: absolute"></div>
 
-    <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-        <category name="Logic" colour="%{BKY_LOGIC_HUE}">
-            <block type="controls_if"></block>
-            <block type="logic_compare"></block>
-            <block type="logic_operation"></block>
-            <block type="logic_negate"></block>
-            <block type="logic_boolean"></block>
-        </category>
-        <category name="Loops" colour="%{BKY_LOOPS_HUE}">
-            <block type="controls_repeat_ext">
-                <value name="TIMES">
-                    <block type="math_number">
-                        <field name="NUM">10</field>
-                    </block>
-                </value>
-            </block>
-            <block type="controls_whileUntil"></block>
-        </category>
-        <category name="Math" colour="%{BKY_MATH_HUE}">
-            <block type="math_number">
-                <field name="NUM">123</field>
-            </block>
-            <block type="math_arithmetic"></block>
-            <block type="math_single"></block>
-        </category>
-        <category name="Text" colour="%{BKY_TEXTS_HUE}">
-            <block type="text"></block>
-            <block type="text_length"></block>
-            <block type="text_print"></block>
-        </category>
-    </xml>
-
     <script>
-        var demoWorkspace;
+        var workspace;
+
         function init(toolboxXML, workspaceXML) {
             var blocklyArea = document.getElementById('blocklyArea');
             var blocklyDiv = document.getElementById('blocklyDiv');
-            demoWorkspace = Blockly.inject(blocklyDiv,
+
+            workspace = Blockly.inject(blocklyDiv,
                 {
-                    media: 'https://unpkg.com/blockly/media/',
-                    toolbox: document.getElementById('toolbox'),
                     zoom:
                     {
                         controls: true,
@@ -103,6 +68,7 @@
                     },
                     trashcan: true
                 });
+
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.
                 var element = blocklyArea;
@@ -118,19 +84,29 @@
                 blocklyDiv.style.top = y + 'px';
                 blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
                 blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-                Blockly.svgResize(demoWorkspace);
+                Blockly.svgResize(workspace);
 
                 console.log('resize');
             };
+
             window.addEventListener('resize', onresize, false);
             onresize();
-            Blockly.svgResize(demoWorkspace);
+            Blockly.svgResize(workspace);
+        }
+
+
+        function addNewBlockToArea(parent, text, color) {
+            var blockName = "controls_if"
+
+            var newBlock = workspace.newBlock(blockName);
+            newBlock.initSvg();
+            newBlock.render();
         }
 
         function showCode() {
             // Generate JavaScript code and display it.
             Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-            var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
             return code;
         }
     </script>
