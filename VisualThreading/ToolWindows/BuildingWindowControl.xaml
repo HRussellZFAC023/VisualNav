@@ -1,50 +1,42 @@
 ﻿<UserControl
     x:Class="VisualThreading.ToolWindows.BuildingWindowControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
-    xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities">
-
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid
-        Height="308"
+        ShowGridLines="True"
+        VerticalAlignment="Stretch"
+        HorizontalAlignment="Stretch"
         MinWidth="200"
         MinHeight="200">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <WebBrowser
-            Name="Browser"
             Grid.Row="0"
-            Grid.ColumnSpan="2"
-            Width="auto"
-            Height="auto"
-            LoadCompleted="WebBrowser_LoadCompleted" />
-        <Button
-            Name="ShowCodeButton"
-            Grid.Row="1"
             Grid.Column="0"
-            Width="150"
-            Height="25"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="ShowCodeButton_Click"
-            Content="Show Code From C#" />
-        <Button
-            Name="InsertCode"
-            Grid.Row="1"
-            Grid.Column="1"
-            Width="150"
-            Height="25"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Insert code" />
-    </Grid>
+            Name="Browser"
+            Width="Auto"
+            Height="Auto"
+            LoadCompleted="WebBrowser_LoadCompleted" />
 
+        <StackPanel
+                Grid.Row="1"
+                Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
+                Orientation="Horizontal" Name="Controls"
+                MinHeight="20">
+
+            <Button
+
+                    Name="ShowCodeButton"
+                    Click="ShowCodeButton_Click"
+                    Content="Show Code From C#" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <Button
+                    Name="InsertCode"
+                    Content="Insert code" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5,5,5" />
+        </StackPanel>
+    </Grid>
 </UserControl>

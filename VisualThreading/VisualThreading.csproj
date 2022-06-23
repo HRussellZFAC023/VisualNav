@@ -2649,13 +2649,27 @@
     <Content Include="node_modules\xmlchars\xml\1.0\ed4.js" />
     <Content Include="node_modules\xmlchars\xml\1.0\ed5.js" />
     <Content Include="node_modules\xmlchars\xml\1.1\ed2.js" />
-    <Content Include="Resources\html\blocklyHTML.html" />
-    <Content Include="Resources\js\blockly_compressed.js" />
-    <Content Include="Resources\js\blocks_compressed.js" />
-    <Content Include="Resources\js\en.js" />
-    <Content Include="Resources\js\javascript_compressed.js" />
-    <Content Include="Resources\xml\blocklyWorkspace.xml" />
-    <Content Include="Resources\xml\blocklyToolbox.xml" />
+    <Content Include="Resources\html\blocklyHTML.html" >
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\blockly_compressed.js" >
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\blocks_compressed.js" >
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\en.js" >
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\javascript_compressed.js">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\xml\blocklyWorkspace.xml" >
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\xml\blocklyToolbox.xml" >
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Schema\schema.json">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
