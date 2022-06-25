@@ -14,11 +14,14 @@
         <ui:BrushToColorConverter x:Key="BrushToColorConverter" />
     </UserControl.Resources>
 
-    <Grid
-         Margin="0,0,0,0"
+    <Grid Margin="0,0,0,0"
          VerticalAlignment="Stretch"
          HorizontalAlignment="Stretch">
-        <radialMenu:RadialMenu IsOpen="true" Name="MainMenu">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="11*"/>
+        </Grid.RowDefinitions>
+        <radialMenu:RadialMenu Grid.Row="1" IsOpen="true" Name="MainMenu">
             <radialMenu:RadialMenu.CentralItem>
                 <radialMenu:RadialMenuCentralItem>
                     <StackPanel VerticalAlignment="Center"
@@ -30,5 +33,7 @@
             <radialMenu:RadialMenuItem />
             <radialMenu:RadialMenuItem />
         </radialMenu:RadialMenu>
+        <TextBlock Grid.Row="0"  Name="ProgressText">Main</TextBlock>
     </Grid>
+    
 </UserControl>

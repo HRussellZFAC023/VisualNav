@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Data;
 using Microsoft.VisualStudio.Imaging.Interop;
+using System.Windows.Media;
 
 namespace VisualThreading.ToolWindows
 {
@@ -17,13 +18,18 @@ namespace VisualThreading.ToolWindows
 
         private readonly Stack _state = new();
         private string _currentState = "";
-
+        String progress = "";
         public RadialWindowControl()
         {
             InitializeComponent();
             RadialMenuGeneration();
 
-            // Back to Home on center item
+            // Back on center item
+            MainMenu.CentralItem = new RadialMenuCentralItem
+            {
+                Content = MainMenu.CentralItem,
+                Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#DCEDF9")
+            };
             MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
         }
 
@@ -39,11 +45,21 @@ namespace VisualThreading.ToolWindows
                     foreach (var menuItem in language.MenuItems)
                     {
                         var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
-                        var item = new RadialMenuItem { Content = stackPanel };
+                        // the text within the radial menu is not under control of VsTheme, however, the progress text box is.
+                        // so I decided to use a set color as beckground to prevent text from beging unreadable
+                        var item = new RadialMenuItem
+                        {
+                            Content = stackPanel,
+                            Padding = 0,
+                            InnerRadius = 10,
+                            EdgePadding = 0,
+                            Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#DCEDF9"),
+                            EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#38499B")
+                        };
                         var icon = menuItem.Icon;
                         PropertyInfo propertyInfo = typeof(KnownMonikers).GetProperty(menuItem.Icon);
 
-                        var something = (ImageMoniker) propertyInfo.GetValue(null, null);
+                        var something = (ImageMoniker)propertyInfo.GetValue(null, null);
 
                         var image = new CrispImage { Width = 25, Height = 25, Moniker = something };
 
@@ -70,7 +86,15 @@ namespace VisualThreading.ToolWindows
                     MainMenu.Items = _menu["Main"];  // Set default menu to Main menu
                     foreach (var command in language.Commands)
                     {
-                        var temp = new RadialMenuItem { Content = new TextBlock { Text = command.Text } };
+                        var temp = new RadialMenuItem { 
+                            Content = new TextBlock { Text = command.Text },
+                            Padding = 0,
+                            InnerRadius = 35,
+                            EdgePadding = 0,
+                            // This color is just a place hodler, will adapt to the future json of the blockly defination of each code type
+                            Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
+                            EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFE4A1"),
+                        };
                         // This is the handler of the command
                         temp.Click += (_, _) => RadialDialElement_Click(command);
                         temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
@@ -122,6 +146,12 @@ namespace VisualThreading.ToolWindows
                 MainMenu.Items = _menu[subMenu];
                 _state.Push(_state.Count == 0 ? "Main" : _currentState);
                 _currentState = subMenu;
+                progress = "";
+                foreach (var item in _state)
+                {
+                    progress = item + " → " + progress;
+                }
+                ProgressText.Text = progress + subMenu;
             }
             ).FireAndForget();
         }
@@ -131,9 +161,30 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
+
+                if (!ProgressText.Text.Equals("Main"))
+                {
+                    progress = "";
+                    foreach (var item in _state)
+                    {
+                        if (progress.Equals(""))
+                        {
+                            progress = "" + item;
+                        }
+                        else
+                        {
+                            progress = item + " → " + progress;
+                        }
+
+                    }
+                    progress.Remove(progress.Length - 4);
+                    ProgressText.Text = progress;
+                }
+
                 var temp = _state.Count == 0 ? "Main" : _state.Pop().ToString();
                 _currentState = temp;
                 MainMenu.Items = _menu[temp];
+
             }
             ).FireAndForget();
         }

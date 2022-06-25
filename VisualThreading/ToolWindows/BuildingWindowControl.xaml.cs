@@ -1,39 +1,52 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+﻿using CefSharp;
+using System.Windows;
+using Command = VisualThreading.Schema.Command;
+using MessageBox = System.Windows.MessageBox;
 
 namespace VisualThreading.ToolWindows
 {
-    public partial class BuildingWindowControl : UserControl
+    public partial class BuildingWindowControl
     {
-        private Schema.Command currentCommand;
+        private Command currentCommand;
         private readonly string _workspace;
         private readonly string _toolbox;
 
         public BuildingWindowControl(Schema.Schema commands, string fileExt, string blockly, string toolbox, string workspace)
         {
-            InitializeComponent();
-            ShowCodeButton.IsEnabled = false;
             currentCommand = null;
             _toolbox = toolbox;
             _workspace = workspace;
 
-            Browser.NavigateToString(blockly);
+            InitializeComponent();
+            Focus();
+            Browser.LoadHtml(blockly);
+
+            Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
+        }
+
+        private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        {
+            if (e.IsLoading)
+                return;
+            
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Browser.EvaluateScriptAsync("init", _toolbox, _workspace);
+            }).FireAndForget();
         }
 
         private void ShowCodeButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = Browser.InvokeScript("showCode", new object[] { });
-            System.Windows.MessageBox.Show(result.ToString());
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                var result = await Browser.EvaluateScriptAsync(
+                    "showCode", new object[] { });
+
+                MessageBox.Show(result.Message);
+            }).FireAndForget();
         }
 
-        private void WebBrowser_LoadCompleted(object sender, NavigationEventArgs e)
-        {
-            ShowCodeButton.IsEnabled = true;
-            Browser.InvokeScript("init", _toolbox, _workspace);  //Initialize blocky using toolbox and workspace
-        }
-
-        public void SetCurrentCommand(Schema.Command c)
+        public void SetCurrentCommand(Command c)
         {
             // Color: #FF00FFFF
             // Parent: Loop
@@ -45,7 +58,10 @@ namespace VisualThreading.ToolWindows
             var preview = c.Preview;
             var text = c.Text;
 
-            Browser.InvokeScript("addNewBlockToArea", parent, text, color);
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Browser.EvaluateScriptAsync("addNewBlockToArea", parent, text, color);
+            }).FireAndForget();
         }
     }
 }
