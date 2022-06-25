@@ -77,7 +77,8 @@ namespace VisualThreading.ToolWindows
         private void UpdateCommands()
         {
             Widgets.Children.Clear();
-            Widgets.Children.Add(new Label { Content = _currentLanguage + _currentCommand.Text });
+            if(_currentCommand != null)
+                Widgets.Children.Add(new Label { Content = _currentLanguage + _currentCommand.Text });
         }
 
         public void ClearCurrentCommand()
