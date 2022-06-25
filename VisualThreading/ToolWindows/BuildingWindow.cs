@@ -23,6 +23,8 @@ namespace VisualThreading
             var buffer = await VS.Documents.GetActiveDocumentViewAsync();
             var fileExt = "";
 
+
+
             // note reading from files should be done async or we will have lots of issues
             var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
             var blockly = await ReadFileAsync(Path.Combine(root!, "Resources", "html", "blocklyHTML.html"));
