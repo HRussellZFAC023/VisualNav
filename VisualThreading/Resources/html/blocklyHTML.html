@@ -207,10 +207,13 @@
             ]
         }
 
-        function init(toolboxXML, workspaceXML) {
+
+
+        
+        function init(toolboxXML, workspaceXML, preview) {
             var blocklyArea = document.getElementById('blocklyArea');
             var blocklyDiv = document.getElementById('blocklyDiv');
-
+            
             workspace = Blockly.inject(blocklyDiv,
                 {
                     zoom:
@@ -224,6 +227,23 @@
                     },
                     trashcan: true
                 });
+
+            if (preview) {
+
+                workspace = Blockly.inject(blocklyDiv,
+                    {
+                        zoom:
+                        {
+                            controls: false,
+                            startScale: 1.0,
+                            maxScale: 3,
+                            minScale: 0.3,
+                            scaleSpeed: 1.2,
+                            pinch: false
+                        },
+                        trashcan: false
+                    });
+            }
 
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.

@@ -28,10 +28,10 @@ namespace VisualThreading.ToolWindows
         {
             if (e.IsLoading)
                 return;
-            
+
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                await Browser.EvaluateScriptAsync("init", _toolbox, _workspace);
+                await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, false);
             }).FireAndForget();
         }
 
