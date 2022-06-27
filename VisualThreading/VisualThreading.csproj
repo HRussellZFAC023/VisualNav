@@ -35,7 +35,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -2649,13 +2650,15 @@
     <Content Include="node_modules\xmlchars\xml\1.0\ed4.js" />
     <Content Include="node_modules\xmlchars\xml\1.0\ed5.js" />
     <Content Include="node_modules\xmlchars\xml\1.1\ed2.js" />
-    <Content Include="Resources\html\blocklyHTML.html" />
-    <Content Include="Resources\js\blockly_compressed.js" />
-    <Content Include="Resources\js\blocks_compressed.js" />
-    <Content Include="Resources\js\en.js" />
-    <Content Include="Resources\js\javascript_compressed.js" />
-    <Content Include="Resources\xml\blocklyWorkspace.xml" />
-    <Content Include="Resources\xml\blocklyToolbox.xml" />
+    <Content Include="Resources\html\blocklyHTML.html">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\xml\blocklyWorkspace.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\xml\blocklyToolbox.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Schema\schema.json">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -3187,6 +3190,7 @@
     <None Include="node_modules\xmlchars\xml\1.0\ed4.js.map" />
     <None Include="node_modules\xmlchars\xml\1.0\ed5.js.map" />
     <None Include="node_modules\xmlchars\xml\1.1\ed2.js.map" />
+    <None Include="Resources\blocks.json" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
       <Generator>VsixManifestGenerator</Generator>
@@ -3216,6 +3220,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="cef.redist.x64">
+      <Version>102.0.10</Version>
+    </PackageReference>
+    <PackageReference Include="CefSharp.Common">
+      <Version>102.0.100</Version>
+    </PackageReference>
+    <PackageReference Include="CefSharp.Wpf">
+      <Version>102.0.100</Version>
+    </PackageReference>
     <PackageReference Include="Community.VisualStudio.VSCT" Version="16.0.29.6" PrivateAssets="all" />
     <PackageReference Include="Community.VisualStudio.Toolkit.17" Version="17.0.451" ExcludeAssets="Runtime">
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

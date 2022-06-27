@@ -1,50 +1,45 @@
 ﻿<UserControl
     x:Class="VisualThreading.ToolWindows.BuildingWindowControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
-    xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities">
+    xmlns:markup="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:browser="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    mc:Ignorable="d">
 
     <Grid
-        Height="308"
+        ShowGridLines="True"
+        VerticalAlignment="Stretch"
+        HorizontalAlignment="Stretch"
         MinWidth="200"
         MinHeight="200">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
-        <WebBrowser
-            Name="Browser"
-            Grid.Row="0"
-            Grid.ColumnSpan="2"
-            Width="auto"
-            Height="auto"
-            LoadCompleted="WebBrowser_LoadCompleted" />
-        <Button
-            Name="ShowCodeButton"
-            Grid.Row="1"
-            Grid.Column="0"
-            Width="150"
-            Height="25"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="ShowCodeButton_Click"
-            Content="Show Code From C#" />
-        <Button
-            Name="InsertCode"
-            Grid.Row="1"
-            Grid.Column="1"
-            Width="150"
-            Height="25"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Insert code" />
-    </Grid>
+        <Border>
+            <browser:ChromiumWebBrowser x:Name="Browser" />
+        </Border>
+     
 
+        <StackPanel
+                Grid.Row="1"
+                Background="{DynamicResource {markup:Static SystemColors.InfoBrushKey}}"
+                Orientation="Horizontal" Name="Controls"
+                MinHeight="20">
+
+            <Button
+
+                    Name="ShowCodeButton"
+                    Click="ShowCodeButton_Click"
+                    Content="Show Code From C#" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <Button
+                    Name="InsertCode"
+                    Content="Insert code" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5,5,5" />
+        </StackPanel>
+    </Grid>
 </UserControl>
