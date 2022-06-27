@@ -57,7 +57,7 @@
             "controls_if_elseif",
             "controls_if_else"
           ],
-          "icon": ""
+          "icon": "WindowsForm"
         },
         {
           "name": "Loops",
@@ -68,9 +68,9 @@
             "controls_whileUntil",
             "controls_for",
             "controls_forEach",
-            "controls_flow_statements",
-            "icon"
-          ]
+            "controls_flow_statements"
+          ],
+          "icon": "WindowsForm"
         },
         {
           "name": "Math",
@@ -91,7 +91,7 @@
             "math_random_int",
             "math_random_float"
           ],
-          "icon": ""
+          "icon": "WindowsForm"
         },
         {
           "name": "Text",
@@ -113,7 +113,8 @@
             "text_trim",
             "text_print",
             "text_prompt_ext"
-          ]
+          ],
+          "icon": "WindowsForm"
         },
         {
           "name": "Lists",
@@ -135,7 +136,7 @@
             "lists_sort",
             "lists_split"
           ],
-          "icon": ""
+          "icon": "WindowsForm"
         },
         {
           "name": "Variables",
@@ -147,7 +148,7 @@
             "variables_get_dynamic",
             "variables_set_dynamic"
           ],
-          "icon": ""
+          "icon": "WindowsForm"
         },
         {
           "name": "Functions",
@@ -162,7 +163,7 @@
             "procedures_callreturn",
             "procedures_ifreturn"
           ],
-          "icon": ""
+          "icon": "WindowsForm"
         }
       ],
       "commands": [
@@ -183,13 +184,7 @@
           "preview": "",
           "color": "#FF00FFFF"
         },
-        { // template
-          "text": "",
-          "parent": "",
-          "preview": "",
-          "color": ""
-        },
-        { // example
+        {
           "text": "logic_boolean",
           "parent": "Logic",
           "preview": "",
