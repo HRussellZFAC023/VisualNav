@@ -97,8 +97,8 @@ namespace VisualThreading.ToolWindows
                         };
                         // This is the handler of the command
                         temp.Click += (_, _) => RadialDialElement_Click(command);
-                        temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
-                        temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
+                        // temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
+                        // temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
 
                         if (!_menu.ContainsKey(command.Parent))
                             _menu.Add(command.Parent, new List<RadialMenuItem>());
@@ -118,7 +118,7 @@ namespace VisualThreading.ToolWindows
 
                 BuildingWindow.Instance.SetCurrentCommand(element);
                 // extract element to working area
-                MainMenu.Items = _menu[element.Text];
+                // MainMenu.Items = _menu[element.Text];
             }
             ).FireAndForget();
         }
