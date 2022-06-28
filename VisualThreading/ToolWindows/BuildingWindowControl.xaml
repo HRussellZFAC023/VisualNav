@@ -33,10 +33,9 @@
                 MinHeight="20">
 
             <Button
-
                     Name="ShowCodeButton"
                     Click="ShowCodeButton_Click"
-                    Content="Show Code From C#" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    Content="Show Code" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
             <Button
                     Name="InsertCode"
                     Content="Insert code" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5,5,5" />

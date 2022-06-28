@@ -42,7 +42,7 @@ namespace VisualThreading.ToolWindows
                 var result = await Browser.EvaluateScriptAsync(
                     "showCode", new object[] { });
 
-                MessageBox.Show(result.Message);
+                MessageBox.Show((string)result.Result);
             }).FireAndForget();
         }
 
