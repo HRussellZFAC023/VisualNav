@@ -48,10 +48,12 @@ namespace VisualThreading.ToolWindows
 
         public void SetCurrentCommand(Command c)
         {
-            // Color: #FF00FFFF
-            // Parent: Loop
-            // Preview: for ( statement 1; statement 2; statement 3 ){\n  statements;\n}
-            // Text: for
+            // Color: 
+            // Parent: Logic
+            // Preview: 
+            // Text: controls_if
+            // System.Diagnostics.Debug.WriteLine(c);
+
             currentCommand = c;
             var color = c.Color;
             var parent = c.Parent;
