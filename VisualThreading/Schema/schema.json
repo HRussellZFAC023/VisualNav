@@ -21,7 +21,15 @@
         {
           "name": "Code",
           "parent": "Main",
-          "submenu": [ "I/O", "Method/Keyword", "Condition", "Loop", "Variables", "Operator", "Comparator" ],
+          "submenu": [
+            "I/O",
+            "Method/Keyword",
+            "Condition",
+            "Loop",
+            "Variables",
+            "Operator",
+            "Comparator"
+          ],
           "children": [],
           "icon": "Code"
         },
@@ -29,65 +37,184 @@
           "name": "UI",
           "parent": "Main",
           "submenu": [],
-          "children": [ "New Window" ],
+          "children": [
+            "Border",
+            "Button",
+            "Calendar",
+            "Canvas",
+            "CheckBox",
+            "ComboBox",
+            "ContentControl",
+            "DataGrid",
+            "DatePicker",
+            "DockPanel",
+            "DocumentViewer",
+            "Ellipse",
+            "Expander",
+            "Frame",
+            "Grid",
+            "GridSplitter",
+            "GroupBox",
+            "Image",
+            "Label",
+            "ListBox",
+            "MediaElement",
+            "Menu",
+            "PasswordBox",
+            "ProgressBar",
+            "RadioButton",
+            "Rectangle",
+            "RichTextBox",
+            "ScrollBar",
+            "ScrollViewer",
+            "Separator",
+            "Slider",
+            "StackPanel",
+            "StatusBar",
+            "TabControl",
+            "TextBlock",
+            "TextBox",
+            "ToolBar",
+            "ToolBarPanel",
+            "ToolBarTray",
+            "TreeView",
+            "Viewbox",
+            "WindowsFormsHost",
+            "WrapPanel"
+          ],
           "icon": "WindowsForm"
         },
         {
-          "name": "I/O",
+          "name": "Logic",
           "parent": "Code",
           "submenu": [],
-          "children": [ "Write", "WriteLine", "ReadKey", "ReadInputLine", "OpenText", "WriteToFiles" ],
-          "icon": "TextFile"
+          "children": [
+            "logic_boolean",
+            "controls_if",
+            "controls_ifelse",
+            "logic_compare",
+            "logic_operation",
+            "logic_negate",
+            "logic_null",
+            "logic_ternary",
+            "controls_if_if",
+            "controls_if_elseif",
+            "controls_if_else"
+          ],
+          "icon": "WindowsForm"
         },
         {
-          "name": "Method/Keyword",
+          "name": "Loops",
           "parent": "Code",
           "submenu": [],
-          "children": [ "Static", "Public", "Private", "Protected", "Internal", "Return" ],
-          "icon": "Method"
+          "children": [
+            "controls_repeat_ext",
+            "controls_whileUntil",
+            "controls_for",
+            "controls_forEach",
+            "controls_flow_statements"
+          ],
+          "icon": "WindowsForm"
         },
         {
-          "name": "Condition",
+          "name": "Math",
           "parent": "Code",
           "submenu": [],
-          "children": [ "if", "else", "else if" ],
-          "icon": "MeasureTree"
+          "children": [
+            "math_number",
+            "math_arithmetic",
+            "math_single",
+            "math_trig",
+            "math_constant",
+            "math_number_property",
+            "math_change",
+            "math_round",
+            "math_on_list",
+            "math_modulo",
+            "math_constrain",
+            "math_random_int",
+            "math_random_float"
+          ],
+          "icon": "WindowsForm"
         },
         {
-          "name": "Loop",
+          "name": "Text",
           "parent": "Code",
           "submenu": [],
-          "children": [ "switch", "case", "while", "break", "for", "continue" ],
-          "icon": "While"
+          "children": [
+            "text",
+            "text_multiline",
+            "text_join",
+            "text_create_join_container",
+            "text_create_join_item",
+            "text_append",
+            "text_length",
+            "text_isEmpty",
+            "text_indexOf",
+            "text_charAt",
+            "text_getSubstring",
+            "text_changeCase",
+            "text_trim",
+            "text_print",
+            "text_prompt_ext"
+          ],
+          "icon": "WindowsForm"
+        },
+        {
+          "name": "Lists",
+          "parent": "Code",
+          "submenu": [],
+          "children": [
+            "lists_create_empty",
+            "lists_repeat",
+            "lists_reverse",
+            "lists_isEmpty",
+            "lists_length",
+            "lists_create_with",
+            "lists_create_with_container",
+            "lists_create_with_item",
+            "lists_indexOf",
+            "lists_getIndex",
+            "lists_setIndex",
+            "lists_getSublist",
+            "lists_sort",
+            "lists_split"
+          ],
+          "icon": "WindowsForm"
         },
         {
           "name": "Variables",
           "parent": "Code",
           "submenu": [],
-          "children": [ "Void", "Integer", "Double", "Character", "Boolean", "String", "Array" ],
-          "icon": "LocalVariable"
+          "children": [
+            "variables_get",
+            "variables_set",
+            "variables_get_dynamic",
+            "variables_set_dynamic"
+          ],
+          "icon": "WindowsForm"
         },
         {
-          "name": "Operator",
+          "name": "Functions",
           "parent": "Code",
           "submenu": [],
-          "children": [ "Equal", "Plus", "Minus", "Multiply", "Divide", "Mod", "And", "()" ],
-          "icon": "Operator"
-        },
-        {
-          "name": "Comparator",
-          "parent": "Code",
-          "submenu": [],
-          "children": [ "&&", "||", "==", ">", "<", ">=", "<=", "!=", "()" ],
-          "icon": "DecisionNode"
+          "children": [
+            "procedures_defnoreturn",
+            "procedures_defreturn",
+            "procedures_mutatorcontainer",
+            "procedures_mutatorarg",
+            "procedures_callnoreturn",
+            "procedures_callreturn",
+            "procedures_ifreturn"
+          ],
+          "icon": "WindowsForm"
         }
       ],
       "commands": [
         {
           "text": "New thread",
           "parent": "Thread",
-          "preview": "",
-          "color": "#FF00FFFF"
+          "preview": ""
         },
         {
           "text": "Assert",
@@ -96,286 +223,676 @@
           "color": "#FF00FFFF"
         },
         {
-          "text": "Write",
-          "parent": "I/O",
-          "preview": "Console.Write(\"Content Here\");",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "WriteLine",
-          "parent": "I/O",
-          "preview": "Console.WriteLine(\"Content Here\");",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "ReadKey",
-          "parent": "I/O",
-          "preview": "Console.ReadKey();",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "ReadInputLine",
-          "parent": "I/O",
-          "preview": "",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "OpenText",
-          "parent": "I/O",
-          "preview": "File.OpenText(path);",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "WriteToFiles",
-          "parent": "I/O",
-          "preview": "File.WriteAllText(path, createText);",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Static",
-          "parent": "Method/Keyword",
-          "preview": "static",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Public",
-          "parent": "Method/Keyword",
-          "preview": "public",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Private",
-          "parent": "Method/Keyword",
-          "preview": "private",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Protected",
-          "parent": "Method/Keyword",
-          "preview": "protected",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Internal",
-          "parent": "Method/Keyword",
-          "preview": "internal",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Return",
-          "parent": "Method/Keyword",
-          "preview": "return;",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "if",
-          "parent": "Condition",
-          "preview": "if ( conditions ) {\n   statements;\n}",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "else",
-          "parent": "Condition",
-          "preview": "else {\n   statements;\n} ",
-          "color": "#FFFFFF00"
-        },
-        {
-          "text": "else if",
-          "parent": "Condition",
-          "preview": "else if ( conditions ) {\n  statements;\n}",
-          "color": "#FFFF0000"
-        },
-        {
-          "text": "switch",
-          "parent": "Condition",
-          "preview": "switch ( conditions ) {\n  statements;\n}",
-          "color": "#FF008000"
-        },
-        {
-          "text": "case",
-          "parent": "Condition",
-          "preview": "case :",
-          "color": "#FF008000"
-        },
-        {
-          "text": "while",
-          "parent": "Loop",
-          "preview": "while ( conditions ){\n  statements;\n  i++;\n}",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "break",
-          "parent": "Loop",
-          "preview": "break;",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "for",
-          "parent": "Loop",
-          "preview": "for ( statement 1; statement 2; statement 3 ){\n  statements;\n}",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "continue",
-          "parent": "Loop",
-          "preview": "continue;",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Void",
-          "parent": "Variables",
-          "preview": "void",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Integer",
-          "parent": "Variables",
-          "preview": "Int",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Double",
-          "parent": "Variables",
-          "preview": "Double",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Character",
-          "parent": "Variables",
-          "preview": "Char",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Boolean",
-          "parent": "Variables",
-          "preview": "Bool",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "String",
-          "parent": "Variables",
-          "preview": "String",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Array",
-          "parent": "Variables",
-          "preview": "[]",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Equal",
-          "parent": "Operator",
-          "preview": "=",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Plus",
-          "parent": "Operator",
-          "preview": "+",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Minus",
-          "parent": "Operator",
-          "preview": "-",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Multiply",
-          "parent": "Operator",
-          "preview": "*",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Divide",
-          "parent": "Operator",
-          "preview": "/",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Mod",
-          "parent": "Operator",
-          "preview": "%",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "And",
-          "parent": "Operator",
-          "preview": "&",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "Or",
-          "parent": "Operator",
-          "preview": "|",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "()",
-          "parent": "Operator",
-          "preview": "()",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "&&",
-          "parent": "Comparator",
-          "preview": "&&",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "||",
-          "parent": "Comparator",
-          "preview": "||",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "==",
-          "parent": "Comparator",
-          "preview": "==",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": ">",
-          "parent": "Comparator",
-          "preview": ">",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "<",
-          "parent": "Comparator",
-          "preview": "<",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": ">=",
-          "parent": "Comparator",
-          "preview": ">=",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "<=",
-          "parent": "Comparator",
-          "preview": "<=",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "!=",
-          "parent": "Comparator",
-          "preview": "!=",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "()",
-          "parent": "Comparator",
-          "preview": "()",
-          "color": "#FF00FFFF"
-        },
-        {
-          "text": "New Window",
+          "text": "Border",
           "parent": "UI",
+          "preview": "<Border BorderBrush=\"Black\" BorderThickness=\"1\" Height=\"100\" Width=\"100\"/>\n</Border> ",
+          "color": ""
+        },
+        {
+          "text": "Button",
+          "parent": "UI",
+          "preview": "<Button Content=\"Button\"/>",
+          "color": ""
+        },
+        {
+          "text": "Calendar",
+          "parent": "UI",
+          "preview": "<Calendar/>",
+          "color": ""
+        },
+        {
+          "text": "Canvas",
+          "parent": "UI",
+          "preview": "<Canvas Height=\"100\" Width=\"100\"/>\n</Canvas>",
+          "color": ""
+        },
+        {
+          "text": "CheckBox",
+          "parent": "UI",
+          "preview": "<CheckBox Content=\"CheckBox\"/>",
+          "color": ""
+        },
+        {
+          "text": "ComboBox",
+          "parent": "UI",
+          "preview": "<ComboBox Width=\"120\"/>\n</ComboBox>",
+          "color": ""
+        },
+        {
+          "text": "ContentControl",
+          "parent": "UI",
+          "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
+          "color": ""
+        },
+        {
+          "text": "DataGrid",
+          "parent": "UI",
+          "preview": "<DataGrid av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
+          "color": ""
+        },
+        {
+          "text": "DatePicker",
+          "parent": "UI",
+          "preview": "<DatePicker/>",
+          "color": ""
+        },
+        {
+          "text": "DockPanel",
+          "parent": "UI",
+          "preview": "<DockPanel Height=\"100\" LastChildFill=\"False\" Width=\"100\"/>\n</DockPanel>",
+          "color": ""
+        },
+        {
+          "text": "DocumentViewer",
+          "parent": "UI",
+          "preview": "<DocumentViewer/>",
+          "color": ""
+        },
+        {
+          "text": "Ellipse",
+          "parent": "UI",
+          "preview": "<Ellipse Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Expander",
+          "parent": "UI",
+          "preview": "<Expander Height=\"100\" Header=\"Expander\" Width=\"100\">\n<Grid Background=\"#FFE5E5E5\"/>\n</Expander>",
+          "color": ""
+        },
+        {
+          "text": "Frame",
+          "parent": "UI",
+          "preview": "<Frame Content=\"Frame\" Height=\"100\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Grid",
+          "parent": "UI",
+          "preview": "<Grid Height=\"100\" Width=\"100\"/>\n</Grid>",
+          "color": ""
+        },
+        {
+          "text": "GridSplitter",
+          "parent": "UI",
+          "preview": "<GridSplitter Height=\"100\" Width=\"5\"/>\n</GridSplitter>",
+          "color": ""
+        },
+        {
+          "text": "GroupBox",
+          "parent": "UI",
+          "preview": "<GroupBox Header=\"GroupBox\"/>",
+          "color": ""
+        },
+        {
+          "text": "Image",
+          "parent": "UI",
+          "preview": "<Image Height=\"100\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Label",
+          "parent": "UI",
+          "preview": "<Label Content=\"Label\"/>",
+          "color": ""
+        },
+        {
+          "text": "ListBox",
+          "parent": "UI",
+          "preview": "<ListBox av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
+          "color": ""
+        },
+        {
+          "text": "MediaElement",
+          "parent": "UI",
+          "preview": "<MediaElement Height=\"100\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Menu",
+          "parent": "UI",
+          "preview": "<Menu Height=\"100\" Width=\"100\">\n</Menu>",
+          "color": ""
+        },
+        {
+          "text": "PasswordBox",
+          "parent": "UI",
+          "preview": "<PasswordBox Width=\"120\"/>",
+          "color": ""
+        },
+        {
+          "text": "ProgressBar",
+          "parent": "UI",
+          "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "RadioButton",
+          "parent": "UI",
+          "preview": "<RadioButton Content=\"RadioButton\"/>",
+          "color": ""
+        },
+        {
+          "text": "Rectangle",
+          "parent": "UI",
+          "preview": "<Rectangle Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "RichTextBox",
+          "parent": "UI",
+          "preview": "<RichTextBox>\n<FlowDocument>\n<Paragraph>\n<Run Text=\"RichTextBox\"/>\n</Paragraph>\n</FlowDocument>\n</RichTextBox>",
+          "color": ""
+        },
+        {
+          "text": "ScrollBar",
+          "parent": "UI",
+          "preview": "<ScrollBar/>",
+          "color": ""
+        },
+        {
+          "text": "ScrollViewer",
+          "parent": "UI",
+          "preview": "<ScrollViewer>\n</ScrollViewer>",
+          "color": ""
+        },
+        {
+          "text": "Separator",
+          "parent": "UI",
+          "preview": "<Separator/>",
+          "color": ""
+        },
+        {
+          "text": "Slider",
+          "parent": "UI",
+          "preview": "<Slider Width=\"120\"/>",
+          "color": ""
+        },
+        {
+          "text": "StackPanel",
+          "parent": "UI",
+          "preview": "<StackPanel Height=\"100\" Width=\"100\">\n</StackPanel>",
+          "color": ""
+        },
+        {
+          "text": "StatusBar",
+          "parent": "UI",
+          "preview": "<StatusBar Height=\"100\" Width=\"100\">\n</StatusBar>",
+          "color": ""
+        },
+        {
+          "text": "TabControl",
+          "parent": "UI",
+          "preview": "<TabControl>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n</TabControl>",
+          "color": ""
+        },
+        {
+          "text": "TextBlock",
+          "parent": "UI",
+          "preview": "<TextBlock TextWrapping=\"Wrap\" Text=\"TextBlock\"/>",
+          "color": ""
+        },
+        {
+          "text": "TextBox",
+          "parent": "UI",
+          "preview": "<TextBox TextWrapping=\"Wrap\" Text=\"TextBox\" Width=\"120\"/>",
+          "color": ""
+        },
+        {
+          "text": "ToolBar",
+          "parent": "UI",
+          "preview": "<ToolBar Height=\"100\" Width=\"100\">\n</ToolBar>",
+          "color": ""
+        },
+        {
+          "text": "ToolBarPanel",
+          "parent": "UI",
+          "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
+          "color": ""
+        },
+        {
+          "text": "ToolBarTray",
+          "parent": "UI",
+          "preview": "<ToolBarTray Height=\"100\" Width=\"100\">\n</ToolBarTray>",
+          "color": ""
+        },
+        {
+          "text": "TreeView",
+          "parent": "UI",
+          "preview": "<TreeView>\n</TreeView>",
+          "color": ""
+        },
+        {
+          "text": "Viewbox",
+          "parent": "UI",
+          "preview": "<Viewbox Height=\"100\" Width=\"100\">\n</Viewbox>",
+          "color": ""
+        },
+        {
+          "text": "WindowsFormsHost",
+          "parent": "UI",
+          "preview": "<WindowsFormsHost Height=\"100\" Width=\"100\">\n</WindowsFormsHost>",
+          "color": ""
+        },
+        {
+          "text": "WrapPanel",
+          "parent": "UI",
+          "preview": "<WrapPanel Height=\"100\" Width=\"100\">\n</WrapPanel>",
+          "color": ""
+        },
+        {
+          "text": "logic_boolean",
+          "parent": "Logic",
           "preview": "",
-          "color": "#FF00FFFF"
+          "color": ""
+        },
+        {
+          "text": "controls_if",
+          "parent": "Logic",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "controls_ifelse",
+          "parent": "Logic",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "logic_compare",
+          "parent": "Logic",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "logic_operation",
+          "parent": "Logic",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "logic_negate",
+          "parent": "Logic",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "logic_null",
+          "parent": "Logic",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "logic_ternary",
+          "parent": "Logic",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "controls_if_if",
+          "parent": "Logic",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "controls_if_elseif",
+          "parent": "Logic",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "controls_if_else",
+          "parent": "Logic",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "controls_repeat_ext",
+          "parent": "Loops",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "controls_whileUntil",
+          "parent": "Loops",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "controls_for",
+          "parent": "Loops",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "controls_forEach",
+          "parent": "Loops",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "controls_flow_statements",
+          "parent": "Loops",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_number",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_arithmetic",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_single",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_trig",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_constant",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_number_property",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_change",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_round",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_on_list",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_modulo",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_constrain",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_random_int",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "math_random_float",
+          "parent": "Math",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_multiline",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_join",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_create_join_container",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_create_join_item",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_append",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_length",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_isEmpty",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_indexOf",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_charAt",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_getSubstring",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_changeCase",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_trim",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_print",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "text_prompt_ext",
+          "parent": "Text",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_create_empty",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_repeat",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_reverse",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_isEmpty",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_length",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_create_with",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_create_with_container",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_create_with_item",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_indexOf",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_getIndex",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_setIndex",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_getSublist",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_sort",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "lists_split",
+          "parent": "Lists",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "variables_get",
+          "parent": "Variables",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "variables_set",
+          "parent": "Variables",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "variables_get_dynamic",
+          "parent": "Variables",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "variables_set_dynamic",
+          "parent": "Variables",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "procedures_defnoreturn",
+          "parent": "Functions",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "procedures_defreturn",
+          "parent": "Functions",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "procedures_mutatorcontainer",
+          "parent": "Functions",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "procedures_mutatorarg",
+          "parent": "Functions",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "procedures_callnoreturn",
+          "parent": "Functions",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "procedures_callreturn",
+          "parent": "Functions",
+          "preview": "",
+          "color": ""
+        },
+        {
+          "text": "procedures_ifreturn",
+          "parent": "Functions",
+          "preview": "",
+          "color": ""
         }
       ]
     },
@@ -389,3 +906,24 @@
     }
   ]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
