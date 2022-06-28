@@ -96,10 +96,7 @@
             "logic_operation",
             "logic_negate",
             "logic_null",
-            "logic_ternary",
-            "controls_if_if",
-            "controls_if_elseif",
-            "controls_if_else"
+            "logic_ternary"
           ],
           "icon": "WindowsForm"
         },
@@ -145,8 +142,6 @@
             "text",
             "text_multiline",
             "text_join",
-            "text_create_join_container",
-            "text_create_join_item",
             "text_append",
             "text_length",
             "text_isEmpty",
@@ -171,8 +166,6 @@
             "lists_isEmpty",
             "lists_length",
             "lists_create_with",
-            "lists_create_with_container",
-            "lists_create_with_item",
             "lists_indexOf",
             "lists_getIndex",
             "lists_setIndex",
@@ -188,9 +181,7 @@
           "submenu": [],
           "children": [
             "variables_get",
-            "variables_set",
-            "variables_get_dynamic",
-            "variables_set_dynamic"
+            "variables_set"
           ],
           "icon": "WindowsForm"
         },
@@ -201,10 +192,6 @@
           "children": [
             "procedures_defnoreturn",
             "procedures_defreturn",
-            "procedures_mutatorcontainer",
-            "procedures_mutatorarg",
-            "procedures_callnoreturn",
-            "procedures_callreturn",
             "procedures_ifreturn"
           ],
           "icon": "WindowsForm"
@@ -529,24 +516,6 @@
           "color": ""
         },
         {
-          "text": "controls_if_if",
-          "parent": "Logic",
-          "preview": "",
-          "color": ""
-        },
-        {
-          "text": "controls_if_elseif",
-          "parent": "Logic",
-          "preview": "",
-          "color": ""
-        },
-        {
-          "text": "controls_if_else",
-          "parent": "Logic",
-          "preview": "",
-          "color": ""
-        },
-        {
           "text": "controls_repeat_ext",
           "parent": "Loops",
           "preview": "",
@@ -673,18 +642,6 @@
           "color": ""
         },
         {
-          "text": "text_create_join_container",
-          "parent": "Text",
-          "preview": "",
-          "color": ""
-        },
-        {
-          "text": "text_create_join_item",
-          "parent": "Text",
-          "preview": "",
-          "color": ""
-        },
-        {
           "text": "text_append",
           "parent": "Text",
           "preview": "",
@@ -781,18 +738,6 @@
           "color": ""
         },
         {
-          "text": "lists_create_with_container",
-          "parent": "Lists",
-          "preview": "",
-          "color": ""
-        },
-        {
-          "text": "lists_create_with_item",
-          "parent": "Lists",
-          "preview": "",
-          "color": ""
-        },
-        {
           "text": "lists_indexOf",
           "parent": "Lists",
           "preview": "",
@@ -841,18 +786,6 @@
           "color": ""
         },
         {
-          "text": "variables_get_dynamic",
-          "parent": "Variables",
-          "preview": "",
-          "color": ""
-        },
-        {
-          "text": "variables_set_dynamic",
-          "parent": "Variables",
-          "preview": "",
-          "color": ""
-        },
-        {
           "text": "procedures_defnoreturn",
           "parent": "Functions",
           "preview": "",
@@ -860,30 +793,6 @@
         },
         {
           "text": "procedures_defreturn",
-          "parent": "Functions",
-          "preview": "",
-          "color": ""
-        },
-        {
-          "text": "procedures_mutatorcontainer",
-          "parent": "Functions",
-          "preview": "",
-          "color": ""
-        },
-        {
-          "text": "procedures_mutatorarg",
-          "parent": "Functions",
-          "preview": "",
-          "color": ""
-        },
-        {
-          "text": "procedures_callnoreturn",
-          "parent": "Functions",
-          "preview": "",
-          "color": ""
-        },
-        {
-          "text": "procedures_callreturn",
           "parent": "Functions",
           "preview": "",
           "color": ""
@@ -906,24 +815,3 @@
     }
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
