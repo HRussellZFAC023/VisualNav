@@ -8,6 +8,9 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Microsoft.VisualStudio.Imaging.Interop;
 using System.Windows.Media;
+using System.Windows.Forms;
+using Orientation = System.Windows.Controls.Orientation;
+using Binding = System.Windows.Data.Binding;
 
 namespace VisualThreading.ToolWindows
 {
@@ -84,21 +87,20 @@ namespace VisualThreading.ToolWindows
                     MainMenu.Items = _menu["Main"];  // Set default menu to Main menu
                     foreach (var command in language.Commands)
                     {
-
+                        
                         string[] Textlist = command.Text.Trim().Split('_');
                         string res = "";
                         if (Textlist.Length > 1)
                         {
-                            for (int i = 1; i < Textlist.Length; i++)
+                            for(int i = 1; i < Textlist.Length; i++)
                             {
-                                res = res + " " + Textlist[i];
+                                res = res + " "+ Textlist[i];
                             }
                         }
                         else { res = Textlist[0]; }
+                        
 
-
-                        var temp = new RadialMenuItem
-                        {
+                        var temp = new RadialMenuItem { 
                             Content = new TextBlock { Text = res },
                             Padding = 0,
                             InnerRadius = 35,
@@ -107,7 +109,7 @@ namespace VisualThreading.ToolWindows
                             Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
                             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFE4A1"),
                         };
-
+                       
                         temp.Click += (_, _) => RadialDialElement_Click(command);  //Handler of the command
                         // temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
                         // temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
@@ -127,10 +129,16 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-
-                BuildingWindow.Instance.SetCurrentCommand(element);
-                // extract element to working area
-                // MainMenu.Items = _menu[element.Text];
+                if (element.Parent.Equals("UI"))
+                {
+                    Clipboard.SetText(element.Preview);
+                }
+                else
+                {
+                    BuildingWindow.Instance.SetCurrentCommand(element);
+                    // extract element to working area
+                    // MainMenu.Items = _menu[element.Text];
+                }
             }
             ).FireAndForget();
         }
@@ -187,7 +195,6 @@ namespace VisualThreading.ToolWindows
                         {
                             progress = item + " → " + progress;
                         }
-
                     }
                     progress.Remove(progress.Length - 4);
                     ProgressText.Text = progress;
@@ -196,7 +203,6 @@ namespace VisualThreading.ToolWindows
                 var temp = _state.Count == 0 ? "Main" : _state.Pop().ToString();
                 _currentState = temp;
                 MainMenu.Items = _menu[temp];
-
             }
             ).FireAndForget();
         }
