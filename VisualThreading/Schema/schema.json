@@ -37,7 +37,51 @@
           "name": "UI",
           "parent": "Main",
           "submenu": [],
-          "children": [ "New Window" ],
+          "children": [
+            "Border",
+            "Button",
+            "Calendar",
+            "Canvas",
+            "CheckBox",
+            "ComboBox",
+            "ContentControl",
+            "DataGrid",
+            "DatePicker",
+            "DockPanel",
+            "DocumentViewer",
+            "Ellipse",
+            "Expander",
+            "Frame",
+            "Grid",
+            "GridSplitter",
+            "GroupBox",
+            "Image",
+            "Label",
+            "ListBox",
+            "MediaElement",
+            "Menu",
+            "PasswordBox",
+            "ProgressBar",
+            "RadioButton",
+            "Rectangle",
+            "RichTextBox",
+            "ScrollBar",
+            "ScrollViewer",
+            "Separator",
+            "Slider",
+            "StackPanel",
+            "StatusBar",
+            "TabControl",
+            "TextBlock",
+            "TextBox",
+            "ToolBar",
+            "ToolBarPanel",
+            "ToolBarTray",
+            "TreeView",
+            "Viewbox",
+            "WindowsFormsHost",
+            "WrapPanel"
+          ],
           "icon": "WindowsForm"
         },
         {
@@ -179,10 +223,262 @@
           "color": "#FF00FFFF"
         },
         {
-          "text": "New Window",
+          "text": "Border",
           "parent": "UI",
-          "preview": "",
-          "color": "#FF00FFFF"
+          "preview": "<Border BorderBrush=\"Black\" BorderThickness=\"1\" Height=\"100\" Width=\"100\"/>\n</Border> ",
+          "color": ""
+        },
+        {
+          "text": "Button",
+          "parent": "UI",
+          "preview": "<Button Content=\"Button\"/>",
+          "color": ""
+        },
+        {
+          "text": "Calendar",
+          "parent": "UI",
+          "preview": "<Calendar/>",
+          "color": ""
+        },
+        {
+          "text": "Canvas",
+          "parent": "UI",
+          "preview": "<Canvas Height=\"100\" Width=\"100\"/>\n</Canvas>",
+          "color": ""
+        },
+        {
+          "text": "CheckBox",
+          "parent": "UI",
+          "preview": "<CheckBox Content=\"CheckBox\"/>",
+          "color": ""
+        },
+        {
+          "text": "ComboBox",
+          "parent": "UI",
+          "preview": "<ComboBox Width=\"120\"/>\n</ComboBox>",
+          "color": ""
+        },
+        {
+          "text": "ContentControl",
+          "parent": "UI",
+          "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
+          "color": ""
+        },
+        {
+          "text": "DataGrid",
+          "parent": "UI",
+          "preview": "<DataGrid av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
+          "color": ""
+        },
+        {
+          "text": "DatePicker",
+          "parent": "UI",
+          "preview": "<DatePicker/>",
+          "color": ""
+        },
+        {
+          "text": "DockPanel",
+          "parent": "UI",
+          "preview": "<DockPanel Height=\"100\" LastChildFill=\"False\" Width=\"100\"/>\n</DockPanel>",
+          "color": ""
+        },
+        {
+          "text": "DocumentViewer",
+          "parent": "UI",
+          "preview": "<DocumentViewer/>",
+          "color": ""
+        },
+        {
+          "text": "Ellipse",
+          "parent": "UI",
+          "preview": "<Ellipse Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Expander",
+          "parent": "UI",
+          "preview": "<Expander Height=\"100\" Header=\"Expander\" Width=\"100\">\n<Grid Background=\"#FFE5E5E5\"/>\n</Expander>",
+          "color": ""
+        },
+        {
+          "text": "Frame",
+          "parent": "UI",
+          "preview": "<Frame Content=\"Frame\" Height=\"100\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Grid",
+          "parent": "UI",
+          "preview": "<Grid Height=\"100\" Width=\"100\"/>\n</Grid>",
+          "color": ""
+        },
+        {
+          "text": "GridSplitter",
+          "parent": "UI",
+          "preview": "<GridSplitter Height=\"100\" Width=\"5\"/>\n</GridSplitter>",
+          "color": ""
+        },
+        {
+          "text": "GroupBox",
+          "parent": "UI",
+          "preview": "<GroupBox Header=\"GroupBox\"/>",
+          "color": ""
+        },
+        {
+          "text": "Image",
+          "parent": "UI",
+          "preview": "<Image Height=\"100\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Label",
+          "parent": "UI",
+          "preview": "<Label Content=\"Label\"/>",
+          "color": ""
+        },
+        {
+          "text": "ListBox",
+          "parent": "UI",
+          "preview": "<ListBox av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
+          "color": ""
+        },
+        {
+          "text": "MediaElement",
+          "parent": "UI",
+          "preview": "<MediaElement Height=\"100\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Menu",
+          "parent": "UI",
+          "preview": "<Menu Height=\"100\" Width=\"100\">\n</Menu>",
+          "color": ""
+        },
+        {
+          "text": "PasswordBox",
+          "parent": "UI",
+          "preview": "<PasswordBox Width=\"120\"/>",
+          "color": ""
+        },
+        {
+          "text": "ProgressBar",
+          "parent": "UI",
+          "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "RadioButton",
+          "parent": "UI",
+          "preview": "<RadioButton Content=\"RadioButton\"/>",
+          "color": ""
+        },
+        {
+          "text": "Rectangle",
+          "parent": "UI",
+          "preview": "<Rectangle Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "RichTextBox",
+          "parent": "UI",
+          "preview": "<RichTextBox>\n<FlowDocument>\n<Paragraph>\n<Run Text=\"RichTextBox\"/>\n</Paragraph>\n</FlowDocument>\n</RichTextBox>",
+          "color": ""
+        },
+        {
+          "text": "ScrollBar",
+          "parent": "UI",
+          "preview": "<ScrollBar/>",
+          "color": ""
+        },
+        {
+          "text": "ScrollViewer",
+          "parent": "UI",
+          "preview": "<ScrollViewer>\n</ScrollViewer>",
+          "color": ""
+        },
+        {
+          "text": "Separator",
+          "parent": "UI",
+          "preview": "<Separator/>",
+          "color": ""
+        },
+        {
+          "text": "Slider",
+          "parent": "UI",
+          "preview": "<Slider Width=\"120\"/>",
+          "color": ""
+        },
+        {
+          "text": "StackPanel",
+          "parent": "UI",
+          "preview": "<StackPanel Height=\"100\" Width=\"100\">\n</StackPanel>",
+          "color": ""
+        },
+        {
+          "text": "StatusBar",
+          "parent": "UI",
+          "preview": "<StatusBar Height=\"100\" Width=\"100\">\n</StatusBar>",
+          "color": ""
+        },
+        {
+          "text": "TabControl",
+          "parent": "UI",
+          "preview": "<TabControl>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n</TabControl>",
+          "color": ""
+        },
+        {
+          "text": "TextBlock",
+          "parent": "UI",
+          "preview": "<TextBlock TextWrapping=\"Wrap\" Text=\"TextBlock\"/>",
+          "color": ""
+        },
+        {
+          "text": "TextBox",
+          "parent": "UI",
+          "preview": "<TextBox TextWrapping=\"Wrap\" Text=\"TextBox\" Width=\"120\"/>",
+          "color": ""
+        },
+        {
+          "text": "ToolBar",
+          "parent": "UI",
+          "preview": "<ToolBar Height=\"100\" Width=\"100\">\n</ToolBar>",
+          "color": ""
+        },
+        {
+          "text": "ToolBarPanel",
+          "parent": "UI",
+          "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
+          "color": ""
+        },
+        {
+          "text": "ToolBarTray",
+          "parent": "UI",
+          "preview": "<ToolBarTray Height=\"100\" Width=\"100\">\n</ToolBarTray>",
+          "color": ""
+        },
+        {
+          "text": "TreeView",
+          "parent": "UI",
+          "preview": "<TreeView>\n</TreeView>",
+          "color": ""
+        },
+        {
+          "text": "Viewbox",
+          "parent": "UI",
+          "preview": "<Viewbox Height=\"100\" Width=\"100\">\n</Viewbox>",
+          "color": ""
+        },
+        {
+          "text": "WindowsFormsHost",
+          "parent": "UI",
+          "preview": "<WindowsFormsHost Height=\"100\" Width=\"100\">\n</WindowsFormsHost>",
+          "color": ""
+        },
+        {
+          "text": "WrapPanel",
+          "parent": "UI",
+          "preview": "<WrapPanel Height=\"100\" Width=\"100\">\n</WrapPanel>",
+          "color": ""
         },
         {
           "text": "logic_boolean",
@@ -610,3 +906,24 @@
     }
   ]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
