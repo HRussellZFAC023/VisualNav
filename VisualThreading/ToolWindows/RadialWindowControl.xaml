@@ -41,8 +41,8 @@
         <TextBlock Name="ProgressText" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >Main</TextBlock>
         
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right">
-            <Button Width="25" Height="25" Content="-" />
-            <Button Width="25" Height="25" Content="+" />
+            <Button Click="decreaseSize" ClickMode="Press" Width="25" Height="25" Content="-" />
+            <Button Click="increaseSize" Width="25" Height="25" Content="+" />
         </StackPanel>
 
 

@@ -8,9 +8,10 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Microsoft.VisualStudio.Imaging.Interop;
 using System.Windows.Media;
-using System.Windows.Forms;
 using Orientation = System.Windows.Controls.Orientation;
 using Binding = System.Windows.Data.Binding;
+using System.Windows;
+using Clipboard = System.Windows.Clipboard;
 
 namespace VisualThreading.ToolWindows
 {
@@ -86,20 +87,21 @@ namespace VisualThreading.ToolWindows
                     MainMenu.Items = _menu["Main"];  // Set default menu to Main menu
                     foreach (var command in language.Commands)
                     {
-                        
+
                         string[] Textlist = command.Text.Trim().Split('_');
                         string res = "";
                         if (Textlist.Length > 1)
                         {
-                            for(int i = 1; i < Textlist.Length; i++)
+                            for (int i = 1; i < Textlist.Length; i++)
                             {
-                                res = res + " "+ Textlist[i];
+                                res = res + " " + Textlist[i];
                             }
                         }
                         else { res = Textlist[0]; }
-                        
 
-                        var temp = new RadialMenuItem { 
+
+                        var temp = new RadialMenuItem
+                        {
                             Content = new TextBlock { Text = res },
                             Padding = 0,
                             InnerRadius = 35,
@@ -108,7 +110,7 @@ namespace VisualThreading.ToolWindows
                             Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
                             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFE4A1"),
                         };
-                       
+
                         temp.Click += (_, _) => RadialDialElement_Click(command);  //Handler of the command
                         // temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
                         // temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
@@ -151,7 +153,45 @@ namespace VisualThreading.ToolWindows
             }
             ).FireAndForget();
         }
+        void decreaseSize(object sender, RoutedEventArgs e)
+        {
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Task.Delay(20);
 
+                foreach (KeyValuePair<string, List<RadialMenuItem>> entry in _menu)
+                {
+                    foreach (RadialMenuItem element in entry.Value)
+                    {
+                        element.OuterRadius = element.OuterRadius / 1.2;
+                        element.ContentRadius = element.ContentRadius / 1.2;
+                        element.EdgeInnerRadius = element.EdgeInnerRadius / 1.2;
+                        element.EdgeOuterRadius = element.EdgeOuterRadius / 1.2;
+                        element.ArrowRadius = element.ArrowRadius / 1.2;
+                    }
+                }
+            }
+            ).FireAndForget();
+        }
+        void increaseSize(object sender, RoutedEventArgs e)
+        {
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Task.Delay(20);
+                foreach (KeyValuePair<string, List<RadialMenuItem>> entry in _menu)
+                {
+                    foreach (RadialMenuItem element in entry.Value)
+                    {
+                        element.OuterRadius = element.OuterRadius * 1.2;
+                        element.ContentRadius = element.ContentRadius * 1.2;
+                        element.EdgeInnerRadius = element.EdgeInnerRadius * 1.2;
+                        element.EdgeOuterRadius = element.EdgeOuterRadius * 1.2;
+                        element.ArrowRadius = element.ArrowRadius * 1.2;
+                    }
+                }
+            }
+            ).FireAndForget();
+        }
         private static void RadialDialElement_ExitHover()
         {
             PreviewWindow.Instance.ClearCurrentCommand();
