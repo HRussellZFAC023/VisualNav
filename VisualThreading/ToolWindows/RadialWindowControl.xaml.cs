@@ -59,7 +59,6 @@ namespace VisualThreading.ToolWindows
                             Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#DCEDF9"),
                             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#38499B")
                         };
-
                         // icon 
                         var icon = menuItem.Icon;
                         PropertyInfo propertyInfo = typeof(KnownMonikers).GetProperty(menuItem.Icon);
