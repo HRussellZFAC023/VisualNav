@@ -51,156 +51,360 @@
         var workspace;
 
         var blocks_json = {
-            "Condition": [
+            "Logic": [
                 {
-                    "type": "controls_if", // condition - if   
-                    "name": "if",
+                    "type": "logic_boolean",
+                    "name": "logic_boolean",
                     "color": "",
                     "toolboxitemid": ""
                 },
                 {
-                    "type": "controls_if_else",    // else
-                    "name": "else",
+                    "type": "controls_if",
+                    "name": "controls_if",
                     "color": "",
                     "toolboxitemid": ""
                 },
                 {
-                    "type": "controls_if_elseif",   // else if
-                    "name": "else if",
+                    "type": "controls_ifelse",
+                    "name": "controls_ifelse",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare",
+                    "name": "logic_compare",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_operation",
+                    "name": "logic_operation",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_negate",
+                    "name": "logic_negate",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_null",
+                    "name": "logic_null",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_ternary",
+                    "name": "logic_ternary",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+            ],
+            "Loops": [
+                {
+                    "type": "controls_repeat_ext",
+                    "name": "controls_repeat_ext",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_whileUntil",
+                    "name": "controls_whileUntil",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_for",
+                    "name": "controls_for",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_forEach",
+                    "name": "controls_forEach",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_flow_statements",
+                    "name": "controls_flow_statements",
                     "color": "",
                     "toolboxitemid": ""
                 }
             ],
-            "Loop": [
+            "Math": [
                 {
-                    "type": "controls_whileUntil", // while / until
-                    "name": "while",
+                    "type": "math_number",
+                    "name": "math_number",
                     "color": "",
                     "toolboxitemid": ""
                 },
                 {
-                    "type": "controls_flow_statements",   // break
-                    "name": "break",
+                    "type": "math_arithmetic",
+                    "name": "math_arithmetic",
                     "color": "",
                     "toolboxitemid": ""
                 },
                 {
-                    "type": "controls_repeat_ext",   // for
-                    "name": "for",
+                    "type": "math_single",
+                    "name": "math_single",
                     "color": "",
                     "toolboxitemid": ""
                 },
                 {
-                    "type": "controls_flow_statements",  // continue
-                    "name": "continue",
+                    "type": "math_trig",
+                    "name": "math_trig",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_constant",
+                    "name": "math_constant",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_number_property",
+                    "name": "math_number_property",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_change",
+                    "name": "math_change",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_round",
+                    "name": "math_round",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_on_list",
+                    "name": "math_on_list",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_modulo",
+                    "name": "math_modulo",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_constrain",
+                    "name": "math_constrain",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_random_int",
+                    "name": "math_random_int",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_random_float",
+                    "name": "math_random_float",
+                    "color": "",
+                    "toolboxitemid": ""
+                }
+            ],
+            "Text": [
+                {
+                    "type": "text",
+                    "name": "text",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_multiline",
+                    "name": "text_multiline",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_join",
+                    "name": "text_join",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_append",
+                    "name": "text_append",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_length",
+                    "name": "text_length",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_isEmpty",
+                    "name": "text_isEmpty",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_indexOf",
+                    "name": "text_indexOf",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_charAt",
+                    "name": "text_charAt",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_getSubstring",
+                    "name": "text_getSubstring",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_changeCase",
+                    "name": "text_changeCase",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_trim",
+                    "name": "text_trim",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_print",
+                    "name": "text_print",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text_prompt_ext",
+                    "name": "text_prompt_ext",
+                    "color": "",
+                    "toolboxitemid": ""
+                }
+            ],
+            "Lists": [
+                {
+                    "type": "lists_create_empty",
+                    "name": "lists_create_empty",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_repeat",
+                    "name": "lists_repeat",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_reverse",
+                    "name": "lists_reverse",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_isEmpty",
+                    "name": "lists_isEmpty",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_length",
+                    "name": "lists_length",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_create_with",
+                    "name": "lists_create_with",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_indexOf",
+                    "name": "lists_indexOf",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_getIndex",
+                    "name": "lists_getIndex",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_setIndex",
+                    "name": "lists_setIndex",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_getSublist",
+                    "name": "lists_getSublist",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_sort",
+                    "name": "lists_sort",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_split",
+                    "name": "lists_split",
                     "color": "",
                     "toolboxitemid": ""
                 }
             ],
             "Variables": [
                 {
-                    "type": "math_number",    // int
-                    "name": "Integer",
+                    "type": "variables_get",
+                    "name": "variables_get",
                     "color": "",
                     "toolboxitemid": ""
                 },
                 {
-                    "type": "math_number",    // double
-                    "name": "Double",
+                    "type": "variables_set",
+                    "name": "variables_set",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+            ],
+            "Functions": [
+                {
+                    "type": "procedures_defnoreturn",
+                    "name": "procedures_defnoreturn",
                     "color": "",
                     "toolboxitemid": ""
                 },
                 {
-                    "type": "logic_boolean", // variable - boolean
-                    "name": "Boolean",
+                    "type": "procedures_defreturn",
+                    "name": "procedures_defreturn",
                     "color": "",
                     "toolboxitemid": ""
                 },
                 {
-                    "type": "text",    // string
-                    "name": "String",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "lists_create_empty",    // array
-                    "name": "Array",
+                    "type": "procedures_ifreturn",
+                    "name": "procedures_ifreturn",
                     "color": "",
                     "toolboxitemid": ""
                 }
             ],
-            "Operator": [
+            "Test": [
                 {
-                    "type": "math_arithmetic",    // +
-                    "name": "Plus",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "math_arithmetic",    // -
-                    "name": "Minus",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "math_arithmetic",    // x
-                    "name": "Multiply",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "math_arithmetic",    // \
-                    "name": "Divide",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-            ],
-            "Comparator": [
-                {
-                    "type": "logic_operation",  // &&  AND
-                    "name": "&&",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "logic_operation",   // || OR
-                    "name": "||",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "logic_compare",   // ==  EQ
-                    "name": "==",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "logic_compare",    // >  GT
-                    "name": ">",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "logic_compare",    // <   LT
-                    "name": "<",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "logic_compare", //   >= GTE
-                    "name": ">=",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "logic_compare",    // <= LTE
-                    "name": "<=",
-                    "color": "",
-                    "toolboxitemid": ""
-                },
-                {
-                    "type": "logic_compare", // !=
-                    "name": "!=",
+                    "type": "assert_block",
+                    "name": "Assert",
                     "color": "",
                     "toolboxitemid": ""
                 }
@@ -283,11 +487,10 @@
 
             if (blockType != null) {
                 newBlock = workspace.newBlock(blockType);
+                newBlock.setColour(160);
                 newBlock.initSvg();
                 newBlock.render();
-            } else {
-                console.log("nooooooooo")
-            }
+            } 
             
         }
 

@@ -35,5 +35,5 @@
         </radialMenu:RadialMenu>
         <TextBlock Grid.Row="0"  Name="ProgressText">Main</TextBlock>
     </Grid>
-    
+
 </UserControl>
