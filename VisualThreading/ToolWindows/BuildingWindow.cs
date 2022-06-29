@@ -23,13 +23,12 @@ namespace VisualThreading
             var buffer = await VS.Documents.GetActiveDocumentViewAsync();
             var fileExt = "";
 
-
-
             // note reading from files should be done async or we will have lots of issues
             var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
             var blockly = await ReadFileAsync(Path.Combine(root!, "Resources", "html", "blocklyHTML.html"));
             var toolbox = await ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyToolbox.xml"));
             var workspace = await ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyWorkspace.xml"));
+            var schema = await ReadFileAsync(Path.Combine(root!, "Schema", "schema.json"));
 
             if (buffer?.TextBuffer != null)
             {
@@ -37,7 +36,7 @@ namespace VisualThreading
                     Path.GetExtension(buffer.TextBuffer.GetFileName());
             }
 
-            Instance = new BuildingWindowControl(commands, fileExt, blockly, toolbox, workspace);
+            Instance = new BuildingWindowControl(commands, fileExt, blockly, toolbox, workspace, schema);
             return Instance;
         }
 

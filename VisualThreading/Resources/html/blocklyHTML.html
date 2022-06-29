@@ -412,8 +412,6 @@
         }
 
 
-
-        
         function init(toolboxXML, workspaceXML, preview) {
             var blocklyArea = document.getElementById('blocklyArea');
             var blocklyDiv = document.getElementById('blocklyDiv');
@@ -474,23 +472,12 @@
             Blockly.svgResize(workspace);
         }
 
-        function addNewBlockToArea(parent, text, color) {
+        function addNewBlockToArea(type, color) {
 
-            var blocks = blocks_json[parent]
-            var blockType = null
-            var newBlock
-            blocks.forEach(function (block) {
-                if (block['name'] == text) {
-                    blockType = block['type']
-                }
-            });
-
-            if (blockType != null) {
-                newBlock = workspace.newBlock(blockType);
-                newBlock.setColour(160);
-                newBlock.initSvg();
-                newBlock.render();
-            } 
+            newBlock = workspace.newBlock(type);
+            newBlock.setColour(160);
+            newBlock.initSvg();
+            newBlock.render(); 
             
         }
 

@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using Newtonsoft.Json;
 using System.Windows;
 using Command = VisualThreading.Schema.Command;
 using MessageBox = System.Windows.MessageBox;
@@ -9,13 +10,15 @@ namespace VisualThreading.ToolWindows
     {
         private Command currentCommand;
         private readonly string _workspace;
-        private readonly string _toolbox;
+        private readonly string _toolbox; 
+        private readonly dynamic _schema;
 
-        public BuildingWindowControl(Schema.Schema commands, string fileExt, string blockly, string toolbox, string workspace)
+        public BuildingWindowControl(Schema.Schema commands, string fileExt, string blockly, string toolbox, string workspace, string schema)
         {
             currentCommand = null;
             _toolbox = toolbox;
             _workspace = workspace;
+            _schema = JsonConvert.DeserializeObject(schema);
 
             InitializeComponent();
             Focus();
@@ -57,12 +60,21 @@ namespace VisualThreading.ToolWindows
             currentCommand = c;
             var color = c.Color;
             var parent = c.Parent;
-            var preview = c.Preview;
             var text = c.Text;
+
+            var blocks = _schema["RadialMenu"][0]["commands"];
+            var blockType = "";
+            foreach (var block in blocks)
+            {
+                if (block["parent"] == parent && block["text"] == text)
+                {
+                    blockType = block["type"];
+                }
+            }
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                await Browser.EvaluateScriptAsync("addNewBlockToArea", parent, text, color);
+                await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
             }).FireAndForget();
         }
     }
