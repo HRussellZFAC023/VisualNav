@@ -76,6 +76,7 @@ namespace VisualThreading.ToolWindows
             {
                 await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
             }).FireAndForget();
+
         }
     }
 }
