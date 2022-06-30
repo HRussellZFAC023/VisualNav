@@ -159,7 +159,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-
+                ProgressText.FontSize = ProgressText.FontSize - 3;
                 foreach (KeyValuePair<string, List<RadialMenuItem>> entry in _menu)
                 {
                     foreach (RadialMenuItem element in entry.Value)
@@ -180,6 +180,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
+                ProgressText.FontSize = ProgressText.FontSize + 3;
                 foreach (KeyValuePair<string, List<RadialMenuItem>> entry in _menu)
                 {
                     foreach (RadialMenuItem element in entry.Value)
