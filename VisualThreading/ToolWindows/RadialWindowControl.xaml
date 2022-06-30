@@ -39,11 +39,12 @@
         </radialMenu:RadialMenu>
 
         <TextBlock Name="ProgressText" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >Main</TextBlock>
-        
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right">
-            <Button Click="decreaseSize" ClickMode="Press" Width="25" Height="25" Content="-" />
-            <Button Click="increaseSize" Width="25" Height="25" Content="+" />
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
+                                theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
+            <imaging:CrispImage MouseDown="decreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
+            <imaging:CrispImage MouseDown="increaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
         </StackPanel>
+        
 
 
     </Grid>
