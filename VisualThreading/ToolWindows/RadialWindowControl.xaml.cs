@@ -54,6 +54,7 @@ namespace VisualThreading.ToolWindows
                         var item = new RadialMenuItem
                         {
                             Content = stackPanel,
+                            FontSize = 12,
                             Padding = 0,
                             InnerRadius = 10,
                             EdgePadding = 0,
@@ -163,6 +164,7 @@ namespace VisualThreading.ToolWindows
                 {
                     foreach (RadialMenuItem element in entry.Value)
                     {
+                        element.FontSize = element.FontSize - 3;
                         element.OuterRadius = element.OuterRadius / 1.2;
                         element.ContentRadius = element.ContentRadius / 1.2;
                         element.EdgeInnerRadius = element.EdgeInnerRadius / 1.2;
@@ -182,6 +184,7 @@ namespace VisualThreading.ToolWindows
                 {
                     foreach (RadialMenuItem element in entry.Value)
                     {
+                        element.FontSize = element.FontSize + 3;
                         element.OuterRadius = element.OuterRadius * 1.2;
                         element.ContentRadius = element.ContentRadius * 1.2;
                         element.EdgeInnerRadius = element.EdgeInnerRadius * 1.2;
