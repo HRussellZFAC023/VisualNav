@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using Newtonsoft.Json;
+using System.IO;
 using System.Windows;
 using Command = VisualThreading.Schema.Command;
 using MessageBox = System.Windows.MessageBox;
@@ -23,6 +24,8 @@ namespace VisualThreading.ToolWindows
             InitializeComponent();
             Focus();
             Browser.LoadHtml(blockly);
+            
+
 
             Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
         }
@@ -34,6 +37,25 @@ namespace VisualThreading.ToolWindows
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
+                /*
+                  
+                 */
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/blockly_compressed.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/blocks_compressed.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/msg/js/en.js"));
+                
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/colour.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/lists.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/logic.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/loops.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/math.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/procedures.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/text.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/variables.js"));
+
+                
+
                 await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, false);
             }).FireAndForget();
         }
