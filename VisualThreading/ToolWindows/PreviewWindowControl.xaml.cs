@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System.IO;
 using System.Windows.Controls;
+using VisualThreading.Schema;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 
 namespace VisualThreading.ToolWindows
@@ -11,9 +12,9 @@ namespace VisualThreading.ToolWindows
         private string _currentLanguage; // file extension for language
         private readonly string _toolbox;
         private readonly string _workspace;
-        private readonly dynamic _schema;
 
-
+        //private readonly dynamic _schema;
+        private readonly Schema.Schema _schema;
 
         public PreviewWindowControl(Schema.Schema schema, string fileExt, string blockly, string toolbox, string workspace)
         {
@@ -24,12 +25,11 @@ namespace VisualThreading.ToolWindows
             InitializeComponent();
             Focus();
             _schema = schema;
-            
 
             Browser.LoadHtml(blockly);
 
-            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection even
             Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
+            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // get file type
         }
 
         private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
@@ -76,31 +76,40 @@ namespace VisualThreading.ToolWindows
                         Path.GetExtension(buffer);
             }
             SetCurrentLanguage(fileExt);
+            UpdateCommands();
         }
 
-        public void SetCurrentCommand(Schema.Command c)
+        public void SetCurrentCommand(Command c)
         {
-            _currentCommand = c;
-            UpdateCommands();
+            // Color:
+            // Parent: Logic
+            // Preview:
+            // Text: controls_if
+            // System.Diagnostics.Debug.WriteLine(c);
 
+            _currentCommand = c;
             var color = c.Color;
             var parent = c.Parent;
             var text = c.Text;
 
-            //var blocks = _schema["RadialMenu"][0]["schema"];
-            //var blockType = "";
-            //foreach (var block in blocks)
-            //{
-            //    if (block["parent"] == parent && block["text"] == text)
-            //    {
-            //        blockType = block["type"];
-            //    }
-            //}
+            //var blocks = _schema["RadialMenu"][0]["commands"];
+            // todo: fix hardcoded "0" - this should be dynamic based on filetype
+            var blocks = _schema.RadialMenu[0].Commands;
+            var blockType = "";
+            foreach (var block in blocks)
+            {
+                if (block.Parent == parent && block.Text == text)
+                {
+                    blockType = block.Type;
+                }
+            }
 
-            //ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-            //{
-            //    await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
-            //}).FireAndForget();
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
+            }).FireAndForget();
+
+            UpdateCommands();
         }
 
         private void SetCurrentLanguage(string language)

@@ -47,5 +47,6 @@ namespace VisualThreading.Schema
         public string Parent { get; set; }
         public string Preview { get; set; }
         public string Color { get; set; }
+        public string Type { get; set; }
     }
 }

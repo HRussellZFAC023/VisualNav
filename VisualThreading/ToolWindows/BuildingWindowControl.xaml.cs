@@ -11,7 +11,7 @@ namespace VisualThreading.ToolWindows
         private string language;
         private readonly string _workspace;
         private readonly string _toolbox;
-        private readonly dynamic _schema;
+        private readonly Schema.Schema _schema;
 
         public BuildingWindowControl(Schema.Schema schema, string fileExt, string blockly, string toolbox, string workspace)
         {
@@ -86,13 +86,15 @@ namespace VisualThreading.ToolWindows
             var parent = c.Parent;
             var text = c.Text;
 
-            var blocks = _schema["RadialMenu"][0]["commands"];
+            //var blocks = _schema["RadialMenu"][0]["commands"];
+            // todo: fix hardcoded "0" - this should be dynamic based on filetype
+            var blocks = _schema.RadialMenu[0].Commands;
             var blockType = "";
             foreach (var block in blocks)
             {
-                if (block["parent"] == parent && block["text"] == text)
+                if (block.Parent == parent && block.Text == text)
                 {
-                    blockType = block["type"];
+                    blockType = block.Type;
                 }
             }
 
