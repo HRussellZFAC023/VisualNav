@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using VisualThreading.Utilities;
 
 namespace VisualThreading.ToolWindows
 {
@@ -18,7 +19,7 @@ namespace VisualThreading.ToolWindows
 
         public override async Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            var fr = new FileReader();
+            var fr = new FileReaderAdapter();
             var commands = await Schema.Schema.LoadAsync();
             var buffer = await VS.Documents.GetActiveDocumentViewAsync();
             var fileExt = "";

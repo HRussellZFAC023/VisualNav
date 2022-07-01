@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System.IO;
 using VisualThreading.Schema;
+using VisualThreading.Utilities;
 using Label = System.Windows.Controls.Label;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 using UserControl = System.Windows.Controls.UserControl;
@@ -40,7 +41,7 @@ namespace VisualThreading.ToolWindows
 
             var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
             var blockly = Path.Combine(root!, "Resources", "js", "blockly");
-            var fr = new FileReader();
+            var fr = new FileReaderAdapter();
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {

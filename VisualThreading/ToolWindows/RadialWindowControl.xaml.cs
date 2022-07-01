@@ -22,7 +22,7 @@ namespace VisualThreading.ToolWindows
 
         private readonly Stack _state = new();
         private string _currentState = "";
-        private String progress = "";
+        private string progress = "";
 
         public RadialWindowControl()
         {
@@ -63,10 +63,9 @@ namespace VisualThreading.ToolWindows
                             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#38499B")
                         };
                         // icon
-                        var icon = menuItem.Icon;
                         PropertyInfo propertyInfo = typeof(KnownMonikers).GetProperty(menuItem.Icon);
-                        var something = (ImageMoniker)propertyInfo.GetValue(null, null);
-                        var image = new CrispImage { Width = 25, Height = 25, Moniker = something };
+                        var icon = (ImageMoniker)propertyInfo.GetValue(null, null);
+                        var image = new CrispImage { Width = 25, Height = 25, Moniker = icon };
                         var binding = new Binding("Background")
                         {
                             Converter = new BrushToColorConverter(),
@@ -89,16 +88,16 @@ namespace VisualThreading.ToolWindows
                     MainMenu.Items = _menu["Main"];  // Set default menu to Main menu
                     foreach (var command in language.Commands)
                     {
-                        string[] Textlist = command.Text.Trim().Split('_');
-                        string res = "";
-                        if (Textlist.Length > 1)
+                        var textList = command.Text.Trim().Split('_');
+                        var res = "";
+                        if (textList.Length > 1)
                         {
-                            for (int i = 1; i < Textlist.Length; i++)
+                            for (int i = 1; i < textList.Length; i++)
                             {
-                                res = res + " " + Textlist[i];
+                                res = res + " " + textList[i];
                             }
                         }
-                        else { res = Textlist[0]; }
+                        else { res = textList[0]; }
 
                         var temp = new RadialMenuItem
                         {
@@ -176,22 +175,22 @@ namespace VisualThreading.ToolWindows
             ).FireAndForget();
         }
 
-        private void increaseSize(object sender, RoutedEventArgs e)
+        private void IncreaseSize(object sender, RoutedEventArgs e)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                ProgressText.FontSize = ProgressText.FontSize + 3;
-                foreach (KeyValuePair<string, List<RadialMenuItem>> entry in _menu)
+                ProgressText.FontSize += 3;
+                foreach (var entry in _menu)
                 {
                     foreach (RadialMenuItem element in entry.Value)
                     {
-                        element.FontSize = element.FontSize + 3;
-                        element.OuterRadius = element.OuterRadius * 1.2;
-                        element.ContentRadius = element.ContentRadius * 1.2;
-                        element.EdgeInnerRadius = element.EdgeInnerRadius * 1.2;
-                        element.EdgeOuterRadius = element.EdgeOuterRadius * 1.2;
-                        element.ArrowRadius = element.ArrowRadius * 1.2;
+                        element.FontSize += 3;
+                        element.OuterRadius *= 1.2;
+                        element.ContentRadius *= 1.2;
+                        element.EdgeInnerRadius *= 1.2;
+                        element.EdgeOuterRadius *= 1.2;
+                        element.ArrowRadius *= 1.2;
                     }
                 }
             }

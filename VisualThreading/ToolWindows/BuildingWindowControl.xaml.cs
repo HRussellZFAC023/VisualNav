@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System.IO;
 using System.Windows;
+using VisualThreading.Utilities;
 using Command = VisualThreading.Schema.Command;
 
 namespace VisualThreading.ToolWindows
@@ -35,7 +36,7 @@ namespace VisualThreading.ToolWindows
 
             var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
             var blockly = Path.Combine(root!, "Resources", "js", "blockly");
-            var fr = new FileReader();
+            var fr = new FileReaderAdapter();
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
