@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Command = VisualThreading.Schema.Command;
-using MessageBox = System.Windows.MessageBox;
 
 namespace VisualThreading.ToolWindows
 {
@@ -65,22 +64,17 @@ namespace VisualThreading.ToolWindows
             }).FireAndForget();
         }
 
-        private void combo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (block_language.SelectedItem is ComboBoxItem item)
-            {
-                language = (string)item.Content;
-            }
-        }
 
         private void ShowCodeButton_Click(object sender, RoutedEventArgs e)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                var result = await Browser.EvaluateScriptAsync(
-                    "showCode", language);
 
-                MessageBox.Show((string)result.Result);
+                //var result = await Browser.EvaluateScriptAsync(
+                //    "showCode", new object[] { });
+
+
+                //MessageBox.Show((string)result.Result);
             }).FireAndForget();
         }
 
