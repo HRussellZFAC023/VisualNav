@@ -487,337 +487,393 @@
           "text": "logic_boolean",
           "parent": "Logic",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "logic_boolean"
         },
         {
           "text": "controls_if",
           "parent": "Logic",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "controls_if"
         },
         {
           "text": "controls_ifelse",
           "parent": "Logic",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "controls_ifelse"
         },
         {
           "text": "logic_compare",
           "parent": "Logic",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "logic_compare"
         },
         {
           "text": "logic_operation",
           "parent": "Logic",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "logic_operation"
         },
         {
           "text": "logic_negate",
           "parent": "Logic",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "logic_negate"
         },
         {
           "text": "logic_null",
           "parent": "Logic",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "logic_null"
         },
         {
           "text": "logic_ternary",
           "parent": "Logic",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "logic_ternary"
         },
         {
           "text": "controls_repeat_ext",
           "parent": "Loops",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "controls_repeat_ext"
         },
         {
           "text": "controls_whileUntil",
           "parent": "Loops",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "controls_whileUntil"
         },
         {
           "text": "controls_for",
           "parent": "Loops",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "controls_for"
         },
         {
           "text": "controls_forEach",
           "parent": "Loops",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "controls_forEach"
         },
         {
           "text": "controls_flow_statements",
           "parent": "Loops",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "controls_flow_statements"
         },
         {
           "text": "math_number",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_number"
         },
         {
           "text": "math_arithmetic",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_arithmetic"
         },
         {
           "text": "math_single",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_single"
         },
         {
           "text": "math_trig",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_trig"
         },
         {
           "text": "math_constant",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_constant"
         },
         {
           "text": "math_number_property",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_number_property"
         },
         {
           "text": "math_change",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_change"
         },
         {
           "text": "math_round",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_round"
         },
         {
           "text": "math_on_list",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_on_list"
         },
         {
           "text": "math_modulo",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_modulo"
         },
         {
           "text": "math_constrain",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_constrain"
         },
         {
           "text": "math_random_int",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_random_int"
         },
         {
           "text": "math_random_float",
           "parent": "Math",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "math_random_float"
         },
         {
           "text": "text",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text"
         },
         {
           "text": "text_multiline",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_multiline"
         },
         {
           "text": "text_join",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_join"
         },
         {
           "text": "text_append",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_append"
         },
         {
           "text": "text_length",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_length"
         },
         {
           "text": "text_isEmpty",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_isEmpty"
         },
         {
           "text": "text_indexOf",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_indexOf"
         },
         {
           "text": "text_charAt",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_charAt"
         },
         {
           "text": "text_getSubstring",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_getSubstring"
         },
         {
           "text": "text_changeCase",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_changeCase"
         },
         {
           "text": "text_trim",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_trim"
         },
         {
           "text": "text_print",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_print"
         },
         {
           "text": "text_prompt_ext",
           "parent": "Text",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "text_prompt_ext"
         },
         {
           "text": "lists_create_empty",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_create_empty"
         },
         {
           "text": "lists_repeat",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_repeat"
         },
         {
           "text": "lists_reverse",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_reverse"
         },
         {
           "text": "lists_isEmpty",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_isEmpty"
         },
         {
           "text": "lists_length",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_length"
         },
         {
           "text": "lists_create_with",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_create_with"
         },
         {
           "text": "lists_indexOf",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_indexOf"
         },
         {
           "text": "lists_getIndex",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_getIndex"
         },
         {
           "text": "lists_setIndex",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_setIndex"
         },
         {
           "text": "lists_getSublist",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_getSublist"
         },
         {
           "text": "lists_sort",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_sort"
         },
         {
           "text": "lists_split",
           "parent": "Lists",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "lists_split"
         },
         {
           "text": "variables_get",
           "parent": "Variables",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "variables_get"
         },
         {
           "text": "variables_set",
           "parent": "Variables",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "variables_set"
         },
         {
           "text": "procedures_defnoreturn",
           "parent": "Functions",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "procedures_defnoreturn"
         },
         {
           "text": "procedures_defreturn",
           "parent": "Functions",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "procedures_defreturn"
         },
         {
           "text": "procedures_ifreturn",
           "parent": "Functions",
           "preview": "",
-          "color": ""
+          "color": "",
+          "type": "procedures_ifreturn"
         }
       ]
     },
