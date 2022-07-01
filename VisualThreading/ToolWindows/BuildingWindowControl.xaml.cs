@@ -1,10 +1,8 @@
 ﻿using CefSharp;
 using Newtonsoft.Json;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using Command = VisualThreading.Schema.Command;
-using MessageBox = System.Windows.MessageBox;
 
 namespace VisualThreading.ToolWindows
 {
@@ -58,21 +56,14 @@ namespace VisualThreading.ToolWindows
             }).FireAndForget();
         }
 
-        private static async Task<string> ReadFileAsync(string file)
-        {
-            using var reader = new StreamReader(file);
-            var content = await reader.ReadToEndAsync();
-            return content;
-        }
-
         private void ShowCodeButton_Click(object sender, RoutedEventArgs e)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                var result = await Browser.EvaluateScriptAsync(
-                    "showCode", new object[] { });
+                //var result = await Browser.EvaluateScriptAsync(
+                //    "showCode", new object[] { });
 
-                MessageBox.Show((string)result.Result);
+                //MessageBox.Show((string)result.Result);
             }).FireAndForget();
         }
 

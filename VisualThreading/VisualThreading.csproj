@@ -1180,250 +1180,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\js\blockly\demos\accessible\icon.png" />
-    <Content Include="Resources\js\blockly\demos\accessible\index.html" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\analytics.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\app_controller.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\blocks.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\block_definition_extractor.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\block_exporter_controller.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\block_exporter_tools.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\block_exporter_view.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\block_library_controller.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\block_library_storage.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\block_library_view.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\block_option.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\cp.css" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\cp.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\factory.css" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\factory.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\factory_utils.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\icon.png" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\index.html" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\link.png" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\preview.html" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\preview.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\standard_categories.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\workspacefactory\wfactory_controller.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\workspacefactory\wfactory_generator.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\workspacefactory\wfactory_init.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\workspacefactory\wfactory_model.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory\workspacefactory\wfactory_view.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory_old\blocks.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory_old\factory.js" />
-    <Content Include="Resources\js\blockly\demos\blockfactory_old\icon.png" />
-    <Content Include="Resources\js\blockly\demos\blockfactory_old\index.html" />
-    <Content Include="Resources\js\blockly\demos\blockfactory_old\link.png" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\index.html" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\scripts\main.js" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\scripts\music_maker.js" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\scripts\sound_blocks.js" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\sounds\c4.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\sounds\c5.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\sounds\d4.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\sounds\e4.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\sounds\f4.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\sounds\g4.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app-complete\styles\index.css" />
-    <Content Include="Resources\js\blockly\demos\codelab\app\index.html" />
-    <Content Include="Resources\js\blockly\demos\codelab\app\scripts\main.js" />
-    <Content Include="Resources\js\blockly\demos\codelab\app\scripts\music_maker.js" />
-    <Content Include="Resources\js\blockly\demos\codelab\app\sounds\c4.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app\sounds\c5.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app\sounds\d4.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app\sounds\e4.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app\sounds\f4.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app\sounds\g4.m4a" />
-    <Content Include="Resources\js\blockly\demos\codelab\app\styles\index.css" />
-    <Content Include="Resources\js\blockly\demos\code\blockly_helper.js" />
-    <Content Include="Resources\js\blockly\demos\code\code.js" />
-    <Content Include="Resources\js\blockly\demos\code\FileSaver.min.js" />
-    <Content Include="Resources\js\blockly\demos\code\icon.png" />
-    <Content Include="Resources\js\blockly\demos\code\icons.png" />
-    <Content Include="Resources\js\blockly\demos\code\index.html" />
-    <Content Include="Resources\js\blockly\demos\code\msg\ar.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\be-tarask.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\br.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\ca.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\cs.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\da.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\de.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\el.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\en.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\es.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\et.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\fa.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\fr.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\he.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\hr.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\hrx.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\hu.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\ia.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\is.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\it.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\ja.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\kab.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\ko.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\mk.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\ms.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\nb.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\nl.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\oc.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\pl.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\pms.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\pt-br.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\ro.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\ru.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\sc.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\sk.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\sr.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\sv.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\ta.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\th.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\tlh.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\tr.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\uk.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\vi.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\zh-hans.js" />
-    <Content Include="Resources\js\blockly\demos\code\msg\zh-hant.js" />
-    <Content Include="Resources\js\blockly\demos\code\style.css" />
-    <Content Include="Resources\js\blockly\demos\custom-dialogs\custom-dialog.js" />
-    <Content Include="Resources\js\blockly\demos\custom-dialogs\icon.png" />
-    <Content Include="Resources\js\blockly\demos\custom-dialogs\index.html" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\icon.png" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\index.html" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\pitch\blocks.js" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\pitch\field_pitch.js" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\pitch\index.html" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\pitch\media\notes.png" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\pitch\pitch.css" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\blocks.js" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\field_turtle.js" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\icon.png" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\index.html" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\media\crown.svg" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\media\fedora.svg" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\media\mask.svg" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\media\propeller.svg" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\media\stovepipe.svg" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\media\warning.svg" />
-    <Content Include="Resources\js\blockly\demos\custom-fields\turtle\turtle.css" />
-    <Content Include="Resources\js\blockly\demos\fixed\icon.png" />
-    <Content Include="Resources\js\blockly\demos\fixed\index.html" />
-    <Content Include="Resources\js\blockly\demos\generator\charp.html" />
-    <Content Include="Resources\js\blockly\demos\generator\icon.png" />
-    <Content Include="Resources\js\blockly\demos\generator\index.html" />
-    <Content Include="Resources\js\blockly\demos\graph\icon.png" />
-    <Content Include="Resources\js\blockly\demos\graph\index.html" />
-    <Content Include="Resources\js\blockly\demos\headless\icon.png" />
-    <Content Include="Resources\js\blockly\demos\headless\index.html" />
-    <Content Include="Resources\js\blockly\demos\iframe\frame.html" />
-    <Content Include="Resources\js\blockly\demos\iframe\icon.png" />
-    <Content Include="Resources\js\blockly\demos\iframe\index.html" />
-    <Content Include="Resources\js\blockly\demos\index.html" />
-    <Content Include="Resources\js\blockly\demos\interpreter\acorn_interpreter.js" />
-    <Content Include="Resources\js\blockly\demos\interpreter\async-execution.html" />
-    <Content Include="Resources\js\blockly\demos\interpreter\icon.png" />
-    <Content Include="Resources\js\blockly\demos\interpreter\index.html" />
-    <Content Include="Resources\js\blockly\demos\interpreter\step-execution.html" />
-    <Content Include="Resources\js\blockly\demos\interpreter\wait_block.js" />
-    <Content Include="Resources\js\blockly\demos\keyboard_nav\icon.png" />
-    <Content Include="Resources\js\blockly\demos\keyboard_nav\index.html" />
-    <Content Include="Resources\js\blockly\demos\maxBlocks\icon.png" />
-    <Content Include="Resources\js\blockly\demos\maxBlocks\index.html" />
-    <Content Include="Resources\js\blockly\demos\minimap\icon.png" />
-    <Content Include="Resources\js\blockly\demos\minimap\index.html" />
-    <Content Include="Resources\js\blockly\demos\minimap\minimap.js" />
-    <Content Include="Resources\js\blockly\demos\mirror\icon.png" />
-    <Content Include="Resources\js\blockly\demos\mirror\index.html" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\androidTest\java\com\example\blocklywebview\ExampleInstrumentedTest.java" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\AndroidManifest.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\java\com\google\blockly\android\webview\BlocklyWebViewFragment.java" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\java\com\google\blockly\android\webview\demo\MainActivity.java" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\java\com\google\blockly\android\webview\JsDialogHelper.java" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\java\com\google\blockly\android\webview\WebChromeClient.java" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\drawable-v24\ic_launcher_foreground.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\drawable\ic_launcher_background.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\layout\activity_main.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\layout\js_prompt.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-anydpi-v26\ic_launcher.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-anydpi-v26\ic_launcher_round.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-hdpi\ic_launcher.png" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-mdpi\ic_launcher.png" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-mdpi\ic_launcher_round.png" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-xhdpi\ic_launcher.png" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-xhdpi\ic_launcher_round.png" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-xxhdpi\ic_launcher.png" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-xxhdpi\ic_launcher_round.png" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-xxxhdpi\ic_launcher.png" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\mipmap-xxxhdpi\ic_launcher_round.png" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\values\colors.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\values\js_dialog_helper.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\values\strings.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\main\res\values\styles.xml" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\app\src\test\java\com\example\blocklywebview\ExampleUnitTest.java" />
-    <Content Include="Resources\js\blockly\demos\mobile\android\gradle\wrapper\gradle-wrapper.jar" />
-    <Content Include="Resources\js\blockly\demos\mobile\html\index.html" />
-    <Content Include="Resources\js\blockly\demos\mobile\html\toolbox_standard.js" />
-    <Content Include="Resources\js\blockly\demos\plane\blocks.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\ar.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\be-tarask.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\br.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\ca.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\da.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\de.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\el.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\en.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\es.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\et.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\fa.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\fr.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\he.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\hrx.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\hu.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\ia.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\is.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\it.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\ja.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\ko.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\ms.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\nb.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\nl.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\pl.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\pms.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\pt-br.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\ro.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\ru.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\sc.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\sv.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\th.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\tr.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\uk.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\vi.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\zh-hans.js" />
-    <Content Include="Resources\js\blockly\demos\plane\generated\zh-hant.js" />
-    <Content Include="Resources\js\blockly\demos\plane\icon.png" />
-    <Content Include="Resources\js\blockly\demos\plane\index.html" />
-    <Content Include="Resources\js\blockly\demos\plane\plane.js" />
-    <Content Include="Resources\js\blockly\demos\plane\README.txt" />
-    <Content Include="Resources\js\blockly\demos\plane\slider.js" />
-    <Content Include="Resources\js\blockly\demos\plane\soy\SoyMsgExtractor.jar" />
-    <Content Include="Resources\js\blockly\demos\plane\soy\SoyToJsSrcCompiler.jar" />
-    <Content Include="Resources\js\blockly\demos\plane\soy\soyutils.js" />
-    <Content Include="Resources\js\blockly\demos\plane\style.css" />
-    <Content Include="Resources\js\blockly\demos\prettify.css" />
-    <Content Include="Resources\js\blockly\demos\prettify.js" />
-    <Content Include="Resources\js\blockly\demos\realtime\index.html" />
-    <Content Include="Resources\js\blockly\demos\resizable\icon.png" />
-    <Content Include="Resources\js\blockly\demos\resizable\index.html" />
-    <Content Include="Resources\js\blockly\demos\resizable\overlay.html" />
-    <Content Include="Resources\js\blockly\demos\rtl\icon.png" />
-    <Content Include="Resources\js\blockly\demos\rtl\index.html" />
-    <Content Include="Resources\js\blockly\demos\storage\icon.png" />
-    <Content Include="Resources\js\blockly\demos\storage\index.html" />
-    <Content Include="Resources\js\blockly\demos\toolbox\icon.png" />
-    <Content Include="Resources\js\blockly\demos\toolbox\index.html" />
+    <Content Include="Resources\js\blockly\dart_compressed.js">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\js\blockly\generators\csharp.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -1677,6 +1437,14 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\js\blockly\generators\python\variables_dynamic.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\blockly\javascript_compressed.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\blockly\lua_compressed.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -2260,28 +2028,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\js\blockly\tests\generators\colour.xml" />
-    <Content Include="Resources\js\blockly\tests\generators\index.html" />
-    <Content Include="Resources\js\blockly\tests\generators\lists.xml" />
-    <Content Include="Resources\js\blockly\tests\generators\logic.xml" />
-    <Content Include="Resources\js\blockly\tests\generators\loops1.xml" />
-    <Content Include="Resources\js\blockly\tests\generators\loops2.xml" />
-    <Content Include="Resources\js\blockly\tests\generators\loops3.xml" />
-    <Content Include="Resources\js\blockly\tests\generators\math.xml" />
-    <Content Include="Resources\js\blockly\tests\generators\procedures.xml" />
-    <Content Include="Resources\js\blockly\tests\generators\text.xml" />
-    <Content Include="Resources\js\blockly\tests\generators\unittest.js" />
-    <Content Include="Resources\js\blockly\tests\generators\unittest_dart.js" />
-    <Content Include="Resources\js\blockly\tests\generators\unittest_javascript.js" />
-    <Content Include="Resources\js\blockly\tests\generators\unittest_python.js" />
-    <Content Include="Resources\js\blockly\tests\generators\variables.xml" />
-    <Content Include="Resources\js\blockly\tests\jsunit\blockly_test.js" />
-    <Content Include="Resources\js\blockly\tests\jsunit\generator_test.js" />
-    <Content Include="Resources\js\blockly\tests\jsunit\index.html" />
-    <Content Include="Resources\js\blockly\tests\jsunit\names_test.js" />
-    <Content Include="Resources\js\blockly\tests\jsunit\workspace_test.js" />
-    <Content Include="Resources\js\blockly\tests\jsunit\xml_test.js" />
-    <Content Include="Resources\js\blockly\tests\playground.html" />
+    <Content Include="Resources\js\blockly\php_compressed.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\blockly\python_compressed.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Resources\html\blocklyHTML.html">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -2297,74 +2051,6 @@
     <Content Include="Schema\schema.json">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="Resources\js\blockly\demos\codelab\README.md" />
-    <None Include="Resources\js\blockly\demos\mobile\android\.gitignore" />
-    <None Include="Resources\js\blockly\demos\mobile\android\app\.gitignore" />
-    <None Include="Resources\js\blockly\demos\mobile\android\app\build.gradle" />
-    <None Include="Resources\js\blockly\demos\mobile\android\app\proguard-rules.pro" />
-    <None Include="Resources\js\blockly\demos\mobile\android\build.gradle" />
-    <None Include="Resources\js\blockly\demos\mobile\android\gradle.properties" />
-    <None Include="Resources\js\blockly\demos\mobile\android\gradlew" />
-    <None Include="Resources\js\blockly\demos\mobile\android\gradlew.bat" />
-    <None Include="Resources\js\blockly\demos\mobile\android\gradle\wrapper\gradle-wrapper.properties" />
-    <None Include="Resources\js\blockly\demos\mobile\android\README.md" />
-    <None Include="Resources\js\blockly\demos\mobile\android\settings.gradle" />
-    <None Include="Resources\js\blockly\demos\mobile\html\.gitignore" />
-    <None Include="Resources\js\blockly\demos\mobile\html\ln_resources.sh" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\.gitignore" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView.xcodeproj\project.pbxproj" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView.xcodeproj\project.xcworkspace\contents.xcworkspacedata" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView.xcodeproj\project.xcworkspace\xcshareddata\IDEWorkspaceChecks.plist" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView.xcodeproj\xcuserdata\marshalla.xcuserdatad\xcschemes\xcschememanagement.plist" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView\AppDelegate.swift" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView\Assets.xcassets\AppIcon.appiconset\Contents.json" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView\Assets.xcassets\Contents.json" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView\Base.lproj\LaunchScreen.storyboard" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView\Base.lproj\Main.storyboard" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView\Info.plist" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\Blockly WebView\ViewController.swift" />
-    <None Include="Resources\js\blockly\demos\mobile\ios\cp_resources.sh" />
-    <None Include="Resources\js\blockly\demos\mobile\README.md" />
-    <None Include="Resources\js\blockly\demos\plane\soy\COPYING" />
-    <None Include="Resources\js\blockly\demos\plane\soy\README" />
-    <None Include="Resources\js\blockly\demos\plane\template.soy" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\extracted_msgs.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_ar.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_be-tarask.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_br.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_ca.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_da.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_de.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_el.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_en.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_es.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_et.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_fa.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_fr.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_he.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_hrx.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_hu.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_ia.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_is.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_it.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_ja.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_ko.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_ms.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_nb.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_nl.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_pl.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_pms.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_pt-br.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_ro.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_ru.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_sc.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_sv.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_th.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_tr.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_uk.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_vi.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_zh-hans.xlf" />
-    <None Include="Resources\js\blockly\demos\plane\xlf\translated_msgs_zh-hant.xlf" />
     <Content Include="Resources\js\blockly\msg\json\ab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -2951,12 +2637,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="Resources\js\blockly\core\utils\deprecation.ts">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>
