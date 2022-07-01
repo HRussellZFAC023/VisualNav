@@ -49,10 +49,171 @@
 
     <script>
         var workspace;
+
         var centered = false;
         var blocklyArea;
 
-        function init(toolboxXML, workspaceXML) {
+        var blocks_json = {
+            "Condition": [
+                {
+                    "type": "controls_if", // condition - if
+                    "name": "if",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_if_else",    // else
+                    "name": "else",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_if_elseif",   // else if
+                    "name": "else if",
+                    "color": "",
+                    "toolboxitemid": ""
+                }
+            ],
+            "Loop": [
+                {
+                    "type": "controls_whileUntil", // while / until
+                    "name": "while",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_flow_statements",   // break
+                    "name": "break",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_repeat_ext",   // for
+                    "name": "for",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "controls_flow_statements",  // continue
+                    "name": "continue",
+                    "color": "",
+                    "toolboxitemid": ""
+                }
+            ],
+            "Variables": [
+                {
+                    "type": "math_number",    // int
+                    "name": "Integer",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_number",    // double
+                    "name": "Double",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_boolean", // variable - boolean
+                    "name": "Boolean",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "text",    // string
+                    "name": "String",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "lists_create_empty",    // array
+                    "name": "Array",
+                    "color": "",
+                    "toolboxitemid": ""
+                }
+            ],
+            "Operator": [
+                {
+                    "type": "math_arithmetic",    // +
+                    "name": "Plus",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_arithmetic",    // -
+                    "name": "Minus",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_arithmetic",    // x
+                    "name": "Multiply",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "math_arithmetic",    // \
+                    "name": "Divide",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+            ],
+            "Comparator": [
+                {
+                    "type": "logic_operation",  // &&  AND
+                    "name": "&&",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_operation",   // || OR
+                    "name": "||",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare",   // ==  EQ
+                    "name": "==",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare",    // >  GT
+                    "name": ">",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare",    // <   LT
+                    "name": "<",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare", //   >= GTE
+                    "name": ">=",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare",    // <= LTE
+                    "name": "<=",
+                    "color": "",
+                    "toolboxitemid": ""
+                },
+                {
+                    "type": "logic_compare", // !=
+                    "name": "!=",
+                    "color": "",
+                    "toolboxitemid": ""
+                }
+            ]
+        }
+
+
+
+
+        function init(toolboxXML, workspaceXML, preview) {
             blocklyArea = document.getElementById('blocklyArea');
             var blocklyDiv = document.getElementById('blocklyDiv');
 
@@ -60,16 +221,33 @@
                 {
                     zoom:
                     {
-                        controls: false,
+                        controls: true,
                         startScale: 1.0,
                         maxScale: 3,
                         minScale: 0.3,
                         scaleSpeed: 1.2,
                         pinch: true
                     },
-                    trashcan: false
+                    trashcan: true
                 });
+            
+            if (preview) { // Only if preview is set to true should we hide the trashcan
 
+                workspace = Blockly.inject(blocklyDiv,
+                    {
+                        zoom:
+                        {
+                            controls: false,
+                            startScale: 1.0,
+                            maxScale: 3,
+                            minScale: 0.3,
+                            scaleSpeed: 1.2,
+                            pinch: false
+                        },
+                        trashcan: false
+                    });
+            }
+                        
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.
                 var element = blocklyArea;
@@ -96,18 +274,31 @@
         }
 
         function addNewBlockToArea(parent, text, color) {
-            var blockName = "controls_if"
 
-            var newBlock = workspace.newBlock(blockName);
+            var blocks = blocks_json[parent]
+            var blockType = null
+            var newBlock
+            blocks.forEach(function (block) {
+                if (block['name'] == text) {
+                    blockType = block['type']
+                }
+            });
 
-            if (centered == false) {
-                var coordinates = newBlock.getRelativeToSurfaceXY();
-                workspace.zoom(coordinates.x - blocklyArea.offsetWidth, coordinates.y - blocklyArea.offsetHeight, 2);
-                centered = true;
+            if (blockType != null) {
+                workspace.clear() // When adding a new block to preview, first delete previous blocks
+                newBlock = workspace.newBlock(blockType);
+
+                if (centered == false) {
+                    var coordinates = newBlock.getRelativeToSurfaceXY();
+                    workspace.zoom(coordinates.x - blocklyArea.offsetWidth, coordinates.y - blocklyArea.offsetHeight, 2);
+                    centered = true;
+                }
+
+                newBlock.initSvg();
+                newBlock.render();
+            } else {
+                console.log("nooooooooo")
             }
-
-            newBlock.initSvg();
-            newBlock.render();
         }
 
         function showCode() {
@@ -116,6 +307,7 @@
             var code = Blockly.JavaScript.workspaceToCode(workspace);
             return code;
         }
+
     </script>
 </body>
 </html>
