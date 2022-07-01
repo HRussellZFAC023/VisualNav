@@ -1,7 +1,6 @@
 ﻿using CefSharp;
 using Newtonsoft.Json;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Command = VisualThreading.Schema.Command;
@@ -27,7 +26,6 @@ namespace VisualThreading.ToolWindows
             InitializeComponent();
             Focus();
             Browser.LoadHtml(blockly);
-
 
             Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
         }
@@ -56,36 +54,28 @@ namespace VisualThreading.ToolWindows
                 Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "text.js")));
                 Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "variables.js")));
 
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "javascript_compressed.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "dart_compressed.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "python_compressed.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "lua_compressed.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "php_compressed")));
+
                 await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, false);
             }).FireAndForget();
         }
 
-
         private void combo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-
-            ComboBoxItem item = block_language.SelectedItem as ComboBoxItem;
-
-            if (item != null)
+            if (block_language.SelectedItem is ComboBoxItem item)
             {
-                language = (String)item.Content;
+                language = (string)item.Content;
             }
         }
-
 
         private void ShowCodeButton_Click(object sender, RoutedEventArgs e)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/blockly_compressed.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/blocks_compressed.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/msg/js/en.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/javascript_compressed.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/python_compressed.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/php_compressed.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/lua_compressed.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/dart_compressed.js"));
-
                 var result = await Browser.EvaluateScriptAsync(
                     "showCode", language);
 
