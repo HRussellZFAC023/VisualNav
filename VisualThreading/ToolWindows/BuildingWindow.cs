@@ -5,9 +5,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using VisualThreading.ToolWindows;
 
-namespace VisualThreading
+namespace VisualThreading.ToolWindows
 {
     public class BuildingWindow : BaseToolWindow<BuildingWindow>
     {
@@ -19,16 +18,17 @@ namespace VisualThreading
 
         public override async Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
+            var fr = new FileReader();
             var commands = await Schema.Schema.LoadAsync();
             var buffer = await VS.Documents.GetActiveDocumentViewAsync();
             var fileExt = "";
 
             // note reading from files should be done async or we will have lots of issues
             var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
-            var blockly = await ReadFileAsync(Path.Combine(root!, "Resources", "html", "blocklyHTML.html"));
-            var toolbox = await ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyToolbox.xml"));
-            var workspace = await ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyWorkspace.xml"));
-            var schema = await ReadFileAsync(Path.Combine(root!, "Schema", "schema.json"));
+            var blockly = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "html", "blocklyHTML.html"));
+            var toolbox = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyToolbox.xml"));
+            var workspace = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyWorkspace.xml"));
+            var schema = await fr.ReadFileAsync(Path.Combine(root!, "Schema", "schema.json"));
 
             if (buffer?.TextBuffer != null)
             {
@@ -38,13 +38,6 @@ namespace VisualThreading
 
             Instance = new BuildingWindowControl(commands, fileExt, blockly, toolbox, workspace, schema);
             return Instance;
-        }
-
-        private static async Task<string> ReadFileAsync(string file)
-        {
-            using var reader = new StreamReader(file);
-            var content = await reader.ReadToEndAsync();
-            return content;
         }
 
         [Guid("6a0155f8-b16a-4fba-90bb-8c9fab68de1b")]

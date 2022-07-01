@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using Newtonsoft.Json;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using Command = VisualThreading.Schema.Command;
 using MessageBox = System.Windows.MessageBox;
@@ -11,7 +12,7 @@ namespace VisualThreading.ToolWindows
     {
         private Command currentCommand;
         private readonly string _workspace;
-        private readonly string _toolbox; 
+        private readonly string _toolbox;
         private readonly dynamic _schema;
 
         public BuildingWindowControl(Schema.Schema commands, string fileExt, string blockly, string toolbox, string workspace, string schema)
@@ -24,8 +25,6 @@ namespace VisualThreading.ToolWindows
             InitializeComponent();
             Focus();
             Browser.LoadHtml(blockly);
-            
-
 
             Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
         }
@@ -35,29 +34,35 @@ namespace VisualThreading.ToolWindows
             if (e.IsLoading)
                 return;
 
+            var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
+            var blockly = Path.Combine(root!, "Resources", "js", "blockly");
+            var fr = new FileReader();
+
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                /*
-                  
-                 */
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/blockly_compressed.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/blocks_compressed.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/msg/js/en.js"));
-                
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/colour.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/lists.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/logic.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/loops.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/math.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/procedures.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/text.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/variables.js"));
-
-                
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "blockly_compressed.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "blockly_compressed.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "blocks_compressed.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "msg", "js", "en.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "colour.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "lists.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "logic.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "loops.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "math.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "procedures.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "text.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "variables.js")));
 
                 await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, false);
             }).FireAndForget();
+        }
+
+        private static async Task<string> ReadFileAsync(string file)
+        {
+            using var reader = new StreamReader(file);
+            var content = await reader.ReadToEndAsync();
+            return content;
         }
 
         private void ShowCodeButton_Click(object sender, RoutedEventArgs e)
@@ -73,9 +78,9 @@ namespace VisualThreading.ToolWindows
 
         public void SetCurrentCommand(Command c)
         {
-            // Color: 
+            // Color:
             // Parent: Logic
-            // Preview: 
+            // Preview:
             // Text: controls_if
             // System.Diagnostics.Debug.WriteLine(c);
 
@@ -98,7 +103,6 @@ namespace VisualThreading.ToolWindows
             {
                 await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
             }).FireAndForget();
-
         }
     }
 }

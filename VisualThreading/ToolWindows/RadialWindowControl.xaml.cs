@@ -1,17 +1,17 @@
 using Microsoft.VisualStudio.Imaging;
+using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using RadialMenu.Controls;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Microsoft.VisualStudio.Imaging.Interop;
 using System.Windows.Media;
-using Orientation = System.Windows.Controls.Orientation;
 using Binding = System.Windows.Data.Binding;
-using System.Windows;
 using Clipboard = System.Windows.Clipboard;
+using Orientation = System.Windows.Controls.Orientation;
 
 namespace VisualThreading.ToolWindows
 {
@@ -22,7 +22,8 @@ namespace VisualThreading.ToolWindows
 
         private readonly Stack _state = new();
         private string _currentState = "";
-        String progress = "";
+        private String progress = "";
+
         public RadialWindowControl()
         {
             InitializeComponent();
@@ -61,7 +62,7 @@ namespace VisualThreading.ToolWindows
                             Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#DCEDF9"),
                             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#38499B")
                         };
-                        // icon 
+                        // icon
                         var icon = menuItem.Icon;
                         PropertyInfo propertyInfo = typeof(KnownMonikers).GetProperty(menuItem.Icon);
                         var something = (ImageMoniker)propertyInfo.GetValue(null, null);
@@ -76,7 +77,7 @@ namespace VisualThreading.ToolWindows
                         stackPanel.Children.Add(new TextBlock { Text = menuItem.Name });
                         stackPanel.Children.Add(image);
 
-                        // event handler 
+                        // event handler
                         item.Click += (_, _) => RadialDialControl_Click(menuItem.Name);
 
                         if (!_menu.ContainsKey(menuItem.Parent))
@@ -88,7 +89,6 @@ namespace VisualThreading.ToolWindows
                     MainMenu.Items = _menu["Main"];  // Set default menu to Main menu
                     foreach (var command in language.Commands)
                     {
-
                         string[] Textlist = command.Text.Trim().Split('_');
                         string res = "";
                         if (Textlist.Length > 1)
@@ -99,7 +99,6 @@ namespace VisualThreading.ToolWindows
                             }
                         }
                         else { res = Textlist[0]; }
-
 
                         var temp = new RadialMenuItem
                         {
@@ -154,7 +153,8 @@ namespace VisualThreading.ToolWindows
             }
             ).FireAndForget();
         }
-        void decreaseSize(object sender, RoutedEventArgs e)
+
+        private void decreaseSize(object sender, RoutedEventArgs e)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
@@ -175,7 +175,8 @@ namespace VisualThreading.ToolWindows
             }
             ).FireAndForget();
         }
-        void increaseSize(object sender, RoutedEventArgs e)
+
+        private void increaseSize(object sender, RoutedEventArgs e)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
@@ -196,6 +197,7 @@ namespace VisualThreading.ToolWindows
             }
             ).FireAndForget();
         }
+
         private static void RadialDialElement_ExitHover()
         {
             PreviewWindow.Instance.ClearCurrentCommand();
