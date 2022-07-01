@@ -1,9 +1,6 @@
-﻿using System.IO;
-using System.Windows;
+﻿using CefSharp;
+using System.IO;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using VisualThreading.ToolWindows.SharedComponents;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 
 namespace VisualThreading.ToolWindows
@@ -13,15 +10,34 @@ namespace VisualThreading.ToolWindows
         private readonly Schema.Schema _commands;
         private Schema.Command _currentCommand;
         private string _currentLanguage; // file extension for language
+        private readonly string _toolbox;
+        private readonly string _workspace;
 
-        public PreviewWindowControl(Schema.Schema commands, string language)
+        public PreviewWindowControl(Schema.Schema commands, string fileExt, string blockly, string toolbox, string workspace)
         {
             _commands = commands;
             _currentCommand = null;
-            _currentLanguage = language;
+            _currentLanguage = fileExt;
+            _toolbox = toolbox;
+            _workspace = workspace;
             InitializeComponent();
+            Focus();
 
-            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection event
+            Browser.LoadHtml(blockly);
+
+            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // extends the selection even
+            Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
+        }
+
+        private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        {
+            if (e.IsLoading)
+                return;
+
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, true);
+            }).FireAndForget();
         }
 
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -36,10 +52,20 @@ namespace VisualThreading.ToolWindows
             SetCurrentLanguage(fileExt);
         }
 
-        public void SetCurrentCommand(Schema.Command command)
+        public void SetCurrentCommand(Schema.Command c)
         {
-            _currentCommand = command;
+            _currentCommand = c;
             UpdateCommands();
+
+            var color = c.Color;
+            var parent = c.Parent;
+            var preview = c.Preview;
+            var text = c.Text;
+
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Browser.EvaluateScriptAsync("addNewBlockToArea", parent, text, color);
+            }).FireAndForget();
         }
 
         private void SetCurrentLanguage(string language)
@@ -50,26 +76,8 @@ namespace VisualThreading.ToolWindows
 
         private void UpdateCommands()
         {
-            // |******************|
-            // |WIDGETS stackPanel|
-            // |******************|
-            // |PREVIEW stackPanel|
-            // |******************|
-
-            // remove all elements
             Widgets.Children.Clear();
-            Preview.Children.Clear();
-
-            // check if command is set
-            if (_currentCommand == null)
-                return;
-
-            // widgets
-            Widgets.Children.Add(new Label { Content = _currentCommand.Text });
-            // Preview
-            var tb = CodeBlockFactory.CodeBlock(_currentCommand);
-            tb.Margin = new Thickness(5);
-            Preview.Children.Add(tb);
+            Widgets.Children.Add(new Label { Content = _currentLanguage + _currentCommand.Text });
         }
 
         public void ClearCurrentCommand()
@@ -77,28 +85,5 @@ namespace VisualThreading.ToolWindows
             _currentCommand = null;
             UpdateCommands();
         }
-
-        private void Label_MouseMove_From_List(object sender, MouseEventArgs e)
-        {
-            Label label = sender as Label;
-
-            if (label != null && e.LeftButton == MouseButtonState.Pressed)
-            {
-                var type = label.Name;
-                var runObject = (Run)label.Content;
-                var bgColor = runObject.Background;
-                var text = runObject.Text;
-                DataObject data = new DataObject();
-                data.SetData("type", type);
-                data.SetData("background", bgColor);
-                data.SetData("text", text);
-                data.SetData("draggedItem", (UIElement)sender);
-                data.SetData("itemRelativePosition", e.GetPosition((UIElement)sender));
-
-                DragDrop.DoDragDrop(this, data, DragDropEffects.Copy);
-
-            }
-        }
-
     }
 }

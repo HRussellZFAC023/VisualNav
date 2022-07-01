@@ -8,6 +8,9 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Microsoft.VisualStudio.Imaging.Interop;
 using System.Windows.Media;
+using System.Windows.Forms;
+using Orientation = System.Windows.Controls.Orientation;
+using Binding = System.Windows.Data.Binding;
 
 namespace VisualThreading.ToolWindows
 {
@@ -56,25 +59,23 @@ namespace VisualThreading.ToolWindows
                             Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#DCEDF9"),
                             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#38499B")
                         };
+
+                        // icon 
                         var icon = menuItem.Icon;
                         PropertyInfo propertyInfo = typeof(KnownMonikers).GetProperty(menuItem.Icon);
-
                         var something = (ImageMoniker)propertyInfo.GetValue(null, null);
-
                         var image = new CrispImage { Width = 25, Height = 25, Moniker = something };
-
                         var binding = new Binding("Background")
                         {
                             Converter = new BrushToColorConverter(),
                             RelativeSource =
                                 new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RadialWindow), 2)
                         };
-
                         image.SetBinding(ImageThemingUtilities.ImageBackgroundColorProperty, binding);
-
                         stackPanel.Children.Add(new TextBlock { Text = menuItem.Name });
                         stackPanel.Children.Add(image);
 
+                        // event handler 
                         item.Click += (_, _) => RadialDialControl_Click(menuItem.Name);
 
                         if (!_menu.ContainsKey(menuItem.Parent))
@@ -86,8 +87,21 @@ namespace VisualThreading.ToolWindows
                     MainMenu.Items = _menu["Main"];  // Set default menu to Main menu
                     foreach (var command in language.Commands)
                     {
+                        
+                        string[] Textlist = command.Text.Trim().Split('_');
+                        string res = "";
+                        if (Textlist.Length > 1)
+                        {
+                            for(int i = 1; i < Textlist.Length; i++)
+                            {
+                                res = res + " "+ Textlist[i];
+                            }
+                        }
+                        else { res = Textlist[0]; }
+                        
+
                         var temp = new RadialMenuItem { 
-                            Content = new TextBlock { Text = command.Text },
+                            Content = new TextBlock { Text = res },
                             Padding = 0,
                             InnerRadius = 35,
                             EdgePadding = 0,
@@ -95,10 +109,10 @@ namespace VisualThreading.ToolWindows
                             Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
                             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFE4A1"),
                         };
-                        // This is the handler of the command
-                        temp.Click += (_, _) => RadialDialElement_Click(command);
-                        temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
-                        temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
+                       
+                        temp.Click += (_, _) => RadialDialElement_Click(command);  //Handler of the command
+                        // temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
+                        // temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
 
                         if (!_menu.ContainsKey(command.Parent))
                             _menu.Add(command.Parent, new List<RadialMenuItem>());
@@ -115,10 +129,16 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-
-                BuildingWindow.Instance.SetCurrentCommand(element);
-                // extract element to working area
-                MainMenu.Items = _menu[element.Text];
+                if (element.Parent.Equals("UI"))
+                {
+                    Clipboard.SetText(element.Preview);
+                }
+                else
+                {
+                    BuildingWindow.Instance.SetCurrentCommand(element);
+                    // extract element to working area
+                    // MainMenu.Items = _menu[element.Text];
+                }
             }
             ).FireAndForget();
         }
@@ -175,7 +195,6 @@ namespace VisualThreading.ToolWindows
                         {
                             progress = item + " → " + progress;
                         }
-
                     }
                     progress.Remove(progress.Length - 4);
                     ProgressText.Text = progress;
@@ -184,7 +203,6 @@ namespace VisualThreading.ToolWindows
                 var temp = _state.Count == 0 ? "Main" : _state.Pop().ToString();
                 _currentState = temp;
                 MainMenu.Items = _menu[temp];
-
             }
             ).FireAndForget();
         }

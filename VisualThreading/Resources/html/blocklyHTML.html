@@ -3,10 +3,13 @@
 <head>
     <meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=10" />
 
+    <!--
     <script src="https://blockly-demo.appspot.com/static/blockly_compressed.js"></script>
     <script src="https://blockly-demo.appspot.com/static/blocks_compressed.js"></script>
     <script src="https://blockly-demo.appspot.com/static/javascript_compressed.js"></script>
     <script src="https://blockly-demo.appspot.com/static/msg/js/en.js"></script>
+    -->
+
 
     <style>
         html, body {
@@ -50,10 +53,10 @@
     <script>
         var workspace;
 
-        function init(toolboxXML, workspaceXML) {
+        function init(toolboxXML, workspaceXML, preview) {
             var blocklyArea = document.getElementById('blocklyArea');
             var blocklyDiv = document.getElementById('blocklyDiv');
-
+            
             workspace = Blockly.inject(blocklyDiv,
                 {
                     zoom:
@@ -67,6 +70,23 @@
                     },
                     trashcan: true
                 });
+
+            if (preview) {
+
+                workspace = Blockly.inject(blocklyDiv,
+                    {
+                        zoom:
+                        {
+                            controls: false,
+                            startScale: 1.0,
+                            maxScale: 3,
+                            minScale: 0.3,
+                            scaleSpeed: 1.2,
+                            pinch: false
+                        },
+                        trashcan: false
+                    });
+            }
 
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -93,20 +113,23 @@
             Blockly.svgResize(workspace);
         }
 
-        function addNewBlockToArea(parent, text, color) {
-            var blockName = "controls_if"
+        function addNewBlockToArea(type, color) {
 
-            var newBlock = workspace.newBlock(blockName);
+            newBlock = workspace.newBlock(type);
+            newBlock.setColour(160);
             newBlock.initSvg();
-            newBlock.render();
+            newBlock.render(); 
+            
         }
 
         function showCode() {
             // Generate JavaScript code and display it.
             Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            var code = Blockly.CSharp.workspaceToCode(workspace);
+            alert(code);
             return code;
         }
+
     </script>
 </body>
 </html>
