@@ -61,6 +61,7 @@ namespace VisualThreading.ToolWindows
                 Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "php_compressed")));
 
                 await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, false);
+
             }).FireAndForget();
         }
 
