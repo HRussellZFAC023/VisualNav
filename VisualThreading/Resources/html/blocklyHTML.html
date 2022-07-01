@@ -47,6 +47,7 @@
             blocklyArea = document.getElementById('blocklyArea');
             var blocklyDiv = document.getElementById('blocklyDiv');
 
+
             if (preview) { // Only if preview is set to true should we hide the trashcan
                 workspace = Blockly.inject(blocklyDiv,
                     {
@@ -78,6 +79,7 @@
                     });
             }
 
+
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.
                 var element = blocklyArea;
@@ -104,8 +106,10 @@
         }
 
         function clearCurrentBlock() {
-            workspace.clear();
             alert("hhhhiiii");
+
+            workspace.clear();
+            Blockly.mainWorkspace.clear();
         }
 
         function addNewBlockToArea(type, color) {

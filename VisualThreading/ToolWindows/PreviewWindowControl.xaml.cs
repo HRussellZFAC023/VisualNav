@@ -1,8 +1,9 @@
 ﻿using CefSharp;
 using System.IO;
-using System.Windows.Controls;
 using VisualThreading.Schema;
+using Label = System.Windows.Controls.Label;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace VisualThreading.ToolWindows
 {
@@ -81,6 +82,13 @@ namespace VisualThreading.ToolWindows
 
         public void SetCurrentCommand(Command c)
         {
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                //await VS.MessageBox.ShowAsync("wow 1");
+                await Browser.GetMainFrame().EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
+                //await VS.MessageBox.ShowAsync("wow 2");
+            }).FireAndForget();
+
             // Color:
             // Parent: Logic
             // Preview:
@@ -114,11 +122,6 @@ namespace VisualThreading.ToolWindows
 
         private void SetCurrentLanguage(string language)
         {
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await Browser.EvaluateScriptAsync("clearCurrentBlock");
-            }).FireAndForget();
-
             _currentLanguage = language;
             UpdateCommands();
         }
@@ -137,9 +140,10 @@ namespace VisualThreading.ToolWindows
             _currentCommand = null;
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                await Browser.EvaluateScriptAsync("clearCurrentBlock");
+                //await VS.MessageBox.ShowAsync("wow 1");
+                await Browser.GetMainFrame().EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
+                //await VS.MessageBox.ShowAsync("wow 2");
             }).FireAndForget();
-
 
             UpdateCommands();
         }
