@@ -146,12 +146,12 @@ namespace VisualThreading.ToolWindows
 
         private static void RadialDialElement_Hover(Schema.Command preview)
         {
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await Task.Delay(20);
-                PreviewWindow.Instance.SetCurrentCommand(preview);
-            }
-            ).FireAndForget();
+            PreviewWindow.Instance.SetCurrentCommand(preview);
+        }
+
+        private static void RadialDialElement_ExitHover()
+        {
+            PreviewWindow.Instance.ClearCurrentCommand();
         }
 
         private void decreaseSize(object sender, RoutedEventArgs e)
@@ -196,11 +196,6 @@ namespace VisualThreading.ToolWindows
                 }
             }
             ).FireAndForget();
-        }
-
-        private static void RadialDialElement_ExitHover()
-        {
-            PreviewWindow.Instance.ClearCurrentCommand();
         }
 
         private void RadialDialControl_Click(string subMenu)
