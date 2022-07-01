@@ -36,7 +36,7 @@ namespace VisualThreading.ToolWindows
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, false);
+                await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, true);
             }).FireAndForget();
         }
 
