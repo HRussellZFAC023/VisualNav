@@ -32,7 +32,7 @@
                 Orientation="Horizontal" Name="Controls"
                 MinHeight="20">
 
-            <ComboBox Height="20" Width="86" Name="block_language" SelectionChanged="combo_SelectionChanged">
+            <ComboBox Height="20" Width="90"  Margin="5,5,5,5"    Name="block_language" SelectionChanged="combo_SelectionChanged">
                 <ComboBoxItem Content="javascript"/>
                 <ComboBoxItem Content="python"/>
                 <ComboBoxItem Content="php"/>
