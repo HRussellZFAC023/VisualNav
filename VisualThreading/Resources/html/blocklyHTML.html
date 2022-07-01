@@ -122,12 +122,23 @@
             
         }
 
-        function showCode() {
-            // Generate JavaScript code and display it.
-            Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-            var code = Blockly.CSharp.workspaceToCode(workspace);
-            alert(code);
+        function showCode(language) {
+
+            var code = "";
+            if (language == "javascript") {
+                code = Blockly.JavaScript.workspaceToCode(workspace);
+            } else if (language == "python") {
+                code = Blockly.Python.workspaceToCode(workspace);
+            } else if (language == "php") {
+                code = Blockly.PHP.workspaceToCode(workspace);
+            } else if (language == "lua") {
+                code = Blockly.Lua.workspaceToCode(workspace);
+            } else if (language == "dart") {
+                code = Blockly.Dart.workspaceToCode(workspace);
+            }
+
             return code;
+
         }
 
     </script>

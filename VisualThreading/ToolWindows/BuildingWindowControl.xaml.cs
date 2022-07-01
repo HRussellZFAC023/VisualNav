@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using Command = VisualThreading.Schema.Command;
 using MessageBox = System.Windows.MessageBox;
 
@@ -10,6 +11,7 @@ namespace VisualThreading.ToolWindows
     public partial class BuildingWindowControl
     {
         private Command currentCommand;
+        private string language;
         private readonly string _workspace;
         private readonly string _toolbox; 
         private readonly dynamic _schema;
@@ -24,7 +26,6 @@ namespace VisualThreading.ToolWindows
             InitializeComponent();
             Focus();
             Browser.LoadHtml(blockly);
-            
 
 
             Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
@@ -37,9 +38,6 @@ namespace VisualThreading.ToolWindows
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                /*
-                  
-                 */
                 Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/blockly_compressed.js"));
                 Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/blocks_compressed.js"));
                 Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/msg/js/en.js"));
@@ -52,20 +50,40 @@ namespace VisualThreading.ToolWindows
                 Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/math.js"));
                 Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/procedures.js"));
                 Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/text.js"));
-                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/variables.js"));
-
-                
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/generators/csharp/variables.js")); 
 
                 await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, false);
             }).FireAndForget();
         }
 
+
+        private void combo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+            ComboBoxItem item = block_language.SelectedItem as ComboBoxItem;
+
+            if (item != null)
+            {
+                language = (String)item.Content;
+            }
+        }
+
+
         private void ShowCodeButton_Click(object sender, RoutedEventArgs e)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/blockly_compressed.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/blocks_compressed.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/msg/js/en.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/javascript_compressed.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/python_compressed.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/php_compressed.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/lua_compressed.js"));
+                Browser.ExecuteScriptAsync(File.ReadAllText(@"blockly/dart_compressed.js"));
+
                 var result = await Browser.EvaluateScriptAsync(
-                    "showCode", new object[] { });
+                    "showCode", language);
 
                 MessageBox.Show((string)result.Result);
             }).FireAndForget();
