@@ -28,7 +28,6 @@ namespace VisualThreading.ToolWindows
             var blockly = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "html", "blocklyHTML.html"));
             var toolbox = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyToolbox.xml"));
             var workspace = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyWorkspace.xml"));
-            var schema = await fr.ReadFileAsync(Path.Combine(root!, "Schema", "schema.json"));
 
             if (buffer?.TextBuffer != null)
             {
@@ -36,7 +35,7 @@ namespace VisualThreading.ToolWindows
                     Path.GetExtension(buffer.TextBuffer.GetFileName());
             }
 
-            Instance = new BuildingWindowControl(commands, fileExt, blockly, toolbox, workspace, schema);
+            Instance = new BuildingWindowControl(commands, fileExt, blockly, toolbox, workspace);
             return Instance;
         }
 

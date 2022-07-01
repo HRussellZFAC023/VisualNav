@@ -1,5 +1,4 @@
 ﻿using CefSharp;
-using Newtonsoft.Json;
 using System.IO;
 using System.Windows;
 using Command = VisualThreading.Schema.Command;
@@ -14,12 +13,13 @@ namespace VisualThreading.ToolWindows
         private readonly string _toolbox;
         private readonly dynamic _schema;
 
-        public BuildingWindowControl(Schema.Schema commands, string fileExt, string blockly, string toolbox, string workspace, string schema)
+        public BuildingWindowControl(Schema.Schema schema, string fileExt, string blockly, string toolbox, string workspace)
         {
             currentCommand = null;
             _toolbox = toolbox;
             _workspace = workspace;
-            _schema = JsonConvert.DeserializeObject(schema);
+            _schema = schema;
+            //_schema = JsonConvert.DeserializeObject(schema);
 
             InitializeComponent();
             Focus();

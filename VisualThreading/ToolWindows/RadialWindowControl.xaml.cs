@@ -159,17 +159,17 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                ProgressText.FontSize = ProgressText.FontSize - 3;
+                ProgressText.FontSize -= 3;
                 foreach (KeyValuePair<string, List<RadialMenuItem>> entry in _menu)
                 {
                     foreach (RadialMenuItem element in entry.Value)
                     {
-                        element.FontSize = element.FontSize - 3;
-                        element.OuterRadius = element.OuterRadius / 1.2;
-                        element.ContentRadius = element.ContentRadius / 1.2;
-                        element.EdgeInnerRadius = element.EdgeInnerRadius / 1.2;
-                        element.EdgeOuterRadius = element.EdgeOuterRadius / 1.2;
-                        element.ArrowRadius = element.ArrowRadius / 1.2;
+                        element.FontSize -= 3;
+                        element.OuterRadius /= 1.2;
+                        element.ContentRadius /= 1.2;
+                        element.EdgeInnerRadius /= 1.2;
+                        element.EdgeOuterRadius /= 1.2;
+                        element.ArrowRadius /= 1.2;
                     }
                 }
             }

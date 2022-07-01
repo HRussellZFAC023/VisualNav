@@ -7,21 +7,24 @@ namespace VisualThreading.ToolWindows
 {
     public partial class PreviewWindowControl : UserControl
     {
-        private readonly Schema.Schema _commands;
         private Schema.Command _currentCommand;
         private string _currentLanguage; // file extension for language
         private readonly string _toolbox;
         private readonly string _workspace;
+        private readonly dynamic _schema;
 
-        public PreviewWindowControl(Schema.Schema commands, string fileExt, string blockly, string toolbox, string workspace)
+
+
+        public PreviewWindowControl(Schema.Schema schema, string fileExt, string blockly, string toolbox, string workspace)
         {
-            _commands = commands;
             _currentCommand = null;
             _currentLanguage = fileExt;
             _toolbox = toolbox;
             _workspace = workspace;
             InitializeComponent();
             Focus();
+            _schema = schema;
+            
 
             Browser.LoadHtml(blockly);
 
@@ -34,10 +37,9 @@ namespace VisualThreading.ToolWindows
             if (e.IsLoading)
                 return;
 
-
             var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
             var blockly = Path.Combine(root!, "Resources", "js", "blockly");
-            var fr = new FileReader();                        
+            var fr = new FileReader();
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
@@ -83,13 +85,22 @@ namespace VisualThreading.ToolWindows
 
             var color = c.Color;
             var parent = c.Parent;
-            var preview = c.Preview;
             var text = c.Text;
 
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await Browser.EvaluateScriptAsync("addNewBlockToArea", parent, text, color);
-            }).FireAndForget();
+            //var blocks = _schema["RadialMenu"][0]["schema"];
+            //var blockType = "";
+            //foreach (var block in blocks)
+            //{
+            //    if (block["parent"] == parent && block["text"] == text)
+            //    {
+            //        blockType = block["type"];
+            //    }
+            //}
+
+            //ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            //{
+            //    await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
+            //}).FireAndForget();
         }
 
         private void SetCurrentLanguage(string language)
@@ -103,7 +114,7 @@ namespace VisualThreading.ToolWindows
             Widgets.Children.Clear();
 
             Widgets.Children.Add(_currentCommand != null
-                ? new Label { Content = _currentLanguage + _currentCommand.Text }
+                ? new Label { Content = _currentLanguage + " - " + _currentCommand.Text }
                 : new Label { Content = _currentLanguage });
         }
 

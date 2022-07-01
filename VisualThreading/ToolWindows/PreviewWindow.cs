@@ -19,7 +19,8 @@ namespace VisualThreading.ToolWindows
         public override async Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
             var fr = new FileReader();
-            var commands = await Schema.Schema.LoadAsync();
+            var schema = await Schema.Schema.LoadAsync();
+
             var buffer = await VS.Documents.GetActiveDocumentViewAsync();
             var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
             var blockly = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "html", "blocklyHTML.html"));
@@ -33,7 +34,7 @@ namespace VisualThreading.ToolWindows
                 Path.GetExtension(buffer.TextBuffer.GetFileName());
             }
 
-            Instance = new PreviewWindowControl(commands, fileExt, blockly, toolbox, workspace);
+            Instance = new PreviewWindowControl(schema, fileExt, blockly, toolbox, workspace);
             return Instance;
         }
 
