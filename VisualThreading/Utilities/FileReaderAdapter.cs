@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace VisualThreading;
+namespace VisualThreading.Utilities;
 
-public class FileReader
+public class FileReaderAdapter
 {
     public async Task<string> ReadFileAsync(string file)
     {

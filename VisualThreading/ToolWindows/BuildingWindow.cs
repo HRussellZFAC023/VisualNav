@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using VisualThreading.Utilities;
 
 namespace VisualThreading.ToolWindows
 {
@@ -18,7 +19,7 @@ namespace VisualThreading.ToolWindows
 
         public override async Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            var fr = new FileReader();
+            var fr = new FileReaderAdapter();
             var commands = await Schema.Schema.LoadAsync();
             var buffer = await VS.Documents.GetActiveDocumentViewAsync();
             var fileExt = "";
@@ -28,7 +29,6 @@ namespace VisualThreading.ToolWindows
             var blockly = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "html", "blocklyHTML.html"));
             var toolbox = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyToolbox.xml"));
             var workspace = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyWorkspace.xml"));
-            var schema = await fr.ReadFileAsync(Path.Combine(root!, "Schema", "schema.json"));
 
             if (buffer?.TextBuffer != null)
             {
@@ -36,7 +36,7 @@ namespace VisualThreading.ToolWindows
                     Path.GetExtension(buffer.TextBuffer.GetFileName());
             }
 
-            Instance = new BuildingWindowControl(commands, fileExt, blockly, toolbox, workspace, schema);
+            Instance = new BuildingWindowControl(commands, fileExt, blockly, toolbox, workspace);
             return Instance;
         }
 

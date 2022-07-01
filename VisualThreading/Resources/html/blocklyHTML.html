@@ -47,22 +47,8 @@
             blocklyArea = document.getElementById('blocklyArea');
             var blocklyDiv = document.getElementById('blocklyDiv');
 
-            workspace = Blockly.inject(blocklyDiv,
-                {
-                    zoom:
-                    {
-                        controls: true,
-                        startScale: 1.0,
-                        maxScale: 3,
-                        minScale: 0.3,
-                        scaleSpeed: 1.2,
-                        pinch: true
-                    },
-                    trashcan: true
-                });
-            
-            if (preview) { // Only if preview is set to true should we hide the trashcan
 
+            if (preview) { // Only if preview is set to true should we hide the trashcan
                 workspace = Blockly.inject(blocklyDiv,
                     {
                         zoom:
@@ -77,7 +63,23 @@
                         trashcan: false
                     });
             }
-                        
+            else {
+                workspace = Blockly.inject(blocklyDiv,
+                    {
+                        zoom:
+                        {
+                            controls: true,
+                            startScale: 1.0,
+                            maxScale: 3,
+                            minScale: 0.3,
+                            scaleSpeed: 1.2,
+                            pinch: true
+                        },
+                        trashcan: true
+                    });
+            }
+
+
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.
                 var element = blocklyArea;
@@ -103,6 +105,13 @@
             Blockly.svgResize(workspace);
         }
 
+        function clearCurrentBlock() {
+            alert("hhhhiiii");
+
+            workspace.clear();
+            Blockly.mainWorkspace.clear();
+        }
+
         function addNewBlockToArea(type, color) {
 
             newBlock = workspace.newBlock(type);
@@ -114,7 +123,7 @@
         function showCode(language) {
 
             var code = "";
-            if (language == "javascript") {
+            if (language === "javascript") {
                 code = Blockly.JavaScript.workspaceToCode(workspace);
             } else if (language == "python") {
                 code = Blockly.Python.workspaceToCode(workspace);
