@@ -112,8 +112,8 @@ namespace VisualThreading.ToolWindows
                         };
 
                         temp.Click += (_, _) => RadialDialElement_Click(command);  //Handler of the command
-                        // temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
-                        // temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
+                        temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
+                        temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
 
                         if (!_menu.ContainsKey(command.Parent))
                             _menu.Add(command.Parent, new List<RadialMenuItem>());
