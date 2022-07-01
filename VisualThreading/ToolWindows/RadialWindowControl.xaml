@@ -18,10 +18,14 @@
          VerticalAlignment="Stretch"
          HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="11*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <radialMenu:RadialMenu Grid.Row="1" IsOpen="true" Name="MainMenu">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <radialMenu:RadialMenu Grid.ColumnSpan="2" IsOpen="true" Name="MainMenu" Margin="0,30,0,0" Grid.RowSpan="2">
             <radialMenu:RadialMenu.CentralItem>
                 <radialMenu:RadialMenuCentralItem>
                     <StackPanel VerticalAlignment="Center"
@@ -33,7 +37,15 @@
             <radialMenu:RadialMenuItem />
             <radialMenu:RadialMenuItem />
         </radialMenu:RadialMenu>
-        <TextBlock Grid.Row="0"  Name="ProgressText">Main</TextBlock>
-    </Grid>
 
+        <TextBlock Name="ProgressText" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >Main</TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
+                                theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
+            <imaging:CrispImage MouseDown="decreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
+            <imaging:CrispImage MouseDown="increaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
+        </StackPanel>
+        
+
+
+    </Grid>
 </UserControl>
