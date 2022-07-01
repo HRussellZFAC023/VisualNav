@@ -1,13 +1,13 @@
 ﻿<UserControl
     x:Class="VisualThreading.ToolWindows.BuildingWindowControl"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:markup="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:browser="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:browser="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     mc:Ignorable="d"
-    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit" 
     toolkit:Themes.UseVsTheme="True">
 
     <Grid
@@ -25,7 +25,6 @@
         <Border>
             <browser:ChromiumWebBrowser x:Name="Browser" />
         </Border>
-     
 
         <StackPanel
                 Grid.Row="1"
@@ -33,11 +32,18 @@
                 Orientation="Horizontal" Name="Controls"
                 MinHeight="20">
 
-            <Button
+            <ComboBox Height="20" Width="90"  Margin="5,5,5,5"    Name="block_language" SelectionChanged="combo_SelectionChanged">
+                <ComboBoxItem Content="javascript"/>
+                <ComboBoxItem Content="python"/>
+                <ComboBoxItem Content="php"/>
+                <ComboBoxItem Content="lua"/>
+                <ComboBoxItem Content="dart"/>
+            </ComboBox>
 
+            <Button
                     Name="ShowCodeButton"
                     Click="ShowCodeButton_Click"
-                    Content="Show Code From C#" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    Content="Show Code" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
             <Button
                     Name="InsertCode"
                     Content="Insert code" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5,5,5" />

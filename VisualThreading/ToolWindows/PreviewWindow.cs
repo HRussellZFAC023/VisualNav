@@ -18,12 +18,13 @@ namespace VisualThreading.ToolWindows
 
         public override async Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
+            var fr = new FileReader();
             var commands = await Schema.Schema.LoadAsync();
             var buffer = await VS.Documents.GetActiveDocumentViewAsync();
             var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
-            var blockly = await ReadFileAsync(Path.Combine(root!, "Resources", "html", "blocklyHTML.html"));
-            var toolbox = await ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyToolbox.xml"));
-            var workspace = await ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyWorkspace.xml"));
+            var blockly = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "html", "blocklyHTML.html"));
+            var toolbox = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyToolbox.xml"));
+            var workspace = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyWorkspace.xml"));
 
             var fileExt = "";
             if (buffer?.TextBuffer != null)
@@ -35,13 +36,7 @@ namespace VisualThreading.ToolWindows
             Instance = new PreviewWindowControl(commands, fileExt, blockly, toolbox, workspace);
             return Instance;
         }
-        private static async Task<string> ReadFileAsync(string file)
-        {
-            using var reader = new StreamReader(file);
-            var content = await reader.ReadToEndAsync();
-            return content;
-        }
-        
+
         [Guid("8d4fca2b-a66b-485a-a01f-58a3b98aa35e")]
         internal class Pane : ToolWindowPane
         {

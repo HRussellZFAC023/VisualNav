@@ -1,8 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using VisualThreading;
-
-namespace VisualThreading.Tests
+﻿namespace VisualThreading.Tests
 {
     [TestClass]
     public class VisualThreadingPackageTests
