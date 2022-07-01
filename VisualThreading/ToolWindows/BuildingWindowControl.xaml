@@ -32,6 +32,14 @@
                 Orientation="Horizontal" Name="Controls"
                 MinHeight="20">
 
+            <ComboBox Height="20" Width="86" Name="block_language" SelectionChanged="combo_SelectionChanged">
+                <ComboBoxItem Content="javascript"/>
+                <ComboBoxItem Content="python"/>
+                <ComboBoxItem Content="php"/>
+                <ComboBoxItem Content="lua"/>
+                <ComboBoxItem Content="dart"/>
+            </ComboBox>
+
             <Button
                     Name="ShowCodeButton"
                     Click="ShowCodeButton_Click"
