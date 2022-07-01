@@ -114,6 +114,11 @@ namespace VisualThreading.ToolWindows
 
         private void SetCurrentLanguage(string language)
         {
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Browser.EvaluateScriptAsync("clearCurrentBlock");
+            }).FireAndForget();
+
             _currentLanguage = language;
             UpdateCommands();
         }
@@ -130,6 +135,12 @@ namespace VisualThreading.ToolWindows
         public void ClearCurrentCommand()
         {
             _currentCommand = null;
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Browser.EvaluateScriptAsync("clearCurrentBlock");
+            }).FireAndForget();
+
+
             UpdateCommands();
         }
     }

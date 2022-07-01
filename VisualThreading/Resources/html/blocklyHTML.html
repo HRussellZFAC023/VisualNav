@@ -47,22 +47,7 @@
             blocklyArea = document.getElementById('blocklyArea');
             var blocklyDiv = document.getElementById('blocklyDiv');
 
-            workspace = Blockly.inject(blocklyDiv,
-                {
-                    zoom:
-                    {
-                        controls: true,
-                        startScale: 1.0,
-                        maxScale: 3,
-                        minScale: 0.3,
-                        scaleSpeed: 1.2,
-                        pinch: true
-                    },
-                    trashcan: true
-                });
-
             if (preview) { // Only if preview is set to true should we hide the trashcan
-
                 workspace = Blockly.inject(blocklyDiv,
                     {
                         zoom:
@@ -75,6 +60,21 @@
                             pinch: false
                         },
                         trashcan: false
+                    });
+            }
+            else {
+                workspace = Blockly.inject(blocklyDiv,
+                    {
+                        zoom:
+                        {
+                            controls: true,
+                            startScale: 1.0,
+                            maxScale: 3,
+                            minScale: 0.3,
+                            scaleSpeed: 1.2,
+                            pinch: true
+                        },
+                        trashcan: true
                     });
             }
 
@@ -101,6 +101,11 @@
             window.addEventListener('resize', onresize, false);
             onresize();
             Blockly.svgResize(workspace);
+        }
+
+        function clearCurrentBlock() {
+            workspace.clear();
+            alert("hhhhiiii");
         }
 
         function addNewBlockToArea(type, color) {
