@@ -58,7 +58,7 @@
             "ToolBarPanel",
             "ToolBarTray"
           ],
-          "icon": "WindowsForm"
+          "icon": "ApplicationBar"
         },
         {
           "name": "Control",
@@ -76,7 +76,7 @@
             "RadioButton",
             "Slider"
           ],
-          "icon": "WindowsForm"
+          "icon": "InheritedUserControl"
         },
         {
           "name": "Display",
@@ -94,7 +94,7 @@
             "DocumentViewer",
             "ContentControl"
           ],
-          "icon": "WindowsForm"
+          "icon": "DisplayNone"
         },
         {
           "name": "Layout",
@@ -107,7 +107,7 @@
             "Separator",
             "Expander"
           ],
-          "icon": "WindowsForm"
+          "icon": "FlowLayoutPanel"
         },
         {
           "name": "Container",
@@ -122,7 +122,7 @@
             "TreeView",
             "WrapPanel"
           ],
-          "icon": "WindowsForm"
+          "icon": "Container"
         },
         {
           "name": "Logic",
@@ -138,7 +138,7 @@
             "logic_null",
             "logic_ternary"
           ],
-          "icon": "WindowsForm"
+          "icon": "CrossGroupLink"
         },
         {
           "name": "Loops",
@@ -151,7 +151,7 @@
             "controls_forEach",
             "controls_flow_statements"
           ],
-          "icon": "WindowsForm"
+          "icon": "ConditionalLoop"
         },
         {
           "name": "Math",
@@ -172,7 +172,7 @@
             "math_random_int",
             "math_random_float"
           ],
-          "icon": "WindowsForm"
+          "icon": "Calculator"
         },
         {
           "name": "Text",
@@ -193,7 +193,7 @@
             "text_print",
             "text_prompt_ext"
           ],
-          "icon": "WindowsForm"
+          "icon": "TextBox"
         },
         {
           "name": "Lists",
@@ -213,7 +213,7 @@
             "lists_sort",
             "lists_split"
           ],
-          "icon": "WindowsForm"
+          "icon": "BulletList"
         },
         {
           "name": "Variables",
@@ -223,7 +223,7 @@
             "variables_get",
             "variables_set"
           ],
-          "icon": "WindowsForm"
+          "icon": "LocalVariable"
         },
         {
           "name": "Functions",
@@ -234,7 +234,7 @@
             "procedures_defreturn",
             "procedures_ifreturn"
           ],
-          "icon": "WindowsForm"
+          "icon": "TableFunction"
         }
       ],
       "commands": [
