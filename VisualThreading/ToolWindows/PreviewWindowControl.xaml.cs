@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using System.IO;
+using System.Linq;
 using VisualThreading.Schema;
 using VisualThreading.Utilities;
 using Label = System.Windows.Controls.Label;
@@ -77,19 +78,12 @@ namespace VisualThreading.ToolWindows
                 fileExt =
                         Path.GetExtension(buffer);
             }
-            SetCurrentLanguage(fileExt);
+            _currentLanguage = fileExt;
             UpdateCommands();
         }
 
         public void SetCurrentCommand(Command c)
         {
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-            {
-                //await VS.MessageBox.ShowAsync("wow 1");
-                await Browser.GetMainFrame().EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
-                //await VS.MessageBox.ShowAsync("wow 2");
-            }).FireAndForget();
-
             // Color:
             // Parent: Logic
             // Preview:
@@ -101,9 +95,10 @@ namespace VisualThreading.ToolWindows
             var parent = c.Parent;
             var text = c.Text;
 
-            //var blocks = _schema["RadialMenu"][0]["commands"];
-            // todo: fix hardcoded "0" - this should be dynamic based on filetype
-            var blocks = _schema.RadialMenu[0].Commands;
+            var blocks = (from lang in _schema.RadialMenu where lang.FileExt == _currentLanguage select lang.Commands).FirstOrDefault();
+            if (blocks == null)
+                return;
+
             var blockType = "";
             foreach (var block in blocks)
             {
@@ -115,15 +110,10 @@ namespace VisualThreading.ToolWindows
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
+                await Browser.GetMainFrame().EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
                 await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
             }).FireAndForget();
 
-            UpdateCommands();
-        }
-
-        private void SetCurrentLanguage(string language)
-        {
-            _currentLanguage = language;
             UpdateCommands();
         }
 
@@ -141,9 +131,7 @@ namespace VisualThreading.ToolWindows
             _currentCommand = null;
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                //await VS.MessageBox.ShowAsync("wow 1");
                 await Browser.GetMainFrame().EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
-                //await VS.MessageBox.ShowAsync("wow 2");
             }).FireAndForget();
 
             UpdateCommands();
