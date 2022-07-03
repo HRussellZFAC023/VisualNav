@@ -39,27 +39,13 @@ namespace VisualThreading.ToolWindows
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
+
                 Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "blockly_compressed.js")));
                 Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "blocks_compressed.js")));
+                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "csharp_compressed.js")));
+
                 Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "msg", "js", "en.js")));
 
-                /*
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "colour.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "lists.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "logic.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "loops.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "math.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "procedures.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "text.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "variables.js")));
-                */
-
-                //Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "javascript_compressed.js")));
-                //Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "dart_compressed.js")));
-                //Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "python_compressed.js")));
-                //Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "lua_compressed.js")));
-                //Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "php_compressed")));
 
                 await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, false);
             }).FireAndForget();
@@ -69,10 +55,15 @@ namespace VisualThreading.ToolWindows
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                //var result = await Browser.EvaluateScriptAsync(
-                //    "showCode", new object[] { });
+                var result = await Browser.EvaluateScriptAsync(
+                    "showCode", new object[] { });
 
-                //MessageBox.Show((string)result.Result);
+                if (result.Success != true)
+                {
+                    System.Windows.MessageBox.Show(result.Message);
+
+                }
+                System.Windows.MessageBox.Show((string)result.Result);
             }).FireAndForget();
         }
 
@@ -101,7 +92,11 @@ namespace VisualThreading.ToolWindows
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
+                var ret = await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
+                if (ret.Success != true)
+                {
+                    System.Windows.MessageBox.Show(ret.Message);
+                }
             }).FireAndForget();
         }
     }

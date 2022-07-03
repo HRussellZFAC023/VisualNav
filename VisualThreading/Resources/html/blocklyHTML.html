@@ -114,6 +114,7 @@
         function showCode(language) {
 
             var code = "";
+            /*
             if (language == "javascript") {
                 code = Blockly.JavaScript.workspaceToCode(workspace);
             } else if (language == "python") {
@@ -125,6 +126,8 @@
             } else if (language == "dart") {
                 code = Blockly.Dart.workspaceToCode(workspace);
             }
+            */
+            code = Blockly.CSharp.workspaceToCode();
 
             return code;
 
