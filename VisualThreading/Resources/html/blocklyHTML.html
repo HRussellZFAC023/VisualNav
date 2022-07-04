@@ -114,20 +114,16 @@
         function showCode(language) {
 
             var code = "";
-            /*
-            if (language == "javascript") {
+
+            if (language == ".js") {
                 code = Blockly.JavaScript.workspaceToCode(workspace);
-            } else if (language == "python") {
+            } else if (language == ".py") {
                 code = Blockly.Python.workspaceToCode(workspace);
-            } else if (language == "php") {
+            } else if (language == ".php") {
                 code = Blockly.PHP.workspaceToCode(workspace);
-            } else if (language == "lua") {
-                code = Blockly.Lua.workspaceToCode(workspace);
-            } else if (language == "dart") {
-                code = Blockly.Dart.workspaceToCode(workspace);
+            } else if (language == ".cs") {
+                code = Blockly.CSharp.workspaceToCode();
             }
-            */
-            code = Blockly.CSharp.workspaceToCode();
 
             return code;
 
