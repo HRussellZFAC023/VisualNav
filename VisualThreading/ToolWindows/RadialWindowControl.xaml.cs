@@ -77,6 +77,7 @@ namespace VisualThreading.ToolWindows
                 ProgressText.Text = _currentState;
 
                 // Back on center item
+                MainGrid.ClipToBounds = true;
                 MainMenu.CentralItem.Visibility = Visibility.Visible;
                 MainMenu.CentralItem = null;
 
@@ -140,20 +141,9 @@ namespace VisualThreading.ToolWindows
                 MainMenu.Items = _menu["Main"];
                 foreach (var command in language.Commands)
                 {
-                    var textList = command.Text.Trim().Split('_');
-                    var res = "";
-                    if (textList.Length > 1)
-                    {
-                        for (int i = 1; i < textList.Length; i++)
-                        {
-                            res = res + " " + textList[i];
-                        }
-                    }
-                    else { res = textList[0]; }
-
                     var temp = new RadialMenuItem
                     {
-                        Content = new TextBlock { Text = res },
+                        Content = new TextBlock { Text = command.Text },
                         Padding = 0,
                         InnerRadius = 35,
                         EdgePadding = 0,
@@ -180,7 +170,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                if (element.Parent.Equals("UI"))
+                if (element.Type.Equals("UI"))
                 {
                     Clipboard.SetText(element.Preview);
                 }
@@ -209,19 +199,23 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                ProgressText.FontSize -= 3;
-                foreach (var entry in _menu)
+                if (ProgressText.FontSize - 3 > 10)
                 {
-                    foreach (var element in entry.Value)
+                    ProgressText.FontSize -= 3;
+                    foreach (var entry in _menu)
                     {
-                        element.FontSize -= 3;
-                        element.OuterRadius /= 1.2;
-                        element.ContentRadius /= 1.2;
-                        element.EdgeInnerRadius /= 1.2;
-                        element.EdgeOuterRadius /= 1.2;
-                        element.ArrowRadius /= 1.2;
+                        foreach (var element in entry.Value)
+                        {
+                            element.FontSize -= 3;
+                            element.OuterRadius /= 1.2;
+                            element.ContentRadius /= 1.2;
+                            element.EdgeInnerRadius /= 1.2;
+                            element.EdgeOuterRadius /= 1.2;
+                            element.ArrowRadius /= 1.2;
+                        }
                     }
                 }
+
             }
             ).FireAndForget();
         }
@@ -231,18 +225,34 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                ProgressText.FontSize += 3;
+                double width = this.RenderSize.Width;
+                double height = this.RenderSize.Height;
+                // MessageBoxResult result = System.Windows.MessageBox.Show(element.OuterRadius + "");
+
+                bool limit_reached = false;
                 foreach (var entry in _menu)
                 {
                     foreach (var element in entry.Value)
                     {
-                        element.FontSize += 3;
-                        element.OuterRadius *= 1.2;
-                        element.ContentRadius *= 1.2;
-                        element.EdgeInnerRadius *= 1.2;
-                        element.EdgeOuterRadius *= 1.2;
-                        element.ArrowRadius *= 1.2;
+                        if (element.OuterRadius * 1.2 < width / 2 && element.OuterRadius * 1.2 < height / 2)
+                        {
+                            element.FontSize += 3;
+                            element.OuterRadius *= 1.2;
+                            element.ContentRadius *= 1.2;
+                            element.EdgeInnerRadius *= 1.2;
+                            element.EdgeOuterRadius *= 1.2;
+                            element.ArrowRadius *= 1.2;
+                        }
+                        else
+                        {
+                            limit_reached = true;
+                            break;
+                        }
                     }
+                }
+                if (!limit_reached)
+                {
+                    ProgressText.FontSize += 3;
                 }
             }
             ).FireAndForget();
