@@ -40,8 +40,7 @@ namespace VisualThreading.ToolWindows
             if (e.To != null)
             {
                 var buffer = e.To.Name;
-                fileExt =
-                    Path.GetExtension(buffer);
+                fileExt = Path.GetExtension(buffer);
             }
 
             if (fileExt == "")
@@ -61,7 +60,6 @@ namespace VisualThreading.ToolWindows
         private void RadialMenuGeneration()
         {
             _menu = new Dictionary<string, List<RadialMenuItem>>();
-            //MainMenu.Items = null;
             MainMenu.Items = new List<RadialMenuItem>();
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
@@ -78,12 +76,25 @@ namespace VisualThreading.ToolWindows
                 _currentState = "Main";
                 ProgressText.Text = _currentState;
 
-
                 // Back on center item
                 MainMenu.CentralItem.Visibility = Visibility.Visible;
+                MainMenu.CentralItem = null;
+
+                var Backwardsicon = (ImageMoniker)typeof(KnownMonikers).GetProperty("Backwards")?.GetValue(null, null)!;
+                var Backwardsimage = new CrispImage { Width = 25, Height = 25, Moniker = Backwardsicon };
+                var Backwardsbinding = new Binding("Background")
+                {
+                    Converter = new BrushToColorConverter(),
+                    RelativeSource =
+                        new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RadialWindow), 2)
+                };
+                Backwardsimage.SetBinding(ImageThemingUtilities.ImageBackgroundColorProperty, Backwardsbinding);
+                var BackwardsStackPanel = new StackPanel { Orientation = Orientation.Vertical };
+                BackwardsStackPanel.Children.Add(Backwardsimage);
+
                 MainMenu.CentralItem = new RadialMenuCentralItem
                 {
-                    Content = MainMenu.CentralItem,
+                    Content = BackwardsStackPanel,
                     Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#DCEDF9")
                 };
                 MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
@@ -280,6 +291,7 @@ namespace VisualThreading.ToolWindows
                 }
 
                 var temp = _state.Count == 0 ? "Main" : _state.Pop().ToString();
+                // MessageBoxResult result = System.Windows.MessageBox.Show(temp);
                 _currentState = temp;
                 MainMenu.Items = _menu[temp];
             }

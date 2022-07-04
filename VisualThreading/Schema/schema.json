@@ -34,97 +34,6 @@
           "icon": "Code"
         },
         {
-          "name": "UI",
-          "parent": "Main",
-          "submenu": [
-            "Bar",
-            "Control",
-            "Container",
-            "Display",
-            "Layout"
-          ],
-          "children": [],
-          "icon": "WindowsForm"
-        },
-        {
-          "name": "Bar",
-          "parent": "UI",
-          "submenu": [],
-          "children": [
-            "ProgressBar",
-            "ScrollBar",
-            "StatusBar",
-            "ToolBar",
-            "ToolBarPanel",
-            "ToolBarTray"
-          ],
-          "icon": "ApplicationBar"
-        },
-        {
-          "name": "Control",
-          "parent": "UI",
-          "submenu": [],
-          "children": [
-            "Button",
-            "CheckBox",
-            "ComboBox",
-            "DatePicker",
-            "GroupBox",
-            "ListBox",
-            "PasswordBox",
-            "RichTextBox",
-            "RadioButton",
-            "Slider"
-          ],
-          "icon": "InheritedUserControl"
-        },
-        {
-          "name": "Display",
-          "parent": "UI",
-          "submenu": [],
-          "children": [
-            "DataGrid",
-            "Viewbox",
-            "Ellipse",
-            "Image",
-            "Label",
-            "MediaElement",
-            "Rectangle",
-            "ScrollViewer",
-            "DocumentViewer",
-            "ContentControl"
-          ],
-          "icon": "DisplayNone"
-        },
-        {
-          "name": "Layout",
-          "parent": "UI",
-          "submenu": [],
-          "children": [
-            "TabControl",
-            "Border",
-            "GridSplitter",
-            "Separator",
-            "Expander"
-          ],
-          "icon": "FlowLayoutPanel"
-        },
-        {
-          "name": "Container",
-          "parent": "UI",
-          "submenu": [],
-          "children": [
-            "Canvas",
-            "DockPanel",
-            "Grid",
-            "Menu",
-            "StackPanel",
-            "TreeView",
-            "WrapPanel"
-          ],
-          "icon": "Container"
-        },
-        {
           "name": "Logic",
           "parent": "Code",
           "submenu": [],
@@ -248,240 +157,6 @@
           "parent": "Test",
           "preview": "",
           "color": "#FF00FFFF"
-        },
-        {
-          "text": "Border",
-          "parent": "Layout",
-          "preview": "<Border BorderBrush=\"Black\" BorderThickness=\"1\" Height=\"100\" Width=\"100\"/>\n</Border> ",
-          "color": ""
-        },
-        {
-          "text": "Button",
-          "parent": "Control",
-          "preview": "<Button Content=\"Button\"/>",
-          "color": ""
-        },
-        {
-          "text": "Canvas",
-          "parent": "Container",
-          "preview": "<Canvas Height=\"100\" Width=\"100\"/>\n</Canvas>",
-          "color": ""
-        },
-        {
-          "text": "CheckBox",
-          "parent": "Control",
-          "preview": "<CheckBox Content=\"CheckBox\"/>",
-          "color": ""
-        },
-        {
-          "text": "ComboBox",
-          "parent": "Control",
-          "preview": "<ComboBox Width=\"120\"/>\n</ComboBox>",
-          "color": ""
-        },
-        {
-          "text": "ContentControl",
-          "parent": "Control",
-          "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
-          "color": ""
-        },
-        {
-          "text": "DataGrid",
-          "parent": "Display",
-          "preview": "<DataGrid av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
-          "color": ""
-        },
-        {
-          "text": "DatePicker",
-          "parent": "Control",
-          "preview": "<DatePicker/>",
-          "color": ""
-        },
-        {
-          "text": "DockPanel",
-          "parent": "Container",
-          "preview": "<DockPanel Height=\"100\" LastChildFill=\"False\" Width=\"100\"/>\n</DockPanel>",
-          "color": ""
-        },
-        {
-          "text": "DocumentViewer",
-          "parent": "Display",
-          "preview": "<DocumentViewer/>",
-          "color": ""
-        },
-        {
-          "text": "Ellipse",
-          "parent": "Display",
-          "preview": "<Ellipse Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
-          "color": ""
-        },
-        {
-          "text": "Expander",
-          "parent": "Layout",
-          "preview": "<Expander Height=\"100\" Header=\"Expander\" Width=\"100\">\n<Grid Background=\"#FFE5E5E5\"/>\n</Expander>",
-          "color": ""
-        },
-        {
-          "text": "Grid",
-          "parent": "Container",
-          "preview": "<Grid Height=\"100\" Width=\"100\"/>\n</Grid>",
-          "color": ""
-        },
-        {
-          "text": "GridSplitter",
-          "parent": "Layout",
-          "preview": "<GridSplitter Height=\"100\" Width=\"5\"/>\n</GridSplitter>",
-          "color": ""
-        },
-        {
-          "text": "GroupBox",
-          "parent": "Control",
-          "preview": "<GroupBox Header=\"GroupBox\"/>",
-          "color": ""
-        },
-        {
-          "text": "Image",
-          "parent": "Display",
-          "preview": "<Image Height=\"100\" Width=\"100\"/>",
-          "color": ""
-        },
-        {
-          "text": "Label",
-          "parent": "Display",
-          "preview": "<Label Content=\"Label\"/>",
-          "color": ""
-        },
-        {
-          "text": "ListBox",
-          "parent": "Control",
-          "preview": "<ListBox av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
-          "color": ""
-        },
-        {
-          "text": "MediaElement",
-          "parent": "Display",
-          "preview": "<MediaElement Height=\"100\" Width=\"100\"/>",
-          "color": ""
-        },
-        {
-          "text": "Menu",
-          "parent": "Container",
-          "preview": "<Menu Height=\"100\" Width=\"100\">\n</Menu>",
-          "color": ""
-        },
-        {
-          "text": "PasswordBox",
-          "parent": "Control",
-          "preview": "<PasswordBox Width=\"120\"/>",
-          "color": ""
-        },
-        {
-          "text": "ProgressBar",
-          "parent": "Bar",
-          "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
-          "color": ""
-        },
-        {
-          "text": "RadioButton",
-          "parent": "Control",
-          "preview": "<RadioButton Content=\"RadioButton\"/>",
-          "color": ""
-        },
-        {
-          "text": "Rectangle",
-          "parent": "Display",
-          "preview": "<Rectangle Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
-          "color": ""
-        },
-        {
-          "text": "RichTextBox",
-          "parent": "Control",
-          "preview": "<RichTextBox>\n<FlowDocument>\n<Paragraph>\n<Run Text=\"RichTextBox\"/>\n</Paragraph>\n</FlowDocument>\n</RichTextBox>",
-          "color": ""
-        },
-        {
-          "text": "ScrollBar",
-          "parent": "Bar",
-          "preview": "<ScrollBar/>",
-          "color": ""
-        },
-        {
-          "text": "ScrollViewer",
-          "parent": "Display",
-          "preview": "<ScrollViewer>\n</ScrollViewer>",
-          "color": ""
-        },
-        {
-          "text": "Separator",
-          "parent": "Layout",
-          "preview": "<Separator/>",
-          "color": ""
-        },
-        {
-          "text": "Slider",
-          "parent": "Control",
-          "preview": "<Slider Width=\"120\"/>",
-          "color": ""
-        },
-        {
-          "text": "StackPanel",
-          "parent": "Container",
-          "preview": "<StackPanel Height=\"100\" Width=\"100\">\n</StackPanel>",
-          "color": ""
-        },
-        {
-          "text": "StatusBar",
-          "parent": "Bar",
-          "preview": "<StatusBar Height=\"100\" Width=\"100\">\n</StatusBar>",
-          "color": ""
-        },
-        {
-          "text": "TabControl",
-          "parent": "Layout",
-          "preview": "<TabControl>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n</TabControl>",
-          "color": ""
-        },
-        {
-          "text": "TextBox",
-          "parent": "Display",
-          "preview": "<TextBox TextWrapping=\"Wrap\" Text=\"TextBox\" Width=\"120\"/>",
-          "color": ""
-        },
-        {
-          "text": "ToolBar",
-          "parent": "Bar",
-          "preview": "<ToolBar Height=\"100\" Width=\"100\">\n</ToolBar>",
-          "color": ""
-        },
-        {
-          "text": "ToolBarPanel",
-          "parent": "Bar",
-          "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
-          "color": ""
-        },
-        {
-          "text": "ToolBarTray",
-          "parent": "Bar",
-          "preview": "<ToolBarTray Height=\"100\" Width=\"100\">\n</ToolBarTray>",
-          "color": ""
-        },
-        {
-          "text": "TreeView",
-          "parent": "Container",
-          "preview": "<TreeView>\n</TreeView>",
-          "color": ""
-        },
-        {
-          "text": "Viewbox",
-          "parent": "Display",
-          "preview": "<Viewbox Height=\"100\" Width=\"100\">\n</Viewbox>",
-          "color": ""
-        },
-        {
-          "text": "WrapPanel",
-          "parent": "Container",
-          "preview": "<WrapPanel Height=\"100\" Width=\"100\">\n</WrapPanel>",
-          "color": ""
         },
         {
           "text": "logic_boolean",
@@ -882,6 +557,318 @@
       "text": "XAML",
       "MenuItems": [
         {
+          "name": "Bar",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "ProgressBar",
+            "ScrollBar",
+            "StatusBar",
+            "ToolBar",
+            "ToolBarPanel",
+            "ToolBarTray"
+          ],
+          "icon": "ApplicationBar"
+        },
+        {
+          "name": "Control",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "Button",
+            "CheckBox",
+            "ComboBox",
+            "DatePicker",
+            "GroupBox",
+            "ListBox",
+            "PasswordBox",
+            "RichTextBox",
+            "RadioButton",
+            "Slider"
+          ],
+          "icon": "InheritedUserControl"
+        },
+        {
+          "name": "Display",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "DataGrid",
+            "Viewbox",
+            "Ellipse",
+            "Image",
+            "Label",
+            "MediaElement",
+            "Rectangle",
+            "ScrollViewer",
+            "DocumentViewer",
+            "ContentControl"
+          ],
+          "icon": "DisplayNone"
+        },
+        {
+          "name": "Layout",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "TabControl",
+            "Border",
+            "GridSplitter",
+            "Separator",
+            "Expander"
+          ],
+          "icon": "FlowLayoutPanel"
+        },
+        {
+          "name": "Container",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "Canvas",
+            "DockPanel",
+            "Grid",
+            "Menu",
+            "StackPanel",
+            "TreeView",
+            "WrapPanel"
+          ],
+          "icon": "Container"
+        }
+      ],
+      "commands": [
+        {
+          "text": "Border",
+          "parent": "Layout",
+          "preview": "<Border BorderBrush=\"Black\" BorderThickness=\"1\" Height=\"100\" Width=\"100\"/>\n</Border> ",
+          "color": ""
+        },
+        {
+          "text": "Button",
+          "parent": "Control",
+          "preview": "<Button Content=\"Button\"/>",
+          "color": ""
+        },
+        {
+          "text": "Canvas",
+          "parent": "Container",
+          "preview": "<Canvas Height=\"100\" Width=\"100\"/>\n</Canvas>",
+          "color": ""
+        },
+        {
+          "text": "CheckBox",
+          "parent": "Control",
+          "preview": "<CheckBox Content=\"CheckBox\"/>",
+          "color": ""
+        },
+        {
+          "text": "ComboBox",
+          "parent": "Control",
+          "preview": "<ComboBox Width=\"120\"/>\n</ComboBox>",
+          "color": ""
+        },
+        {
+          "text": "ContentControl",
+          "parent": "Control",
+          "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
+          "color": ""
+        },
+        {
+          "text": "DataGrid",
+          "parent": "Display",
+          "preview": "<DataGrid av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
+          "color": ""
+        },
+        {
+          "text": "DatePicker",
+          "parent": "Control",
+          "preview": "<DatePicker/>",
+          "color": ""
+        },
+        {
+          "text": "DockPanel",
+          "parent": "Container",
+          "preview": "<DockPanel Height=\"100\" LastChildFill=\"False\" Width=\"100\"/>\n</DockPanel>",
+          "color": ""
+        },
+        {
+          "text": "DocumentViewer",
+          "parent": "Display",
+          "preview": "<DocumentViewer/>",
+          "color": ""
+        },
+        {
+          "text": "Ellipse",
+          "parent": "Display",
+          "preview": "<Ellipse Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Expander",
+          "parent": "Layout",
+          "preview": "<Expander Height=\"100\" Header=\"Expander\" Width=\"100\">\n<Grid Background=\"#FFE5E5E5\"/>\n</Expander>",
+          "color": ""
+        },
+        {
+          "text": "Grid",
+          "parent": "Container",
+          "preview": "<Grid Height=\"100\" Width=\"100\"/>\n</Grid>",
+          "color": ""
+        },
+        {
+          "text": "GridSplitter",
+          "parent": "Layout",
+          "preview": "<GridSplitter Height=\"100\" Width=\"5\"/>\n</GridSplitter>",
+          "color": ""
+        },
+        {
+          "text": "GroupBox",
+          "parent": "Control",
+          "preview": "<GroupBox Header=\"GroupBox\"/>",
+          "color": ""
+        },
+        {
+          "text": "Image",
+          "parent": "Display",
+          "preview": "<Image Height=\"100\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Label",
+          "parent": "Display",
+          "preview": "<Label Content=\"Label\"/>",
+          "color": ""
+        },
+        {
+          "text": "ListBox",
+          "parent": "Control",
+          "preview": "<ListBox av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
+          "color": ""
+        },
+        {
+          "text": "MediaElement",
+          "parent": "Display",
+          "preview": "<MediaElement Height=\"100\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "Menu",
+          "parent": "Container",
+          "preview": "<Menu Height=\"100\" Width=\"100\">\n</Menu>",
+          "color": ""
+        },
+        {
+          "text": "PasswordBox",
+          "parent": "Control",
+          "preview": "<PasswordBox Width=\"120\"/>",
+          "color": ""
+        },
+        {
+          "text": "ProgressBar",
+          "parent": "Bar",
+          "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "RadioButton",
+          "parent": "Control",
+          "preview": "<RadioButton Content=\"RadioButton\"/>",
+          "color": ""
+        },
+        {
+          "text": "Rectangle",
+          "parent": "Display",
+          "preview": "<Rectangle Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
+          "color": ""
+        },
+        {
+          "text": "RichTextBox",
+          "parent": "Control",
+          "preview": "<RichTextBox>\n<FlowDocument>\n<Paragraph>\n<Run Text=\"RichTextBox\"/>\n</Paragraph>\n</FlowDocument>\n</RichTextBox>",
+          "color": ""
+        },
+        {
+          "text": "ScrollBar",
+          "parent": "Bar",
+          "preview": "<ScrollBar/>",
+          "color": ""
+        },
+        {
+          "text": "ScrollViewer",
+          "parent": "Display",
+          "preview": "<ScrollViewer>\n</ScrollViewer>",
+          "color": ""
+        },
+        {
+          "text": "Separator",
+          "parent": "Layout",
+          "preview": "<Separator/>",
+          "color": ""
+        },
+        {
+          "text": "Slider",
+          "parent": "Control",
+          "preview": "<Slider Width=\"120\"/>",
+          "color": ""
+        },
+        {
+          "text": "StackPanel",
+          "parent": "Container",
+          "preview": "<StackPanel Height=\"100\" Width=\"100\">\n</StackPanel>",
+          "color": ""
+        },
+        {
+          "text": "StatusBar",
+          "parent": "Bar",
+          "preview": "<StatusBar Height=\"100\" Width=\"100\">\n</StatusBar>",
+          "color": ""
+        },
+        {
+          "text": "TabControl",
+          "parent": "Layout",
+          "preview": "<TabControl>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n</TabControl>",
+          "color": ""
+        },
+        {
+          "text": "TextBox",
+          "parent": "Display",
+          "preview": "<TextBox TextWrapping=\"Wrap\" Text=\"TextBox\" Width=\"120\"/>",
+          "color": ""
+        },
+        {
+          "text": "ToolBar",
+          "parent": "Bar",
+          "preview": "<ToolBar Height=\"100\" Width=\"100\">\n</ToolBar>",
+          "color": ""
+        },
+        {
+          "text": "ToolBarPanel",
+          "parent": "Bar",
+          "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
+          "color": ""
+        },
+        {
+          "text": "ToolBarTray",
+          "parent": "Bar",
+          "preview": "<ToolBarTray Height=\"100\" Width=\"100\">\n</ToolBarTray>",
+          "color": ""
+        },
+        {
+          "text": "TreeView",
+          "parent": "Container",
+          "preview": "<TreeView>\n</TreeView>",
+          "color": ""
+        },
+        {
+          "text": "Viewbox",
+          "parent": "Display",
+          "preview": "<Viewbox Height=\"100\" Width=\"100\">\n</Viewbox>",
+          "color": ""
+        },
+        {
+          "text": "WrapPanel",
+          "parent": "Container",
+          "preview": "<WrapPanel Height=\"100\" Width=\"100\">\n</WrapPanel>",
+          "color": ""
         }
       ]
     }
