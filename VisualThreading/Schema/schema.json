@@ -164,392 +164,392 @@
           "text": "boolean",
           "parent": "Logic",
           "preview": "",
-          "color": "",
+          "color": "#4C97FF",
           "type": "logic_boolean"
         },
         {
           "text": "if",
           "parent": "Logic",
           "preview": "",
-          "color": "",
+          "color": "#4C97FF",
           "type": "controls_if"
         },
         {
           "text": "if else",
           "parent": "Logic",
           "preview": "",
-          "color": "",
+          "color": "#4C97FF",
           "type": "controls_ifelse"
         },
         {
           "text": "compare",
           "parent": "Logic",
           "preview": "",
-          "color": "",
+          "color": "#4C97FF",
           "type": "logic_compare"
         },
         {
           "text": "and or",
           "parent": "Logic",
           "preview": "",
-          "color": "",
+          "color": "#4C97FF",
           "type": "logic_operation"
         },
         {
           "text": "negate",
           "parent": "Logic",
           "preview": "",
-          "color": "",
+          "color": "#4C97FF",
           "type": "logic_negate"
         },
         {
           "text": "null",
           "parent": "Logic",
           "preview": "",
-          "color": "",
+          "color": "#4C97FF",
           "type": "logic_null"
         },
         {
           "text": "ternary",
           "parent": "Logic",
           "preview": "",
-          "color": "",
+          "color": "#4C97FF",
           "type": "logic_ternary"
         },
         {
           "text": "repeat",
           "parent": "Loops",
           "preview": "",
-          "color": "",
+          "color": "#0fBD8C",
           "type": "controls_repeat_ext"
         },
         {
           "text": "while",
           "parent": "Loops",
           "preview": "",
-          "color": "",
+          "color": "#0fBD8C",
           "type": "controls_whileUntil"
         },
         {
           "text": "for",
           "parent": "Loops",
           "preview": "",
-          "color": "",
+          "color": "#0fBD8C",
           "type": "controls_for"
         },
         {
           "text": "for each",
           "parent": "Loops",
           "preview": "",
-          "color": "",
+          "color": "#0fBD8C",
           "type": "controls_forEach"
         },
         {
           "text": "flow control",
           "parent": "Loops",
           "preview": "",
-          "color": "",
+          "color": "#0fBD8C",
           "type": "controls_flow_statements"
         },
         {
           "text": "number",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_number"
         },
         {
           "text": "arithmetic",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_arithmetic"
         },
         {
           "text": "single",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_single"
         },
         {
           "text": "trig",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_trig"
         },
         {
           "text": "constant",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_constant"
         },
         {
           "text": "number property",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_number_property"
         },
         {
           "text": "change",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_change"
         },
         {
           "text": "round",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_round"
         },
         {
           "text": "list tool",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_on_list"
         },
         {
           "text": "modulo",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_modulo"
         },
         {
           "text": "constrain",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_constrain"
         },
         {
           "text": "random int",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_random_int"
         },
         {
           "text": "random float",
           "parent": "Math",
           "preview": "",
-          "color": "",
+          "color": "#59C059",
           "type": "math_random_float"
         },
         {
           "text": "text",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text"
         },
         {
           "text": "multiline",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_multiline"
         },
         {
           "text": "join",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_join"
         },
         {
           "text": "append",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_append"
         },
         {
           "text": "length",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_length"
         },
         {
           "text": "isEmpty",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_isEmpty"
         },
         {
           "text": "indexOf",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_indexOf"
         },
         {
           "text": "charAt",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_charAt"
         },
         {
           "text": "getSubstring",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_getSubstring"
         },
         {
           "text": "changeCase",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_changeCase"
         },
         {
           "text": "trim",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_trim"
         },
         {
           "text": "print",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_print"
         },
         {
           "text": "prompt_ext",
           "parent": "Text",
           "preview": "",
-          "color": "",
+          "color": "#FFBF00",
           "type": "text_prompt_ext"
         },
         {
           "text": "empty list",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_create_empty"
         },
         {
           "text": "repeat",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_repeat"
         },
         {
           "text": "reverse",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_reverse"
         },
         {
           "text": "isEmpty",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_isEmpty"
         },
         {
           "text": "length",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_length"
         },
         {
           "text": "create with",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_create_with"
         },
         {
           "text": "indexOf",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_indexOf"
         },
         {
           "text": "getIndex",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_getIndex"
         },
         {
           "text": "setIndex",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_setIndex"
         },
         {
           "text": "getSublist",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_getSublist"
         },
         {
           "text": "sort",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_sort"
         },
         {
           "text": "split",
           "parent": "Lists",
           "preview": "",
-          "color": "",
+          "color": "#9966FF",
           "type": "lists_split"
         },
         {
           "text": "get",
           "parent": "Variables",
           "preview": "",
-          "color": "",
+          "color": "#FF8C1A",
           "type": "variables_get"
         },
         {
           "text": "set",
           "parent": "Variables",
           "preview": "",
-          "color": "",
+          "color": "#FF8C1A",
           "type": "variables_set"
         },
         {
           "text": "def no return",
           "parent": "Functions",
           "preview": "",
-          "color": "",
+          "color": "#FF6680",
           "type": "procedures_defnoreturn"
         },
         {
           "text": "def return",
           "parent": "Functions",
           "preview": "",
-          "color": "",
+          "color": "#FF6680",
           "type": "procedures_defreturn"
         },
         {
           "text": "if return",
           "parent": "Functions",
           "preview": "",
-          "color": "",
+          "color": "#FF6680",
           "type": "procedures_ifreturn"
         }
       ]
