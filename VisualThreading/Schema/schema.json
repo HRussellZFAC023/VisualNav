@@ -34,97 +34,6 @@
           "icon": "Code"
         },
         {
-          "name": "UI",
-          "parent": "Main",
-          "submenu": [
-            "Bar",
-            "Control",
-            "Container",
-            "Display",
-            "Layout"
-          ],
-          "children": [],
-          "icon": "WindowsForm"
-        },
-        {
-          "name": "Bar",
-          "parent": "UI",
-          "submenu": [],
-          "children": [
-            "ProgressBar",
-            "ScrollBar",
-            "StatusBar",
-            "ToolBar",
-            "ToolBarPanel",
-            "ToolBarTray"
-          ],
-          "icon": "WindowsForm"
-        },
-        {
-          "name": "Control",
-          "parent": "UI",
-          "submenu": [],
-          "children": [
-            "Button",
-            "CheckBox",
-            "ComboBox",
-            "DatePicker",
-            "GroupBox",
-            "ListBox",
-            "PasswordBox",
-            "RichTextBox",
-            "RadioButton",
-            "Slider"
-          ],
-          "icon": "WindowsForm"
-        },
-        {
-          "name": "Display",
-          "parent": "UI",
-          "submenu": [],
-          "children": [
-            "DataGrid",
-            "Viewbox",
-            "Ellipse",
-            "Image",
-            "Label",
-            "MediaElement",
-            "Rectangle",
-            "ScrollViewer",
-            "DocumentViewer",
-            "ContentControl"
-          ],
-          "icon": "WindowsForm"
-        },
-        {
-          "name": "Layout",
-          "parent": "UI",
-          "submenu": [],
-          "children": [
-            "TabControl",
-            "Border",
-            "GridSplitter",
-            "Separator",
-            "Expander"
-          ],
-          "icon": "WindowsForm"
-        },
-        {
-          "name": "Container",
-          "parent": "UI",
-          "submenu": [],
-          "children": [
-            "Canvas",
-            "DockPanel",
-            "Grid",
-            "Menu",
-            "StackPanel",
-            "TreeView",
-            "WrapPanel"
-          ],
-          "icon": "WindowsForm"
-        },
-        {
           "name": "Logic",
           "parent": "Code",
           "submenu": [],
@@ -138,7 +47,7 @@
             "logic_null",
             "logic_ternary"
           ],
-          "icon": "WindowsForm"
+          "icon": "CrossGroupLink"
         },
         {
           "name": "Loops",
@@ -151,7 +60,7 @@
             "controls_forEach",
             "controls_flow_statements"
           ],
-          "icon": "WindowsForm"
+          "icon": "ConditionalLoop"
         },
         {
           "name": "Math",
@@ -172,7 +81,7 @@
             "math_random_int",
             "math_random_float"
           ],
-          "icon": "WindowsForm"
+          "icon": "Calculator"
         },
         {
           "name": "Text",
@@ -193,7 +102,7 @@
             "text_print",
             "text_prompt_ext"
           ],
-          "icon": "WindowsForm"
+          "icon": "TextBox"
         },
         {
           "name": "Lists",
@@ -213,7 +122,7 @@
             "lists_sort",
             "lists_split"
           ],
-          "icon": "WindowsForm"
+          "icon": "BulletList"
         },
         {
           "name": "Variables",
@@ -223,7 +132,7 @@
             "variables_get",
             "variables_set"
           ],
-          "icon": "WindowsForm"
+          "icon": "LocalVariable"
         },
         {
           "name": "Functions",
@@ -234,14 +143,16 @@
             "procedures_defreturn",
             "procedures_ifreturn"
           ],
-          "icon": "WindowsForm"
+          "icon": "TableFunction"
         }
       ],
       "commands": [
         {
           "text": "New thread",
           "parent": "Thread",
-          "preview": ""
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": ""
         },
         {
           "text": "Assert",
@@ -250,416 +161,182 @@
           "color": "#FF00FFFF"
         },
         {
-          "text": "Border",
-          "parent": "Layout",
-          "preview": "<Border BorderBrush=\"Black\" BorderThickness=\"1\" Height=\"100\" Width=\"100\"/>\n</Border> ",
-          "color": ""
-        },
-        {
-          "text": "Button",
-          "parent": "Control",
-          "preview": "<Button Content=\"Button\"/>",
-          "color": ""
-        },
-        {
-          "text": "Canvas",
-          "parent": "Container",
-          "preview": "<Canvas Height=\"100\" Width=\"100\"/>\n</Canvas>",
-          "color": ""
-        },
-        {
-          "text": "CheckBox",
-          "parent": "Control",
-          "preview": "<CheckBox Content=\"CheckBox\"/>",
-          "color": ""
-        },
-        {
-          "text": "ComboBox",
-          "parent": "Control",
-          "preview": "<ComboBox Width=\"120\"/>\n</ComboBox>",
-          "color": ""
-        },
-        {
-          "text": "ContentControl",
-          "parent": "Control",
-          "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
-          "color": ""
-        },
-        {
-          "text": "DataGrid",
-          "parent": "Display",
-          "preview": "<DataGrid av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
-          "color": ""
-        },
-        {
-          "text": "DatePicker",
-          "parent": "Control",
-          "preview": "<DatePicker/>",
-          "color": ""
-        },
-        {
-          "text": "DockPanel",
-          "parent": "Container",
-          "preview": "<DockPanel Height=\"100\" LastChildFill=\"False\" Width=\"100\"/>\n</DockPanel>",
-          "color": ""
-        },
-        {
-          "text": "DocumentViewer",
-          "parent": "Display",
-          "preview": "<DocumentViewer/>",
-          "color": ""
-        },
-        {
-          "text": "Ellipse",
-          "parent": "Display",
-          "preview": "<Ellipse Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
-          "color": ""
-        },
-        {
-          "text": "Expander",
-          "parent": "Layout",
-          "preview": "<Expander Height=\"100\" Header=\"Expander\" Width=\"100\">\n<Grid Background=\"#FFE5E5E5\"/>\n</Expander>",
-          "color": ""
-        },
-        {
-          "text": "Grid",
-          "parent": "Container",
-          "preview": "<Grid Height=\"100\" Width=\"100\"/>\n</Grid>",
-          "color": ""
-        },
-        {
-          "text": "GridSplitter",
-          "parent": "Layout",
-          "preview": "<GridSplitter Height=\"100\" Width=\"5\"/>\n</GridSplitter>",
-          "color": ""
-        },
-        {
-          "text": "GroupBox",
-          "parent": "Control",
-          "preview": "<GroupBox Header=\"GroupBox\"/>",
-          "color": ""
-        },
-        {
-          "text": "Image",
-          "parent": "Display",
-          "preview": "<Image Height=\"100\" Width=\"100\"/>",
-          "color": ""
-        },
-        {
-          "text": "Label",
-          "parent": "Display",
-          "preview": "<Label Content=\"Label\"/>",
-          "color": ""
-        },
-        {
-          "text": "ListBox",
-          "parent": "Control",
-          "preview": "<ListBox av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
-          "color": ""
-        },
-        {
-          "text": "MediaElement",
-          "parent": "Display",
-          "preview": "<MediaElement Height=\"100\" Width=\"100\"/>",
-          "color": ""
-        },
-        {
-          "text": "Menu",
-          "parent": "Container",
-          "preview": "<Menu Height=\"100\" Width=\"100\">\n</Menu>",
-          "color": ""
-        },
-        {
-          "text": "PasswordBox",
-          "parent": "Control",
-          "preview": "<PasswordBox Width=\"120\"/>",
-          "color": ""
-        },
-        {
-          "text": "ProgressBar",
-          "parent": "Bar",
-          "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
-          "color": ""
-        },
-        {
-          "text": "RadioButton",
-          "parent": "Control",
-          "preview": "<RadioButton Content=\"RadioButton\"/>",
-          "color": ""
-        },
-        {
-          "text": "Rectangle",
-          "parent": "Display",
-          "preview": "<Rectangle Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
-          "color": ""
-        },
-        {
-          "text": "RichTextBox",
-          "parent": "Control",
-          "preview": "<RichTextBox>\n<FlowDocument>\n<Paragraph>\n<Run Text=\"RichTextBox\"/>\n</Paragraph>\n</FlowDocument>\n</RichTextBox>",
-          "color": ""
-        },
-        {
-          "text": "ScrollBar",
-          "parent": "Bar",
-          "preview": "<ScrollBar/>",
-          "color": ""
-        },
-        {
-          "text": "ScrollViewer",
-          "parent": "Display",
-          "preview": "<ScrollViewer>\n</ScrollViewer>",
-          "color": ""
-        },
-        {
-          "text": "Separator",
-          "parent": "Layout",
-          "preview": "<Separator/>",
-          "color": ""
-        },
-        {
-          "text": "Slider",
-          "parent": "Control",
-          "preview": "<Slider Width=\"120\"/>",
-          "color": ""
-        },
-        {
-          "text": "StackPanel",
-          "parent": "Container",
-          "preview": "<StackPanel Height=\"100\" Width=\"100\">\n</StackPanel>",
-          "color": ""
-        },
-        {
-          "text": "StatusBar",
-          "parent": "Bar",
-          "preview": "<StatusBar Height=\"100\" Width=\"100\">\n</StatusBar>",
-          "color": ""
-        },
-        {
-          "text": "TabControl",
-          "parent": "Layout",
-          "preview": "<TabControl>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n</TabControl>",
-          "color": ""
-        },
-        {
-          "text": "TextBox",
-          "parent": "Display",
-          "preview": "<TextBox TextWrapping=\"Wrap\" Text=\"TextBox\" Width=\"120\"/>",
-          "color": ""
-        },
-        {
-          "text": "ToolBar",
-          "parent": "Bar",
-          "preview": "<ToolBar Height=\"100\" Width=\"100\">\n</ToolBar>",
-          "color": ""
-        },
-        {
-          "text": "ToolBarPanel",
-          "parent": "Bar",
-          "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
-          "color": ""
-        },
-        {
-          "text": "ToolBarTray",
-          "parent": "Bar",
-          "preview": "<ToolBarTray Height=\"100\" Width=\"100\">\n</ToolBarTray>",
-          "color": ""
-        },
-        {
-          "text": "TreeView",
-          "parent": "Container",
-          "preview": "<TreeView>\n</TreeView>",
-          "color": ""
-        },
-        {
-          "text": "Viewbox",
-          "parent": "Display",
-          "preview": "<Viewbox Height=\"100\" Width=\"100\">\n</Viewbox>",
-          "color": ""
-        },
-        {
-          "text": "WrapPanel",
-          "parent": "Container",
-          "preview": "<WrapPanel Height=\"100\" Width=\"100\">\n</WrapPanel>",
-          "color": ""
-        },
-        {
-          "text": "logic_boolean",
+          "text": "boolean",
           "parent": "Logic",
           "preview": "",
           "color": "",
           "type": "logic_boolean"
         },
         {
-          "text": "controls_if",
+          "text": "if",
           "parent": "Logic",
           "preview": "",
           "color": "",
           "type": "controls_if"
         },
         {
-          "text": "controls_ifelse",
+          "text": "if else",
           "parent": "Logic",
           "preview": "",
           "color": "",
           "type": "controls_ifelse"
         },
         {
-          "text": "logic_compare",
+          "text": "compare",
           "parent": "Logic",
           "preview": "",
           "color": "",
           "type": "logic_compare"
         },
         {
-          "text": "logic_operation",
+          "text": "and or",
           "parent": "Logic",
           "preview": "",
           "color": "",
           "type": "logic_operation"
         },
         {
-          "text": "logic_negate",
+          "text": "negate",
           "parent": "Logic",
           "preview": "",
           "color": "",
           "type": "logic_negate"
         },
         {
-          "text": "logic_null",
+          "text": "null",
           "parent": "Logic",
           "preview": "",
           "color": "",
           "type": "logic_null"
         },
         {
-          "text": "logic_ternary",
+          "text": "ternary",
           "parent": "Logic",
           "preview": "",
           "color": "",
           "type": "logic_ternary"
         },
         {
-          "text": "controls_repeat_ext",
+          "text": "repeat",
           "parent": "Loops",
           "preview": "",
           "color": "",
           "type": "controls_repeat_ext"
         },
         {
-          "text": "controls_whileUntil",
+          "text": "while",
           "parent": "Loops",
           "preview": "",
           "color": "",
           "type": "controls_whileUntil"
         },
         {
-          "text": "controls_for",
+          "text": "for",
           "parent": "Loops",
           "preview": "",
           "color": "",
           "type": "controls_for"
         },
         {
-          "text": "controls_forEach",
+          "text": "for each",
           "parent": "Loops",
           "preview": "",
           "color": "",
           "type": "controls_forEach"
         },
         {
-          "text": "controls_flow_statements",
+          "text": "flow control",
           "parent": "Loops",
           "preview": "",
           "color": "",
           "type": "controls_flow_statements"
         },
         {
-          "text": "math_number",
+          "text": "number",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_number"
         },
         {
-          "text": "math_arithmetic",
+          "text": "arithmetic",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_arithmetic"
         },
         {
-          "text": "math_single",
+          "text": "single",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_single"
         },
         {
-          "text": "math_trig",
+          "text": "trig",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_trig"
         },
         {
-          "text": "math_constant",
+          "text": "constant",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_constant"
         },
         {
-          "text": "math_number_property",
+          "text": "number property",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_number_property"
         },
         {
-          "text": "math_change",
+          "text": "change",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_change"
         },
         {
-          "text": "math_round",
+          "text": "round",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_round"
         },
         {
-          "text": "math_on_list",
+          "text": "list tool",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_on_list"
         },
         {
-          "text": "math_modulo",
+          "text": "modulo",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_modulo"
         },
         {
-          "text": "math_constrain",
+          "text": "constrain",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_constrain"
         },
         {
-          "text": "math_random_int",
+          "text": "random int",
           "parent": "Math",
           "preview": "",
           "color": "",
           "type": "math_random_int"
         },
         {
-          "text": "math_random_float",
+          "text": "random float",
           "parent": "Math",
           "preview": "",
           "color": "",
@@ -673,203 +350,203 @@
           "type": "text"
         },
         {
-          "text": "text_multiline",
+          "text": "multiline",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_multiline"
         },
         {
-          "text": "text_join",
+          "text": "join",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_join"
         },
         {
-          "text": "text_append",
+          "text": "append",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_append"
         },
         {
-          "text": "text_length",
+          "text": "length",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_length"
         },
         {
-          "text": "text_isEmpty",
+          "text": "isEmpty",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_isEmpty"
         },
         {
-          "text": "text_indexOf",
+          "text": "indexOf",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_indexOf"
         },
         {
-          "text": "text_charAt",
+          "text": "charAt",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_charAt"
         },
         {
-          "text": "text_getSubstring",
+          "text": "getSubstring",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_getSubstring"
         },
         {
-          "text": "text_changeCase",
+          "text": "changeCase",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_changeCase"
         },
         {
-          "text": "text_trim",
+          "text": "trim",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_trim"
         },
         {
-          "text": "text_print",
+          "text": "print",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_print"
         },
         {
-          "text": "text_prompt_ext",
+          "text": "prompt_ext",
           "parent": "Text",
           "preview": "",
           "color": "",
           "type": "text_prompt_ext"
         },
         {
-          "text": "lists_create_empty",
+          "text": "empty list",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_create_empty"
         },
         {
-          "text": "lists_repeat",
+          "text": "repeat",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_repeat"
         },
         {
-          "text": "lists_reverse",
+          "text": "reverse",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_reverse"
         },
         {
-          "text": "lists_isEmpty",
+          "text": "isEmpty",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_isEmpty"
         },
         {
-          "text": "lists_length",
+          "text": "length",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_length"
         },
         {
-          "text": "lists_create_with",
+          "text": "create with",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_create_with"
         },
         {
-          "text": "lists_indexOf",
+          "text": "indexOf",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_indexOf"
         },
         {
-          "text": "lists_getIndex",
+          "text": "getIndex",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_getIndex"
         },
         {
-          "text": "lists_setIndex",
+          "text": "setIndex",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_setIndex"
         },
         {
-          "text": "lists_getSublist",
+          "text": "getSublist",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_getSublist"
         },
         {
-          "text": "lists_sort",
+          "text": "sort",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_sort"
         },
         {
-          "text": "lists_split",
+          "text": "split",
           "parent": "Lists",
           "preview": "",
           "color": "",
           "type": "lists_split"
         },
         {
-          "text": "variables_get",
+          "text": "get",
           "parent": "Variables",
           "preview": "",
           "color": "",
           "type": "variables_get"
         },
         {
-          "text": "variables_set",
+          "text": "set",
           "parent": "Variables",
           "preview": "",
           "color": "",
           "type": "variables_set"
         },
         {
-          "text": "procedures_defnoreturn",
+          "text": "def no return",
           "parent": "Functions",
           "preview": "",
           "color": "",
           "type": "procedures_defnoreturn"
         },
         {
-          "text": "procedures_defreturn",
+          "text": "def return",
           "parent": "Functions",
           "preview": "",
           "color": "",
           "type": "procedures_defreturn"
         },
         {
-          "text": "procedures_ifreturn",
+          "text": "if return",
           "parent": "Functions",
           "preview": "",
           "color": "",
@@ -882,6 +559,357 @@
       "text": "XAML",
       "MenuItems": [
         {
+          "name": "Bar",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "ProgressBar",
+            "ScrollBar",
+            "StatusBar",
+            "ToolBar",
+            "ToolBarPanel",
+            "ToolBarTray"
+          ],
+          "icon": "ApplicationBar"
+        },
+        {
+          "name": "Control",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "Button",
+            "CheckBox",
+            "ComboBox",
+            "DatePicker",
+            "GroupBox",
+            "ListBox",
+            "PasswordBox",
+            "RichTextBox",
+            "RadioButton",
+            "Slider"
+          ],
+          "icon": "InheritedUserControl"
+        },
+        {
+          "name": "Display",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "DataGrid",
+            "Viewbox",
+            "Ellipse",
+            "Image",
+            "Label",
+            "MediaElement",
+            "Rectangle",
+            "ScrollViewer",
+            "DocumentViewer",
+            "ContentControl"
+          ],
+          "icon": "DisplayNone"
+        },
+        {
+          "name": "Layout",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "TabControl",
+            "Border",
+            "GridSplitter",
+            "Separator",
+            "Expander"
+          ],
+          "icon": "FlowLayoutPanel"
+        },
+        {
+          "name": "Container",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "Canvas",
+            "DockPanel",
+            "Grid",
+            "Menu",
+            "StackPanel",
+            "TreeView",
+            "WrapPanel"
+          ],
+          "icon": "Container"
+        }
+      ],
+      "commands": [
+        {
+          "text": "Border",
+          "parent": "Layout",
+          "preview": "<Border BorderBrush=\"Black\" BorderThickness=\"1\" Height=\"100\" Width=\"100\"/>\n</Border> ",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Button",
+          "parent": "Control",
+          "preview": "<Button Content=\"Button\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Canvas",
+          "parent": "Container",
+          "preview": "<Canvas Height=\"100\" Width=\"100\"/>\n</Canvas>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "CheckBox",
+          "parent": "Control",
+          "preview": "<CheckBox Content=\"CheckBox\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "ComboBox",
+          "parent": "Control",
+          "preview": "<ComboBox Width=\"120\"/>\n</ComboBox>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "ContentControl",
+          "parent": "Control",
+          "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "DataGrid",
+          "parent": "Display",
+          "preview": "<DataGrid av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "DatePicker",
+          "parent": "Control",
+          "preview": "<DatePicker/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "DockPanel",
+          "parent": "Container",
+          "preview": "<DockPanel Height=\"100\" LastChildFill=\"False\" Width=\"100\"/>\n</DockPanel>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "DocumentViewer",
+          "parent": "Display",
+          "preview": "<DocumentViewer/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Ellipse",
+          "parent": "Display",
+          "preview": "<Ellipse Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Expander",
+          "parent": "Layout",
+          "preview": "<Expander Height=\"100\" Header=\"Expander\" Width=\"100\">\n<Grid Background=\"#FFE5E5E5\"/>\n</Expander>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Grid",
+          "parent": "Container",
+          "preview": "<Grid Height=\"100\" Width=\"100\"/>\n</Grid>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "GridSplitter",
+          "parent": "Layout",
+          "preview": "<GridSplitter Height=\"100\" Width=\"5\"/>\n</GridSplitter>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "GroupBox",
+          "parent": "Control",
+          "preview": "<GroupBox Header=\"GroupBox\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Image",
+          "parent": "Display",
+          "preview": "<Image Height=\"100\" Width=\"100\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Label",
+          "parent": "Display",
+          "preview": "<Label Content=\"Label\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "ListBox",
+          "parent": "Control",
+          "preview": "<ListBox av:ItemsSource=\"{av:SampleData ItemCount=5}\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "MediaElement",
+          "parent": "Display",
+          "preview": "<MediaElement Height=\"100\" Width=\"100\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Menu",
+          "parent": "Container",
+          "preview": "<Menu Height=\"100\" Width=\"100\">\n</Menu>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "PasswordBox",
+          "parent": "Control",
+          "preview": "<PasswordBox Width=\"120\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "ProgressBar",
+          "parent": "Bar",
+          "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "RadioButton",
+          "parent": "Control",
+          "preview": "<RadioButton Content=\"RadioButton\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Rectangle",
+          "parent": "Display",
+          "preview": "<Rectangle Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "RichTextBox",
+          "parent": "Control",
+          "preview": "<RichTextBox>\n<FlowDocument>\n<Paragraph>\n<Run Text=\"RichTextBox\"/>\n</Paragraph>\n</FlowDocument>\n</RichTextBox>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "ScrollBar",
+          "parent": "Bar",
+          "preview": "<ScrollBar/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "ScrollViewer",
+          "parent": "Display",
+          "preview": "<ScrollViewer>\n</ScrollViewer>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Separator",
+          "parent": "Layout",
+          "preview": "<Separator/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Slider",
+          "parent": "Control",
+          "preview": "<Slider Width=\"120\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "StackPanel",
+          "parent": "Container",
+          "preview": "<StackPanel Height=\"100\" Width=\"100\">\n</StackPanel>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "StatusBar",
+          "parent": "Bar",
+          "preview": "<StatusBar Height=\"100\" Width=\"100\">\n</StatusBar>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "TabControl",
+          "parent": "Layout",
+          "preview": "<TabControl>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n<TabItem Header=\"TabItem\">\n<Grid Background=\"#FFE5E5E5\"/>\n</TabItem>\n</TabControl>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "TextBox",
+          "parent": "Display",
+          "preview": "<TextBox TextWrapping=\"Wrap\" Text=\"TextBox\" Width=\"120\"/>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "ToolBar",
+          "parent": "Bar",
+          "preview": "<ToolBar Height=\"100\" Width=\"100\">\n</ToolBar>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "ToolBarPanel",
+          "parent": "Bar",
+          "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "ToolBarTray",
+          "parent": "Bar",
+          "preview": "<ToolBarTray Height=\"100\" Width=\"100\">\n</ToolBarTray>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "TreeView",
+          "parent": "Container",
+          "preview": "<TreeView>\n</TreeView>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "Viewbox",
+          "parent": "Display",
+          "preview": "<Viewbox Height=\"100\" Width=\"100\">\n</Viewbox>",
+          "color": "",
+          "type": "UI"
+        },
+        {
+          "text": "WrapPanel",
+          "parent": "Container",
+          "preview": "<WrapPanel Height=\"100\" Width=\"100\">\n</WrapPanel>",
+          "color": "",
+          "type": "UI"
         }
       ]
     }

@@ -16,7 +16,8 @@
 
     <Grid Margin="0,0,0,0"
          VerticalAlignment="Stretch"
-         HorizontalAlignment="Stretch">
+         HorizontalAlignment="Stretch"
+          Name ="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -27,7 +28,7 @@
         </Grid.ColumnDefinitions>
         <radialMenu:RadialMenu Grid.ColumnSpan="2" IsOpen="true" Name="MainMenu" Margin="0,30,0,0" Grid.RowSpan="2">
             <radialMenu:RadialMenu.CentralItem>
-                <radialMenu:RadialMenuCentralItem>
+                <radialMenu:RadialMenuCentralItem Name="Back" Visibility="Hidden">
                     <StackPanel VerticalAlignment="Center"
                                 theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
                         <imaging:CrispImage Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.Backwards}" />
@@ -38,11 +39,11 @@
             <radialMenu:RadialMenuItem />
         </radialMenu:RadialMenu>
 
-        <TextBlock Name="ProgressText" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >Main</TextBlock>
+        <TextBlock Margin="5" Name="ProgressText" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >Main</TextBlock>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
                                 theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
-            <imaging:CrispImage MouseDown="decreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
-            <imaging:CrispImage MouseDown="increaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
+            <imaging:CrispImage MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
+            <imaging:CrispImage MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
         </StackPanel>
     </Grid>
 </UserControl>
