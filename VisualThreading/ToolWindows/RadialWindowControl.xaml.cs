@@ -45,7 +45,7 @@ namespace VisualThreading.ToolWindows
 
             if (fileExt == "")
             {
-                _currentState = "No file loaded"; // no file loaded
+                _currentState = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml"; // no file loaded
                 ProgressText.Text = _currentState;
                 MainMenu.CentralItem.Visibility = Visibility.Hidden;
                 return;
@@ -68,7 +68,7 @@ namespace VisualThreading.ToolWindows
                 var language = (from lang in _json.RadialMenu where lang.FileExt == _currentLanguage select lang).FirstOrDefault();
                 if (language == null)
                 {
-                    _currentState = "File type not supported";
+                    _currentState = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml";
                     ProgressText.Text = _currentState;
                     MainMenu.CentralItem.Visibility = Visibility.Hidden;
                     return;
@@ -220,7 +220,6 @@ namespace VisualThreading.ToolWindows
                 {
                     await VS.MessageBox.ShowAsync("Raidial Menu", "Too Small.");
                 }
-
             }
             ).FireAndForget();
         }
