@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System.IO;
 using System.Windows;
+using VisualThreading.Schema;
 using VisualThreading.Utilities;
 using Command = VisualThreading.Schema.Command;
 
@@ -20,7 +21,6 @@ namespace VisualThreading.ToolWindows
             _toolbox = toolbox;
             _workspace = workspace;
             _schema = schema;
-            //_schema = JsonConvert.DeserializeObject(schema);
             _currentLanguage = fileExt;
 
             InitializeComponent();
@@ -94,7 +94,7 @@ namespace VisualThreading.ToolWindows
                     }
                 } else
                 {
-                    System.Windows.MessageBox.Show("please select a file(.js .cs .py .php)");
+                    System.Windows.MessageBox.Show("please select a file(.cs)");
                 }
 
 
@@ -129,7 +129,7 @@ namespace VisualThreading.ToolWindows
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("please select a file(.js .cs .py .php)");
+                    System.Windows.MessageBox.Show("please select a file(.cs)");
                 }
 
 
@@ -161,44 +161,29 @@ namespace VisualThreading.ToolWindows
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("please select a file(.js .cs .py .php)");
+                    System.Windows.MessageBox.Show("please select a file(.cs)");
                 }
             }).FireAndForget();
         }
 
         public void SetCurrentCommand(Command c)
         {
-            // Color:
-            // Parent: Logic
-            // Preview:
-            // Text: controls_if
-            // System.Diagnostics.Debug.WriteLine(c);
-
             currentCommand = c;
             var color = c.Color;
             var parent = c.Parent;
             var text = c.Text;
-
-            //var blocks = _schema["RadialMenu"][0]["commands"];
-            // todo: fix hardcoded "0" - this should be dynamic based on filetype
-            var blocks = _schema.RadialMenu[0].Commands;
-            var blockType = "";
-            foreach (var block in blocks)
-            {
-                if (block.Parent == parent && block.Text == text)
-                {
-                    blockType = block.Type;
-                }
-            }
+            var type = c.Type;
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                var ret = await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
+                var ret = await Browser.EvaluateScriptAsync("addNewBlockToArea", type, color);
                 if (ret.Success != true)
                 {
                     System.Windows.MessageBox.Show(ret.Message);
                 }
             }).FireAndForget();
+
+
         }
     }
 }
