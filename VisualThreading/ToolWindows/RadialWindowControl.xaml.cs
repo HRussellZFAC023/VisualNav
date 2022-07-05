@@ -173,6 +173,7 @@ namespace VisualThreading.ToolWindows
                 if (element.Type.Equals("UI"))
                 {
                     Clipboard.SetText(element.Preview);
+                    await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
                 }
                 else
                 {
@@ -215,6 +216,10 @@ namespace VisualThreading.ToolWindows
                         }
                     }
                 }
+                else
+                {
+                    await VS.MessageBox.ShowAsync("Raidial Menu", "Too Small.");
+                }
 
             }
             ).FireAndForget();
@@ -253,6 +258,10 @@ namespace VisualThreading.ToolWindows
                 if (!limit_reached)
                 {
                     ProgressText.FontSize += 3;
+                }
+                else
+                {
+                    await VS.MessageBox.ShowAsync("Raidial Menu", "Too Large, increase the windows size and try again.");
                 }
             }
             ).FireAndForget();
