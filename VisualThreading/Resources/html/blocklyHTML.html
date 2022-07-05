@@ -112,12 +112,12 @@
             Blockly.mainWorkspace.clear();
         }
 
-        function addNewBlockToArea(type, color) {
+        function addNewBlockToArea(type) {
 
             newBlock = workspace.newBlock(type);
-            newBlock.setColour(160);
             newBlock.initSvg();
             newBlock.render();
+
         }
 
         function showCode(language) {
