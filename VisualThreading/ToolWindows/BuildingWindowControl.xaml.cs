@@ -77,26 +77,19 @@ namespace VisualThreading.ToolWindows
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                if(_currentLanguage != null)
-                {
-                    var result = await Browser.EvaluateScriptAsync(
+                var result = await Browser.EvaluateScriptAsync(
                     "showCode", _currentLanguage);
 
-                    if (result.Success != true)
-                    {
-                        System.Windows.MessageBox.Show(result.Message);
-
-                    }
-                    else
-                    {
-                        System.Windows.MessageBox.Show((string)result.Result);
-
-                    }
-                } else
+                if (result.Success != true)
                 {
-                    System.Windows.MessageBox.Show("please select a file(.cs)");
-                }
+                    System.Windows.MessageBox.Show(result.Message);
 
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show((string)result.Result);
+
+                }
 
             }).FireAndForget();
         }
@@ -106,30 +99,23 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
 
-                if (_currentLanguage != null)
-                {
-                    var result = await Browser.EvaluateScriptAsync(
+                var result = await Browser.EvaluateScriptAsync(
                     "showCode", _currentLanguage);
 
-                    if (result.Success != true)
-                    {
-                        System.Windows.MessageBox.Show(result.Message);
+                if (result.Success != true)
+                {
+                    System.Windows.MessageBox.Show(result.Message);
 
-                    }
-                    else
-                    {
-                        var re = "";
-
-                        re = (string)result.Result;
-                        DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
-                        if (docView?.TextView == null) return;
-                        Microsoft.VisualStudio.Text.SnapshotPoint position = docView.TextView.Caret.Position.BufferPosition;
-                        docView.TextBuffer?.Insert(position, re);
-                    }
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("please select a file(.cs)");
+                    var re = "";
+
+                    re = (string)result.Result;
+                    DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
+                    if (docView?.TextView == null) return;
+                    Microsoft.VisualStudio.Text.SnapshotPoint position = docView.TextView.Caret.Position.BufferPosition;
+                    docView.TextBuffer?.Insert(position, re);
                 }
 
 
@@ -140,28 +126,21 @@ namespace VisualThreading.ToolWindows
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                if (_currentLanguage != null)
-                {
-                    var result = await Browser.EvaluateScriptAsync(
+                var result = await Browser.EvaluateScriptAsync(
                     "showCode", _currentLanguage);
 
-                    if (result.Success != true)
-                    {
-                        System.Windows.MessageBox.Show(result.Message);
+                if (result.Success != true)
+                {
+                    System.Windows.MessageBox.Show(result.Message);
 
-                    }
-                    else
-                    {
-                        var re = "";
-                        re = (string)result.Result;
-                        Clipboard.SetText(re);
-
-                        System.Windows.MessageBox.Show("Copy Successfully!");
-                    }
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("please select a file(.cs)");
+                    var re = "";
+                    re = (string)result.Result;
+                    Clipboard.SetText(re);
+
+                    System.Windows.MessageBox.Show("Copy Successfully!");
                 }
             }).FireAndForget();
         }
@@ -176,7 +155,7 @@ namespace VisualThreading.ToolWindows
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                var ret = await Browser.EvaluateScriptAsync("addNewBlockToArea", type, color);
+                var ret = await Browser.EvaluateScriptAsync("addNewBlockToArea", type);
                 if (ret.Success != true)
                 {
                     System.Windows.MessageBox.Show(ret.Message);
