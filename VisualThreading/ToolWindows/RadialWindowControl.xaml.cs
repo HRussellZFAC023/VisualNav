@@ -40,8 +40,7 @@ namespace VisualThreading.ToolWindows
             if (e.To != null)
             {
                 var buffer = e.To.Name;
-                fileExt =
-                    Path.GetExtension(buffer);
+                fileExt = Path.GetExtension(buffer);
             }
 
             if (fileExt == "")
@@ -61,7 +60,6 @@ namespace VisualThreading.ToolWindows
         private void RadialMenuGeneration()
         {
             _menu = new Dictionary<string, List<RadialMenuItem>>();
-            //MainMenu.Items = null;
             MainMenu.Items = new List<RadialMenuItem>();
 
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
@@ -78,12 +76,26 @@ namespace VisualThreading.ToolWindows
                 _currentState = "Main";
                 ProgressText.Text = _currentState;
 
-
                 // Back on center item
+                MainGrid.ClipToBounds = true;
                 MainMenu.CentralItem.Visibility = Visibility.Visible;
+                MainMenu.CentralItem = null;
+
+                var Backwardsicon = (ImageMoniker)typeof(KnownMonikers).GetProperty("Backwards")?.GetValue(null, null)!;
+                var Backwardsimage = new CrispImage { Width = 25, Height = 25, Moniker = Backwardsicon };
+                var Backwardsbinding = new Binding("Background")
+                {
+                    Converter = new BrushToColorConverter(),
+                    RelativeSource =
+                        new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RadialWindow), 2)
+                };
+                Backwardsimage.SetBinding(ImageThemingUtilities.ImageBackgroundColorProperty, Backwardsbinding);
+                var BackwardsStackPanel = new StackPanel { Orientation = Orientation.Vertical };
+                BackwardsStackPanel.Children.Add(Backwardsimage);
+
                 MainMenu.CentralItem = new RadialMenuCentralItem
                 {
-                    Content = MainMenu.CentralItem,
+                    Content = BackwardsStackPanel,
                     Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#DCEDF9")
                 };
                 MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
@@ -129,20 +141,9 @@ namespace VisualThreading.ToolWindows
                 MainMenu.Items = _menu["Main"];
                 foreach (var command in language.Commands)
                 {
-                    var textList = command.Text.Trim().Split('_');
-                    var res = "";
-                    if (textList.Length > 1)
-                    {
-                        for (int i = 1; i < textList.Length; i++)
-                        {
-                            res = res + " " + textList[i];
-                        }
-                    }
-                    else { res = textList[0]; }
-
                     var temp = new RadialMenuItem
                     {
-                        Content = new TextBlock { Text = res },
+                        Content = new TextBlock { Text = command.Text },
                         Padding = 0,
                         InnerRadius = 35,
                         EdgePadding = 0,
@@ -169,9 +170,10 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                if (element.Parent.Equals("UI"))
+                if (element.Type.Equals("UI"))
                 {
                     Clipboard.SetText(element.Preview);
+                    await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
                 }
                 else
                 {
@@ -198,19 +200,27 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                ProgressText.FontSize -= 3;
-                foreach (var entry in _menu)
+                if (ProgressText.FontSize - 3 > 10)
                 {
-                    foreach (var element in entry.Value)
+                    ProgressText.FontSize -= 3;
+                    foreach (var entry in _menu)
                     {
-                        element.FontSize -= 3;
-                        element.OuterRadius /= 1.2;
-                        element.ContentRadius /= 1.2;
-                        element.EdgeInnerRadius /= 1.2;
-                        element.EdgeOuterRadius /= 1.2;
-                        element.ArrowRadius /= 1.2;
+                        foreach (var element in entry.Value)
+                        {
+                            element.FontSize -= 3;
+                            element.OuterRadius /= 1.2;
+                            element.ContentRadius /= 1.2;
+                            element.EdgeInnerRadius /= 1.2;
+                            element.EdgeOuterRadius /= 1.2;
+                            element.ArrowRadius /= 1.2;
+                        }
                     }
                 }
+                else
+                {
+                    await VS.MessageBox.ShowAsync("Raidial Menu", "Too Small.");
+                }
+
             }
             ).FireAndForget();
         }
@@ -220,18 +230,38 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                ProgressText.FontSize += 3;
+                double width = this.RenderSize.Width;
+                double height = this.RenderSize.Height;
+                // MessageBoxResult result = System.Windows.MessageBox.Show(element.OuterRadius + "");
+
+                bool limit_reached = false;
                 foreach (var entry in _menu)
                 {
                     foreach (var element in entry.Value)
                     {
-                        element.FontSize += 3;
-                        element.OuterRadius *= 1.2;
-                        element.ContentRadius *= 1.2;
-                        element.EdgeInnerRadius *= 1.2;
-                        element.EdgeOuterRadius *= 1.2;
-                        element.ArrowRadius *= 1.2;
+                        if (element.OuterRadius * 1.2 < width / 2 && element.OuterRadius * 1.2 < height / 2)
+                        {
+                            element.FontSize += 3;
+                            element.OuterRadius *= 1.2;
+                            element.ContentRadius *= 1.2;
+                            element.EdgeInnerRadius *= 1.2;
+                            element.EdgeOuterRadius *= 1.2;
+                            element.ArrowRadius *= 1.2;
+                        }
+                        else
+                        {
+                            limit_reached = true;
+                            break;
+                        }
                     }
+                }
+                if (!limit_reached)
+                {
+                    ProgressText.FontSize += 3;
+                }
+                else
+                {
+                    await VS.MessageBox.ShowAsync("Raidial Menu", "Too Large, increase the windows size and try again.");
                 }
             }
             ).FireAndForget();
@@ -280,6 +310,7 @@ namespace VisualThreading.ToolWindows
                 }
 
                 var temp = _state.Count == 0 ? "Main" : _state.Pop().ToString();
+                // MessageBoxResult result = System.Windows.MessageBox.Show(temp);
                 _currentState = temp;
                 MainMenu.Items = _menu[temp];
             }
