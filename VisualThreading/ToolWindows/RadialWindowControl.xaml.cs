@@ -43,14 +43,6 @@ namespace VisualThreading.ToolWindows
                 fileExt = Path.GetExtension(buffer);
             }
 
-            if (fileExt == "")
-            {
-                _currentState = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml"; // no file loaded
-                ProgressText.Text = _currentState;
-                MainMenu.CentralItem.Visibility = Visibility.Hidden;
-                return;
-            }
-
             if (fileExt == _currentLanguage)
                 return;
             _currentLanguage = fileExt;
@@ -68,13 +60,12 @@ namespace VisualThreading.ToolWindows
                 var language = (from lang in _json.RadialMenu where lang.FileExt == _currentLanguage select lang).FirstOrDefault();
                 if (language == null)
                 {
-                    _currentState = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml";
-                    ProgressText.Text = _currentState;
+                    ProgressText.Text = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml";
                     MainMenu.CentralItem.Visibility = Visibility.Hidden;
                     return;
                 }
-                _currentState = "Main";
-                ProgressText.Text = _currentState;
+
+                ProgressText.Text = "Main";
 
                 // Back on center item
                 MainGrid.ClipToBounds = true;
