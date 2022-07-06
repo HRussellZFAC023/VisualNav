@@ -40,7 +40,15 @@
                     Content="Show Code" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
             <Button
                     Name="InsertCode"
+                    Click="InsertCodeButton_Click"
                     Content="Insert code" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5,5,5" />
+
+            <Button
+                    Name="ClipboardButton"
+                    Click="ClipboardButton_Click"
+                    Content="Clipboard" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+        
         </StackPanel>
     </Grid>
 </UserControl>
