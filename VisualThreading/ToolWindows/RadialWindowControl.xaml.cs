@@ -176,7 +176,7 @@ namespace VisualThreading.ToolWindows
                             Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
                             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFE4A1"),
                         };
-                        page1Next.Click += (_, _) => RadialDialControl_Click(parent + "2", true);
+                        page1Next.Click += (_, _) => RadialDialControl_Click(parent + " Page2", true);
                         page1.Add(page1Next);
 
                         List<RadialMenuItem> page2 = _menu[parent].GetRange(_menu[parent].Count / 2, _menu[parent].Count / 2);
