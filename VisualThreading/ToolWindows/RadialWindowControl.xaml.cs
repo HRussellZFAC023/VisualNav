@@ -172,8 +172,8 @@ namespace VisualThreading.ToolWindows
                 await Task.Delay(20);
                 if (element.Type.Equals("UI"))
                 {
+                    await VS.StatusBar.ShowMessageAsync("Copied to clipboard."); // needs to be done first, other wise it won't display,  something to do this threads
                     Clipboard.SetText(element.Preview);
-                    await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
                 }
                 else
                 {
