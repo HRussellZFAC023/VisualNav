@@ -261,7 +261,7 @@ namespace VisualThreading.ToolWindows
                 }
                 else
                 {
-                    await VS.MessageBox.ShowAsync("Raidial Menu", "Too Small.");
+                    await VS.MessageBox.ShowAsync("Radial Menu", "Too Small.");
                 }
             }
             ).FireAndForget();
@@ -303,7 +303,7 @@ namespace VisualThreading.ToolWindows
                 }
                 else
                 {
-                    await VS.MessageBox.ShowAsync("Raidial Menu", "Too Large, increase the windows size and try again.");
+                    await VS.MessageBox.ShowAsync("Radial Menu", "Too Large, increase the windows size and try again.");
                 }
             }
             ).FireAndForget();
