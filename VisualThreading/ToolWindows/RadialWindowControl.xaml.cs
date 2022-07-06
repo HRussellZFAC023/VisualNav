@@ -176,7 +176,7 @@ namespace VisualThreading.ToolWindows
                             Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
                             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFE4A1"),
                         };
-                        page1Next.Click += (_, _) => RadialDialControl_Click(parent + " Page2", true);
+                        page1Next.Click += (_, _) => RadialDialControl_Click(parent + "_Page2", true);
                         page1.Add(page1Next);
 
                         List<RadialMenuItem> page2 = _menu[parent].GetRange(_menu[parent].Count / 2, _menu[parent].Count / 2);
@@ -194,7 +194,7 @@ namespace VisualThreading.ToolWindows
                         page2.Add(page2Prev);
 
                         tempMenu.Add(parent, page1);
-                        tempMenu.Add(parent + "2", page2);
+                        tempMenu.Add(parent + "_Page2", page2);
                         // MessageBoxResult result = System.Windows.MessageBox.Show(_menu[parent][0].Background.ToString());
                         // MessageBoxResult result1 = System.Windows.MessageBox.Show(_menu[parent + "2"].Count + " " + parent + "2");
                     }
@@ -346,14 +346,15 @@ namespace VisualThreading.ToolWindows
                 {
                     _state.Push(_state.Count == 0 ? "Main" : _currentState);
                     _currentState = subMenu;
-                    _progress = "";
-                    foreach (var item in _state)
-                    {
-                        _progress = item + " → " + _progress;
-                    }
-                    ProgressText.Text = _progress + subMenu;
                 }
-               
+                    
+                _progress = "";
+                foreach (var item in _state)
+                {
+                    _progress = item + " → " + _progress;
+                }
+                ProgressText.Text = _progress + subMenu;
+  
             }
             ).FireAndForget();
         }
