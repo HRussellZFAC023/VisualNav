@@ -1,5 +1,7 @@
 # VisualThreading
 
+https://marketplace.visualstudio.com/items?itemName=VisualThreading-AccessibleDragandDropcoding.VisualThreading
+
 Welcome to the “Intel® Visual Guidance Suite for Student Developers & Visual Threading Plugin in Visual Studio” project, aiming to create an equitable development by evening the playing field, such that disabled developers can write code at the same productivity of their peers.  
 
 New metaphors are created for how to navigate the components needed to build applications. This is done by identifying the basic elements of an application, including Drag and Drop components, visualizing data sources and more.  Furthermore, an interface for visual threading is created by mapping code blocks to CPU threads visually.
@@ -8,4 +10,4 @@ Since existing tools do not provide enough support for those with disability, th
 
 Its target users include motion input users who possess motor disability, secondary school students taking their first steps into the world of programming, teachers, developers (especially those wanting to utilize CPU threads) and for the open-source community in general.
 
-For documentation, go to this website made with Google Sites: https://sites.google.com/view/visualthreading/home?authuser=2
+Documentation: https://sites.google.com/view/visualthreading/home?authuser=2

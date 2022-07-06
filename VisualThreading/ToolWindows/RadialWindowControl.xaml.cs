@@ -43,14 +43,6 @@ namespace VisualThreading.ToolWindows
                 fileExt = Path.GetExtension(buffer);
             }
 
-            if (fileExt == "")
-            {
-                _currentState = "No file loaded"; // no file loaded
-                ProgressText.Text = _currentState;
-                MainMenu.CentralItem.Visibility = Visibility.Hidden;
-                return;
-            }
-
             if (fileExt == _currentLanguage)
                 return;
             _currentLanguage = fileExt;
@@ -68,13 +60,12 @@ namespace VisualThreading.ToolWindows
                 var language = (from lang in _json.RadialMenu where lang.FileExt == _currentLanguage select lang).FirstOrDefault();
                 if (language == null)
                 {
-                    _currentState = "File type not supported";
-                    ProgressText.Text = _currentState;
+                    ProgressText.Text = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml";
                     MainMenu.CentralItem.Visibility = Visibility.Hidden;
                     return;
                 }
-                _currentState = "Main";
-                ProgressText.Text = _currentState;
+
+                ProgressText.Text = "Main";
 
                 // Back on center item
                 MainGrid.ClipToBounds = true;
@@ -173,6 +164,7 @@ namespace VisualThreading.ToolWindows
                 if (element.Type.Equals("UI"))
                 {
                     Clipboard.SetText(element.Preview);
+                    await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
                 }
                 else
                 {
@@ -215,7 +207,10 @@ namespace VisualThreading.ToolWindows
                         }
                     }
                 }
-
+                else
+                {
+                    await VS.MessageBox.ShowAsync("Raidial Menu", "Too Small.");
+                }
             }
             ).FireAndForget();
         }
@@ -253,6 +248,10 @@ namespace VisualThreading.ToolWindows
                 if (!limit_reached)
                 {
                     ProgressText.FontSize += 3;
+                }
+                else
+                {
+                    await VS.MessageBox.ShowAsync("Raidial Menu", "Too Large, increase the windows size and try again.");
                 }
             }
             ).FireAndForget();
