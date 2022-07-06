@@ -72,26 +72,29 @@ namespace VisualThreading.ToolWindows
                 MainMenu.CentralItem.Visibility = Visibility.Visible;
                 MainMenu.CentralItem = null;
 
-                var Backwardsicon = (ImageMoniker)typeof(KnownMonikers).GetProperty("Backwards")?.GetValue(null, null)!;
-                var Backwardsimage = new CrispImage { Width = 25, Height = 25, Moniker = Backwardsicon };
-                var Backwardsbinding = new Binding("Background")
+                // TODO - Extract icon  to helper utility
+                //
+                var backwardIcon = (ImageMoniker)typeof(KnownMonikers).GetProperty("Backwards")?.GetValue(null, null)!;
+                var backwardImage = new CrispImage { Width = 25, Height = 25, Moniker = backwardIcon };
+                var backwardBinding = new Binding("Background")
                 {
                     Converter = new BrushToColorConverter(),
                     RelativeSource =
                         new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RadialWindow), 2)
                 };
-                Backwardsimage.SetBinding(ImageThemingUtilities.ImageBackgroundColorProperty, Backwardsbinding);
-                var BackwardsStackPanel = new StackPanel { Orientation = Orientation.Vertical };
-                BackwardsStackPanel.Children.Add(Backwardsimage);
+                backwardImage.SetBinding(ImageThemingUtilities.ImageBackgroundColorProperty, backwardBinding);
+                var backwardsStackPanel = new StackPanel { Orientation = Orientation.Vertical };
+                backwardsStackPanel.Children.Add(backwardImage);
+                //
 
                 MainMenu.CentralItem = new RadialMenuCentralItem
                 {
-                    Content = BackwardsStackPanel,
+                    Content = backwardsStackPanel,
                     Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#DCEDF9")
                 };
                 MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
 
-                foreach (var menuItem in language.MenuItems)
+                foreach (var menuItem in language.MenuItems) // menu
                 {
                     var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
                     // the text within the radial menu is not under control of VsTheme, however, the progress text box is.
@@ -121,7 +124,7 @@ namespace VisualThreading.ToolWindows
                     stackPanel.Children.Add(image);
 
                     // event handler
-                    item.Click += (_, _) => RadialDialControl_Click(menuItem.Name);
+                    item.Click += (_, _) => RadialDialControl_Click(menuItem.Name, false);
 
                     if (!_menu.ContainsKey(menuItem.Parent))
                         _menu.Add(menuItem.Parent, new List<RadialMenuItem>());
@@ -130,7 +133,7 @@ namespace VisualThreading.ToolWindows
                 }  // Generate the menu structure to the menu dictionary
 
                 MainMenu.Items = _menu["Main"];
-                foreach (var command in language.Commands)
+                foreach (var command in language.Commands) // commands
                 {
                     var temp = new RadialMenuItem
                     {
@@ -147,11 +150,60 @@ namespace VisualThreading.ToolWindows
                     temp.MouseEnter += (_, _) => RadialDialElement_Hover(command);
                     temp.MouseLeave += (_, _) => RadialDialElement_ExitHover();
 
-                    if (!_menu.ContainsKey(command.Parent))
-                        _menu.Add(command.Parent, new List<RadialMenuItem>());
+                    if (!_menu.ContainsKey(command.Parent)) _menu.Add(command.Parent, new List<RadialMenuItem>());
 
                     _menu[command.Parent].Add(temp);
                 }  // Generate the command structure to the menu dictionary
+
+                IDictionary<string, List<RadialMenuItem>> tempMenu = new Dictionary<string, List<RadialMenuItem>>();
+                foreach (var parent in _menu.Keys)
+                {
+                    // each menu
+                    if (_menu[parent].Count <= 6 || !_menu[parent][0].Background.ToString().Equals("#FFFFF6E0"))
+                        continue;
+                    var page1 = _menu[parent].GetRange(0, _menu[parent].Count / 2);
+                    var page1Next = new RadialMenuItem
+                    {
+                        Content = new TextBlock { Text = "Next Page" },
+                        Padding = 0,
+                        InnerRadius = 35,
+                        EdgePadding = 0,
+                        Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
+                        EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFE4A1"),
+                    };
+                    page1Next.Click += (_, _) => RadialDialControl_Click(parent + "_Page2", true);
+                    page1.Add(page1Next);
+
+                    var page2 = _menu[parent].GetRange(_menu[parent].Count / 2, _menu[parent].Count / 2);
+                    var page2Prev = new RadialMenuItem
+                    {
+                        Content = new TextBlock { Text = "Prev Page" },
+                        Padding = 0,
+                        InnerRadius = 35,
+                        EdgePadding = 0,
+                        // This color is just a place hodler, will adapt to the future json of the blockly defination of each code type
+                        Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF6E0"),
+                        EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFE4A1"),
+                    };
+                    page2Prev.Click += (_, _) => RadialDialControl_Click(parent, true);
+                    page2.Add(page2Prev);
+
+                    tempMenu.Add(parent, page1);
+                    tempMenu.Add(parent + "_Page2", page2);
+                    // MessageBoxResult result = System.Windows.MessageBox.Show(_menu[parent][0].Background.ToString());
+                    // MessageBoxResult result1 = System.Windows.MessageBox.Show(_menu[parent + "2"].Count + " " + parent + "2");
+                }
+                foreach (var key in tempMenu.Keys)
+                {
+                    if (key.Any(char.IsDigit))
+                    {
+                        _menu.Add(key, tempMenu[key]);
+                    }
+                    else
+                    {
+                        _menu[key] = tempMenu[key];
+                    }
+                }
             }
             ).FireAndForget();
         }
@@ -159,20 +211,20 @@ namespace VisualThreading.ToolWindows
         private static void RadialDialElement_Click(Schema.Command element)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await Task.Delay(20);
-                if (element.Type.Equals("UI"))
                 {
-                    Clipboard.SetText(element.Preview);
-                    await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
+                    await Task.Delay(20);
+                    if (element.Type.Equals("UI"))
+                    {
+                        await VS.StatusBar.ShowMessageAsync("Copied to clipboard."); // needs to be done first, other wise it won't display,  something to do this threads
+                        Clipboard.SetText(element.Preview);
+                    }
+                    else
+                    {
+                        BuildingWindow.Instance.SetCurrentCommand(element);
+                        // extract element to working area
+                        // MainMenu.Items = _menu[element.Text];
+                    }
                 }
-                else
-                {
-                    BuildingWindow.Instance.SetCurrentCommand(element);
-                    // extract element to working area
-                    // MainMenu.Items = _menu[element.Text];
-                }
-            }
             ).FireAndForget();
         }
 
@@ -209,7 +261,7 @@ namespace VisualThreading.ToolWindows
                 }
                 else
                 {
-                    await VS.MessageBox.ShowAsync("Raidial Menu", "Too Small.");
+                    await VS.MessageBox.ShowAsync("Radial Menu", "Too Small.");
                 }
             }
             ).FireAndForget();
@@ -220,11 +272,11 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
-                double width = this.RenderSize.Width;
-                double height = this.RenderSize.Height;
+                var width = RenderSize.Width;
+                var height = RenderSize.Height;
                 // MessageBoxResult result = System.Windows.MessageBox.Show(element.OuterRadius + "");
 
-                bool limit_reached = false;
+                var limitReached = false;
                 foreach (var entry in _menu)
                 {
                     foreach (var element in entry.Value)
@@ -240,31 +292,54 @@ namespace VisualThreading.ToolWindows
                         }
                         else
                         {
-                            limit_reached = true;
+                            limitReached = true;
                             break;
                         }
                     }
                 }
-                if (!limit_reached)
+                if (!limitReached)
                 {
                     ProgressText.FontSize += 3;
                 }
                 else
                 {
-                    await VS.MessageBox.ShowAsync("Raidial Menu", "Too Large, increase the windows size and try again.");
+                    await VS.MessageBox.ShowAsync("Radial Menu", "Too Large, increase the windows size and try again.");
                 }
             }
             ).FireAndForget();
         }
 
-        private void RadialDialControl_Click(string subMenu)
+        private void PrevPage(object sender, RoutedEventArgs e)
+        {
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Task.Delay(20);
+            }
+            ).FireAndForget();
+        }
+
+        private void NextPage(object sender, RoutedEventArgs e)
+        {
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await Task.Delay(20);
+            }
+            ).FireAndForget();
+        }
+
+        private void RadialDialControl_Click(string subMenu, bool pageTuring)
         {
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 await Task.Delay(20);
                 MainMenu.Items = _menu[subMenu];
-                _state.Push(_state.Count == 0 ? "Main" : _currentState);
-                _currentState = subMenu;
+
+                if (!pageTuring)
+                {
+                    _state.Push(_state.Count == 0 ? "Main" : _currentState);
+                    _currentState = subMenu;
+                }
+
                 _progress = "";
                 foreach (var item in _state)
                 {
