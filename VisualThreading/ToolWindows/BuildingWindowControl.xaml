@@ -47,8 +47,6 @@
                     Name="ClipboardButton"
                     Click="ClipboardButton_Click"
                     Content="Clipboard" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
-
-        
         </StackPanel>
     </Grid>
 </UserControl>

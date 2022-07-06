@@ -51,6 +51,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Schema\Schema.cs" />
+    <Compile Include="Utilities\BlocklyAdapter.cs" />
+    <Compile Include="Utilities\InfoNotificationWrapper.cs" />
+    <Compile Include="Utilities\LanguageMediator.cs" />
     <Compile Include="Utilities\FileReaderAdapter.cs" />
     <Compile Include="VisualStudioServices.cs" />
     <Compile Include="Commands\OpenPreivewWindow.cs" />
@@ -209,14 +212,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\js\blockly\python_compressed.js">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\xml\blocklyWorkspace.xml">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\xml\blocklyToolbox.xml">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

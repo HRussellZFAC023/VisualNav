@@ -25,8 +25,6 @@ namespace VisualThreading.ToolWindows
             var buffer = await VS.Documents.GetActiveDocumentViewAsync();
             var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
             var blockly = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "html", "blocklyHTML.html"));
-            var toolbox = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyToolbox.xml"));
-            var workspace = await fr.ReadFileAsync(Path.Combine(root!, "Resources", "xml", "blocklyWorkspace.xml"));
 
             var fileExt = "";
             if (buffer?.TextBuffer != null)
@@ -35,7 +33,7 @@ namespace VisualThreading.ToolWindows
                 Path.GetExtension(buffer.TextBuffer.GetFileName());
             }
 
-            Instance = new PreviewWindowControl(schema, fileExt, blockly, toolbox, workspace);
+            Instance = new PreviewWindowControl(schema, fileExt);
             return Instance;
         }
 

@@ -1,5 +1,0 @@
-﻿<xml>
-	<block type="controls_if"></block>
-	<block type="logic_compare"></block>
-	<block type="controls_repeat_ext"></block>
-</xml>
