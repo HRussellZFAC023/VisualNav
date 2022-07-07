@@ -12,11 +12,10 @@ namespace VisualThreading.ToolWindows
 
         public override Type PaneType => typeof(Pane);
 
-        public static BuildingWindowControl Instance;
+        public static readonly BuildingWindowControl Instance = new();
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            Instance = new BuildingWindowControl();
             return Task.FromResult<FrameworkElement>(Instance);
         }
 

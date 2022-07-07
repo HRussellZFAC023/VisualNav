@@ -89,6 +89,7 @@ namespace VisualThreading.ToolWindows
                 {
                     var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, Varden, CreamBrulee);
                     menuBlock.Click += (_, _) => RadialDialElement_Click(command);  //Handler of the command
+                    //message box
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 

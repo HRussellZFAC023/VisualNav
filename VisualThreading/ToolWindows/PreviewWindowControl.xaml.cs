@@ -41,7 +41,7 @@ namespace VisualThreading.ToolWindows
                 : new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() });
         }
 
-        private static bool _hover;
+        private static bool _hover = false;
 
         public void SetCurrentCommand(Command c)
         {
