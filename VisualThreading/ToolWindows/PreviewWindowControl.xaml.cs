@@ -33,18 +33,6 @@ namespace VisualThreading.ToolWindows
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         { UpdateCommands(); }
 
-        public void SetCurrentCommand(Command c)
-        {
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await _blockly.ClearAsync();
-                await _blockly.AddNewBlockToAreaAsync(c);
-            }).FireAndForget();
-
-            _currentCommand = c;
-            UpdateCommands();
-        }
-
         private void UpdateCommands()
         {
             Widgets.Children.Clear();
@@ -53,8 +41,26 @@ namespace VisualThreading.ToolWindows
                 : new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() });
         }
 
+        private static bool _hover;
+
+        public void SetCurrentCommand(Command c)
+        {
+            if (!_hover)
+            {
+                ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+                {
+                    await _blockly.ClearAsync();
+                    await _blockly.AddNewBlockToAreaAsync(c);
+                    _hover = true;
+                }).FireAndForget();
+            }
+            _currentCommand = c;
+            UpdateCommands();
+        }
+
         public void ClearCurrentCommand()
         {
+            _hover = false;
             _currentCommand = null;
             ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.ClearAsync(); }).FireAndForget();
             UpdateCommands();
