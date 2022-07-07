@@ -77,6 +77,8 @@ public class BlocklyAdapter
 
     public async Task ClearAsync()
     {
-        await _b.GetMainFrame().EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
     }
+
+   
 }

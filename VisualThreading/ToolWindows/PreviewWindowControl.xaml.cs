@@ -16,11 +16,10 @@ namespace VisualThreading.ToolWindows
             _currentCommand = null;
             InitializeComponent();
             Focus();
-
             _blockly = new BlocklyAdapter(Browser, true);
             ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.LoadHtmlAsync(); }).FireAndForget();
             Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
-            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // get file type
+            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged;
         }
 
         private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
@@ -42,6 +41,7 @@ namespace VisualThreading.ToolWindows
                 await _blockly.AddNewBlockToAreaAsync(c);
             }).FireAndForget();
 
+            _currentCommand = c;
             UpdateCommands();
         }
 
