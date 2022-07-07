@@ -43,10 +43,9 @@
 
     <script>
         var workspace;
-        function init(toolboxXML, workspaceXML, preview) {
+        function init(preview) {
             blocklyArea = document.getElementById('blocklyArea');
             var blocklyDiv = document.getElementById('blocklyDiv');
-
 
             if (preview) { // Only if preview is set to true should we hide the trashcan
                 workspace = Blockly.inject(blocklyDiv,
@@ -79,7 +78,6 @@
                     });
             }
 
-
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.
                 var element = blocklyArea;
@@ -105,34 +103,26 @@
             Blockly.svgResize(workspace);
         }
 
-        function clearCurrentBlock() {
-            alert("hhhhiiii");
-
-            workspace.clear();
-            Blockly.mainWorkspace.clear();
-        }
-
-        function addNewBlockToArea(type, color) {
+        function addNewBlockToArea(type) {
 
             newBlock = workspace.newBlock(type);
-            newBlock.setColour(160);
             newBlock.initSvg();
             newBlock.render();
+
         }
 
         function showCode(language) {
 
             var code = "";
-            if (language === "javascript") {
+
+            if (language === ".js") {
                 code = Blockly.JavaScript.workspaceToCode(workspace);
-            } else if (language == "python") {
+            } else if (language === ".py") {
                 code = Blockly.Python.workspaceToCode(workspace);
-            } else if (language == "php") {
+            } else if (language === ".php") {
                 code = Blockly.PHP.workspaceToCode(workspace);
-            } else if (language == "lua") {
-                code = Blockly.Lua.workspaceToCode(workspace);
-            } else if (language == "dart") {
-                code = Blockly.Dart.workspaceToCode(workspace);
+            } else if (language === ".cs") {
+                code = Blockly.CSharp.workspaceToCode();
             }
 
             return code;

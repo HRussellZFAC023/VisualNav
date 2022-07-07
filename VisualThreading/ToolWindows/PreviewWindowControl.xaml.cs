@@ -1,117 +1,45 @@
 ﻿using CefSharp;
-using System.IO;
-using System.Linq;
 using VisualThreading.Schema;
 using VisualThreading.Utilities;
 using Label = System.Windows.Controls.Label;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
-using UserControl = System.Windows.Controls.UserControl;
 
 namespace VisualThreading.ToolWindows
 {
-    public partial class PreviewWindowControl : UserControl
+    public partial class PreviewWindowControl
     {
-        private Schema.Command _currentCommand;
-        private string _currentLanguage; // file extension for language
-        private readonly string _toolbox;
-        private readonly string _workspace;
+        private Command _currentCommand;
+        private readonly BlocklyAdapter _blockly;
 
-        //private readonly dynamic _schema;
-        private readonly Schema.Schema _schema;
-
-        public PreviewWindowControl(Schema.Schema schema, string fileExt, string blockly, string toolbox, string workspace)
+        public PreviewWindowControl()
         {
             _currentCommand = null;
-            _currentLanguage = fileExt;
-            _toolbox = toolbox;
-            _workspace = workspace;
             InitializeComponent();
             Focus();
-            _schema = schema;
 
-            Browser.LoadHtml(blockly);
-
+            _blockly = new BlocklyAdapter(Browser, true);
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.LoadHtmlAsync(); }).FireAndForget();
             Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
             VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // get file type
         }
 
         private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
-            if (e.IsLoading)
-                return;
-
-            var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
-            var blockly = Path.Combine(root!, "Resources", "js", "blockly");
-            var fr = new FileReaderAdapter();
-
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            if (!e.IsLoading)
             {
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "blockly_compressed.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "blocks_compressed.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "msg", "js", "en.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "colour.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "lists.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "logic.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "loops.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "math.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "procedures.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "text.js")));
-                Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "generators", "csharp", "variables.js")));
-
-                //Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "javascript_compressed.js")));
-                //Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "dart_compressed.js")));
-                //Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "python_compressed.js")));
-                //Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "lua_compressed.js")));
-                //Browser.ExecuteScriptAsync(await fr.ReadFileAsync(Path.Combine(blockly, "php_compressed")));
-
-                await Browser.EvaluateScriptAsync("init", _toolbox, _workspace, true);
-            }).FireAndForget();
+                ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.InitAsync(); }).FireAndForget();
+            }
         }
 
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var fileExt = "";
-            if (e.To != null)
-            {
-                var buffer = e.To.Name;
-                fileExt =
-                        Path.GetExtension(buffer);
-            }
-            _currentLanguage = fileExt;
-            UpdateCommands();
-        }
+        { UpdateCommands(); }
 
         public void SetCurrentCommand(Command c)
         {
-            // Color:
-            // Parent: Logic
-            // Preview:
-            // Text: controls_if
-            // System.Diagnostics.Debug.WriteLine(c);
-
-            _currentCommand = c;
-            var color = c.Color;
-            var parent = c.Parent;
-            var text = c.Text;
-
-            var blocks = (from lang in _schema.RadialMenu where lang.FileExt == _currentLanguage select lang.Commands).FirstOrDefault();
-            if (blocks == null)
-                return;
-
-            var blockType = "";
-            foreach (var block in blocks)
-            {
-                if (block.Parent == parent && block.Text == text)
-                {
-                    blockType = block.Type;
-                }
-            }
-
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                await Browser.GetMainFrame().EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
-                await Browser.EvaluateScriptAsync("addNewBlockToArea", blockType, color);
+                await _blockly.ClearAsync();
+                await _blockly.AddNewBlockToAreaAsync(c);
             }).FireAndForget();
 
             UpdateCommands();
@@ -120,20 +48,15 @@ namespace VisualThreading.ToolWindows
         private void UpdateCommands()
         {
             Widgets.Children.Clear();
-
             Widgets.Children.Add(_currentCommand != null
-                ? new Label { Content = _currentLanguage + " - " + _currentCommand.Text }
-                : new Label { Content = _currentLanguage });
+                ? new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() + " - " + _currentCommand.Text }
+                : new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() });
         }
 
         public void ClearCurrentCommand()
         {
             _currentCommand = null;
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await Browser.GetMainFrame().EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
-            }).FireAndForget();
-
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.ClearAsync(); }).FireAndForget();
             UpdateCommands();
         }
     }

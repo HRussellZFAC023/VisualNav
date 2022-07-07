@@ -16,7 +16,8 @@
 
     <Grid Margin="0,0,0,0"
          VerticalAlignment="Stretch"
-         HorizontalAlignment="Stretch">
+         HorizontalAlignment="Stretch"
+          Name ="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -50,8 +51,11 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
                                 theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
+            <imaging:CrispImage Name ="Prev" Visibility="Hidden" MouseDown="PrevPage" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageLeft}" />
+            <imaging:CrispImage Name ="Next" Visibility="Hidden" MouseDown="NextPage" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageRight}" />
             <imaging:CrispImage MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
             <imaging:CrispImage MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
+            
         </StackPanel>
     </Grid>
 </UserControl>
