@@ -35,7 +35,6 @@ namespace VisualThreading.ToolWindows
 
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PreviewWindow.Instance.ClearCurrentCommand();
             RadialMenuGeneration();
         }
 
@@ -63,8 +62,6 @@ namespace VisualThreading.ToolWindows
                     Background = (SolidColorBrush)new BrushConverter().ConvertFrom(WhiteIce)
                 };
                 MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
-                MainMenu.CentralItem.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
-                MainMenu.CentralItem.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 
                 foreach (var menuItem in language.MenuItems) // menu
                 {
