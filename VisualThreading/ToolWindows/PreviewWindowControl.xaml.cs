@@ -16,11 +16,10 @@ namespace VisualThreading.ToolWindows
             _currentCommand = null;
             InitializeComponent();
             Focus();
-
             _blockly = new BlocklyAdapter(Browser, true);
             ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.LoadHtmlAsync(); }).FireAndForget();
             Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
-            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // get file type
+            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged;
         }
 
         private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
@@ -34,17 +33,6 @@ namespace VisualThreading.ToolWindows
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         { UpdateCommands(); }
 
-        public void SetCurrentCommand(Command c)
-        {
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-            {
-                await _blockly.ClearAsync();
-                await _blockly.AddNewBlockToAreaAsync(c);
-            }).FireAndForget();
-
-            UpdateCommands();
-        }
-
         private void UpdateCommands()
         {
             Widgets.Children.Clear();
@@ -53,8 +41,26 @@ namespace VisualThreading.ToolWindows
                 : new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() });
         }
 
+        private static bool _hover;
+
+        public void SetCurrentCommand(Command c)
+        {
+            if (!_hover)
+            {
+                ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+                {
+                    await _blockly.ClearAsync();
+                    await _blockly.AddNewBlockToAreaAsync(c);
+                    _hover = true;
+                }).FireAndForget();
+            }
+            _currentCommand = c;
+            UpdateCommands();
+        }
+
         public void ClearCurrentCommand()
         {
+            _hover = false;
             _currentCommand = null;
             ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.ClearAsync(); }).FireAndForget();
             UpdateCommands();
