@@ -4,12 +4,12 @@ using Microsoft.VisualStudio.PlatformUI;
 using RadialMenu.Controls;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using VisualThreading.Utilities;
 using Binding = System.Windows.Data.Binding;
 using Clipboard = System.Windows.Clipboard;
 using Orientation = System.Windows.Controls.Orientation;
@@ -23,7 +23,6 @@ namespace VisualThreading.ToolWindows
         private readonly Stack _state = new();
         private string _currentState = "";
         private string _progress = "";
-        private string _currentLanguage = ""; // file extension for language
         private Schema.Schema _json;
 
         public RadialWindowControl()
@@ -31,23 +30,11 @@ namespace VisualThreading.ToolWindows
             InitializeComponent();
             RadialMenuGeneration();
 
-            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged; // get file type
+            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged;
         }
 
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var fileExt = "";
-            if (e.To != null)
-            {
-                var buffer = e.To.Name;
-                fileExt = Path.GetExtension(buffer);
-            }
-
-            if (fileExt == _currentLanguage)
-                return;
-            _currentLanguage = fileExt;
-            RadialMenuGeneration();
-        }
+        { RadialMenuGeneration(); }
 
         private void RadialMenuGeneration()
         {
@@ -57,7 +44,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 _json ??= await Schema.Schema.LoadAsync();
-                var language = (from lang in _json.RadialMenu where lang.FileExt == _currentLanguage select lang).FirstOrDefault();
+                var language = (from lang in _json.RadialMenu where lang.FileExt == LanguageMediator.GetCurrentActiveFileExtension() select lang).FirstOrDefault();
                 if (language == null)
                 {
                     ProgressText.Text = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml";
@@ -221,8 +208,6 @@ namespace VisualThreading.ToolWindows
                     else
                     {
                         BuildingWindow.Instance.SetCurrentCommand(element);
-                        // extract element to working area
-                        // MainMenu.Items = _menu[element.Text];
                     }
                 }
             ).FireAndForget();
