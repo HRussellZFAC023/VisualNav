@@ -17,7 +17,7 @@ namespace VisualThreading.ToolWindows
     public partial class RadialWindowControl
     {
         private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without hierarchy
-        private readonly Stack<string> _state = new(); // Store the current state of the menu
+        private Stack<string> _state = new(); // Store the current state of the menu
         private string _currentState = "";
         private string _progress = "";
         private Schema.Schema _json;
@@ -44,6 +44,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 _menu = new Dictionary<string, List<RadialMenuItem>>();
+                _state = new();
                 MainMenu.Items = new List<RadialMenuItem>();
                 _json ??= await Schema.Schema.LoadAsync();
                 var language = (from lang in _json.RadialMenu where lang.FileExt == LanguageMediator.GetCurrentActiveFileExtension() select lang).FirstOrDefault();
