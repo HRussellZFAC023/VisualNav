@@ -35,6 +35,7 @@ namespace VisualThreading.ToolWindows
 
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Focus();
             RadialMenuGeneration();
         }
 
@@ -108,7 +109,7 @@ namespace VisualThreading.ToolWindows
 
                     var page1 = _menu[parent].GetRange(0, _menu[parent].Count / 2);
                     var page1Next = MenuBlock(BuildIcon("BrowseNext"), Varden, CreamBrulee);
-                    page1Next.Click += (_, _) => RadialDialControl_Click(parent + "-Page2", true);
+                    page1Next.Click += (_, _) => RadialDialControl_Click(parent + "\x00A0 [Page 2]", true);
                     page1.Add(page1Next);
 
                     var page2 = _menu[parent].GetRange(_menu[parent].Count / 2, _menu[parent].Count / 2);
@@ -117,7 +118,7 @@ namespace VisualThreading.ToolWindows
                     page2.Add(page2Prev);
 
                     tempMenu.Add(parent, page1);
-                    tempMenu.Add(parent + "-Page2", page2);
+                    tempMenu.Add(parent + "\x00A0 [Page 2]", page2);
                 }
 
                 foreach (var key in tempMenu.Keys)
