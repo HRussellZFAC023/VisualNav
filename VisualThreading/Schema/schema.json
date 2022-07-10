@@ -3,6 +3,7 @@
     {
       "fileExt": ".cs",
       "text": "c#",
+      "allow_insertion_from_menu": "false",
       "MenuItems": [
         {
           "name": "Thread",
@@ -12,7 +13,7 @@
           "icon": "Thread"
         },
         {
-          "name": "Test",
+          "name": "Test", 
           "parent": "Main",
           "submenu": [],
           "children": [ "Asset" ],
@@ -557,6 +558,7 @@
     {
       "fileExt": ".xaml",
       "text": "XAML",
+      "allow_insertion_from_menu": "true",
       "MenuItems": [
         {
           "name": "Bar",

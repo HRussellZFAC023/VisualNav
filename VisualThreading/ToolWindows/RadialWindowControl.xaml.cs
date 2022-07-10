@@ -16,7 +16,7 @@ namespace VisualThreading.ToolWindows
 {
     public partial class RadialWindowControl
     {
-        private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without hierarchy
+        private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without
         private readonly Stack<string> _state = new(); // Store the current state of the menu
         private string _currentState = "";
         private string _progress = "";
@@ -26,6 +26,7 @@ namespace VisualThreading.ToolWindows
         private const string Varden = "#FFF6E0";
         private const string CreamBrulee = "#FFE4A1";
 
+        // create a list of languages that require the "insertion" button
         public RadialWindowControl()
         {
             InitializeComponent();
@@ -36,6 +37,12 @@ namespace VisualThreading.ToolWindows
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PreviewWindow.Instance.ClearCurrentCommand();
+            // get the current language....
+            //if( List{LanguageMediator.GetCurrentActiveFileExtension()}
+            Insertion.Visibility = Visibility.Visible;
+            // else
+            Insertion.Visibility = Visibility.Hidden;
+
             RadialMenuGeneration();
         }
 
@@ -46,6 +53,15 @@ namespace VisualThreading.ToolWindows
                 _menu = new Dictionary<string, List<RadialMenuItem>>();
                 MainMenu.Items = new List<RadialMenuItem>();
                 _json ??= await Schema.Schema.LoadAsync();
+
+                foreach (var l in _json.RadialMenu)
+                {
+                    if (l.AllowInsertionFromMenu)
+                    {
+                        // populate the empty list
+                    }
+                }
+
                 var language = (from lang in _json.RadialMenu where lang.FileExt == LanguageMediator.GetCurrentActiveFileExtension() select lang).FirstOrDefault();
 
                 if (language == null)
@@ -165,15 +181,26 @@ namespace VisualThreading.ToolWindows
             return image;
         }
 
-        private static void RadialDialElement_Click(Command element)
+        private void RadialDialElement_Click(Command element)
         {
             if (element.Type.Equals("UI"))
             {
                 ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
                 {
                     await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
+
+                    if (Insertion.IsChecked != null && (bool)Insertion.IsChecked)
+                    {
+                        var docView = await VS.Documents.GetActiveDocumentViewAsync();
+                        if (docView?.TextView == null) return; //not a text window
+                        var position = docView.TextView.Caret.Position.BufferPosition;
+                        docView.TextBuffer?.Insert(position, element.Text); // Inserts text at the caret
+                    }
+                    else
+                    {
+                        Clipboard.SetText(element.Text);
+                    }
                 }).FireAndForget();
-                Clipboard.SetText(element.Preview);
             }
             else
             {

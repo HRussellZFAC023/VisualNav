@@ -43,9 +43,7 @@
             <TextBlock Name="ProgressText">Main</TextBlock>
             <StackPanel Orientation="Horizontal">
                 <TextBlock>Insertion: &#160;</TextBlock>
-                <!-- TODO yasser - Make thiss checkbox toggle between copying to clipboard and inserting directly into the editor-->
-                <!-- If you get stuck as quinlan I think she did this for the building window -->
-                <CheckBox  x:Name="CheckBox" />
+                <CheckBox  x:Name="Insertion" />
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
