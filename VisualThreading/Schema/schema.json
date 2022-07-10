@@ -89,6 +89,7 @@
           "submenu": [],
           "children": [
             "text",
+            "text_multiline",
             "text_join",
             "text_append",
             "text_length",
@@ -98,8 +99,7 @@
             "text_getSubstring",
             "text_changeCase",
             "text_trim",
-            "text_print",
-            "text_prompt_ext"
+            "text_print"
           ],
           "icon": "TextBox"
         },
@@ -412,18 +412,18 @@
           "type": "text_print"
         },
         {
-          "text": "prompt_ext",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_prompt_ext"
-        },
-        {
           "text": "empty list",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
           "type": "lists_create_empty"
+        },
+        {
+          "text": "multiline",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_multiline"
         },
         {
           "text": "repeat",
