@@ -75,7 +75,7 @@
             "math_number_property",
             "math_change",
             "math_round",
-            "math_on_list",
+            
             "math_modulo",
             "math_constrain",
             "math_random_int",
@@ -89,7 +89,6 @@
           "submenu": [],
           "children": [
             "text",
-            "text_multiline",
             "text_join",
             "text_append",
             "text_length",
@@ -111,7 +110,6 @@
           "children": [
             "lists_create_empty",
             "lists_repeat",
-            "lists_reverse",
             "lists_isEmpty",
             "lists_length",
             "lists_create_with",
@@ -120,7 +118,8 @@
             "lists_setIndex",
             "lists_getSublist",
             "lists_sort",
-            "lists_split"
+            "lists_split",
+            "math_on_list"
           ],
           "icon": "BulletList"
         },
@@ -308,13 +307,6 @@
           "type": "math_round"
         },
         {
-          "text": "list tool",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_on_list"
-        },
-        {
           "text": "modulo",
           "parent": "Math",
           "preview": "",
@@ -348,13 +340,6 @@
           "preview": "",
           "color": "#FFBF00",
           "type": "text"
-        },
-        {
-          "text": "multiline",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_multiline"
         },
         {
           "text": "join",
@@ -448,13 +433,6 @@
           "type": "lists_repeat"
         },
         {
-          "text": "reverse",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_reverse"
-        },
-        {
           "text": "isEmpty",
           "parent": "Lists",
           "preview": "",
@@ -516,6 +494,13 @@
           "preview": "",
           "color": "#9966FF",
           "type": "lists_split"
+        },
+        {
+          "text": "math list",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_on_list"
         },
         {
           "text": "get",
