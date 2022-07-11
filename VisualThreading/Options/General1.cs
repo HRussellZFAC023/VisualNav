@@ -26,5 +26,12 @@ namespace VisualThreading.Options
         [Description("The default size of radial menu")]
         [DefaultValue("12,150,82.5,135,150,142.5")]
         public String RadialSize { get; set; } = "12,150,82.5,135,150,142.5";
+
+        [Category("Child Mode")]
+        [DisplayName("My Option")]
+        [Description("An informative description.")]
+        [DefaultValue(true)]
+        public bool ChildMode { get; set; } = true;
+
     }
 }
