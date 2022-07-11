@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using System.Windows;
 using VisualThreading.Schema;
 using VisualThreading.Utilities;
 using Label = System.Windows.Controls.Label;
@@ -41,25 +42,38 @@ namespace VisualThreading.ToolWindows
                 : new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() });
         }
 
-        private static bool _hover = false;
+        private static bool _hover;
 
         public void SetCurrentCommand(Command c)
         {
-            if (!_hover)
+            PreviewText.Text = "";
+            switch (_hover)
             {
-                ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-                {
-                    await _blockly.ClearAsync();
-                    await _blockly.AddNewBlockToAreaAsync(c);
-                    _hover = true;
-                }).FireAndForget();
+                case false when c.Preview.Equals(""):
+                    BrowserBorder.Visibility = Visibility.Visible;
+                    TextBorder.Visibility = Visibility.Hidden;
+                    ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+                    {
+                        await _blockly.ClearAsync();
+                        await _blockly.AddNewBlockToAreaAsync(c);
+                        _hover = true;
+                    }).FireAndForget();
+                    break;
+
+                case false:
+                    BrowserBorder.Visibility = Visibility.Hidden;
+                    TextBorder.Visibility = Visibility.Visible;
+                    PreviewText.Text = c.Preview;
+                    break;
             }
+
             _currentCommand = c;
             UpdateCommands();
         }
 
         public void ClearCurrentCommand()
         {
+            PreviewText.Text = "";
             _hover = false;
             _currentCommand = null;
             ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.ClearAsync(); }).FireAndForget();

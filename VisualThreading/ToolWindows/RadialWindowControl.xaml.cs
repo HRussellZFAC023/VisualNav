@@ -94,6 +94,9 @@ namespace VisualThreading.ToolWindows
                     //message box
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
+                    MainGrid.MouseLeave += (_, _) =>  PreviewWindow.Instance.ClearCurrentCommand();
+                    MainGrid.MouseEnter += (_, _) =>  PreviewWindow.Instance.ClearCurrentCommand();
+
 
                     if (!_menu.ContainsKey(command.Parent))
                         _menu.Add(command.Parent, new List<RadialMenuItem>());
