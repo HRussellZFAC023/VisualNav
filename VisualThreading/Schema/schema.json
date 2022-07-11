@@ -544,7 +544,7 @@
       "text": "XAML",
       "MenuItems": [
         {
-          "name": "Bar",
+          "name": "Tool Bars",
           "parent": "Main",
           "submenu": [],
           "children": [
@@ -558,7 +558,7 @@
           "icon": "ApplicationBar"
         },
         {
-          "name": "Control",
+          "name": "Input",
           "parent": "Main",
           "submenu": [],
           "children": [
@@ -632,7 +632,7 @@
         },
         {
           "text": "Button",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<Button Name=\"btn\" Click=\"OnClick\" ClickMode=\"Release\">\n  Reset\n</Button>",
           "color": "",
           "type": "UI"
@@ -646,21 +646,21 @@
         },
         {
           "text": "CheckBox",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<CheckBox>Enable feature ABC</CheckBox>",
           "color": "",
           "type": "UI"
         },
         {
           "text": "ComboBox",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<ComboBox Name=\"comboBox1\"\n            ItemsSource=\"{StaticResource myVacations}\"\n            Text=\"My Cities\"\n            IsEditable=\"true\"\n            IsReadOnly=\"true\"/>",
           "color": "",
           "type": "UI"
         },
         {
           "text": "ContentControl",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
           "color": "",
           "type": "UI"
@@ -674,7 +674,7 @@
         },
         {
           "text": "DatePicker",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<DatePicker/>",
           "color": "",
           "type": "UI"
@@ -723,7 +723,7 @@
         },
         {
           "text": "GroupBox",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<GroupBox Header=\"GroupBox Sample\" Margin=\"10\" Padding=\"10\">\n    <StackPanel>\n    <TextBlock>First name:</TextBlock>\n    <TextBox />\n    <TextBlock>Last name:</TextBlock>\n    <TextBox />\n    <Button Margin=\"0,20\">Add User</Button>\n    </StackPanel>\n</GroupBox>",
           "color": "",
           "type": "UI"
@@ -744,7 +744,7 @@
         },
         {
           "text": "ListBox",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<ListBox>\n    <ListBoxItem>ListBox Item #1</ListBoxItem>\n    <ListBoxItem>ListBox Item #2</ListBoxItem>\n    <ListBoxItem>ListBox Item #3</ListBoxItem>\n</ListBox>",
           "color": "",
           "type": "UI"
@@ -765,21 +765,21 @@
         },
         {
           "text": "PasswordBox",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<PasswordBox x:Name=\"passwordBox\" Width=\"200\" MaxLength=\"16\"\n             PasswordChanged=\"passwordBox_PasswordChanged\"/>\n<TextBlock x:Name=\"statusText\" Margin=\"10\" HorizontalAlignment=\"Center\"/>",
           "color": "",
           "type": "UI"
         },
         {
           "text": "ProgressBar",
-          "parent": "Bar",
+          "parent": "Tool Bars",
           "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
           "color": "",
           "type": "UI"
         },
         {
           "text": "RadioButton",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<RadioButton>\n    content\n</RadioButton>",
           "color": "",
           "type": "UI"
@@ -793,14 +793,14 @@
         },
         {
           "text": "RichTextBox",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<Page xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n  xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">\n  <StackPanel>\n    <RichTextBox>\n      <FlowDocument>\n        <Paragraph>\n          This is flow content and you can <Bold>edit me!</Bold>\n        </Paragraph>\n      </FlowDocument>\n    </RichTextBox>\n  </StackPanel>\n</Page>\n",
           "color": "",
           "type": "UI"
         },
         {
           "text": "ScrollBar",
-          "parent": "Bar",
+          "parent": "Tool Bars",
           "preview": "<ScrollBar />",
           "color": "",
           "type": "UI"
@@ -821,7 +821,7 @@
         },
         {
           "text": "Slider",
-          "parent": "Control",
+          "parent": "Input",
           "preview": "<Slider Width=\"120\"/>",
           "color": "",
           "type": "UI"
@@ -835,7 +835,7 @@
         },
         {
           "text": "StatusBar",
-          "parent": "Bar",
+          "parent": "Tool Bars",
           "preview": "<StatusBar Name=\"sbar\"\n            VerticalAlignment=\"Bottom\" Background=\"Beige\" >\n  <StatusBarItem>\n    <TextBlock>Downloading File</TextBlock>\n  </StatusBarItem>\n</StatusBar>",
           "color": "",
           "type": "UI"
@@ -856,21 +856,21 @@
         },
         {
           "text": "ToolBar",
-          "parent": "Bar",
+          "parent": "Tool Bars",
           "preview": "<ToolBar Band=\"1\" BandIndex=\"1\">\n    <Button>\n      <Image Source=\"toolbargraphics\new.bmp\" />\n    </Button>\n</ToolBar>",
           "color": "",
           "type": "UI"
         },
         {
           "text": "ToolBarPanel",
-          "parent": "Bar",
+          "parent": "Tool Bars",
           "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
           "color": "",
           "type": "UI"
         },
         {
           "text": "ToolBarTray",
-          "parent": "Bar",
+          "parent": "Tool Bars",
           "preview": "<ToolBarTray Background=\\\"White\\\">\\n    <ToolBar Band=\\\"1\\\" BandIndex=\\\"1\\\">\\n      <Button>\\n        <Image Source=\\\"toolbargraphics\\cut.bmp\\\" />\\n      </Button>\\n    </ToolBar>\\n  </ToolBarTray>",
           "color": "",
           "type": "UI"

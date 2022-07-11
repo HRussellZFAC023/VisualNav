@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 namespace VisualThreading.Options
@@ -19,5 +20,11 @@ namespace VisualThreading.Options
         [Description("An informative description.")]
         [DefaultValue(true)]
         public bool MyOption { get; set; } = true;
+
+        [Category("My category")]
+        [DisplayName("Radial Size")]
+        [Description("The default size of radial menu")]
+        [DefaultValue("12,150,82.5,135,150,142.5")]
+        public String RadialSize { get; set; } = "12,150,82.5,135,150,142.5";
     }
 }
