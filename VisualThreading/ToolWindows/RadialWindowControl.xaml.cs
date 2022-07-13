@@ -27,6 +27,8 @@ namespace VisualThreading.ToolWindows
         private const string CreamBrulee = "#FFE4A1";
 
         // create a list of languages that require the "insertion" button
+        List<string> languagesRequiringInsertionBtn = new List<string>();
+
         public RadialWindowControl()
         {
             InitializeComponent();
@@ -37,11 +39,12 @@ namespace VisualThreading.ToolWindows
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PreviewWindow.Instance.ClearCurrentCommand();
-            // get the current language....
-            //if( List{LanguageMediator.GetCurrentActiveFileExtension()}
-            Insertion.Visibility = Visibility.Visible;
-            // else
-            Insertion.Visibility = Visibility.Hidden;
+            
+            // get the current language... Check if it is contained in the list.
+            if(languagesRequiringInsertionBtn.Contains(LanguageMediator.GetCurrentActiveFileExtension().ToString()))
+                Insertion.Visibility = Visibility.Visible;
+            else
+                Insertion.Visibility = Visibility.Hidden;
 
             RadialMenuGeneration();
         }
@@ -59,6 +62,7 @@ namespace VisualThreading.ToolWindows
                     if (l.AllowInsertionFromMenu)
                     {
                         // populate the empty list
+                        languagesRequiringInsertionBtn.Add(l.ToString());
                     }
                 }
 
