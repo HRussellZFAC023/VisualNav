@@ -138,8 +138,8 @@
           "parent": "Code",
           "submenu": [],
           "children": [
-            "procedures_defnoreturn",
-            "procedures_defreturn",
+            "procedures_callreturn",
+            "procedures_callnoreturn",
             "procedures_ifreturn"
           ],
           "icon": "TableFunction"
@@ -521,14 +521,14 @@
           "parent": "Functions",
           "preview": "",
           "color": "#FF6680",
-          "type": "procedures_defnoreturn"
+          "type": "procedures_callnoreturn"
         },
         {
           "text": "def return",
           "parent": "Functions",
           "preview": "",
           "color": "#FF6680",
-          "type": "procedures_defreturn"
+          "type": "procedures_callreturn"
         },
         {
           "text": "if return",
