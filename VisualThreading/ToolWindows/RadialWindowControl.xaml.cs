@@ -183,13 +183,22 @@ namespace VisualThreading.ToolWindows
             return image;
         }
 
-        private static void RadialDialElement_Click(Command element)
+        private void RadialDialElement_Click(Command element)
         {
             if (element.Type.Equals("UI"))
             {
                 ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
                 {
-                    await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
+                    if (Insertion.IsChecked != null && (bool)Insertion.IsChecked)
+                    {
+                        var docView = await VS.Documents.GetActiveDocumentViewAsync();
+                        if (docView?.TextView == null) return; //not a text window
+                        var position = docView.TextView.Caret.Position.BufferPosition;
+                        docView.TextBuffer?.Insert(position, element.Preview); // Inserts text at the caret
+                    }
+                    else { 
+                        await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
+                    }
                 }).FireAndForget();
                 Clipboard.SetText(element.Preview);
             }
