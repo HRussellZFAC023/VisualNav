@@ -64,6 +64,7 @@ namespace VisualThreading.ToolWindows
                     BrowserBorder.Visibility = Visibility.Hidden;
                     TextBorder.Visibility = Visibility.Visible;
                     PreviewText.Text = c.Preview;
+                    //Preview.Color = c.color
                     break;
             }
 
