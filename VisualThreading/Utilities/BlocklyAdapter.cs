@@ -79,6 +79,4 @@ public class BlocklyAdapter
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
     }
-
-   
 }

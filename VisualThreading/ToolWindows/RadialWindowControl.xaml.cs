@@ -27,7 +27,7 @@ namespace VisualThreading.ToolWindows
         private const string CreamBrulee = "#FFE4A1";
 
         // create a list of languages that require the "insertion" button
-        List<string> languagesRequiringInsertionBtn = new List<string>();
+        private readonly HashSet<string> _insertion = new(); // languages requiring insertion button
 
         public RadialWindowControl()
         {
@@ -39,13 +39,6 @@ namespace VisualThreading.ToolWindows
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PreviewWindow.Instance.ClearCurrentCommand();
-            
-            // get the current language... Check if it is contained in the list.
-            if(languagesRequiringInsertionBtn.Contains(LanguageMediator.GetCurrentActiveFileExtension().ToString()))
-                Insertion.Visibility = Visibility.Visible;
-            else
-                Insertion.Visibility = Visibility.Hidden;
-
             RadialMenuGeneration();
         }
 
@@ -59,13 +52,17 @@ namespace VisualThreading.ToolWindows
 
                 foreach (var l in _json.RadialMenu)
                 {
-                    if (l.AllowInsertionFromMenu)
+                    if (l.allow_insertion_from_menu)
                     {
-                        // populate the empty list
-                        languagesRequiringInsertionBtn.Add(l.ToString());
+                        // populate list
+                        _insertion.Add(l.FileExt);
                     }
                 }
 
+                // get the current language + Check if it is contained in the list.
+                InsertionPanel.Visibility =
+                    _insertion.Contains(LanguageMediator.GetCurrentActiveFileExtension()) ?
+                        Visibility.Visible : Visibility.Hidden;
                 var language = (from lang in _json.RadialMenu where lang.FileExt == LanguageMediator.GetCurrentActiveFileExtension() select lang).FirstOrDefault();
 
                 if (language == null)

@@ -41,7 +41,7 @@
 
         <StackPanel Margin="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Name="ProgressText">Main</TextBlock>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" x:Name="InsertionPanel">
                 <TextBlock>Insertion: &#160;</TextBlock>
                 <CheckBox  x:Name="Insertion" />
             </StackPanel>
