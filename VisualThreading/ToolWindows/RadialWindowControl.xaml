@@ -26,6 +26,7 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+
         <radialMenu:RadialMenu Grid.ColumnSpan="2" IsOpen="true" Name="MainMenu" Margin="0,30,0,0" Grid.RowSpan="2">
             <radialMenu:RadialMenu.CentralItem>
                 <radialMenu:RadialMenuCentralItem Name="Back" Visibility="Hidden">
@@ -38,7 +39,7 @@
             <radialMenu:RadialMenuItem />
             <radialMenu:RadialMenuItem />
         </radialMenu:RadialMenu>
-
+        
         <StackPanel Margin="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Name="ProgressText">Main</TextBlock>
             <StackPanel Orientation="Horizontal" x:Name="InsertionPanel">
