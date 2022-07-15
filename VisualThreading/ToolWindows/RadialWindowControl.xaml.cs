@@ -48,7 +48,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 _menu = new Dictionary<string, List<RadialMenuItem>>();
-                _state = new();
+                _state = new Stack<string>();
                 MainMenu.Items = new List<RadialMenuItem>();
                 _json ??= await Schema.Schema.LoadAsync();
 
@@ -115,9 +115,8 @@ namespace VisualThreading.ToolWindows
                     //message box
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
-                    MainGrid.MouseLeave += (_, _) =>  PreviewWindow.Instance.ClearCurrentCommand();
-                    MainGrid.MouseEnter += (_, _) =>  PreviewWindow.Instance.ClearCurrentCommand();
-
+                    MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
+                    MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 
                     if (!_menu.ContainsKey(command.Parent))
                         _menu.Add(command.Parent, new List<RadialMenuItem>());
@@ -163,19 +162,19 @@ namespace VisualThreading.ToolWindows
 
         private static RadialMenuItem MenuBlock(object stackPanel, string c1, string c2)
         {
-            String number = General1.Instance.RadialSize;
-            String[] size_of_radial = number.Split(',');
-            
+            var number = General1.Instance.RadialSize;
+            var sizeOfRadial = number.Split(',');
+
             return new RadialMenuItem
             {
                 Content = stackPanel,
                 // Changed according to current setting
-                FontSize = Convert.ToDouble(size_of_radial[0]),  //12,
-                OuterRadius = Convert.ToDouble(size_of_radial[1]),  //150,
-                ContentRadius = Convert.ToDouble(size_of_radial[2]),  //82.5,
-                EdgeInnerRadius = Convert.ToDouble(size_of_radial[3]),  // 135,
-                EdgeOuterRadius = Convert.ToDouble(size_of_radial[4]),  // 150,
-                ArrowRadius = Convert.ToDouble(size_of_radial[5]),  //142.5,
+                FontSize = Convert.ToDouble(sizeOfRadial[0]),  //12,
+                OuterRadius = Convert.ToDouble(sizeOfRadial[1]),  //150,
+                ContentRadius = Convert.ToDouble(sizeOfRadial[2]),  //82.5,
+                EdgeInnerRadius = Convert.ToDouble(sizeOfRadial[3]),  // 135,
+                EdgeOuterRadius = Convert.ToDouble(sizeOfRadial[4]),  // 150,
+                ArrowRadius = Convert.ToDouble(sizeOfRadial[5]),  //142.5,
                 // DO NOT CHANGE THESE VALUE!
                 Padding = 0,
                 InnerRadius = 10,
@@ -206,7 +205,6 @@ namespace VisualThreading.ToolWindows
             {
                 ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
                 {
-
                     if (Insertion.IsChecked != null && (bool)Insertion.IsChecked)
                     {
                         var docView = await VS.Documents.GetActiveDocumentViewAsync();
@@ -214,7 +212,8 @@ namespace VisualThreading.ToolWindows
                         var position = docView.TextView.Caret.Position.BufferPosition;
                         docView.TextBuffer?.Insert(position, element.Preview); // Inserts text at the caret
                     }
-                    else { 
+                    else
+                    {
                         await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
                     }
                 }).FireAndForget();
@@ -227,7 +226,7 @@ namespace VisualThreading.ToolWindows
 
         private void DecreaseSize(object sender, RoutedEventArgs e)
         {
-           // MessageBoxResult result = System.Windows.MessageBox.Show(ProgressText.FontSize+"");
+            // MessageBoxResult result = System.Windows.MessageBox.Show(ProgressText.FontSize+"");
             if (ProgressText.FontSize - 3 > 10)
             {
                 ProgressText.FontSize -= 3;
@@ -243,15 +242,15 @@ namespace VisualThreading.ToolWindows
                         element.ArrowRadius /= 1.2;
                     }
                 }
-                String num = General1.Instance.RadialSize;
-                String[] size_of_radial = num.Split(',');
-                size_of_radial[0] = (Convert.ToDouble(size_of_radial[0]) - 3).ToString();
-                size_of_radial[1] = (Convert.ToDouble(size_of_radial[1]) / 1.2).ToString();
-                size_of_radial[2] = (Convert.ToDouble(size_of_radial[2]) / 1.2).ToString();
-                size_of_radial[3] = (Convert.ToDouble(size_of_radial[3]) / 1.2).ToString();
-                size_of_radial[4] = (Convert.ToDouble(size_of_radial[4]) / 1.2).ToString();
-                size_of_radial[5] = (Convert.ToDouble(size_of_radial[5]) / 1.2).ToString();
-                General1.Instance.RadialSize = string.Join(",", size_of_radial);
+                var num = General1.Instance.RadialSize;
+                var sizeOfRadial = num.Split(',');
+                sizeOfRadial[0] = (Convert.ToDouble(sizeOfRadial[0]) - 3).ToString();
+                sizeOfRadial[1] = (Convert.ToDouble(sizeOfRadial[1]) / 1.2).ToString();
+                sizeOfRadial[2] = (Convert.ToDouble(sizeOfRadial[2]) / 1.2).ToString();
+                sizeOfRadial[3] = (Convert.ToDouble(sizeOfRadial[3]) / 1.2).ToString();
+                sizeOfRadial[4] = (Convert.ToDouble(sizeOfRadial[4]) / 1.2).ToString();
+                sizeOfRadial[5] = (Convert.ToDouble(sizeOfRadial[5]) / 1.2).ToString();
+                General1.Instance.RadialSize = string.Join(",", sizeOfRadial);
                 General1.Instance.Save();
             }
             else
@@ -294,15 +293,15 @@ namespace VisualThreading.ToolWindows
             {
                 ProgressText.FontSize += 3;
 
-                String num = General1.Instance.RadialSize;
-                String[] size_of_radial = num.Split(',');
-                size_of_radial[0] = (Convert.ToDouble(size_of_radial[0]) + 3).ToString();
-                size_of_radial[1] = (Convert.ToDouble(size_of_radial[1]) * 1.2).ToString();
-                size_of_radial[2] = (Convert.ToDouble(size_of_radial[2]) * 1.2).ToString();
-                size_of_radial[3] = (Convert.ToDouble(size_of_radial[3]) * 1.2).ToString();
-                size_of_radial[4] = (Convert.ToDouble(size_of_radial[4]) * 1.2).ToString();
-                size_of_radial[5] = (Convert.ToDouble(size_of_radial[5]) * 1.2).ToString();
-                General1.Instance.RadialSize = string.Join(",", size_of_radial);
+                var num = General1.Instance.RadialSize;
+                var sizeOfRadial = num.Split(',');
+                sizeOfRadial[0] = (Convert.ToDouble(sizeOfRadial[0]) + 3).ToString();
+                sizeOfRadial[1] = (Convert.ToDouble(sizeOfRadial[1]) * 1.2).ToString();
+                sizeOfRadial[2] = (Convert.ToDouble(sizeOfRadial[2]) * 1.2).ToString();
+                sizeOfRadial[3] = (Convert.ToDouble(sizeOfRadial[3]) * 1.2).ToString();
+                sizeOfRadial[4] = (Convert.ToDouble(sizeOfRadial[4]) * 1.2).ToString();
+                sizeOfRadial[5] = (Convert.ToDouble(sizeOfRadial[5]) * 1.2).ToString();
+                General1.Instance.RadialSize = string.Join(",", sizeOfRadial);
                 General1.Instance.Save();
             }
             else
