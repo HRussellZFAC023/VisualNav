@@ -168,11 +168,11 @@ namespace VisualThreading.ToolWindows
             };
         }
 
-        private static CrispImage BuildIcon(string i)
+        private static CrispImage BuildIcon(string i,int width = 25,int height = 25)
         {
             var propertyInfo = typeof(KnownMonikers).GetProperty(i);
             var icon = (ImageMoniker)propertyInfo?.GetValue(null, null)!;
-            var image = new CrispImage { Width = 25, Height = 25, Moniker = icon };
+            var image = new CrispImage { Width = width, Height = height, Moniker = icon };
             var binding = new Binding("Background")
             {
                 Converter = new BrushToColorConverter(),
