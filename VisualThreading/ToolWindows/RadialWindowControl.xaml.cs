@@ -16,8 +16,8 @@ namespace VisualThreading.ToolWindows
 {
     public partial class RadialWindowControl
     {
-        private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without
-        private readonly Stack<string> _state = new(); // Store the current state of the menu
+        private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without hierarchy
+        private Stack<string> _state = new(); // Store the current state of the menu
         private string _currentState = "";
         private string _progress = "";
         private Schema.Schema _json;
@@ -38,7 +38,7 @@ namespace VisualThreading.ToolWindows
 
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PreviewWindow.Instance.ClearCurrentCommand();
+            Focus();
             RadialMenuGeneration();
         }
 
@@ -47,6 +47,7 @@ namespace VisualThreading.ToolWindows
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
                 _menu = new Dictionary<string, List<RadialMenuItem>>();
+                _state = new();
                 MainMenu.Items = new List<RadialMenuItem>();
                 _json ??= await Schema.Schema.LoadAsync();
 
@@ -80,8 +81,6 @@ namespace VisualThreading.ToolWindows
                     Background = (SolidColorBrush)new BrushConverter().ConvertFrom(WhiteIce)
                 };
                 MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
-                MainMenu.CentralItem.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
-                MainMenu.CentralItem.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 
                 foreach (var menuItem in language.MenuItems) // menu
                 {
@@ -109,6 +108,7 @@ namespace VisualThreading.ToolWindows
                 {
                     var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, Varden, CreamBrulee);
                     menuBlock.Click += (_, _) => RadialDialElement_Click(command);  //Handler of the command
+                    //message box
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 
@@ -126,7 +126,7 @@ namespace VisualThreading.ToolWindows
 
                     var page1 = _menu[parent].GetRange(0, _menu[parent].Count / 2);
                     var page1Next = MenuBlock(BuildIcon("BrowseNext"), Varden, CreamBrulee);
-                    page1Next.Click += (_, _) => RadialDialControl_Click(parent + "-Page2", true);
+                    page1Next.Click += (_, _) => RadialDialControl_Click(parent + "\x00A0 [Page 2]", true);
                     page1.Add(page1Next);
 
                     var page2 = _menu[parent].GetRange(_menu[parent].Count / 2, _menu[parent].Count / 2);
@@ -135,7 +135,7 @@ namespace VisualThreading.ToolWindows
                     page2.Add(page2Prev);
 
                     tempMenu.Add(parent, page1);
-                    tempMenu.Add(parent + "-Page2", page2);
+                    tempMenu.Add(parent + "\x00A0 [Page 2]", page2);
                 }
 
                 foreach (var key in tempMenu.Keys)

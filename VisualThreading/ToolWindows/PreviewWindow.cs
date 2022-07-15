@@ -8,7 +8,7 @@ namespace VisualThreading.ToolWindows
 {
     public class PreviewWindow : BaseToolWindow<PreviewWindow>
     {
-        public static PreviewWindowControl Instance;
+        public static readonly PreviewWindowControl Instance = new();
 
         public override string GetTitle(int toolWindowId) => "Preview Command";
 
@@ -16,7 +16,6 @@ namespace VisualThreading.ToolWindows
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
         {
-            Instance = new PreviewWindowControl();
             return Task.FromResult<FrameworkElement>(Instance);
         }
 
