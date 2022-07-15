@@ -66,6 +66,8 @@ namespace VisualThreading.ToolWindows
                 };
                 MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
 
+                // MessageBoxResult result = System.Windows.MessageBox.Show(MainMenu.CentralItem.Width + ""); 
+
                 foreach (var menuItem in language.MenuItems) // menu
                 {
                     var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
@@ -90,6 +92,9 @@ namespace VisualThreading.ToolWindows
                 String[] size_of_radial = num.Split(',');
                 ProgressText.FontSize = Convert.ToDouble(size_of_radial[0]);
                 MainMenu.Items = _menu["Main"];
+
+                MainMenu.CentralItem.Height = Convert.ToDouble(size_of_radial[6]);
+                MainMenu.CentralItem.Width = Convert.ToDouble(size_of_radial[6]);
 
                 foreach (var command in language.Commands) // commands
                 {
@@ -210,7 +215,6 @@ namespace VisualThreading.ToolWindows
 
         private void DecreaseSize(object sender, RoutedEventArgs e)
         {
-           // MessageBoxResult result = System.Windows.MessageBox.Show(ProgressText.FontSize+"");
             if (ProgressText.FontSize - 3 > 10)
             {
                 ProgressText.FontSize -= 3;
@@ -226,6 +230,10 @@ namespace VisualThreading.ToolWindows
                         element.ArrowRadius /= 1.2;
                     }
                 }
+
+                MainMenu.CentralItem.Height /= 1.2;
+                MainMenu.CentralItem.Width /= 1.2;
+
                 String num = General1.Instance.RadialSize;
                 String[] size_of_radial = num.Split(',');
                 size_of_radial[0] = (Convert.ToDouble(size_of_radial[0]) - 3).ToString();
@@ -234,6 +242,7 @@ namespace VisualThreading.ToolWindows
                 size_of_radial[3] = (Convert.ToDouble(size_of_radial[3]) / 1.2).ToString();
                 size_of_radial[4] = (Convert.ToDouble(size_of_radial[4]) / 1.2).ToString();
                 size_of_radial[5] = (Convert.ToDouble(size_of_radial[5]) / 1.2).ToString();
+                size_of_radial[6] = (Convert.ToDouble(size_of_radial[6]) / 1.2).ToString();
                 General1.Instance.RadialSize = string.Join(",", size_of_radial);
                 General1.Instance.Save();
             }
@@ -273,8 +282,12 @@ namespace VisualThreading.ToolWindows
                     }
                 }
             }
+            
             if (!limitReached)
             {
+                MainMenu.CentralItem.Height *= 1.2;
+                MainMenu.CentralItem.Width *= 1.2;
+
                 ProgressText.FontSize += 3;
 
                 String num = General1.Instance.RadialSize;
