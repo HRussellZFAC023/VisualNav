@@ -24,8 +24,9 @@ namespace VisualThreading.Options
         [Category("My category")]
         [DisplayName("Radial Size")]
         [Description("The default size of radial menu")]
-        [DefaultValue("12,150,82.5,135,150,142.5,60.0")]
-        public String RadialSize { get; set; } = "12,150,82.5,135,150,142.5,60.0";
+        [DefaultValue("12,150,82.5,135,150,142.5,60.0,25")] 
+        // 60 is the size of back, 25 is the size of icon 
+        public String RadialSize { get; set; } = "12,150,82.5,135,150,142.5,60.0,25";
 
         [Category("Child Mode")]
         [DisplayName("My Option")]

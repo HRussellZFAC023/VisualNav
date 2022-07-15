@@ -103,8 +103,8 @@ namespace VisualThreading.ToolWindows
                     //message box
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
-                    MainGrid.MouseLeave += (_, _) =>  PreviewWindow.Instance.ClearCurrentCommand();
-                    MainGrid.MouseEnter += (_, _) =>  PreviewWindow.Instance.ClearCurrentCommand();
+                    MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
+                    MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 
 
                     if (!_menu.ContainsKey(command.Parent))
@@ -153,7 +153,7 @@ namespace VisualThreading.ToolWindows
         {
             String number = General1.Instance.RadialSize;
             String[] size_of_radial = number.Split(',');
-            
+
             return new RadialMenuItem
             {
                 Content = stackPanel,
@@ -173,16 +173,29 @@ namespace VisualThreading.ToolWindows
             };
         }
 
-        private static CrispImage BuildIcon(string i,int width = 25,int height = 25)
+        private static CrispImage BuildIcon(string i, int width = 25, int height = 25)
         {
             var propertyInfo = typeof(KnownMonikers).GetProperty(i);
             var icon = (ImageMoniker)propertyInfo?.GetValue(null, null)!;
             var image = new CrispImage { Width = width, Height = height, Moniker = icon };
+
             var binding = new Binding("Background")
             {
                 Converter = new BrushToColorConverter(),
                 RelativeSource =
                     new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RadialWindow), 2)
+            };
+            image.SetBinding(ImageThemingUtilities.ImageBackgroundColorProperty, binding);
+            return image;
+        }
+
+        private static CrispImage ResizeIcon(ImageMoniker i, int width = 25, int height = 25)
+        {
+            var image = new CrispImage { Width = width, Height = height, Moniker = i };
+            var binding = new Binding("Background")
+            {
+                Converter = new BrushToColorConverter(),
+                RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(RadialWindow), 2)
             };
             image.SetBinding(ImageThemingUtilities.ImageBackgroundColorProperty, binding);
             return image;
@@ -201,7 +214,8 @@ namespace VisualThreading.ToolWindows
                         var position = docView.TextView.Caret.Position.BufferPosition;
                         docView.TextBuffer?.Insert(position, element.Preview); // Inserts text at the caret
                     }
-                    else { 
+                    else
+                    {
                         await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
                     }
                 }).FireAndForget();
@@ -217,11 +231,44 @@ namespace VisualThreading.ToolWindows
         {
             if (ProgressText.FontSize - 3 > 10)
             {
+                String num = General1.Instance.RadialSize;
+                String[] size_of_radial = num.Split(',');
                 ProgressText.FontSize -= 3;
                 foreach (var entry in _menu)
                 {
                     foreach (var element in entry.Value)
                     {
+                        if (element.Content.GetType().IsInstanceOfType(new CrispImage()))
+                        {
+                            var icon = (CrispImage)element.Content;
+                            element.Content = null;
+                            element.Content = ResizeIcon(icon.Moniker, (int)Math.Round(Convert.ToDouble(size_of_radial[7]) / 1.2), (int)Math.Round(Convert.ToDouble(size_of_radial[7]) / 1.2));
+                        }
+                        else if (element.Content.GetType().IsInstanceOfType(new StackPanel()))
+                        {
+                            var StackPanelContent = (StackPanel)element.Content;
+                            StackPanel temp = new StackPanel();
+                            foreach (FrameworkElement sub in StackPanelContent.Children)
+                            {
+                                if (sub.GetType().IsInstanceOfType(new CrispImage()))
+                                {
+                                    var icon = (CrispImage)sub;
+                                    var enlargedIcon = ResizeIcon(icon.Moniker, (int)Math.Round(Convert.ToDouble(size_of_radial[7]) / 1.2), (int)Math.Round(Convert.ToDouble(size_of_radial[7]) / 1.2));
+                                    temp.Children.Add(enlargedIcon);
+                                }
+                                if (sub.GetType().IsInstanceOfType(new TextBlock()))
+                                {
+                                    TextBlock original = (TextBlock)sub;
+                                    String textval = original.Text;
+                                    TextBlock newTextBlock = new TextBlock { Text = textval };
+                                    temp.Children.Add(newTextBlock);
+                                }
+
+                            }
+                            element.Content = null;
+                            element.Content = temp;
+                        }
+
                         element.FontSize -= 3;
                         element.OuterRadius /= 1.2;
                         element.ContentRadius /= 1.2;
@@ -234,8 +281,13 @@ namespace VisualThreading.ToolWindows
                 MainMenu.CentralItem.Height /= 1.2;
                 MainMenu.CentralItem.Width /= 1.2;
 
-                String num = General1.Instance.RadialSize;
-                String[] size_of_radial = num.Split(',');
+                if (MainMenu.CentralItem.Content.GetType().IsInstanceOfType(new CrispImage()))
+                {
+                    var icon = (CrispImage)MainMenu.CentralItem.Content;
+                    MainMenu.CentralItem.Content = null;
+                    MainMenu.CentralItem.Content = ResizeIcon(icon.Moniker, (int)Math.Round(Convert.ToDouble(size_of_radial[7]) / 1.2), (int)Math.Round(Convert.ToDouble(size_of_radial[7]) / 1.2));
+                }
+
                 size_of_radial[0] = (Convert.ToDouble(size_of_radial[0]) - 3).ToString();
                 size_of_radial[1] = (Convert.ToDouble(size_of_radial[1]) / 1.2).ToString();
                 size_of_radial[2] = (Convert.ToDouble(size_of_radial[2]) / 1.2).ToString();
@@ -243,6 +295,7 @@ namespace VisualThreading.ToolWindows
                 size_of_radial[4] = (Convert.ToDouble(size_of_radial[4]) / 1.2).ToString();
                 size_of_radial[5] = (Convert.ToDouble(size_of_radial[5]) / 1.2).ToString();
                 size_of_radial[6] = (Convert.ToDouble(size_of_radial[6]) / 1.2).ToString();
+                size_of_radial[7] = (Convert.ToDouble(size_of_radial[7]) / 1.2).ToString();
                 General1.Instance.RadialSize = string.Join(",", size_of_radial);
                 General1.Instance.Save();
             }
@@ -261,6 +314,8 @@ namespace VisualThreading.ToolWindows
             var width = RenderSize.Width;
             var height = RenderSize.Height;
             var limitReached = false;
+            String num = General1.Instance.RadialSize;
+            String[] size_of_radial = num.Split(',');
 
             foreach (var entry in _menu)
             {
@@ -268,6 +323,37 @@ namespace VisualThreading.ToolWindows
                 {
                     if (element.OuterRadius * 1.2 < width / 2 && element.OuterRadius * 1.2 < height / 2)
                     {
+                        if (element.Content.GetType().IsInstanceOfType(new CrispImage()))
+                        {
+                            var icon = (CrispImage)element.Content;
+                            element.Content = null;
+                            element.Content = ResizeIcon(icon.Moniker, (int)Math.Round(Convert.ToDouble(size_of_radial[7]) * 1.2), (int)Math.Round(Convert.ToDouble(size_of_radial[7]) * 1.2));
+                        }
+                        else if (element.Content.GetType().IsInstanceOfType(new StackPanel()))
+                        {
+                            var StackPanelContent = (StackPanel)element.Content;
+                            StackPanel temp = new StackPanel();
+                            foreach (FrameworkElement sub in StackPanelContent.Children)
+                            {
+                                if (sub.GetType().IsInstanceOfType(new CrispImage()))
+                                {
+                                    var icon = (CrispImage)sub;
+                                    var enlargedIcon = ResizeIcon(icon.Moniker, (int)Math.Round(Convert.ToDouble(size_of_radial[7]) * 1.2), (int)Math.Round(Convert.ToDouble(size_of_radial[7]) * 1.2));
+                                    temp.Children.Add(enlargedIcon);
+                                }
+                                if (sub.GetType().IsInstanceOfType(new TextBlock()))
+                                {
+                                    TextBlock original = (TextBlock)sub;
+                                    String textval = original.Text;
+                                    TextBlock newTextBlock = new TextBlock { Text = textval };
+                                    temp.Children.Add(newTextBlock);
+                                }
+
+                            }
+                            element.Content = null;
+                            element.Content = temp;
+                        }
+
                         element.FontSize += 3;
                         element.OuterRadius *= 1.2;
                         element.ContentRadius *= 1.2;
@@ -282,22 +368,32 @@ namespace VisualThreading.ToolWindows
                     }
                 }
             }
-            
+
             if (!limitReached)
             {
+
+
                 MainMenu.CentralItem.Height *= 1.2;
                 MainMenu.CentralItem.Width *= 1.2;
 
+                if (MainMenu.CentralItem.Content.GetType().IsInstanceOfType(new CrispImage()))
+                {
+                    var icon = (CrispImage)MainMenu.CentralItem.Content;
+                    MainMenu.CentralItem.Content = null;
+                    MainMenu.CentralItem.Content = ResizeIcon(icon.Moniker, (int)Math.Round(Convert.ToDouble(size_of_radial[7]) * 1.2), (int)Math.Round(Convert.ToDouble(size_of_radial[7]) * 1.2));
+                }
+
+
                 ProgressText.FontSize += 3;
 
-                String num = General1.Instance.RadialSize;
-                String[] size_of_radial = num.Split(',');
                 size_of_radial[0] = (Convert.ToDouble(size_of_radial[0]) + 3).ToString();
                 size_of_radial[1] = (Convert.ToDouble(size_of_radial[1]) * 1.2).ToString();
                 size_of_radial[2] = (Convert.ToDouble(size_of_radial[2]) * 1.2).ToString();
                 size_of_radial[3] = (Convert.ToDouble(size_of_radial[3]) * 1.2).ToString();
                 size_of_radial[4] = (Convert.ToDouble(size_of_radial[4]) * 1.2).ToString();
                 size_of_radial[5] = (Convert.ToDouble(size_of_radial[5]) * 1.2).ToString();
+                size_of_radial[6] = (Convert.ToDouble(size_of_radial[6]) * 1.2).ToString();
+                size_of_radial[7] = (Convert.ToDouble(size_of_radial[7]) * 1.2).ToString();
                 General1.Instance.RadialSize = string.Join(",", size_of_radial);
                 General1.Instance.Save();
             }
