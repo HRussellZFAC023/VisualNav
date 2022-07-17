@@ -279,13 +279,15 @@ public partial class RadialWindowControl
             window.Width = (int)SystemParameters.PrimaryScreenWidth;
             window.Height = (int)SystemParameters.PrimaryScreenHeight;
 
+            window.Left = 0;
+            window.Top = 0;
+
             // manually set the size to fullscreen only. I am not sure how to get the x,y co-ordinates correct
             // todo: have this in the correct position @Jianxuan can you help?
             // Is there a better way to get things fullscreen?
             //@see https://docs.microsoft.com/en-us/dotnet/api/?view=visualstudiosdk-2022
             // it must be possible as there is this extension:
             // https://marketplace.visualstudio.com/items?itemName=VisualStudioPlatformTeam.Double-ClickMaximize2022
-
         }).FireAndForget();
     }
 
