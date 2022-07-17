@@ -159,13 +159,18 @@ namespace VisualThreading.ToolWindows
         private RadialMenuItem MenuBlock(object contentPanel, string c1, string c2)
         {
             var radius = Math.Min(RenderSize.Width * 0.45, RenderSize.Height * 0.45); //150
+            var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * radius / 150), 9), 32);
+
+            ProgressText.FontSize = fontSize;
+            Insertion.Height = fontSize;
+            InsertionLabel.FontSize = fontSize;
 
             return new RadialMenuItem
             {
                 Content = contentPanel,
                 // Changed according to current setting
 
-                FontSize = Math.Min(Math.Max(Math.Ceiling(12 * radius / 150), 9), 32),  //12,
+                FontSize = fontSize,  //12,
                 OuterRadius = radius,  //150 ,
                 ContentRadius = radius * 0.55,  //82.5,
                 EdgeInnerRadius = radius * 0.9,  // 135,
