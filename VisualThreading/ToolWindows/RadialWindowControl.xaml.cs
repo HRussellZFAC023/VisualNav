@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using VisualThreading.Options;
 using VisualThreading.Schema;
 using VisualThreading.Utilities;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
@@ -35,6 +34,7 @@ namespace VisualThreading.ToolWindows
             InitializeComponent();
             RadialMenuGeneration();
             VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged;
+            SizeChanged += (_, _) => RadialMenuGeneration(); // Dynamic resize
         }
 
         private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -69,7 +69,7 @@ namespace VisualThreading.ToolWindows
 
                 if (language == null)
                 {
-                    ProgressText.Text = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml";
+                    ProgressText.Text = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml!";
                     MainMenu.CentralItem = null;
                     return;
                 }
@@ -103,20 +103,16 @@ namespace VisualThreading.ToolWindows
                 }
 
                 ProgressText.Text = "Main";
-                String num = General1.Instance.RadialSize;
-                String[] size_of_radial = num.Split(',');
-                ProgressText.FontSize = Convert.ToDouble(size_of_radial[0]);
                 MainMenu.Items = _menu["Main"];
+                MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
+                MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 
                 foreach (var command in language.Commands) // commands
                 {
                     var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, Varden, CreamBrulee);
                     menuBlock.Click += (_, _) => RadialDialElement_Click(command);  //Handler of the command
-                    //message box
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
-                    MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
-                    MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 
                     if (!_menu.ContainsKey(command.Parent))
                         _menu.Add(command.Parent, new List<RadialMenuItem>());
@@ -160,21 +156,22 @@ namespace VisualThreading.ToolWindows
             ).FireAndForget();
         }
 
-        private static RadialMenuItem MenuBlock(object stackPanel, string c1, string c2)
+        private RadialMenuItem MenuBlock(object contentPanel, string c1, string c2)
         {
-            var number = General1.Instance.RadialSize;
-            var sizeOfRadial = number.Split(',');
+            var radius = Math.Min(RenderSize.Width * 0.45, RenderSize.Height * 0.45); //150
 
             return new RadialMenuItem
             {
-                Content = stackPanel,
+                Content = contentPanel,
                 // Changed according to current setting
-                FontSize = Convert.ToDouble(sizeOfRadial[0]),  //12,
-                OuterRadius = Convert.ToDouble(sizeOfRadial[1]),  //150,
-                ContentRadius = Convert.ToDouble(sizeOfRadial[2]),  //82.5,
-                EdgeInnerRadius = Convert.ToDouble(sizeOfRadial[3]),  // 135,
-                EdgeOuterRadius = Convert.ToDouble(sizeOfRadial[4]),  // 150,
-                ArrowRadius = Convert.ToDouble(sizeOfRadial[5]),  //142.5,
+
+                FontSize = Math.Min(Math.Max(Math.Ceiling(12 * radius / 150), 9), 32),  //12,
+                OuterRadius = radius,  //150 ,
+                ContentRadius = radius * 0.55,  //82.5,
+                EdgeInnerRadius = radius * 0.9,  // 135,
+                EdgeOuterRadius = radius,  // 150,
+                ArrowRadius = 0.95 * radius,  //142.5,
+
                 // DO NOT CHANGE THESE VALUE!
                 Padding = 0,
                 InnerRadius = 10,
@@ -184,6 +181,9 @@ namespace VisualThreading.ToolWindows
             };
         }
 
+        /// <summary>
+        /// returns a 25:25 icon given a known moniker (icon) name.
+        /// </summary>
         private static CrispImage BuildIcon(string i)
         {
             var propertyInfo = typeof(KnownMonikers).GetProperty(i);
@@ -226,91 +226,16 @@ namespace VisualThreading.ToolWindows
 
         private void DecreaseSize(object sender, RoutedEventArgs e)
         {
-            // MessageBoxResult result = System.Windows.MessageBox.Show(ProgressText.FontSize+"");
-            if (ProgressText.FontSize - 3 > 10)
-            {
-                ProgressText.FontSize -= 3;
-                foreach (var entry in _menu)
-                {
-                    foreach (var element in entry.Value)
-                    {
-                        element.FontSize -= 3;
-                        element.OuterRadius /= 1.2;
-                        element.ContentRadius /= 1.2;
-                        element.EdgeInnerRadius /= 1.2;
-                        element.EdgeOuterRadius /= 1.2;
-                        element.ArrowRadius /= 1.2;
-                    }
-                }
-                var num = General1.Instance.RadialSize;
-                var sizeOfRadial = num.Split(',');
-                sizeOfRadial[0] = (Convert.ToDouble(sizeOfRadial[0]) - 3).ToString();
-                sizeOfRadial[1] = (Convert.ToDouble(sizeOfRadial[1]) / 1.2).ToString();
-                sizeOfRadial[2] = (Convert.ToDouble(sizeOfRadial[2]) / 1.2).ToString();
-                sizeOfRadial[3] = (Convert.ToDouble(sizeOfRadial[3]) / 1.2).ToString();
-                sizeOfRadial[4] = (Convert.ToDouble(sizeOfRadial[4]) / 1.2).ToString();
-                sizeOfRadial[5] = (Convert.ToDouble(sizeOfRadial[5]) / 1.2).ToString();
-                General1.Instance.RadialSize = string.Join(",", sizeOfRadial);
-                General1.Instance.Save();
-            }
-            else
-            {
-                ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-                {
-                    await VS.MessageBox.ShowAsync("Radial Menu", "Too Small.");
-                }
-                   ).FireAndForget();
-            }
+            //Settings.Instance.RadialSize -= 0.1;
+            //Settings.Instance.Save();
+            RadialMenuGeneration();
         }
 
         private void IncreaseSize(object sender, RoutedEventArgs e)
         {
-            var width = RenderSize.Width;
-            var height = RenderSize.Height;
-            var limitReached = false;
-
-            foreach (var entry in _menu)
-            {
-                foreach (var element in entry.Value)
-                {
-                    if (element.OuterRadius * 1.2 < width / 2 && element.OuterRadius * 1.2 < height / 2)
-                    {
-                        element.FontSize += 3;
-                        element.OuterRadius *= 1.2;
-                        element.ContentRadius *= 1.2;
-                        element.EdgeInnerRadius *= 1.2;
-                        element.EdgeOuterRadius *= 1.2;
-                        element.ArrowRadius *= 1.2;
-                    }
-                    else
-                    {
-                        limitReached = true;
-                        break;
-                    }
-                }
-            }
-            if (!limitReached)
-            {
-                ProgressText.FontSize += 3;
-
-                var num = General1.Instance.RadialSize;
-                var sizeOfRadial = num.Split(',');
-                sizeOfRadial[0] = (Convert.ToDouble(sizeOfRadial[0]) + 3).ToString();
-                sizeOfRadial[1] = (Convert.ToDouble(sizeOfRadial[1]) * 1.2).ToString();
-                sizeOfRadial[2] = (Convert.ToDouble(sizeOfRadial[2]) * 1.2).ToString();
-                sizeOfRadial[3] = (Convert.ToDouble(sizeOfRadial[3]) * 1.2).ToString();
-                sizeOfRadial[4] = (Convert.ToDouble(sizeOfRadial[4]) * 1.2).ToString();
-                sizeOfRadial[5] = (Convert.ToDouble(sizeOfRadial[5]) * 1.2).ToString();
-                General1.Instance.RadialSize = string.Join(",", sizeOfRadial);
-                General1.Instance.Save();
-            }
-            else
-            {
-                ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-                {
-                    await VS.MessageBox.ShowAsync("Radial Menu", "Too Large, increase the windows size and try again.");
-                }).FireAndForget();
-            }
+            //Settings.Instance.RadialSize += 0.1;
+            //Settings.Instance.Save();
+            RadialMenuGeneration();
         }
 
         private void RadialDialControl_Click(string subMenu, bool pageTuring)

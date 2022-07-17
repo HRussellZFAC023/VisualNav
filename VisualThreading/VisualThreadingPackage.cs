@@ -14,7 +14,7 @@ namespace VisualThreading
     [InstalledProductRegistration(Vsix.Name, Vsix.Description, Vsix.Version)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuids.VisualThreadingString)]
-    [ProvideOptionPage(typeof(OptionsProvider.General1Options), "Visual Threading", "General1", 0, 0, true, SupportsProfiles = true)]
+    [ProvideOptionPage(typeof(OptionsProvider.General1Options), "Visual Threading", "Settings", 0, 0, true, SupportsProfiles = true)]
     [ProvideToolWindow(typeof(BuildingWindow.Pane), Style = VsDockStyle.Tabbed, Window = WindowGuids.SolutionExplorer)]
     [ProvideToolWindow(typeof(RadialWindow.Pane), Style = VsDockStyle.Tabbed, Window = WindowGuids.Toolbox)]
     [ProvideToolWindow(typeof(PreviewWindow.Pane), Style = VsDockStyle.Tabbed, Window = WindowGuids.Properties)]
