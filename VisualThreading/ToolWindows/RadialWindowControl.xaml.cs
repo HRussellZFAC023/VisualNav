@@ -290,7 +290,7 @@ public partial class RadialWindowControl
             // Is there a better way to get things fullscreen?
             //@see https://docs.microsoft.com/en-us/dotnet/api/?view=visualstudiosdk-2022
             // it must be possible as there is this extension:
-            // https://marketplace.visualstudio.com/items?itemName=VisualStudioPlatformTeam.Double-ClickMaximize&ssr=false#overview
+            // https://marketplace.visualstudio.com/items?itemName=VisualStudioPlatformTeam.Double-ClickMaximize2022
 
             //current size
             frame.GetFramePos(new[] { VSSETFRAMEPOS.SFP_fSize }, out var pguidRelativeTo, out var px,
