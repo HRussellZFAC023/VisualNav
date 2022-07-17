@@ -6,9 +6,9 @@ namespace VisualThreading.Options
     internal class OptionsProvider
     {
         // Register the options with this attribute on your package class:
-        // [ProvideOptionPage(typeof(OptionsProvider.General1Options), "VisualThreading", "Settings", 0, 0, true, SupportsProfiles = true)]
+        // [ProvideOptionPage(typeof(OptionsProvider.Options), "VisualThreading", "Settings", 0, 0, true, SupportsProfiles = true)]
         [ComVisible(true)]
-        public class General1Options : BaseOptionPage<Settings>
+        public class Options : BaseOptionPage<Settings>
         { }
     }
 
