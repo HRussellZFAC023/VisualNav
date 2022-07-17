@@ -72,7 +72,7 @@ public partial class RadialWindowControl
                 if (language == null)
                 {
                     ProgressText.Text =
-                        "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml";
+                        "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml!";
                     MainMenu.CentralItem = null;
                     return;
                 }
@@ -225,16 +225,12 @@ public partial class RadialWindowControl
 
     private void DecreaseSize(object sender, RoutedEventArgs e)
     {
-        //Settings.Instance.RadialSize -= 0.1; //@jianxuan originally I changed the settings to a single scale int, but then decided to just make it dynamic
-        //Settings.Instance.Save();
         DockToEditor();
         RadialMenuGeneration();
     }
 
     private void IncreaseSize(object sender, RoutedEventArgs e)
     {
-        //Settings.Instance.RadialSize += 0.1;
-        //Settings.Instance.Save();
         MakeFullscreen();
         RadialMenuGeneration();
     }
@@ -275,15 +271,13 @@ public partial class RadialWindowControl
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            // Get the current tool window frame mode.
             IVsWindowFrame frame = await VS.Windows.FindWindowAsync(PackageGuids.RadialMenu);
             if (frame == null) return;
 
-            frame.GetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, out var currentFrameMode);
-
-            // If currently docked switch to floating mode.
-            if ((VSFRAMEMODE)currentFrameMode == VSFRAMEMODE.VSFM_Dock)
-                frame.SetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, VSFRAMEMODE.VSFM_Float);
+            var window = VsShellUtilities.GetWindowObject(frame);
+            window.IsFloating = true;
+            window.Width = (int)SystemParameters.PrimaryScreenWidth;
+            window.Height = (int)SystemParameters.PrimaryScreenHeight;
 
             // manually set the size to fullscreen only. I am not sure how to get the x,y co-ordinates correct
             // todo: have this in the correct position @Jianxuan can you help?
@@ -291,17 +285,6 @@ public partial class RadialWindowControl
             //@see https://docs.microsoft.com/en-us/dotnet/api/?view=visualstudiosdk-2022
             // it must be possible as there is this extension:
             // https://marketplace.visualstudio.com/items?itemName=VisualStudioPlatformTeam.Double-ClickMaximize2022
-
-            //current size
-            frame.GetFramePos(new[] { VSSETFRAMEPOS.SFP_fSize }, out var pguidRelativeTo, out var px,
-                out var py,
-                out var pcx,
-                out var pcy);
-            // new size
-            var maxWidth = (int)SystemParameters.PrimaryScreenWidth;
-            var maxHeight = (int)SystemParameters.PrimaryScreenHeight;
-            frame.SetFramePos(VSSETFRAMEPOS.SFP_fSize, pguidRelativeTo, 0, 0, maxWidth,
-                maxHeight);
 
         }).FireAndForget();
     }
@@ -311,15 +294,10 @@ public partial class RadialWindowControl
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-            // Get the current tool window frame mode.
             IVsWindowFrame frame = await VS.Windows.FindWindowAsync(PackageGuids.RadialMenu);
             if (frame == null) return;
-            frame.GetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, out var currentFrameMode);
-
-            // If currently floating switch to docked mode.
-            if ((VSFRAMEMODE)currentFrameMode == VSFRAMEMODE.VSFM_Float)
-                frame.SetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, VSFRAMEMODE.VSFM_Dock);
+            var window = VsShellUtilities.GetWindowObject(frame);
+            window.IsFloating = false;
         }).FireAndForget();
     }
 }
