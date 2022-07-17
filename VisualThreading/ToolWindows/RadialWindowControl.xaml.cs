@@ -110,7 +110,7 @@ public partial class RadialWindowControl
                 MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
                 MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 
-                var radius = Math.Min(RenderSize.Width * 0.45, RenderSize.Height * 0.45);
+                var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4);
                 var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * radius / 150), 9), 32);
                 ProgressText.FontSize = fontSize;
                 Insertion.Height = fontSize;
@@ -160,7 +160,7 @@ public partial class RadialWindowControl
 
     private RadialMenuItem MenuBlock(object contentPanel, string c1, string c2)
     {
-        var radius = Math.Min(RenderSize.Width * 0.45, RenderSize.Height * 0.45); //150
+        var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); //150
         var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * radius / 150), 9), 32);
 
         return new RadialMenuItem
@@ -278,16 +278,9 @@ public partial class RadialWindowControl
             window.IsFloating = true;
             window.Width = (int)SystemParameters.PrimaryScreenWidth;
             window.Height = (int)SystemParameters.PrimaryScreenHeight;
-
             window.Left = 0;
             window.Top = 0;
-
-            // manually set the size to fullscreen only. I am not sure how to get the x,y co-ordinates correct
-            // todo: have this in the correct position @Jianxuan can you help?
-            // Is there a better way to get things fullscreen?
-            //@see https://docs.microsoft.com/en-us/dotnet/api/?view=visualstudiosdk-2022
-            // it must be possible as there is this extension:
-            // https://marketplace.visualstudio.com/items?itemName=VisualStudioPlatformTeam.Double-ClickMaximize2022
+            window.WindowState = EnvDTE.vsWindowState.vsWindowStateMaximize; //this line doesnt seem to do anything
         }).FireAndForget();
     }
 
