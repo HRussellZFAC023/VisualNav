@@ -19,7 +19,7 @@ namespace VisualThreading.ToolWindows
             return Task.FromResult<FrameworkElement>(Instance);
         }
 
-        [Guid("6a0155f8-b16a-4fba-90bb-8c9fab68de1b")]
+        [Guid(PackageGuids.BuildingWindowString)]
         internal class Pane : ToolWindowPane
         {
             public Pane()

@@ -17,7 +17,7 @@ namespace VisualThreading.ToolWindows
             return Task.FromResult<FrameworkElement>(new RadialWindowControl());
         }
 
-        [Guid("0ea6b182-db3a-4f77-abf4-492c7b31036b")]
+        [Guid(PackageGuids.RadialWindowString)]
         internal class Pane : ToolWindowPane
         {
             public Pane()
