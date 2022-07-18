@@ -1,4 +1,4 @@
-﻿using CefSharp;
+using CefSharp;
 using System.Windows;
 using VisualThreading.Schema;
 using VisualThreading.Utilities;
@@ -64,6 +64,7 @@ namespace VisualThreading.ToolWindows
                     BrowserBorder.Visibility = Visibility.Hidden;
                     TextBorder.Visibility = Visibility.Visible;
                     PreviewText.Text = c.Preview;
+                    PreviewText.Foreground = new System.Windows.Media.BrushConverter().ConvertFromString(c.Color) as System.Windows.Media.SolidColorBrush;
                     break;
             }
 

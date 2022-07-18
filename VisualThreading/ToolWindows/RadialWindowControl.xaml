@@ -42,15 +42,15 @@
         
         <StackPanel Margin="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Name="ProgressText">Main</TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock>Insertion: &#160;</TextBlock>
-                <CheckBox  x:Name="Insertion"  />
+            <StackPanel Orientation="Horizontal" x:Name="InsertionPanel">
+                <TextBlock Name="InsertionLabel" >Insertion: &#160;</TextBlock>
+                <CheckBox  x:Name="Insertion" />
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
                                 theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
-            <imaging:CrispImage Name ="Prev" Visibility="Hidden"  Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageLeft}" />
-            <imaging:CrispImage Name ="Next" Visibility="Hidden"  Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageRight}" />
+            <imaging:CrispImage Visibility="Hidden"  Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageLeft}" />
+            <imaging:CrispImage Visibility="Hidden"  Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageRight}" />
             <imaging:CrispImage MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
             <imaging:CrispImage MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
         </StackPanel>
