@@ -55,7 +55,7 @@ public partial class RadialWindowControl
                 _json ??= await Schema.Schema.LoadAsync();
 
                 foreach (var l in _json.RadialMenu)
-                    if (l.allow_insertion_from_menu)
+                    if (l.AllowInsertionFromMenu)
                         // populate list
                         _insertion.Add(l.FileExt);
 
@@ -66,7 +66,7 @@ public partial class RadialWindowControl
                         : Visibility.Hidden;
                 var language =
                     (from lang in _json.RadialMenu
-                     where lang.FileExt == LanguageMediator.GetCurrentActiveFileExtension()
+                     where lang.FileExt.Contains(LanguageMediator.GetCurrentActiveFileExtension())
                      select lang).FirstOrDefault();
 
                 if (language == null)
@@ -85,6 +85,8 @@ public partial class RadialWindowControl
                     Background = (SolidColorBrush)new BrushConverter().ConvertFrom(WhiteIce)
                 };
                 MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
+
+                // MessageBoxResult result = System.Windows.MessageBox.Show(MainMenu.CentralItem.Width + "");
 
                 foreach (var menuItem in language.MenuItems) // menu
                 {
@@ -111,10 +113,13 @@ public partial class RadialWindowControl
                 MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 
                 var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4);
-                var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * radius / 150), 9), 32);
+                var ratio = radius / 150;
+                var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 9), 32);
                 ProgressText.FontSize = fontSize;
                 Insertion.Height = fontSize;
                 InsertionLabel.FontSize = fontSize;
+                MainMenu.CentralItem.Height = Convert.ToDouble(60 * ratio);
+                MainMenu.CentralItem.Width = Convert.ToDouble(60 * ratio);
 
                 foreach (var command in language.Commands) // commands
                 {
@@ -161,7 +166,8 @@ public partial class RadialWindowControl
     private RadialMenuItem MenuBlock(object contentPanel, string c1, string c2)
     {
         var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); //150
-        var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * radius / 150), 9), 32);
+        var ratio = radius / 150;
+        var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 9), 32);
 
         return new RadialMenuItem
         {
@@ -187,11 +193,14 @@ public partial class RadialWindowControl
     /// <summary>
     ///     returns a 25:25 icon given a known moniker (icon) name.
     /// </summary>
-    private static CrispImage BuildIcon(string i)
+    private CrispImage BuildIcon(string i)
     {
+        var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); //150
+        var ratio = radius / 150;
+
         var propertyInfo = typeof(KnownMonikers).GetProperty(i);
         var icon = (ImageMoniker)propertyInfo?.GetValue(null, null)!;
-        var image = new CrispImage { Width = 25, Height = 25, Moniker = icon };
+        var image = new CrispImage { Width = 25 * ratio, Height = 25 * ratio, Moniker = icon };
         var binding = new Binding("Background")
         {
             Converter = new BrushToColorConverter(),
@@ -272,16 +281,35 @@ public partial class RadialWindowControl
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            IVsWindowFrame frame = await VS.Windows.FindWindowAsync(PackageGuids.RadialMenu);
-            if (frame == null) return;
+            IVsWindowFrame radialFrame = await VS.Windows.FindWindowAsync(PackageGuids.RadialMenu);
+            IVsWindowFrame previewFrame = await VS.Windows.FindWindowAsync(PackageGuids.PreviewWindow);
+            IVsWindowFrame buildingFrame = await VS.Windows.FindWindowAsync(PackageGuids.BuildingWindow);
 
-            var window = VsShellUtilities.GetWindowObject(frame);
-            window.IsFloating = true;
-            window.Width = (int)SystemParameters.PrimaryScreenWidth;
-            window.Height = (int)SystemParameters.PrimaryScreenHeight;
-            window.Left = 0;
-            window.Top = 0;
-            window.WindowState = EnvDTE.vsWindowState.vsWindowStateMaximize; //this line doesnt seem to do anything
+            if (radialFrame == null || previewFrame == null || buildingFrame == null) return;
+
+            var radialWindow = VsShellUtilities.GetWindowObject(radialFrame);
+            radialWindow.IsFloating = true;
+            radialWindow.Width = (int)((int)SystemParameters.PrimaryScreenWidth * 0.5);
+            radialWindow.Height = (int)((int)SystemParameters.PrimaryScreenHeight * 0.75 - 80);
+            radialWindow.Left = 0;
+            radialWindow.Top = 0;
+            radialWindow.WindowState = EnvDTE.vsWindowState.vsWindowStateMaximize;
+
+            var previewWindow = VsShellUtilities.GetWindowObject(previewFrame);
+            previewWindow.IsFloating = true;
+            previewWindow.Width = (int)((int)SystemParameters.PrimaryScreenWidth * 0.5);
+            previewWindow.Height = (int)((int)SystemParameters.PrimaryScreenHeight * 0.25 - 20);
+            previewWindow.Left = 0;
+            previewWindow.Top = (int)((int)SystemParameters.PrimaryScreenHeight * 0.75 - 60);
+            previewWindow.WindowState = EnvDTE.vsWindowState.vsWindowStateMaximize;
+
+            var buildingWindow = VsShellUtilities.GetWindowObject(buildingFrame);
+            buildingWindow.IsFloating = true;
+            buildingWindow.Width = (int)((int)SystemParameters.PrimaryScreenWidth * 0.5);
+            buildingWindow.Height = (int)SystemParameters.PrimaryScreenHeight - 80;
+            buildingWindow.Left = (int)((int)SystemParameters.PrimaryScreenWidth * 0.5);
+            buildingWindow.Top = 0;
+            buildingWindow.WindowState = EnvDTE.vsWindowState.vsWindowStateMaximize;
         }).FireAndForget();
     }
 
@@ -290,10 +318,17 @@ public partial class RadialWindowControl
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-            IVsWindowFrame frame = await VS.Windows.FindWindowAsync(PackageGuids.RadialMenu);
-            if (frame == null) return;
-            var window = VsShellUtilities.GetWindowObject(frame);
-            window.IsFloating = false;
+            IVsWindowFrame radialFrame = await VS.Windows.FindWindowAsync(PackageGuids.RadialMenu);
+            IVsWindowFrame previewFrame = await VS.Windows.FindWindowAsync(PackageGuids.PreviewWindow);
+            IVsWindowFrame buildingFrame = await VS.Windows.FindWindowAsync(PackageGuids.BuildingWindow);
+
+            if (radialFrame == null || previewFrame == null) return;
+            var radialWindow = VsShellUtilities.GetWindowObject(radialFrame);
+            radialWindow.IsFloating = false;
+            var previewWindow = VsShellUtilities.GetWindowObject(previewFrame);
+            previewWindow.IsFloating = false;
+            var buildingWindow = VsShellUtilities.GetWindowObject(buildingFrame);
+            buildingWindow.IsFloating = false;
         }).FireAndForget();
     }
 }
