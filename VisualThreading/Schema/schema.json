@@ -1,7 +1,7 @@
 {
   "RadialMenu": [
     {
-      "fileExt": ".cs",
+      "fileExt": ".cs .js .php .py",
       "text": "c#",
       "MenuItems": [
         {

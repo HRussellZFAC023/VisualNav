@@ -48,7 +48,7 @@ namespace VisualThreading.ToolWindows
                 _state = new();
                 MainMenu.Items = new List<RadialMenuItem>();
                 _json ??= await Schema.Schema.LoadAsync();
-                var language = (from lang in _json.RadialMenu where lang.FileExt == LanguageMediator.GetCurrentActiveFileExtension() select lang).FirstOrDefault();
+                var language = (from lang in _json.RadialMenu where lang.FileExt.Contains(LanguageMediator.GetCurrentActiveFileExtension()) select lang).FirstOrDefault();
 
                 if (language == null)
                 {
