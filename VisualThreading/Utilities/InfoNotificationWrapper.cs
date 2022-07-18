@@ -32,11 +32,11 @@ internal class InfoNotificationWrapper
 
         var infoBar = await VS.InfoBar.CreateAsync(guid, model);
             
-        await Task.Delay(timeout).ContinueWith(t =>
-        {
-            Debug.Assert(infoBar != null, nameof(infoBar) + " != null");
-            infoBar.Close();
-        });
+        //await Task.Delay(timeout).ContinueWith(t =>
+        //{
+        //    Debug.Assert(infoBar != null, nameof(infoBar) + " != null");
+        //    infoBar.Close();
+        //});
             
 
     }

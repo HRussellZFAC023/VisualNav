@@ -1,6 +1,6 @@
 ﻿using VisualThreading.ToolWindows;
 
-namespace VisualThreading
+namespace VisualThreading.Commands
 {
     [Command(PackageIds.OpenBuildingWindow)]
     internal sealed class OpenBuildingWindow : BaseCommand<OpenBuildingWindow>

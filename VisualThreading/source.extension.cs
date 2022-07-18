@@ -9,9 +9,9 @@ namespace VisualThreading
     {
         public const string Id = "VisualThreading.64e086cf-9373-4376-89d8-7fac98278bc4";
         public const string Name = "VisualThreading";
-        public const string Description = @"Provides new metaphores to navigate components in building an app!";
+        public const string Description = @"Provides new metaphor's to navigate components in building an app!";
         public const string Language = "en-US";
-        public const string Version = "1.0";
+        public const string Version = "1.0.1";
         public const string Author = "Henry Russell";
         public const string Tags = "";
     }

@@ -5,7 +5,7 @@
              xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
              toolkit:Themes.UseVsTheme="True">
 
-    <Grid 
+    <Grid
           Margin="0,0,0,0"
           VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch"
@@ -17,9 +17,18 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" />
-
         <Border  Grid.Row="1"
-                 Grid.Column="0">
+                 Grid.Column="0"
+                 Visibility="Hidden"
+                 Name="TextBorder"
+                 BorderBrush="LightSlateGray"
+                 BorderThickness="1"
+                 Margin="1">
+            <TextBlock Name="PreviewText" />
+        </Border>
+        <Border  Grid.Row="1"
+                 Grid.Column="0"
+                 Name="BrowserBorder">
             <browser:ChromiumWebBrowser x:Name="Browser" />
         </Border>
     </Grid>
