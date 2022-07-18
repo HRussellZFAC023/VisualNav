@@ -216,6 +216,7 @@ public partial class RadialWindowControl
                 }
                 else
                 {
+                    Clipboard.SetText(element.Preview);
                     await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
                 }
             }).FireAndForget();

@@ -23,7 +23,6 @@
                  Name="TextBorder"
                  BorderBrush="LightSlateGray"
                  BorderThickness="1"
-                 Opacity="0.5"
                  Margin="1">
             <TextBlock Name="PreviewText" />
         </Border>
