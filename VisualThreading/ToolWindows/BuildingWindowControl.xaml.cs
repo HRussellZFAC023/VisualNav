@@ -31,15 +31,15 @@ public partial class BuildingWindowControl
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
-            var result = await _blockly.ShowCodeAsync();
+            var ret = await _blockly.ShowCodeAsync();
 
-            if (result.Success != true)
+            if (ret.Success != true)
             {
-                System.Windows.MessageBox.Show(result.Message);
+                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
             }
             else
             {
-                System.Windows.MessageBox.Show((string)result.Result);
+                await VS.MessageBox.ShowAsync((string)ret.Result);
             }
         }).FireAndForget();
     }
@@ -48,15 +48,15 @@ public partial class BuildingWindowControl
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
-            var result = await _blockly.ShowCodeAsync();
+            var ret = await _blockly.ShowCodeAsync();
 
-            if (result.Success != true)
+            if (ret.Success != true)
             {
-                System.Windows.MessageBox.Show(result.Message);
+                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
             }
             else
             {
-                var re = (string)result.Result;
+                var re = (string)ret.Result;
                 var docView = await VS.Documents.GetActiveDocumentViewAsync();
                 if (docView?.TextView == null) return;
                 var position = docView.TextView.Caret.Position.BufferPosition;
@@ -69,16 +69,16 @@ public partial class BuildingWindowControl
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
-            var result = await _blockly.ShowCodeAsync();
+            var ret = await _blockly.ShowCodeAsync();
 
-            if (result.Success != true)
+            if (ret.Success != true)
             {
-                System.Windows.MessageBox.Show(result.Message);
+                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
             }
             else
             {
-                Clipboard.SetText((string)result.Result);
-                System.Windows.MessageBox.Show("Copy Successfully!");
+                Clipboard.SetText((string)ret.Result);
+                await InfoNotificationWrapper.ShowSimpleAsync("Copied to clipboard.", "Copy", PackageGuids.BuildingWindowString, 1500);
             }
         }).FireAndForget();
     }
@@ -90,7 +90,7 @@ public partial class BuildingWindowControl
             var ret = await _blockly.AddNewBlockToAreaAsync(c);
             if (ret.Success != true)
             {
-                System.Windows.MessageBox.Show(ret.Message);
+                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
             }
         }).FireAndForget();
     }
