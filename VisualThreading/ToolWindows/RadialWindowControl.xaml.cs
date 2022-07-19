@@ -11,16 +11,23 @@ using System.Windows.Data;
 using System.Windows.Media;
 using VisualThreading.Schema;
 using VisualThreading.Utilities;
+using MessageBox = System.Windows.MessageBox;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 
 namespace VisualThreading.ToolWindows;
 
 public partial class RadialWindowControl
 {
-    private const string WhiteIce = "#DCEDF9";
-    private const string Chambray = "#38499B";
-    private const string Varden = "#FFF6E0";
-    private const string CreamBrulee = "#FFE4A1";
+    Dictionary<string, string> colorMap = new Dictionary<string, string>
+        {
+            { "WhiteIce", "#DCEDF9" },
+            { "Chambray", "#38499B" },
+            { "Varden", "#FFF6E0" },
+            { "CreamBrulee", "#FFE4A1" },
+            { "DarkWhiteIce", "#a0ceef" },
+            { "DarkVarden", "#ffebbe" },
+
+        };
 
     // create a list of languages that require the "insertion" button
     private readonly HashSet<string> _insertion = new(); // languages requiring insertion button
@@ -82,7 +89,7 @@ public partial class RadialWindowControl
                 MainMenu.CentralItem = new RadialMenuCentralItem
                 {
                     Content = BuildIcon("Backwards"),
-                    Background = (SolidColorBrush)new BrushConverter().ConvertFrom(WhiteIce)
+                    Background = (SolidColorBrush)new BrushConverter().ConvertFrom(colorMap["WhiteIce"])
                 };
                 MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
 
@@ -91,7 +98,9 @@ public partial class RadialWindowControl
                 foreach (var menuItem in language.MenuItems) // menu
                 {
                     var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
-                    var item = MenuBlock(stackPanel, WhiteIce, Chambray);
+                    var item = MenuBlock(stackPanel, colorMap["WhiteIce"], colorMap["Chambray"]);
+                    item.MouseEnter += (_, _) => increaseOnHover(item, colorMap);
+                    item.MouseLeave += (_, _) => resetSizeOnExitHover(item, colorMap);
                     // icon
                     var image = BuildIcon(menuItem.Icon);
                     stackPanel.Children.Add(image);
@@ -123,10 +132,13 @@ public partial class RadialWindowControl
 
                 foreach (var command in language.Commands) // commands
                 {
-                    var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, Varden, CreamBrulee);
+                    var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, colorMap["Varden"], colorMap["CreamBrulee"]);
                     menuBlock.Click += (_, _) => RadialDialElement_Click(command); //Handler of the command
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
+
+                    menuBlock.MouseEnter += (_, _) => increaseOnHover(menuBlock, colorMap);
+                    menuBlock.MouseLeave += (_, _) => resetSizeOnExitHover(menuBlock, colorMap);
 
                     if (!_menu.ContainsKey(command.Parent))
                         _menu.Add(command.Parent, new List<RadialMenuItem>());
@@ -141,12 +153,16 @@ public partial class RadialWindowControl
                         continue;
 
                     var page1 = _menu[parent].GetRange(0, _menu[parent].Count / 2);
-                    var page1Next = MenuBlock(BuildIcon("BrowseNext"), Varden, CreamBrulee);
+                    var page1Next = MenuBlock(BuildIcon("BrowseNext"), colorMap["Varden"], colorMap["CreamBrulee"]);
+                    page1Next.MouseEnter += (_, _) => increaseOnHover(page1Next, colorMap);
+                    page1Next.MouseLeave += (_, _) => resetSizeOnExitHover(page1Next, colorMap);
                     page1Next.Click += (_, _) => RadialDialControl_Click(parent + "\x00A0 [Page 2]", true);
                     page1.Add(page1Next);
 
                     var page2 = _menu[parent].GetRange(_menu[parent].Count / 2, _menu[parent].Count / 2);
-                    var page2Prev = MenuBlock(BuildIcon("BrowsePrevious"), Varden, CreamBrulee);
+                    var page2Prev = MenuBlock(BuildIcon("BrowsePrevious"), colorMap["Varden"], colorMap["CreamBrulee"]);
+                    page2Prev.MouseEnter += (_, _) => increaseOnHover(page2Prev, colorMap);
+                    page2Prev.MouseLeave += (_, _) => resetSizeOnExitHover(page2Prev, colorMap);
                     page2Prev.Click += (_, _) => RadialDialControl_Click(parent, true);
                     page2.Add(page2Prev);
 
@@ -188,6 +204,39 @@ public partial class RadialWindowControl
             Background = (SolidColorBrush)new BrushConverter().ConvertFrom(c1),
             EdgeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom(c2)
         };
+    }
+
+    private static void increaseOnHover(RadialMenuItem menuItem, Dictionary<string, string> colorMap)
+    {
+        ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+        {
+            menuItem.OuterRadius = menuItem.OuterRadius * 1.08;
+            menuItem.EdgeInnerRadius = menuItem.EdgeInnerRadius * 1.08;
+            menuItem.EdgeOuterRadius = menuItem.EdgeOuterRadius * 1.08;
+            menuItem.ArrowRadius = menuItem.ArrowRadius * 1.08;
+            menuItem.Padding = 3;
+            menuItem.EdgePadding = 3;
+            string myKey = "Dark" + colorMap.FirstOrDefault(x => ((SolidColorBrush)new BrushConverter().ConvertFrom(x.Value)).ToString() == menuItem.Background.ToString()).Key;
+            string darkColor = colorMap[myKey];
+            menuItem.Background = (SolidColorBrush)new BrushConverter().ConvertFrom(darkColor);
+        }).FireAndForget(); ;
+    }
+
+    private static void resetSizeOnExitHover(RadialMenuItem menuItem, Dictionary<string, string> colorMap)
+    {
+        ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+        {
+            menuItem.OuterRadius = menuItem.OuterRadius / 1.08;
+            menuItem.EdgeInnerRadius = menuItem.EdgeInnerRadius / 1.08;
+            menuItem.EdgeOuterRadius = menuItem.EdgeOuterRadius / 1.08;
+            menuItem.ArrowRadius = menuItem.ArrowRadius / 1.08;
+            menuItem.Padding = 0;
+            menuItem.EdgePadding = 0;
+            string myKey = colorMap.FirstOrDefault(x => ((SolidColorBrush)new BrushConverter().ConvertFrom(x.Value)).ToString() == menuItem.Background.ToString()).Key;
+            string originalColor = colorMap[myKey.Substring(4)];
+            menuItem.Background = (SolidColorBrush)new BrushConverter().ConvertFrom(originalColor);
+
+        }).FireAndForget(); ;
     }
 
     /// <summary>
