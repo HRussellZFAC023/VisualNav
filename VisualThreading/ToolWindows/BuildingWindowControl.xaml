@@ -20,7 +20,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-
+    
         <Border>
             <browser:ChromiumWebBrowser x:Name="Browser" />
         </Border>

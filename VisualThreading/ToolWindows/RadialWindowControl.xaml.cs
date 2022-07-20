@@ -28,8 +28,6 @@ public partial class RadialWindowControl
         };
 
     // create a list of languages that require the "insertion" button
-    private readonly HashSet<string> _insertion = new(); // languages requiring insertion button
-
     private string _currentState = "";
     private Schema.Schema _json;
     private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without hierarchy
@@ -67,20 +65,19 @@ public partial class RadialWindowControl
                 MainMenu.Items = new List<RadialMenuItem>();
                 _json ??= await Schema.Schema.LoadAsync();
 
-                foreach (var l in _json.RadialMenu)
-                    if (l.allow_insertion_from_menu)
-                        // populate list
-                        _insertion.Add(l.FileExt);
 
                 // get the current language + Check if it is contained in the list.
-                InsertionPanel.Visibility =
-                    _insertion.Contains(LanguageMediator.GetCurrentActiveFileExtension())
-                        ? Visibility.Visible
-                        : Visibility.Hidden;
-                var language =
-                    (from lang in _json.RadialMenu
-                     where lang.FileExt.Contains(LanguageMediator.GetCurrentActiveFileExtension())
-                     select lang).FirstOrDefault();
+                Radialmenu language = null;
+                foreach (var lan in _json.RadialMenu)
+                {
+                    foreach(var ext in lan.FileExt)
+                    {
+                        if (ext.Equals(LanguageMediator.GetCurrentActiveFileExtension()))
+                        {
+                            language = lan;
+                        }
+                    }
+                }
 
                 if (language == null)
                 {
@@ -89,6 +86,10 @@ public partial class RadialWindowControl
                     MainMenu.CentralItem = null;
                     return;
                 }
+
+                InsertionPanel.Visibility = language.allow_insertion_from_menu
+                                        ? Visibility.Visible
+                                        : Visibility.Hidden;
 
                 MainGrid.ClipToBounds = true;
 

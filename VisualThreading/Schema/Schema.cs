@@ -21,7 +21,7 @@ public class Schema
 
 public class Radialmenu
 {
-    public string FileExt { get; set; }
+    public string[] FileExt { get; set; }
     public string Text { get; set; }
     public bool allow_insertion_from_menu { get; set; }
     public Menuitem[] MenuItems { get; set; }

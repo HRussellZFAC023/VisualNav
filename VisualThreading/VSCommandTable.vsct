@@ -48,7 +48,7 @@
 	</Commands>
 
 	<Symbols>
-		<GuidSymbol name="VisualThreading" value="{46a432ab-b925-4851-a214-65069de24b60}">
+		<GuidSymbol name="VisualThreading" value="{fb0f5ed1-f75d-4774-a7f9-5a3a7d612e5d}">
 			<IDSymbol name="MyMenuGroup" value="0x0001" />
 			<IDSymbol name="OpenRadialMenu" value="0x0100" />
 			<IDSymbol name="OpenCommandPreview" value="0x0101" />

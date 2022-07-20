@@ -1,7 +1,7 @@
 {
   "RadialMenu": [
     {
-      "fileExt": ".cs .js .php .py .lua .dart",
+      "fileExt": [ ".cs", ".js", ".php", ".py", ".lua", ".dart" ],
       "text": "Code",
       "allow_insertion_from_menu": false,
       "MenuItems": [
@@ -541,7 +541,7 @@
       ]
     },
     {
-      "fileExt": ".xaml",
+      "fileExt": [ ".xaml" ],
       "text": "XAML",
       "allow_insertion_from_menu": true,
       "MenuItems": [
