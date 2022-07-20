@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="VisualThreading.64e086cf-9373-4376-89d8-7fac98278bc4" Version="1.2" Language="en-US" Publisher="Henry Russell" />
+        <Identity Id="VisualThreading.d1030a34-cc66-4021-8ed2-568d8b857e1b" Version="1.2" Language="en-US" Publisher="UCL FacialNav for Visual Studio" />
         <DisplayName>VisualThreading</DisplayName>
         <Description xml:space="preserve">Provides new metaphor's to navigate components in building an app!</Description>
         <Icon>Resources\Icon.png</Icon>

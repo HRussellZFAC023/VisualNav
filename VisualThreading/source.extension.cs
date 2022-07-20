@@ -7,12 +7,12 @@ namespace VisualThreading
 {
     internal sealed partial class Vsix
     {
-        public const string Id = "VisualThreading.64e086cf-9373-4376-89d8-7fac98278bc4";
+        public const string Id = "VisualThreading.d1030a34-cc66-4021-8ed2-568d8b857e1b";
         public const string Name = "VisualThreading";
         public const string Description = @"Provides new metaphor's to navigate components in building an app!";
         public const string Language = "en-US";
         public const string Version = "1.2";
-        public const string Author = "Henry Russell";
+        public const string Author = "UCL FacialNav for Visual Studio";
         public const string Tags = "";
     }
 }

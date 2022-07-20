@@ -10,13 +10,13 @@ namespace VisualThreading
     /// </summary>
     internal sealed partial class PackageGuids
     {
-        public const string VisualThreadingString = "46a432ab-b925-4851-a214-65069de24b60";
+        public const string VisualThreadingString = "fb0f5ed1-f75d-4774-a7f9-5a3a7d612e5d";
         public static Guid VisualThreading = new Guid(VisualThreadingString);
-        public const string RadialWindowString = "0ea6b182-db3a-4f77-abf4-492c7b31036b";
+        public const string RadialWindowString = "34b9ebb5-2c75-4bef-a755-39d77e165ecc";
         public static Guid RadialMenu = new Guid(RadialWindowString);
-        public const string BuildingWindowString = "6a0155f8-b16a-4fba-90bb-8c9fab68de1b";
+        public const string BuildingWindowString = "3056e2ec-342f-4817-8eeb-eddadeaf2432";
         public static Guid BuildingWindow = new Guid(BuildingWindowString);
-        public const string PreviewWindowString = "8d4fca2b-a66b-485a-a01f-58a3b98aa35e";
+        public const string PreviewWindowString = "43d0085b-8358-4aa6-98b2-c831523cefbc";
         public static Guid PreviewWindow = new Guid(PreviewWindowString);
 
 
