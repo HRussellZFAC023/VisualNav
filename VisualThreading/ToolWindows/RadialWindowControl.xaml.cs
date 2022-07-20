@@ -32,7 +32,7 @@ public partial class RadialWindowControl
     private Schema.Schema _json;
     private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without hierarchy
     private string _progress = "";
-    private Stack<string> _state = new(); // Store the current state of the menu
+    private Stack<string> _state = new(); // maintains the progress/state of the menu levels, (e.g.Main->Code->Array)
 
     public RadialWindowControl()
     {
@@ -42,6 +42,11 @@ public partial class RadialWindowControl
         SizeChanged += OnSizeChanged;
     }
 
+    /// <summary>
+    /// When the size of a window/panle chenges, pass the event and regerate the radial menu
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
         if (e.WidthChanged)
@@ -70,10 +75,9 @@ public partial class RadialWindowControl
                 Radialmenu language = null;
                 string defaultTXT = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types:"; // .cs, .xaml!
 
-                //System.Windows.MessageBox.Show(LanguageMediator.GetCurrentActiveFileExtension());
                 foreach (var lan in _json.RadialMenu)
                 {
-                    foreach(var ext in lan.FileExt)
+                    foreach (var ext in lan.FileExt)
                     {
                         defaultTXT = defaultTXT + ext.ToString() + " ";
                         if (ext.Equals(LanguageMediator.GetCurrentActiveFileExtension()))
@@ -83,7 +87,7 @@ public partial class RadialWindowControl
                     }
                 }
 
-                if (language == null)
+                if (language == null) // if not a file, hide insertion checkbox, and show message
                 {
                     ProgressText.Text = defaultTXT + "!";
                     MainMenu.CentralItem = null;
@@ -91,20 +95,21 @@ public partial class RadialWindowControl
                     return;
                 }
 
-                InsertionPanel.Visibility = language.allow_insertion_from_menu
+                InsertionPanel.Visibility = language.allow_insertion_from_menu // if a file type supports insert mode, val from schema.json
                                         ? Visibility.Visible
                                         : Visibility.Hidden;
 
                 MainGrid.ClipToBounds = true;
 
-                MainMenu.CentralItem = new RadialMenuCentralItem
+                MainMenu.CentralItem = new RadialMenuCentralItem // central back button
                 {
                     Content = BuildIcon("Backwards"),
                     Background = (SolidColorBrush)new BrushConverter().ConvertFrom(_colorMap["WhiteIce"])
                 };
                 MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
 
-                foreach (var menuItem in language.MenuItems) // menu
+                // Populate menu
+                foreach (var menuItem in language.MenuItems) // iterates menus in the language in schema.json
                 {
                     var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
                     var item = MenuBlock(stackPanel, _colorMap["WhiteIce"], _colorMap["Chambray"]);
@@ -119,33 +124,34 @@ public partial class RadialWindowControl
                     item.Click += (_, _) => RadialDialControl_Click(menuItem.Name, false);
 
                     if (!_menu.ContainsKey(menuItem.Parent))
+                    {
                         _menu.Add(menuItem.Parent, new List<RadialMenuItem>());
+                    }
 
-                    // Add menu structure to menu dictionary
-                    _menu[menuItem.Parent].Add(item);
+                    _menu[menuItem.Parent].Add(item); // Add menu structure to menu dictionary
                 }
 
-                ProgressText.Text = "Main";
+                ProgressText.Text = "Main";  // default progress indicator is Main (top level menu)
                 MainMenu.Items = _menu["Main"];
                 MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
                 MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
 
-                var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4);
-                var ratio = radius / 150;
-                var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 9), 32);
+                var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); // RenderSize is the size of window, choose the min between height and width
+                var ratio = radius / 150; // conversion rate of radius to size on screen
+                var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 9), 32); // sync all font size in this plugin
                 ProgressText.FontSize = fontSize;
                 Insertion.Height = fontSize;
                 InsertionLabel.FontSize = fontSize;
                 MainMenu.CentralItem.Height = Convert.ToDouble(60 * ratio);
                 MainMenu.CentralItem.Width = Convert.ToDouble(60 * ratio);
 
-                foreach (var command in language.Commands) // commands
+                foreach (var command in language.Commands) // iterates commands in the language in schema.json
                 {
                     var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, _colorMap["Varden"], _colorMap["CreamBrulee"]);
                     menuBlock.Click += (_, _) => RadialDialElement_Click(command); //Handler of the command
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
-
+                    // Highlight by increasing the radius of radial button
                     menuBlock.MouseEnter += (_, _) => IncreaseOnHover(menuBlock, _colorMap);
                     menuBlock.MouseLeave += (_, _) => ResetSizeOnExitHover(menuBlock, _colorMap);
 
@@ -154,11 +160,11 @@ public partial class RadialWindowControl
                     _menu[command.Parent].Add(menuBlock);
                 }
 
+                // if a menu contains too many items, it will get unreadable, divide the menu into two
                 IDictionary<string, List<RadialMenuItem>> tempMenu = new Dictionary<string, List<RadialMenuItem>>();
                 foreach (var parent in _menu.Keys)
                 {
-                    // each menu
-                    if (_menu[parent].Count <= 6 || !_menu[parent][0].Background.ToString().Equals("#FFFFF6E0"))
+                    if (_menu[parent].Count <= 6 || !_menu[parent][0].Background.ToString().Equals("#FFFFF6E0")) // each command menu
                         continue;
 
                     var page1 = _menu[parent].GetRange(0, _menu[parent].Count / 2);
@@ -179,7 +185,7 @@ public partial class RadialWindowControl
                     tempMenu.Add(parent + "\x00A0 [Page 2]", page2);
                 }
 
-                foreach (var key in tempMenu.Keys)
+                foreach (var key in tempMenu.Keys)  // replace the orinigal into the divided menus
                     if (key.Any(char.IsDigit))
                         _menu.Add(key, tempMenu[key]);
                     else
@@ -187,7 +193,13 @@ public partial class RadialWindowControl
             }
         ).FireAndForget();
     }
-
+    /// <summary>
+    /// RadialMenu item generator, sets the size, color scheme, icon, icon size here
+    /// </summary>
+    /// <param name="contentPanel"></param>
+    /// <param name="c1">Background HEX color in String</param>
+    /// <param name="c2">EdgeBackground HEX color in String</param>
+    /// <returns></returns>
     private RadialMenuItem MenuBlock(object contentPanel, string c1, string c2)
     {
         var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); //150
@@ -197,8 +209,8 @@ public partial class RadialWindowControl
         return new RadialMenuItem
         {
             Content = contentPanel,
-            // Changed according to current setting
 
+            // Changes according to current setting
             FontSize = fontSize, //12,
             OuterRadius = radius, //150 ,
             ContentRadius = radius * 0.55, //82.5,
@@ -206,7 +218,7 @@ public partial class RadialWindowControl
             EdgeOuterRadius = radius, // 150,
             ArrowRadius = 0.95 * radius, //142.5,
 
-            // DO NOT CHANGE THESE VALUE!
+            // DO NOT CHANGE THESE VALUE TO MAINTAIN CONSISTENT LOOK
             Padding = 0,
             InnerRadius = 10,
             EdgePadding = 0,
@@ -215,6 +227,11 @@ public partial class RadialWindowControl
         };
     }
 
+    /// <summary>
+    /// When hover on a radial button, increase the radius and color of the button to give visual clue to user
+    /// </summary>
+    /// <param name="menuItem">The RadialMenuItem to increase size</param>
+    /// <param name="colorMap">The color lookup table used to highlight a button</param>
     private static void IncreaseOnHover(RadialMenuItem menuItem, IReadOnlyDictionary<string, string> colorMap)
     {
         menuItem.OuterRadius *= 1.08;
@@ -223,11 +240,18 @@ public partial class RadialWindowControl
         menuItem.ArrowRadius *= 1.08;
         menuItem.Padding = 3;
         menuItem.EdgePadding = 3;
+        // "Dark"+original color is the "highlight"
+        // normal HEX value is not the same with menuItem.Background, instead we need to compare two Color obj.
         var myKey = "Dark" + colorMap.FirstOrDefault(x => ((SolidColorBrush)new BrushConverter().ConvertFrom(x.Value))?.ToString() == menuItem.Background.ToString()).Key;
         var darkColor = colorMap[myKey];
         menuItem.Background = (SolidColorBrush)new BrushConverter().ConvertFrom(darkColor);
     }
 
+    /// <summary>
+    /// When exit hover on a radial button, reset the radius and color of the button
+    /// </summary>
+    /// <param name="menuItem">The RadialMenuItem to increase size</param>
+    /// <param name="colorMap">The color lookup table used to resotre color scheme of a button</param>
     private static void ResetSizeOnExitHover(RadialMenuItem menuItem, IReadOnlyDictionary<string, string> colorMap)
     {
         menuItem.OuterRadius /= 1.08;
@@ -237,19 +261,21 @@ public partial class RadialWindowControl
         menuItem.Padding = 0;
         menuItem.EdgePadding = 0;
         var myKey = colorMap.FirstOrDefault(x => ((SolidColorBrush)new BrushConverter().ConvertFrom(x.Value))?.ToString() == menuItem.Background.ToString()).Key;
-        var originalColor = colorMap[myKey.Substring(4)];
+        var originalColor = colorMap[myKey.Substring(4)]; // remove the "Dark" from color name
         menuItem.Background = (SolidColorBrush)new BrushConverter().ConvertFrom(originalColor);
     }
 
     /// <summary>
-    ///     returns a 25:25 icon given a known moniker (icon) name.
+    ///  returns a 25:25 icon given a known moniker (icon) name.
     /// </summary>
-    private CrispImage BuildIcon(string i)
+    /// <param name="iconName">name of the icon in knownmoniker</param>
+    /// <returns>CrispImage</returns>
+    private CrispImage BuildIcon(string iconName)
     {
         var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); //150
         var ratio = radius / 150;
 
-        var propertyInfo = typeof(KnownMonikers).GetProperty(i);
+        var propertyInfo = typeof(KnownMonikers).GetProperty(iconName);
         var icon = (ImageMoniker)propertyInfo?.GetValue(null, null)!;
         var image = new CrispImage { Width = 25 * ratio, Height = 25 * ratio, Moniker = icon };
         var binding = new Binding("Background")
@@ -261,7 +287,10 @@ public partial class RadialWindowControl
         image.SetBinding(ImageThemingUtilities.ImageBackgroundColorProperty, binding);
         return image;
     }
-
+    /// <summary>
+    /// Button click handler, if the element clicked is a member of UI menu, adopt different event
+    /// </summary>
+    /// <param name="element"></param>
     private void RadialDialElement_Click(Command element)
     {
         if (element.Type.Equals("UI"))
@@ -284,13 +313,22 @@ public partial class RadialWindowControl
         else
             BuildingWindow.Instance.SetCurrentCommand(element);
     }
-
+    /// <summary>
+    /// The handler of the exit full screen button
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void DecreaseSize(object sender, RoutedEventArgs e)
     {
         DockToEditor();
         RadialMenuGeneration();
     }
 
+    // <summary>
+    /// The handler of the full screen button
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void IncreaseSize(object sender, RoutedEventArgs e)
     {
         MakeFullscreen();
@@ -312,21 +350,27 @@ public partial class RadialWindowControl
         ProgressText.Text = _progress + subMenu;
     }
 
+    /// <summary>
+    /// Center back button handler
+    /// </summary>
     private void RadialDialControl_Back()
     {
-        if (!ProgressText.Text.Equals("Main"))
+        if (!ProgressText.Text.Equals("Main")) // if not at home page, go back to the previous level according to _progress
         {
             _progress = "";
             foreach (var item in _state) _progress = _progress.Equals("") ? item : item + " → " + _progress;
             _progress.Remove(_progress.Length - 4);
-            ProgressText.Text = _progress;
+            ProgressText.Text = _progress;  // update progress display
         }
-
+        // maintain progress stack
         var temp = _state.Count == 0 ? "Main" : _state.Pop();
         _currentState = temp;
         MainMenu.Items = _menu[temp];
     }
 
+    /// <summary>
+    /// Undock radialFrame, previewFrame, buildingFrame undock and resize to fill screen
+    /// </summary>
     private static void MakeFullscreen()
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
@@ -365,6 +409,9 @@ public partial class RadialWindowControl
         }).FireAndForget();
     }
 
+    /// <summary>
+    /// Dock radialFrame, previewFrame, buildingFrame
+    /// </summary>
     private static void DockToEditor()
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
