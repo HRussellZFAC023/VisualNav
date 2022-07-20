@@ -362,7 +362,7 @@ public partial class RadialWindowControl
             _progress.Remove(_progress.Length - 4);
             ProgressText.Text = _progress;  // update progress display
         }
-        // maintain progress stack
+        // maintain _state stack
         var temp = _state.Count == 0 ? "Main" : _state.Pop();
         _currentState = temp;
         MainMenu.Items = _menu[temp];
