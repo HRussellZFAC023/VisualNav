@@ -68,7 +68,7 @@ public partial class RadialWindowControl
                 _json ??= await Schema.Schema.LoadAsync();
 
                 foreach (var l in _json.RadialMenu)
-                    if (l.AllowInsertionFromMenu)
+                    if (l.allow_insertion_from_menu)
                         // populate list
                         _insertion.Add(l.FileExt);
 
