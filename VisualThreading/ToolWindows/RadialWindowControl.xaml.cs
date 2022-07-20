@@ -68,10 +68,14 @@ public partial class RadialWindowControl
 
                 // get the current language + Check if it is contained in the list.
                 Radialmenu language = null;
+                string defaultTXT = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types:"; // .cs, .xaml!
+
+                //System.Windows.MessageBox.Show(LanguageMediator.GetCurrentActiveFileExtension());
                 foreach (var lan in _json.RadialMenu)
                 {
                     foreach(var ext in lan.FileExt)
                     {
+                        defaultTXT = defaultTXT + ext.ToString() + " ";
                         if (ext.Equals(LanguageMediator.GetCurrentActiveFileExtension()))
                         {
                             language = lan;
@@ -81,9 +85,9 @@ public partial class RadialWindowControl
 
                 if (language == null)
                 {
-                    ProgressText.Text =
-                        "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: .cs, .xaml!";
+                    ProgressText.Text = defaultTXT + "!";
                     MainMenu.CentralItem = null;
+                    InsertionPanel.Visibility = Visibility.Hidden;
                     return;
                 }
 
