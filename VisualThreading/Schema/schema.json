@@ -35,6 +35,20 @@
           "icon": "Code"
         },
         {
+          "name": "Custom Fucntions",
+          "parent": "Main",
+          "submenu": [],
+          "children": [ "New Layer", "Create Command" ],
+          "icon": "Code"
+        },
+        {
+          "name": "Custom Objects",
+          "parent": "Main",
+          "submenu": [],
+          "children": [ "New Layer", "Create Object" ],
+          "icon": "Code"
+        },
+        {
           "name": "Logic",
           "parent": "Code",
           "submenu": [],
@@ -147,6 +161,34 @@
         }
       ],
       "commands": [
+        {
+          "text": "New Layer",
+          "parent": "Custom Fucntions",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": ""
+        },
+        {
+          "text": "Create Command",
+          "parent": "Custom Fucntions",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": ""
+        },
+        {
+          "text": "New Layer",
+          "parent": "Custom Objects",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": ""
+        },
+        {
+          "text": "Create Object",
+          "parent": "Custom Objects",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": ""
+        },
         {
           "text": "New thread",
           "parent": "Thread",
