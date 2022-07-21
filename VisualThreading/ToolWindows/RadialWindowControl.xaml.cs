@@ -312,7 +312,8 @@ public partial class RadialWindowControl
                 }
             }).FireAndForget();
         else if (element.Text.Equals("New Layer"))
-        {
+        {            
+            string user_input = "Custom TEST";
             // Modify Menuitems section of the json file
             Menuitem[] menuItem = new Menuitem[language.MenuItems.Length + 1];
             for (int i = 0; i < language.MenuItems.Length; i++)//copy to new array
@@ -322,8 +323,7 @@ public partial class RadialWindowControl
                     // add "Custom TEST"(just a test val, need user input for the name) to submenu to represent a sub menu
                     var element_temp = language.MenuItems[i].Submenu;
                     Array.Resize(ref element_temp, language.MenuItems[i].Submenu.Length + 1);
-                    // TODO: program a input dialog to get the name of the new layer 
-                    element_temp[language.MenuItems[i].Submenu.Length] = "Custom TEST";
+                    element_temp[language.MenuItems[i].Submenu.Length] = user_input;
                     language.MenuItems[i].Submenu = element_temp;
 
                     //from children remove "New Layer"
@@ -333,9 +333,9 @@ public partial class RadialWindowControl
                 }
                 menuItem[i] = language.MenuItems[i];
             }
+
             Menuitem item = new Menuitem();
-            // TODO: change this to the input val
-            item.Name = "Custom TEST";
+            item.Name = user_input;
             item.Parent = element.Parent;
             item.Submenu = new String[0];
             item.Children = new String[] { "New Layer", "Create Command" };
@@ -350,17 +350,17 @@ public partial class RadialWindowControl
             {
                 commandsList[i] = language.Commands[i];
             }
+
             Command newCommand = new Command();
             newCommand.Text = "Create Command";
-            // TODO: change this to the input val
-            newCommand.Parent = "Custom TEST";
+            newCommand.Parent = user_input;
             newCommand.Preview = "";
             newCommand.Color = "#FF00FFFF";
             newCommand.Type = "";
+
             Command newSubMenu = new Command();
             newSubMenu.Text = "New Layer";
-            // TODO: change this to the input val
-            newSubMenu.Parent = "Custom TEST";
+            newSubMenu.Parent = user_input;
             newSubMenu.Preview = "";
             newSubMenu.Color = "#FF00FFFF";
             newSubMenu.Type = "";
@@ -372,9 +372,10 @@ public partial class RadialWindowControl
             File.WriteAllText(@"C:\Users\Jianxuan\Source\Repos\HRussellZFAC023\VisualThreading\VisualThreading\Schema\modified.json", JsonConvert.SerializeObject(_json));
             RadialMenuGeneration();
         }
-        else if (element.Text.Equals("Create Command"))
+        else if (element.Text.Equals("Create Command") || element.Text.Equals("Create Object"))
         {
             // TODO: program a input dialog to get the name of the new command 
+            string user_input = "Test Command";
             // modify children list (add the command into the children string array)
             foreach (var item in language.MenuItems)
             {
@@ -385,7 +386,7 @@ public partial class RadialWindowControl
                     {
                         new_child_list[i] = item.Children[i];
                     }
-                    new_child_list[new_child_list.Length - 1] = "Test Command";
+                    new_child_list[new_child_list.Length - 1] = user_input;
                 }
             }
             // create corresponding commands ("New Layer" and "Create Command") in the Commands section
@@ -395,12 +396,11 @@ public partial class RadialWindowControl
                 commandsList[i] = language.Commands[i];
             }
             Command newCommand = new Command();
-            newCommand.Text = "Test Command";
-            
+            newCommand.Text = user_input;
             newCommand.Parent = element.Parent;
             newCommand.Preview = "";  // TODO: program a input dialog to get the preview
             newCommand.Color = "#FFBF00"; // TODO: program a input dialog to get the color
-            newCommand.Type = "new command test";  // TODO: program a input dialog to get the Type
+            newCommand.Type = "";  // TODO: program a input dialog to get the Type
 
             commandsList[commandsList.Length - 1] = newCommand;
             
