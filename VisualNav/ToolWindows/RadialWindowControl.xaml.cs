@@ -365,7 +365,9 @@ public partial class RadialWindowControl
 
             language.Commands = commandsList;
 
-            File.WriteAllText(@"C:\Users\Jianxuan\Source\Repos\HRussellZFAC023\VisualThreading\VisualThreading\Schema\modified.json", JsonConvert.SerializeObject(_json));
+            var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
+            var file = Path.Combine(dir!, "Schema", "Modified.json");
+            File.WriteAllText(file, JsonConvert.SerializeObject(_json));
             RadialMenuGeneration();
         }
         else if (element.Text.Equals("Create Command") || element.Text.Equals("Create Object"))
