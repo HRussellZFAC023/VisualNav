@@ -7,7 +7,7 @@ namespace VisualNav
 {
     internal sealed partial class Vsix
     {
-        public const string Id = "VisualNav.d1030a34-cc66-4021-8ed2-568d8b857e1b";
+        public const string Id = "VisualNav.e558fd3f-b919-4f5d-8d91-56d337f74a73";
         public const string Name = "VisualNav";
         public const string Description = @"Provides new metaphor's to navigate components in building an app!";
         public const string Language = "en-US";
