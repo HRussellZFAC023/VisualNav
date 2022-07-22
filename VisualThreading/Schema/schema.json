@@ -35,7 +35,7 @@
           "icon": "Code"
         },
         {
-          "name": "Custom Fucntions",
+          "name": "Custom Functions",
           "parent": "Main",
           "submenu": [],
           "children": [ "New Layer", "Create Command" ],
@@ -163,14 +163,14 @@
       "commands": [
         {
           "text": "New Layer",
-          "parent": "Custom Fucntions",
+          "parent": "Custom Functions",
           "preview": "",
           "color": "#FF00FFFF",
           "type": ""
         },
         {
           "text": "Create Command",
-          "parent": "Custom Fucntions",
+          "parent": "Custom Functions",
           "preview": "",
           "color": "#FF00FFFF",
           "type": ""
