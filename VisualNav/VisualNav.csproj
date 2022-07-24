@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{466CCF04-C40E-430A-A885-26DFA9A1FD47}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VisualNav</RootNamespace>
+    <AssemblyName>VisualNav</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <UseCodebase>true</UseCodebase>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
+    <StartAction>Program</StartAction>
+    <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Commands\MaximizeVisualNavToolwindows.cs" />
+    <Compile Include="Commands\OpenAllVisualNavWindows.cs" />
+    <Compile Include="Schema\Schema.cs" />
+    <Compile Include="Utilities\BlocklyAdapter.cs" />
+    <Compile Include="Utilities\InfoNotificationWrapper.cs" />
+    <Compile Include="Utilities\LanguageMediator.cs" />
+    <Compile Include="Utilities\FileReaderAdapter.cs" />
+    <Compile Include="VisualStudioServices.cs" />
+    <Compile Include="Commands\OpenPreivewWindow.cs" />
+    <Compile Include="Commands\OpenRadialMenu.cs" />
+    <Compile Include="Commands\OpenBuildingWindow.cs" />
+    <Compile Include="Options\Settings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolWindows\PreviewWindow.cs" />
+    <Compile Include="ToolWindows\PreviewWindowControl.xaml.cs">
+      <DependentUpon>PreviewWindowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\RadialWindow.cs" />
+    <Compile Include="ToolWindows\RadialWindowControl.xaml.cs">
+      <DependentUpon>RadialWindowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindows\BuildingWindow.cs" />
+    <Compile Include="ToolWindows\BuildingWindowControl.xaml.cs">
+      <DependentUpon>BuildingWindowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VisualNavPackage.cs" />
+    <Compile Include="source.extension.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+    </Compile>
+    <Compile Include="VSCommandTable.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VSCommandTable.vsct</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\html\blocklyHTML.html">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\js\blockly\blockly_compressed.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\blockly\blocks_compressed.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\blockly\csharp_compressed.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\blockly\dart_compressed.js">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\js\blockly\javascript_compressed.js">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\js\blockly\lua_compressed.js">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\js\blockly\msg\js\ab.js" />
+    <Content Include="Resources\js\blockly\msg\js\ar.js" />
+    <Content Include="Resources\js\blockly\msg\js\az.js" />
+    <Content Include="Resources\js\blockly\msg\js\ba.js" />
+    <Content Include="Resources\js\blockly\msg\js\bcc.js" />
+    <Content Include="Resources\js\blockly\msg\js\be-tarask.js" />
+    <Content Include="Resources\js\blockly\msg\js\be.js" />
+    <Content Include="Resources\js\blockly\msg\js\bg.js" />
+    <Content Include="Resources\js\blockly\msg\js\bn.js" />
+    <Content Include="Resources\js\blockly\msg\js\br.js" />
+    <Content Include="Resources\js\blockly\msg\js\bs.js" />
+    <Content Include="Resources\js\blockly\msg\js\ca.js" />
+    <Content Include="Resources\js\blockly\msg\js\cs.js" />
+    <Content Include="Resources\js\blockly\msg\js\da.js" />
+    <Content Include="Resources\js\blockly\msg\js\de.js" />
+    <Content Include="Resources\js\blockly\msg\js\diq.js" />
+    <Content Include="Resources\js\blockly\msg\js\dty.js" />
+    <Content Include="Resources\js\blockly\msg\js\ee.js" />
+    <Content Include="Resources\js\blockly\msg\js\el.js" />
+    <Content Include="Resources\js\blockly\msg\js\en-gb.js" />
+    <Content Include="Resources\js\blockly\msg\js\en.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\js\blockly\msg\js\eo.js" />
+    <Content Include="Resources\js\blockly\msg\js\es.js" />
+    <Content Include="Resources\js\blockly\msg\js\et.js" />
+    <Content Include="Resources\js\blockly\msg\js\eu.js" />
+    <Content Include="Resources\js\blockly\msg\js\fa.js" />
+    <Content Include="Resources\js\blockly\msg\js\fi.js" />
+    <Content Include="Resources\js\blockly\msg\js\fr.js" />
+    <Content Include="Resources\js\blockly\msg\js\gl.js" />
+    <Content Include="Resources\js\blockly\msg\js\gor.js" />
+    <Content Include="Resources\js\blockly\msg\js\ha.js" />
+    <Content Include="Resources\js\blockly\msg\js\he.js" />
+    <Content Include="Resources\js\blockly\msg\js\hi.js" />
+    <Content Include="Resources\js\blockly\msg\js\hrx.js" />
+    <Content Include="Resources\js\blockly\msg\js\hu.js" />
+    <Content Include="Resources\js\blockly\msg\js\hy.js" />
+    <Content Include="Resources\js\blockly\msg\js\ia.js" />
+    <Content Include="Resources\js\blockly\msg\js\id.js" />
+    <Content Include="Resources\js\blockly\msg\js\ig.js" />
+    <Content Include="Resources\js\blockly\msg\js\is.js" />
+    <Content Include="Resources\js\blockly\msg\js\it.js" />
+    <Content Include="Resources\js\blockly\msg\js\ja.js" />
+    <Content Include="Resources\js\blockly\msg\js\kab.js" />
+    <Content Include="Resources\js\blockly\msg\js\kn.js" />
+    <Content Include="Resources\js\blockly\msg\js\ko.js" />
+    <Content Include="Resources\js\blockly\msg\js\lb.js" />
+    <Content Include="Resources\js\blockly\msg\js\lki.js" />
+    <Content Include="Resources\js\blockly\msg\js\lo.js" />
+    <Content Include="Resources\js\blockly\msg\js\lrc.js" />
+    <Content Include="Resources\js\blockly\msg\js\lt.js" />
+    <Content Include="Resources\js\blockly\msg\js\lv.js" />
+    <Content Include="Resources\js\blockly\msg\js\mk.js" />
+    <Content Include="Resources\js\blockly\msg\js\mnw.js" />
+    <Content Include="Resources\js\blockly\msg\js\ms.js" />
+    <Content Include="Resources\js\blockly\msg\js\nb.js" />
+    <Content Include="Resources\js\blockly\msg\js\nl.js" />
+    <Content Include="Resources\js\blockly\msg\js\oc.js" />
+    <Content Include="Resources\js\blockly\msg\js\pl.js" />
+    <Content Include="Resources\js\blockly\msg\js\pms.js" />
+    <Content Include="Resources\js\blockly\msg\js\pt-br.js" />
+    <Content Include="Resources\js\blockly\msg\js\pt.js" />
+    <Content Include="Resources\js\blockly\msg\js\ro.js" />
+    <Content Include="Resources\js\blockly\msg\js\ru.js" />
+    <Content Include="Resources\js\blockly\msg\js\sc.js" />
+    <Content Include="Resources\js\blockly\msg\js\sd.js" />
+    <Content Include="Resources\js\blockly\msg\js\shn.js" />
+    <Content Include="Resources\js\blockly\msg\js\sk.js" />
+    <Content Include="Resources\js\blockly\msg\js\skr-arab.js" />
+    <Content Include="Resources\js\blockly\msg\js\sl.js" />
+    <Content Include="Resources\js\blockly\msg\js\sq.js" />
+    <Content Include="Resources\js\blockly\msg\js\sr-latn.js" />
+    <Content Include="Resources\js\blockly\msg\js\sr.js" />
+    <Content Include="Resources\js\blockly\msg\js\sv.js" />
+    <Content Include="Resources\js\blockly\msg\js\ta.js" />
+    <Content Include="Resources\js\blockly\msg\js\tcy.js" />
+    <Content Include="Resources\js\blockly\msg\js\te.js" />
+    <Content Include="Resources\js\blockly\msg\js\th.js" />
+    <Content Include="Resources\js\blockly\msg\js\tl.js" />
+    <Content Include="Resources\js\blockly\msg\js\tlh.js" />
+    <Content Include="Resources\js\blockly\msg\js\tr.js" />
+    <Content Include="Resources\js\blockly\msg\js\ug-arab.js" />
+    <Content Include="Resources\js\blockly\msg\js\uk.js" />
+    <Content Include="Resources\js\blockly\msg\js\ur.js" />
+    <Content Include="Resources\js\blockly\msg\js\vi.js" />
+    <Content Include="Resources\js\blockly\msg\js\xmf.js" />
+    <Content Include="Resources\js\blockly\msg\js\yo.js" />
+    <Content Include="Resources\js\blockly\msg\js\zgh.js" />
+    <Content Include="Resources\js\blockly\msg\js\zh-hans.js" />
+    <Content Include="Resources\js\blockly\msg\js\zh-hant.js" />
+    <Content Include="Resources\js\blockly\msg\messages.js" />
+    <Content Include="Resources\js\blockly\php_compressed.js">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\js\blockly\python_compressed.js">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Schema\schema.json">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <None Include="Resources\js\blockly\msg\json\ab.json" />
+    <None Include="Resources\js\blockly\msg\json\ar.json" />
+    <None Include="Resources\js\blockly\msg\json\az.json" />
+    <None Include="Resources\js\blockly\msg\json\ba.json" />
+    <None Include="Resources\js\blockly\msg\json\bcc.json" />
+    <None Include="Resources\js\blockly\msg\json\be-tarask.json" />
+    <None Include="Resources\js\blockly\msg\json\be.json" />
+    <None Include="Resources\js\blockly\msg\json\bg.json" />
+    <None Include="Resources\js\blockly\msg\json\bn.json" />
+    <None Include="Resources\js\blockly\msg\json\br.json" />
+    <None Include="Resources\js\blockly\msg\json\bs.json" />
+    <None Include="Resources\js\blockly\msg\json\ca.json" />
+    <None Include="Resources\js\blockly\msg\json\constants.json" />
+    <None Include="Resources\js\blockly\msg\json\cs.json" />
+    <None Include="Resources\js\blockly\msg\json\da.json" />
+    <None Include="Resources\js\blockly\msg\json\de.json" />
+    <None Include="Resources\js\blockly\msg\json\diq.json" />
+    <None Include="Resources\js\blockly\msg\json\dty.json" />
+    <None Include="Resources\js\blockly\msg\json\ee.json" />
+    <None Include="Resources\js\blockly\msg\json\el.json" />
+    <None Include="Resources\js\blockly\msg\json\en-gb.json" />
+    <None Include="Resources\js\blockly\msg\json\en.json" />
+    <None Include="Resources\js\blockly\msg\json\eo.json" />
+    <None Include="Resources\js\blockly\msg\json\es.json" />
+    <None Include="Resources\js\blockly\msg\json\et.json" />
+    <None Include="Resources\js\blockly\msg\json\eu.json" />
+    <None Include="Resources\js\blockly\msg\json\fa.json" />
+    <None Include="Resources\js\blockly\msg\json\fi.json" />
+    <None Include="Resources\js\blockly\msg\json\fr.json" />
+    <None Include="Resources\js\blockly\msg\json\gl.json" />
+    <None Include="Resources\js\blockly\msg\json\gor.json" />
+    <None Include="Resources\js\blockly\msg\json\ha.json" />
+    <None Include="Resources\js\blockly\msg\json\he.json" />
+    <None Include="Resources\js\blockly\msg\json\hi.json" />
+    <None Include="Resources\js\blockly\msg\json\hrx.json" />
+    <None Include="Resources\js\blockly\msg\json\hu.json" />
+    <None Include="Resources\js\blockly\msg\json\hy.json" />
+    <None Include="Resources\js\blockly\msg\json\ia.json" />
+    <None Include="Resources\js\blockly\msg\json\id.json" />
+    <None Include="Resources\js\blockly\msg\json\ig.json" />
+    <None Include="Resources\js\blockly\msg\json\is.json" />
+    <None Include="Resources\js\blockly\msg\json\it.json" />
+    <None Include="Resources\js\blockly\msg\json\ja.json" />
+    <None Include="Resources\js\blockly\msg\json\kab.json" />
+    <None Include="Resources\js\blockly\msg\json\kn.json" />
+    <None Include="Resources\js\blockly\msg\json\ko.json" />
+    <None Include="Resources\js\blockly\msg\json\lb.json" />
+    <None Include="Resources\js\blockly\msg\json\lki.json" />
+    <None Include="Resources\js\blockly\msg\json\lo.json" />
+    <None Include="Resources\js\blockly\msg\json\lrc.json" />
+    <None Include="Resources\js\blockly\msg\json\lt.json" />
+    <None Include="Resources\js\blockly\msg\json\lv.json" />
+    <None Include="Resources\js\blockly\msg\json\mk.json" />
+    <None Include="Resources\js\blockly\msg\json\mnw.json" />
+    <None Include="Resources\js\blockly\msg\json\ms.json" />
+    <None Include="Resources\js\blockly\msg\json\nb.json" />
+    <None Include="Resources\js\blockly\msg\json\nl.json" />
+    <None Include="Resources\js\blockly\msg\json\oc.json" />
+    <None Include="Resources\js\blockly\msg\json\pl.json" />
+    <None Include="Resources\js\blockly\msg\json\pms.json" />
+    <None Include="Resources\js\blockly\msg\json\pt-br.json" />
+    <None Include="Resources\js\blockly\msg\json\pt.json" />
+    <None Include="Resources\js\blockly\msg\json\qqq.json" />
+    <None Include="Resources\js\blockly\msg\json\ro.json" />
+    <None Include="Resources\js\blockly\msg\json\ru.json" />
+    <None Include="Resources\js\blockly\msg\json\sc.json" />
+    <None Include="Resources\js\blockly\msg\json\sd.json" />
+    <None Include="Resources\js\blockly\msg\json\shn.json" />
+    <None Include="Resources\js\blockly\msg\json\sk.json" />
+    <None Include="Resources\js\blockly\msg\json\skr-arab.json" />
+    <None Include="Resources\js\blockly\msg\json\sl.json" />
+    <None Include="Resources\js\blockly\msg\json\sq.json" />
+    <None Include="Resources\js\blockly\msg\json\sr-latn.json" />
+    <None Include="Resources\js\blockly\msg\json\sr.json" />
+    <None Include="Resources\js\blockly\msg\json\sv.json" />
+    <None Include="Resources\js\blockly\msg\json\synonyms.json" />
+    <None Include="Resources\js\blockly\msg\json\ta.json" />
+    <None Include="Resources\js\blockly\msg\json\tcy.json" />
+    <None Include="Resources\js\blockly\msg\json\te.json" />
+    <None Include="Resources\js\blockly\msg\json\th.json" />
+    <None Include="Resources\js\blockly\msg\json\tl.json" />
+    <None Include="Resources\js\blockly\msg\json\tlh.json" />
+    <None Include="Resources\js\blockly\msg\json\tr.json" />
+    <None Include="Resources\js\blockly\msg\json\ug-arab.json" />
+    <None Include="Resources\js\blockly\msg\json\uk.json" />
+    <None Include="Resources\js\blockly\msg\json\ur.json" />
+    <None Include="Resources\js\blockly\msg\json\vi.json" />
+    <None Include="Resources\js\blockly\msg\json\xmf.json" />
+    <None Include="Resources\js\blockly\msg\json\yo.json" />
+    <None Include="Resources\js\blockly\msg\json\zgh.json" />
+    <None Include="Resources\js\blockly\msg\json\zh-hans.json" />
+    <None Include="Resources\js\blockly\msg\json\zh-hant.json" />
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+      <Generator>VsixManifestGenerator</Generator>
+      <LastGenOutput>source.extension.cs</LastGenOutput>
+    </None>
+    <Content Include="Resources\Icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <VSCTCompile Include="VSCommandTable.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <Generator>VsctGenerator</Generator>
+      <LastGenOutput>VSCommandTable.cs</LastGenOutput>
+    </VSCTCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="cef.redist.x64">
+      <Version>102.0.10</Version>
+    </PackageReference>
+    <PackageReference Include="CefSharp.Common">
+      <Version>102.0.100</Version>
+    </PackageReference>
+    <PackageReference Include="CefSharp.Wpf">
+      <Version>102.0.100</Version>
+    </PackageReference>
+    <PackageReference Include="Community.VisualStudio.VSCT" Version="16.0.29.6" PrivateAssets="all" />
+    <PackageReference Include="Community.VisualStudio.Toolkit.17" Version="17.0.451" ExcludeAssets="Runtime">
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Json.Net">
+      <Version>1.0.33</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Imaging">
+      <Version>17.2.32505.113</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Shell.Interop">
+      <Version>17.2.32505.113</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.5232" />
+    <PackageReference Include="NP.Concepts">
+      <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="NP.Utilities">
+      <Version>1.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="NP.Visuals">
+      <Version>1.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="Npm">
+      <Version>3.5.2</Version>
+    </PackageReference>
+    <PackageReference Include="RadialMenu.WPF">
+      <Version>1.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ToolWindows\PreviewWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ToolWindows\RadialWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ToolWindows\BuildingWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <PropertyGroup>
+    <PostBuildEvent>del /F /S /Q "$(ProjectDir)$(OutDir)*.xml"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

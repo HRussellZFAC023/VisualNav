@@ -1,10 +1,10 @@
-# VisualThreading
+# VisualNav
 
-https://marketplace.visualstudio.com/items?itemName=VisualThreading-AccessibleDragandDropcoding.VisualThreading
+https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
 
-Welcome to the “Intel® Visual Guidance Suite for Student Developers & Visual Threading Plugin in Visual Studio” project, aiming to create an equitable development by evening the playing field, such that disabled developers can write code at the same productivity of their peers.  
+Welcome to the “Intel® Visual Guidance Suite for Student Developers & Visual Nav Plugin in Visual Studio” project, aiming to create an equitable development by evening the playing field, such that disabled developers can write code at the same productivity of their peers.  
 
-New metaphors are created for how to navigate the components needed to build applications. This is done by identifying the basic elements of an application, including Drag and Drop components, visualizing data sources and more.  Furthermore, an interface for visual threading is created by mapping code blocks to CPU threads visually.
+New metaphors are created for how to navigate the components needed to build applications. This is done by identifying the basic elements of an application, including Drag and Drop components, visualizing data sources and more.  Furthermore, an interface for visual Nav is created by mapping code blocks to CPU threads visually.
 
 Since existing tools do not provide enough support for those with disability, the use of visuals as a way of coding should be explored. Similar technologies include Visual Basic and Toolbox but we believe our solution is better. Our ideal end-goal is for developers with disability to work together in a live share environment at the same productivity level as their peers.
 

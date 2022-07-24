@@ -1,0 +1,58 @@
+﻿<UserControl
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="VisualNav.ToolWindows.RadialWindowControl"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+    toolkit:Themes.UseVsTheme="True"
+    xmlns:radialMenu="clr-namespace:RadialMenu.Controls;assembly=RadialMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"
+    xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
+    xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
+    UseLayoutRounding="True"
+    xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0">
+    <UserControl.Resources>
+        <ui:BrushToColorConverter x:Key="BrushToColorConverter" />
+    </UserControl.Resources>
+
+    <Grid Margin="0,0,0,0"
+         VerticalAlignment="Stretch"
+         HorizontalAlignment="Stretch"
+          Name ="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <radialMenu:RadialMenu Grid.ColumnSpan="2" IsOpen="true" Name="MainMenu" Margin="0,30,0,0" Grid.RowSpan="2">
+            <radialMenu:RadialMenu.CentralItem>
+                <radialMenu:RadialMenuCentralItem Name="Back" Visibility="Hidden">
+                    <StackPanel VerticalAlignment="Center"
+                                theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
+                        <imaging:CrispImage Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.Backwards}" />
+                    </StackPanel>
+                </radialMenu:RadialMenuCentralItem>
+            </radialMenu:RadialMenu.CentralItem>
+            <radialMenu:RadialMenuItem />
+            <radialMenu:RadialMenuItem />
+        </radialMenu:RadialMenu>
+        
+        <StackPanel Margin="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Name="ProgressText">Main</TextBlock>
+            <StackPanel Orientation="Horizontal" x:Name="InsertionPanel">
+                <TextBlock Name="InsertionLabel" >Insertion: &#160;</TextBlock>
+                <CheckBox  x:Name="Insertion" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
+                                theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
+            <imaging:CrispImage Visibility="Hidden"  Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageLeft}" />
+            <imaging:CrispImage Visibility="Hidden"  Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageRight}" />
+            <imaging:CrispImage x:Name="Minimize" MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
+            <imaging:CrispImage MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

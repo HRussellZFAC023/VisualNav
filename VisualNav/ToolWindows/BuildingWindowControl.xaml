@@ -1,0 +1,51 @@
+﻿<UserControl
+    x:Class="VisualNav.ToolWindows.BuildingWindowControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:browser="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+    mc:Ignorable="d"
+    toolkit:Themes.UseVsTheme="True">
+
+    <Grid
+        VerticalAlignment="Stretch"
+        HorizontalAlignment="Stretch"
+        MinWidth="200"
+        MinHeight="200">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+    
+        <Border>
+            <browser:ChromiumWebBrowser x:Name="Browser" />
+        </Border>
+
+        <StackPanel
+                Grid.Row="1"
+                Background="{DynamicResource {markup:Static SystemColors.InfoBrushKey}}"
+                Orientation="Horizontal" Name="Controls"
+                MinHeight="20">
+
+<!-- instead of combo-box, detect based on the current file type -->
+
+            <Button
+                    Name="ShowCodeButton"
+                    Click="ShowCodeButton_Click"
+                    Content="Show Code" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <Button
+                    Name="InsertCode"
+                    Click="InsertCodeButton_Click"
+                    Content="Insert code" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,5,5,5" />
+
+            <Button
+                    Name="ClipboardButton"
+                    Click="ClipboardButton_Click"
+                    Content="Clipboard" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</UserControl>
