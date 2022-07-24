@@ -14,7 +14,7 @@
         },
         {
           "name": "Test",
-          "parent": "Main",
+          "parent": "Main", 
           "submenu": [],
           "children": [ "Asset" ],
           "icon": "Test"
