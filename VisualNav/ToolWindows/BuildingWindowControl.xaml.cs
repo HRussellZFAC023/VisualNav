@@ -56,7 +56,6 @@ public partial class BuildingWindowControl
             }
             else
             {
-                var re = (string)ret.Result;
                 String re = (string)ret.Result;
                 var docView = await VS.Documents.GetActiveDocumentViewAsync();
                 if (docView?.TextView == null) return;
