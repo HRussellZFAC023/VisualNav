@@ -370,7 +370,49 @@ public partial class RadialWindowControl
             File.WriteAllText(file, JsonConvert.SerializeObject(_json));
             RadialMenuGeneration();
         }
-        else if (element.Text.Equals("Create Command") || element.Text.Equals("Create Object"))
+        else if(element.Text.Equals("Create Object"))
+        {
+            // TODO: program a input dialog to get the name of the new command 
+            string user_input = getSelectionText();
+            // modify children list (add the command into the children string array)
+            foreach (var item in language.MenuItems)
+            {
+                if (item.Name.Equals(element.Parent))
+                {
+                    string[] new_child_list = new string[item.Children.Length + 1];
+                    for (int i = 0; i < item.Children.Length; i++)
+                    {
+                        new_child_list[i] = item.Children[i];
+                    }
+                    new_child_list[new_child_list.Length - 1] = user_input;
+                }
+            }
+            // create corresponding commands ("New Layer" and "Create Command") in the Commands section
+            Command[] commandsList = new Command[language.Commands.Length + 1];
+            for (int i = 0; i < language.Commands.Length; i++)//copy to new array
+            {
+                commandsList[i] = language.Commands[i];
+            }
+
+
+            Command newCommand = new Command();
+            newCommand.Text = user_input;
+            newCommand.Parent = element.Parent;
+            newCommand.Preview = "";  // TODO: program a input dialog to get the preview
+            newCommand.Color = "#FFBF00"; // TODO: program a input dialog to get the color
+            newCommand.Type = "custom_object";  // TODO: program a input dialog to get the Type
+
+
+            commandsList[commandsList.Length - 1] = newCommand;
+
+            language.Commands = commandsList;
+            var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
+            var file = Path.Combine(dir!, "Schema", "Modified.json");
+            File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+            RadialMenuGeneration();
+
+        }
+        else if (element.Text.Equals("Create Command") )
         {
             // TODO: program a input dialog to get the name of the new command 
             string user_input = "Test Command";
@@ -393,6 +435,7 @@ public partial class RadialWindowControl
             {
                 commandsList[i] = language.Commands[i];
             }
+
             Command newCommand = new Command();
             newCommand.Text = user_input;
             newCommand.Parent = element.Parent;
@@ -530,5 +573,28 @@ public partial class RadialWindowControl
             var buildingWindow = VsShellUtilities.GetWindowObject(buildingFrame);
             buildingWindow.IsFloating = false;
         }).FireAndForget();
+    }
+
+    private static String getSelectionText()
+    {
+        String text = "";
+
+        ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+        {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            EnvDTE.DTE dte = Package.GetGlobalService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
+
+            if (dte.ActiveDocument != null)
+            {
+                var selection = (EnvDTE.TextSelection)dte.ActiveDocument.Selection;
+                text = selection.Text;
+            }
+
+            return text;
+        }).FireAndForget();
+
+        return text;
+        
     }
 }

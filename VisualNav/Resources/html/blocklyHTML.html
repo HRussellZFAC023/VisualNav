@@ -101,11 +101,48 @@
             window.addEventListener('resize', onresize, false);
             onresize();
             Blockly.svgResize(workspace);
+
+
         }
 
         function addNewBlockToArea(type) {
 
             newBlock = workspace.newBlock(type);
+            newBlock.initSvg();
+            newBlock.render();
+
+        }
+
+        function addCustomBlockToArea(text, type) {
+
+            if (type === 'custom_object') {
+                // add a new block for custom_object
+                Blockly.defineBlocksWithJsonArray([{
+                    "type": "custom_object" + text,
+                    "message0": "new %1",
+                    "args0": [
+                        {
+                            "type": "field_input",
+                            "name": "object_name",
+                            "text": text,
+                        }
+                    ],
+                    "output": "String",
+                    "colour": 230,
+                    "tooltip": "",
+                    "helpUrl": ""
+                }]);
+
+                Blockly.CSharp["custom_object" + text] = function (block) {
+                    var text_object_name = block.getFieldValue('object_name');
+                    // TODO: Assemble JavaScript into code variable.
+                    var code = "new " + text_object_name;
+                    // TODO: Change ORDER_NONE to the correct strength.
+                    return [code, Blockly.CSharp.ORDER_NONE];
+                };
+            }
+
+            newBlock = workspace.newBlock(type + text);
             newBlock.initSvg();
             newBlock.render();
 

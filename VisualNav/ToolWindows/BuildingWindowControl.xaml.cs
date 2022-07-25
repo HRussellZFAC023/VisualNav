@@ -57,9 +57,12 @@ public partial class BuildingWindowControl
             else
             {
                 var re = (string)ret.Result;
+                String re = (string)ret.Result;
                 var docView = await VS.Documents.GetActiveDocumentViewAsync();
                 if (docView?.TextView == null) return;
-                var position = docView.TextView.Caret.Position.BufferPosition;
+                int position = docView.TextView.Caret.Position.BufferPosition;
+                int spaceNum = docView.TextView.Caret.Position.VirtualSpaces;
+
                 int space_num = docView.TextView.Caret.Position.VirtualSpaces;
 
                 String spaces = "";
@@ -84,6 +87,11 @@ public partial class BuildingWindowControl
                 }
 
                 docView.TextBuffer?.Insert(position, new_res);
+
+                // another implementation?
+                //EnvDTE.DTE myDTE = Package.GetGlobalService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
+                //myDTE.ExecuteCommand("Edit.FormatDocument", string.Empty);
+
             }
         }).FireAndForget();
     }
@@ -110,11 +118,23 @@ public partial class BuildingWindowControl
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
-            var ret = await _blockly.AddNewBlockToAreaAsync(c);
-            if (ret.Success != true)
+            if (c.Type == "custom_object" || c.Type == "custom_function")
             {
-                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
+                var ret = await _blockly.AddCustomBlockToAreaAsync(c);
+                if (ret.Success != true)
+                {
+                    await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
+                }
             }
+            else
+            {
+                var ret = await _blockly.AddNewBlockToAreaAsync(c);
+                if (ret.Success != true)
+                {
+                    await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
+                }
+            }
+
         }).FireAndForget();
     }
 }

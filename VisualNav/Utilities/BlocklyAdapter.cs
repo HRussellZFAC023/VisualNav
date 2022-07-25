@@ -75,6 +75,11 @@ public class BlocklyAdapter
         return await _b.EvaluateScriptAsync("addNewBlockToArea", c.Type);
     }
 
+    public async Task<JavascriptResponse> AddCustomBlockToAreaAsync(Command c)
+    {
+        return await _b.EvaluateScriptAsync("addCustomBlockToArea", c.Text, c.Type);
+    }
+
     public async Task ClearAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
