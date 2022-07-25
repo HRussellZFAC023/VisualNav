@@ -376,6 +376,10 @@ public partial class RadialWindowControl
                         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
                         var file = Path.Combine(dir!, "Schema", "Modified.json");
                         File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+
+                        Options.Settings.Instance.CustomBlock = true;
+                        Options.Settings.Instance.Save();
+
                         RadialMenuGeneration();
                         break;
                     }
@@ -416,6 +420,10 @@ public partial class RadialWindowControl
                         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
                         var file = Path.Combine(dir!, "Schema", "Modified.json");
                         File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+
+                        Options.Settings.Instance.CustomBlock = true;
+                        Options.Settings.Instance.Save();
+
                         RadialMenuGeneration();
                         break;
                     }
