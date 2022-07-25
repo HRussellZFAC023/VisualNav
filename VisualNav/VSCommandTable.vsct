@@ -8,8 +8,8 @@
 
 	<Commands package="VisualNav">
 		<Groups>
-			<Group guid="VisualNav" id="ViewGroup" priority="0x0600">
-				<Parent guid="VSMainMenu" id="Edit" />
+			<Group guid="VisualNav" id="ViewGroup" priority="0x0500">
+				<Parent guid="VSMainMenu" id="View" />
 			</Group>
 			<Group guid="VisualNav" id="ToolGroup" priority="0x0500">
 				<Parent guid="VSMainMenu" id="Tools" />
@@ -65,8 +65,8 @@
 	</KeyBindings>
 	<Symbols>
 		<GuidSymbol name="VisualNav" value="{fb0f5ed1-f75d-4774-a7f9-5a3a7d612e5d}">
-			<IDSymbol name="ViewGroup" value="0x0001" />
-			<IDSymbol name="ToolGroup" value="0x0002" />
+			<IDSymbol name="ToolGroup" value="0x0001" />
+			<IDSymbol name="ViewGroup" value="0x0002" />
 			<IDSymbol name="OpenRadialMenu" value="0x0100" />
 			<IDSymbol name="OpenCommandPreview" value="0x0101" />
 			<IDSymbol name="OpenBuildingWindow" value="0x0102" />

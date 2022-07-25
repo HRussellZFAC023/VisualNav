@@ -29,8 +29,8 @@ namespace VisualNav
     /// </summary>
     internal sealed partial class PackageIds
     {
-        public const int ViewGroup = 0x0001;
-        public const int ToolGroup = 0x0002;
+        public const int ToolGroup = 0x0001;
+        public const int ViewGroup = 0x0002;
         public const int OpenRadialMenu = 0x0100;
         public const int OpenCommandPreview = 0x0101;
         public const int OpenBuildingWindow = 0x0102;
