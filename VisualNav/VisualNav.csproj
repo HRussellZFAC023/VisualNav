@@ -312,7 +312,6 @@
     <None Include="Resources\js\blockly\msg\json\zgh.json" />
     <None Include="Resources\js\blockly\msg\json\zh-hans.json" />
     <None Include="Resources\js\blockly\msg\json\zh-hant.json" />
-    <Content Include="Schema\Modified.json" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
       <Generator>VsixManifestGenerator</Generator>

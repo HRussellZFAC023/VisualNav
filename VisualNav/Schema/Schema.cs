@@ -14,26 +14,11 @@ public class Schema
 
         StreamReader reader = null;
 
-        bool custom = Options.Settings.Instance.CustomBlock;
-        if (custom) // use the custom setting
-        {
-            var file = Path.Combine(dir!, "Schema", "Modified.json");
-            reader = new StreamReader(file);
+        var file = Path.Combine(dir!, "Schema", "Schema.json");
+        reader = new StreamReader(file);
 
-            var json = await reader.ReadToEndAsync();
-            return JsonConvert.DeserializeObject<Schema>(json);
-        }
-        else // copy the json val of the original to Modified.json to restore setting and read the unmodified version
-        {
-            var file = Path.Combine(dir!, "Schema", "Schema.json");
-            reader = new StreamReader(file);
-
-            var original_json = await reader.ReadToEndAsync();
-            var json_obj = JsonConvert.DeserializeObject<Schema>(original_json); 
-            File.WriteAllText(Path.Combine(dir!, "Schema", "Modified.json"), JsonConvert.SerializeObject(json_obj));
-
-            return json_obj;
-        }
+        var json = await reader.ReadToEndAsync();
+        return JsonConvert.DeserializeObject<Schema>(json);
     }
 }
 

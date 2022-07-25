@@ -19,11 +19,5 @@ namespace VisualNav.Options
         [Description("An informative description.")]
         [DefaultValue(true)]
         public bool ChildMode { get; set; } = true;
-
-        [Category("Options")]
-        [DisplayName("Custom blocks")]
-        [Description("True for custom blocks, False to restore.")]
-        [DefaultValue(false)]
-        public bool CustomBlock { get; set; } = false;
     }
 }
