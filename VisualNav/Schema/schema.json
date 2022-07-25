@@ -29,23 +29,20 @@
             "Loop",
             "Variables",
             "Operator",
-            "Comparator"
+            "Comparator",
+            "Custom Blocks"
           ],
           "children": [],
           "icon": "Code"
         },
         {
-          "name": "Custom Functions",
+          "name": "Custom Blocks",
           "parent": "Main",
           "submenu": [],
-          "children": [ "New Layer", "Create Command" ],
-          "icon": "Code"
-        },
-        {
-          "name": "Custom Objects",
-          "parent": "Main",
-          "submenu": [],
-          "children": [ "New Layer", "Create Object" ],
+          "children": [
+            "New Object",
+            "New Function"
+          ],
           "icon": "Code"
         },
         {
@@ -162,32 +159,18 @@
       ],
       "commands": [
         {
-          "text": "New Layer",
-          "parent": "Custom Functions",
+          "text": "Custom Object",
+          "parent": "Custom Blocks",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": ""
+          "type": "Custom Object"
         },
         {
-          "text": "Create Command",
-          "parent": "Custom Functions",
+          "text": "Custom Function",
+          "parent": "Custom Blocks",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": ""
-        },
-        {
-          "text": "New Layer",
-          "parent": "Custom Objects",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": ""
-        },
-        {
-          "text": "Create Object",
-          "parent": "Custom Objects",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": ""
+          "type": "Custom Function"
         },
         {
           "text": "New thread",

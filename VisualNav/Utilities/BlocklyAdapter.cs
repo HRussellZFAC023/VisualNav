@@ -85,4 +85,30 @@ public class BlocklyAdapter
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
     }
+
+    public async Task CenterAsync()
+    {
+        await Task.Delay(100);
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
+        // restore zoom from settings
+    }
+
+    public async Task ResetZoomAsync()
+    {
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
+        
+    }
+
+    public async Task ZoomOutAsync()
+    {
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(-1)");
+        // update settings
+    }
+
+    public async Task ZoomInAsync()
+    {
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(1)");
+        // update settings
+    }
+
 }
