@@ -117,21 +117,11 @@ public partial class BuildingWindowControl
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
-            if (c.Type == "custom_object" || c.Type == "custom_function")
+            await _blockly.AddCustomBlockToAreaAsync(c);
+            var ret = await _blockly.AddNewBlockToAreaAsync(c);
+            if (ret.Success != true)
             {
-                var ret = await _blockly.AddCustomBlockToAreaAsync(c);
-                if (ret.Success != true)
-                {
-                    await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
-                }
-            }
-            else
-            {
-                var ret = await _blockly.AddNewBlockToAreaAsync(c);
-                if (ret.Success != true)
-                {
-                    await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
-                }
+                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
             }
 
         }).FireAndForget();

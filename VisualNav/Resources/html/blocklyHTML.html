@@ -105,7 +105,11 @@
 
         }
 
-        function addNewBlockToArea(type) {
+        function addNewBlockToArea(text, type) {
+
+            if (type === 'custom_object' || type === 'custom_function') {
+                type = type + "_" + text;
+            }
 
             newBlock = workspace.newBlock(type);
             newBlock.initSvg();
@@ -113,12 +117,12 @@
 
         }
 
-        function addCustomBlockToArea(text, type) {
+        function addCustomBlockToArea(text, type, color) {
 
             if (type === 'custom_object') {
                 // add a new block for custom_object
                 Blockly.defineBlocksWithJsonArray([{
-                    "type": "custom_object" + text,
+                    "type": "custom_object_" + text,
                     "message0": "new %1",
                     "args0": [
                         {
@@ -128,23 +132,22 @@
                         }
                     ],
                     "output": "String",
-                    "colour": 230,
+                    "colour": color,
                     "tooltip": "",
                     "helpUrl": ""
                 }]);
 
-                Blockly.CSharp["custom_object" + text] = function (block) {
+                Blockly.CSharp["custom_object_" + text] = function (block) {
                     var text_object_name = block.getFieldValue('object_name');
                     // TODO: Assemble JavaScript into code variable.
                     var code = "new " + text_object_name;
                     // TODO: Change ORDER_NONE to the correct strength.
                     return [code, Blockly.CSharp.ORDER_NONE];
                 };
+            } else if (type === 'custom_function') {
+
             }
 
-            newBlock = workspace.newBlock(type + text);
-            newBlock.initSvg();
-            newBlock.render();
 
         }
 

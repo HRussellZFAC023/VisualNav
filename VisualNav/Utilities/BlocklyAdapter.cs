@@ -72,12 +72,13 @@ public class BlocklyAdapter
 
     public async Task<JavascriptResponse> AddNewBlockToAreaAsync(Command c)
     {
-        return await _b.EvaluateScriptAsync("addNewBlockToArea", c.Type);
+        return await _b.EvaluateScriptAsync("addNewBlockToArea", c.Text, c.Type);
     }
 
     public async Task<JavascriptResponse> AddCustomBlockToAreaAsync(Command c)
     {
-        return await _b.EvaluateScriptAsync("addCustomBlockToArea", c.Text, c.Type);
+        // Text, Parent, Preview, Color, Type
+        return await _b.EvaluateScriptAsync("addCustomBlockToArea", c.Text, c.Type, c.Color);
     }
 
     public async Task ClearAsync()
