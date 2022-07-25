@@ -60,7 +60,30 @@ public partial class BuildingWindowControl
                 var docView = await VS.Documents.GetActiveDocumentViewAsync();
                 if (docView?.TextView == null) return;
                 var position = docView.TextView.Caret.Position.BufferPosition;
-                docView.TextBuffer?.Insert(position, re);
+                int space_num = docView.TextView.Caret.Position.VirtualSpaces;
+
+                String spaces = "";
+                String new_res = "";
+                for (int i = 0; i < space_num; i++)
+                {
+                    spaces += ' ';
+                }
+
+                new_res += spaces;
+                foreach (char c in re)
+                {
+                    if (c == '\n')
+                    {
+                        new_res += c;
+                        new_res += spaces;
+                    }
+                    else
+                    {
+                        new_res += c;
+                    }
+                }
+
+                docView.TextBuffer?.Insert(position, new_res);
             }
         }).FireAndForget();
     }
