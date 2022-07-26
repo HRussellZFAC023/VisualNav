@@ -144,6 +144,7 @@ public partial class RadialWindowControl
                 {
                     var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, _colorMap["Varden"], _colorMap["CreamBrulee"]);
                     menuBlock.Click += (_, _) => RadialDialElement_Click(command, language); //Handler of the command
+                    menuBlock.MouseRightButtonDown += (_, _) => RadialDialElement_Remove(command, language); // right click to delete
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
                     // Highlight by increasing the radius of radial button
@@ -288,7 +289,7 @@ public partial class RadialWindowControl
     /// Button click handler, if the element clicked is a member of UI menu, adopt different event
     /// </summary>
     /// <param name="element"></param>
-    private void RadialDialElement_Click(Command element, Radialmenu language)
+    private async void RadialDialElement_Click(Command element, Radialmenu language)
     {
         if (element.Type.Equals("UI"))
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
@@ -308,10 +309,16 @@ public partial class RadialWindowControl
                 }
             }).FireAndForget();
         else switch (element.Text)
-        {
+            {
                 case "New Layer":
                     {
-                        const string userInput = "Custom TEST";
+                        DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
+                        string userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        if (userInput.Equals(""))
+                        {
+                            MessageBoxResult result = System.Windows.MessageBox.Show("Select layer name in coding area");
+                            return;
+                        }
                         // Modify Menuitems section of the json file
                         var menuItem = new Menuitem[language.MenuItems.Length + 1];
                         for (var i = 0; i < language.MenuItems.Length; i++)//copy to new array
@@ -337,7 +344,7 @@ public partial class RadialWindowControl
                             Name = userInput,
                             Parent = element.Parent,
                             Submenu = Array.Empty<string>(),
-                            Children = new[] { "New Layer", "Create Command" },
+                            Children = new[] { "Custom Object", "Custom Function", "New Layer" },
                             Icon = "Code"
                         };
                         menuItem[menuItem.Length - 1] = item;
@@ -345,15 +352,24 @@ public partial class RadialWindowControl
                         language.MenuItems = menuItem;
 
                         // create corresponding commands ("New Layer" and "Create Command") in the Commands section
-                        var commandsList = new Command[language.Commands.Length + 2];
+                        var commandsList = new Command[language.Commands.Length + 3];
                         for (var i = 0; i < language.Commands.Length; i++)//copy to new array
                         {
                             commandsList[i] = language.Commands[i];
                         }
 
-                        var newCommand = new Command
+                        var customFunction = new Command
                         {
-                            Text = "Create Command",
+                            Text = "Custom Function",
+                            Parent = userInput,
+                            Preview = "",
+                            Color = "#FF00FFFF",
+                            Type = ""
+                        };
+
+                        var customObject = new Command
+                        {
+                            Text = "Custom Object",
                             Parent = userInput,
                             Preview = "",
                             Color = "#FF00FFFF",
@@ -368,7 +384,8 @@ public partial class RadialWindowControl
                             Color = "#FF00FFFF",
                             Type = ""
                         };
-                        commandsList[commandsList.Length - 2] = newCommand;
+                        commandsList[commandsList.Length - 3] = customFunction;
+                        commandsList[commandsList.Length - 2] = customObject;
                         commandsList[commandsList.Length - 1] = newSubMenu;
 
                         language.Commands = commandsList;
@@ -376,14 +393,23 @@ public partial class RadialWindowControl
                         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
                         var file = Path.Combine(dir!, "Schema", "Modified.json");
                         File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+
+                        Options.Settings.Instance.CustomBlock = true;
+                        Options.Settings.Instance.Save();
+
                         RadialMenuGeneration();
                         break;
                     }
-                case "Create Command":
-                case "Create Object":
+                case "Custom Object":
+                case "Custom Function":
                     {
-                        // TODO: program a input dialog to get the name of the new command
-                        const string userInput = "Test Command";
+                        DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
+                        string userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        if (userInput.Equals("")) //prevent empty name input
+                        {
+                            MessageBoxResult result = System.Windows.MessageBox.Show("Select object name in coding area");
+                            return;
+                        }
                         // modify children list (add the command into the children string array)
                         foreach (var item in language.MenuItems)
                         {
@@ -401,13 +427,27 @@ public partial class RadialWindowControl
                         {
                             commandsList[i] = language.Commands[i];
                         }
+
+                        string type = element.Text.Equals("Custom Object") ? "custom_object_" : "custom_function_";
+                        type = type + userInput;
+                        userInput = element.Text.Equals("Custom Function") ? userInput + "( )" : userInput;
+
+                        foreach(var temp in language.Commands) //prevent duplicates
+                        {
+                            if (temp.Text.Equals(userInput))
+                            {
+                                MessageBoxResult result = System.Windows.MessageBox.Show("Duplicate object/function found, try another name.");
+                                return;
+                            }
+                        }
+
                         var newCommand = new Command
                         {
                             Text = userInput,
                             Parent = element.Parent,
-                            Preview = "", // TODO: program a input dialog to get the preview
+                            Preview = "",
                             Color = "#FFBF00", // TODO: program a input dialog to get the color
-                            Type = "" // TODO: program a input dialog to get the Type
+                            Type = type
                         };
 
                         commandsList[commandsList.Length - 1] = newCommand;
@@ -416,6 +456,10 @@ public partial class RadialWindowControl
                         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
                         var file = Path.Combine(dir!, "Schema", "Modified.json");
                         File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+
+                        Options.Settings.Instance.CustomBlock = true;
+                        Options.Settings.Instance.Save();
+
                         RadialMenuGeneration();
                         break;
                     }
@@ -423,6 +467,46 @@ public partial class RadialWindowControl
                     BuildingWindow.Instance.SetCurrentCommand(element);
                     break;
             }
+    }
+
+    private void RadialDialElement_Remove(Command element, Radialmenu language)
+    {
+        if (element.Type.Contains("custom")){ // if it is a custom button
+
+            foreach (var item in language.MenuItems) // remove from child array
+            {
+                if (!item.Name.Equals(element.Text)) continue;
+                var newChildList = new string[item.Children.Length - 1];
+                for (var i = 0; i < item.Children.Length; i++)
+                {
+                    if (!item.Children[i].Equals(element.Text))
+                    {
+                        newChildList[i] = item.Children[i];
+                    }
+                }
+            }
+
+            var commandsList = new Command[language.Commands.Length - 1]; 
+            for (var i = 0; i < language.Commands.Length; i++) //remove from command list
+            {
+                if (!language.Commands[i].Text.Equals(element.Text))
+                {
+                    commandsList[i] = language.Commands[i];
+                }
+            }
+                
+            language.Commands = commandsList;
+            var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
+            var file = Path.Combine(dir!, "Schema", "Modified.json");
+            File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+
+            RadialMenuGeneration();
+        }
+        else
+        {
+            return;
+        }
+        
     }
 
     /// <summary>
