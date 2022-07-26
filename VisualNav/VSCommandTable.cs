@@ -37,5 +37,8 @@ namespace VisualNav
         public const int OpenAllWindows = 0x0103;
         public const int Maximize = 0x0104;
         public const int Minimize = 0x0105;
+        public const int ZoomIn = 0x0106;
+        public const int ZoomOut = 0x0107;
+        public const int Insert = 0x0108;
     }
 }

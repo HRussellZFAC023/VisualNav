@@ -17,6 +17,7 @@ public partial class BuildingWindowControl
         ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.LoadHtmlAsync(); }).FireAndForget();
 
         Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
+        _blockly.CenterAsync().FireAndForget();
         SizeChanged += (_,_) => _blockly.CenterAsync().FireAndForget();
     }
 
