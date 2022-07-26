@@ -2,7 +2,6 @@ using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
 using RadialMenu.Controls;
 using System.Collections.Generic;
@@ -145,6 +144,7 @@ public partial class RadialWindowControl
                 {
                     var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, _colorMap["Varden"], _colorMap["CreamBrulee"]);
                     menuBlock.Click += (_, _) => RadialDialElement_Click(command, language); //Handler of the command
+                    menuBlock.MouseRightButtonDown += (_, _) => RadialDialElement_Remove(command, language); // right click to delete
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
                     // Highlight by increasing the radius of radial button
@@ -404,22 +404,8 @@ public partial class RadialWindowControl
                 case "Custom Function":
                     {
                         DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
-                        string userInput;
-                        string type;
-                        if (element.Text.Equals("Custom Function"))
-                        {
-                            userInput = docView.TextView.Selection.StreamSelectionSpan.GetText() + "( )";
-                            SnapshotPoint position = docView.TextView.Caret.Position.BufferPosition;
-                            type = docView.TextView.Selection.StreamSelectionSpan.GetText();
-                        }
-                        else
-                        {
-                            userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
-                            type = userInput;
-                        }
-
-
-                        if (userInput.Equals(""))
+                        string userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        if (userInput.Equals("")) //prevent empty name input
                         {
                             MessageBoxResult result = System.Windows.MessageBox.Show("Select object name in coding area");
                             return;
@@ -442,7 +428,18 @@ public partial class RadialWindowControl
                             commandsList[i] = language.Commands[i];
                         }
 
-                        string type_prefix = element.Text.Equals("Custom Object") ? "custom_object_" : "custom_function_";
+                        string type = element.Text.Equals("Custom Object") ? "custom_object_" : "custom_function_";
+                        type = type + userInput;
+                        userInput = element.Text.Equals("Custom Function") ? userInput + "( )" : userInput;
+
+                        foreach(var temp in language.Commands) //prevent duplicates
+                        {
+                            if (temp.Text.Equals(userInput))
+                            {
+                                MessageBoxResult result = System.Windows.MessageBox.Show("Duplicate object/function found, try another name.");
+                                return;
+                            }
+                        }
 
                         var newCommand = new Command
                         {
@@ -450,7 +447,7 @@ public partial class RadialWindowControl
                             Parent = element.Parent,
                             Preview = "",
                             Color = "#FFBF00", // TODO: program a input dialog to get the color
-                            Type = type_prefix + type // TODO: program a input dialog to get the Type
+                            Type = type
                         };
 
                         commandsList[commandsList.Length - 1] = newCommand;
@@ -470,6 +467,46 @@ public partial class RadialWindowControl
                     BuildingWindow.Instance.SetCurrentCommand(element);
                     break;
             }
+    }
+
+    private void RadialDialElement_Remove(Command element, Radialmenu language)
+    {
+        if (element.Type.Contains("custom")){ // if it is a custom button
+
+            foreach (var item in language.MenuItems) // remove from child array
+            {
+                if (!item.Name.Equals(element.Text)) continue;
+                var newChildList = new string[item.Children.Length - 1];
+                for (var i = 0; i < item.Children.Length; i++)
+                {
+                    if (!item.Children[i].Equals(element.Text))
+                    {
+                        newChildList[i] = item.Children[i];
+                    }
+                }
+            }
+
+            var commandsList = new Command[language.Commands.Length - 1]; 
+            for (var i = 0; i < language.Commands.Length; i++) //remove from command list
+            {
+                if (!language.Commands[i].Text.Equals(element.Text))
+                {
+                    commandsList[i] = language.Commands[i];
+                }
+            }
+                
+            language.Commands = commandsList;
+            var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
+            var file = Path.Combine(dir!, "Schema", "Modified.json");
+            File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+
+            RadialMenuGeneration();
+        }
+        else
+        {
+            return;
+        }
+        
     }
 
     /// <summary>
