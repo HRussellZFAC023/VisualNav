@@ -35,5 +35,7 @@ namespace VisualNav
         public const int OpenCommandPreview = 0x0101;
         public const int OpenBuildingWindow = 0x0102;
         public const int OpenAllWindows = 0x0103;
+        public const int Maximize = 0x0104;
+        public const int Minimize = 0x0105;
     }
 }

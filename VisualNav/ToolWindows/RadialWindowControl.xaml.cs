@@ -430,7 +430,7 @@ public partial class RadialWindowControl
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void DecreaseSize(object sender, RoutedEventArgs e)
+    public void DecreaseSize(object sender = null, RoutedEventArgs e = null)
     {
         DockToEditor();
         RadialMenuGeneration();

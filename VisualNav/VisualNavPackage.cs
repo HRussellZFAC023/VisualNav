@@ -25,20 +25,6 @@ public sealed class VisualNavPackage : ToolkitPackage
         await this.RegisterCommandsAsync();
         this.RegisterToolWindows();
         await LanguageMediator.InitializeAsync();
-
-        // register additional keyboard shortcuts here:
-
-        // 1.
-        // Fullscreen toolwindow
-        // control shift alt f
-        //var fullscreenWindow = new RoutedCommand();
-        //fullscreenWindow.InputGestures.Add(new KeyGesture(Key.F, ModifierKeys.Control 
-        //                                                         | ModifierKeys.Shift | ModifierKeys.Alt));
-        //var bind1 = new CommandBinding { Command = fullscreenWindow };
-        //bind1.Executed += (_, _) => RadialWindow.Instance.IncreaseSize();
-        //RadialWindow.Instance.CommandBindings.Add(bind1);
-
-        // 2.
-
+        
     }
 }
