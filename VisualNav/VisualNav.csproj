@@ -50,7 +50,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\MaximizeVisualNavToolwindows.cs" />
+    <Compile Include="Commands\MaximizeWindows.cs" />
+    <Compile Include="Commands\MinimizeWindows.cs" />
     <Compile Include="Commands\OpenAllWindows.cs" />
     <Compile Include="Schema\Schema.cs" />
     <Compile Include="Utilities\BlocklyAdapter.cs" />
