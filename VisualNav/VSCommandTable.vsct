@@ -8,11 +8,8 @@
 
 	<Commands package="VisualNav">
 		<Groups>
-			<Group guid="VisualNav" id="ViewGroup" priority="0x0500">
+			<Group guid="VisualNav" id="MyMenuGroup" priority="0x0600">
 				<Parent guid="VSMainMenu" id="View" />
-			</Group>
-			<Group guid="VisualNav" id="ToolGroup" priority="0x0500">
-				<Parent guid="VSMainMenu" id="Tools" />
 			</Group>
 		</Groups>
 
@@ -20,7 +17,7 @@
         or combo box in a toolbar. -->
 		<Buttons>
 			<Button guid="VisualNav" id="OpenRadialMenu" priority="0x0100" type="Button">
-				<Parent guid="VisualNav" id="ViewGroup" />
+				<Parent guid="VisualNav" id="MyMenuGroup" />
 				<Icon guid="ImageCatalogGuid" id="PieChart" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
@@ -29,7 +26,7 @@
 				</Strings>
 			</Button>
 			<Button guid="VisualNav" id="OpenCommandPreview" priority="0x0100" type="Button">
-				<Parent guid="VisualNav" id="ViewGroup" />
+				<Parent guid="VisualNav" id="MyMenuGroup" />
 				<Icon guid="ImageCatalogGuid" id="Thread" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
@@ -39,7 +36,7 @@
 			</Button>
 
 			<Button guid="VisualNav" id="OpenBuildingWindow" priority="0x0100" type="Button">
-				<Parent guid="VisualNav" id="ViewGroup" />
+				<Parent guid="VisualNav" id="MyMenuGroup" />
 				<Icon guid="ImageCatalogGuid" id="Processor" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
@@ -48,29 +45,24 @@
 				</Strings>
 			</Button>
 
-			<Button guid="VisualNav" id="OpenAllWindows" priority="0x0500" type="Button">
-				<Parent guid="VisualNav" id="ToolGroup" />
+			<Button guid="VisualNav" id="OpenBuildingWindow" priority="0x0100" type="Button">
+				<Parent guid="VisualNav" id="MyMenuGroup" />
 				<Icon guid="ImageCatalogGuid" id="Processor" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
-					<ButtonText>Open All Windows - Visual Nav</ButtonText>
-					<LocCanonicalName>.View.OpenAllWindows</LocCanonicalName>
+					<ButtonText>Open All Toolwindows - Visual Nav</ButtonText>
+					<LocCanonicalName>.View.BuildingWindow</LocCanonicalName>
 				</Strings>
 			</Button>
 		</Buttons>
 	</Commands>
-	<KeyBindings>
-		<KeyBinding guid="VisualNav" id="OpenAllWindows"
-		            editor="guidVSStd97" key1="k" key2="f" mod1="Control" mod2="Shift" />
-	</KeyBindings>
+
 	<Symbols>
 		<GuidSymbol name="VisualNav" value="{fb0f5ed1-f75d-4774-a7f9-5a3a7d612e5d}">
-			<IDSymbol name="ToolGroup" value="0x0001" />
-			<IDSymbol name="ViewGroup" value="0x0002" />
+			<IDSymbol name="MyMenuGroup" value="0x0001" />
 			<IDSymbol name="OpenRadialMenu" value="0x0100" />
 			<IDSymbol name="OpenCommandPreview" value="0x0101" />
 			<IDSymbol name="OpenBuildingWindow" value="0x0102" />
-			<IDSymbol name="OpenAllWindows" value="0x0103" />
 		</GuidSymbol>
 		<GuidSymbol name="RadialWindow" value="{34b9ebb5-2c75-4bef-a755-39d77e165ecc}" />
 		<GuidSymbol name="BuildingWindow" value="{3056e2ec-342f-4817-8eeb-eddadeaf2432}" />

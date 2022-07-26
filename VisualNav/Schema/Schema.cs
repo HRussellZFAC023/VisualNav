@@ -11,12 +11,19 @@ public class Schema
     public static async Task<Schema> LoadAsync()
     {
         var dir = Path.GetDirectoryName(typeof(Schema).Assembly.Location);
-
+        var file = Path.Combine(dir!, "Schema", "Modified.json");
         StreamReader reader = null;
-
-        var file = Path.Combine(dir!, "Schema", "Schema.json");
-        reader = new StreamReader(file);
-
+        try
+        {
+             reader = new StreamReader(file);
+        }
+        catch (Exception e)
+        {
+            file = Path.Combine(dir!, "Schema", "Schema.json");
+             reader = new StreamReader(file);
+        }
+        
+        //using var reader = new StreamReader(file);
         var json = await reader.ReadToEndAsync();
         return JsonConvert.DeserializeObject<Schema>(json);
     }
