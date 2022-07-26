@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
 using RadialMenu.Controls;
 using System.Collections.Generic;
@@ -288,7 +289,7 @@ public partial class RadialWindowControl
     /// Button click handler, if the element clicked is a member of UI menu, adopt different event
     /// </summary>
     /// <param name="element"></param>
-    private void RadialDialElement_Click(Command element, Radialmenu language)
+    private async void RadialDialElement_Click(Command element, Radialmenu language)
     {
         if (element.Type.Equals("UI"))
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
@@ -307,154 +308,168 @@ public partial class RadialWindowControl
                     await InfoNotificationWrapper.ShowSimpleAsync("Copied to clipboard.", "Copy", PackageGuids.RadialWindowString, 1500);
                 }
             }).FireAndForget();
-        else if (element.Text.Equals("New Layer"))
-        {            
-            string user_input = "Custom TEST";
-            // Modify Menuitems section of the json file
-            Menuitem[] menuItem = new Menuitem[language.MenuItems.Length + 1];
-            for (int i = 0; i < language.MenuItems.Length; i++)//copy to new array
+        else switch (element.Text)
             {
-                if (language.MenuItems[i].Name.Equals(element.Parent))
-                {
-                    // add "Custom TEST"(just a test val, need user input for the name) to submenu to represent a sub menu
-                    var element_temp = language.MenuItems[i].Submenu;
-                    Array.Resize(ref element_temp, language.MenuItems[i].Submenu.Length + 1);
-                    element_temp[language.MenuItems[i].Submenu.Length] = user_input;
-                    language.MenuItems[i].Submenu = element_temp;
-
-                    //from children remove "New Layer"
-                    var children_temp = language.MenuItems[i].Children;
-                    children_temp = children_temp.Where((source, index) => index != 0).ToArray();
-                    language.MenuItems[i].Children = children_temp;
-                }
-                menuItem[i] = language.MenuItems[i];
-            }
-
-            Menuitem item = new Menuitem();
-            item.Name = user_input;
-            item.Parent = element.Parent;
-            item.Submenu = new String[0];
-            item.Children = new String[] { "New Layer", "Create Command" };
-            item.Icon = "Code";
-            menuItem[menuItem.Length - 1] = item;
-
-            language.MenuItems = menuItem;
-
-            // create corresponding commands ("New Layer" and "Create Command") in the Commands section
-            Command[] commandsList = new Command[language.Commands.Length + 2];
-            for (int i = 0; i < language.Commands.Length; i++)//copy to new array
-            {
-                commandsList[i] = language.Commands[i];
-            }
-
-            Command newCommand = new Command();
-            newCommand.Text = "Create Command";
-            newCommand.Parent = user_input;
-            newCommand.Preview = "";
-            newCommand.Color = "#FF00FFFF";
-            newCommand.Type = "";
-
-            Command newSubMenu = new Command();
-            newSubMenu.Text = "New Layer";
-            newSubMenu.Parent = user_input;
-            newSubMenu.Preview = "";
-            newSubMenu.Color = "#FF00FFFF";
-            newSubMenu.Type = "";
-            commandsList[commandsList.Length - 2] = newCommand;
-            commandsList[commandsList.Length - 1] = newSubMenu;
-
-            language.Commands = commandsList;
-
-            var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
-            var file = Path.Combine(dir!, "Schema", "Modified.json");
-            File.WriteAllText(file, JsonConvert.SerializeObject(_json));
-            RadialMenuGeneration();
-        }
-        else if(element.Text.Equals("Create Object"))
-        {
-            // TODO: program a input dialog to get the name of the new command 
-            string user_input = getSelectionText();
-            // modify children list (add the command into the children string array)
-            foreach (var item in language.MenuItems)
-            {
-                if (item.Name.Equals(element.Parent))
-                {
-                    string[] new_child_list = new string[item.Children.Length + 1];
-                    for (int i = 0; i < item.Children.Length; i++)
+                case "New Layer":
                     {
-                        new_child_list[i] = item.Children[i];
+                        DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
+                        string userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        if (userInput.Equals(""))
+                        {
+                            MessageBoxResult result = System.Windows.MessageBox.Show("Select layer name in coding area");
+                            return;
+                        }
+                        // Modify Menuitems section of the json file
+                        var menuItem = new Menuitem[language.MenuItems.Length + 1];
+                        for (var i = 0; i < language.MenuItems.Length; i++)//copy to new array
+                        {
+                            if (language.MenuItems[i].Name.Equals(element.Parent))
+                            {
+                                // add "Custom TEST"(just a test val, need user input for the name) to submenu to represent a sub menu
+                                var elementTemp = language.MenuItems[i].Submenu;
+                                Array.Resize(ref elementTemp, language.MenuItems[i].Submenu.Length + 1);
+                                elementTemp[language.MenuItems[i].Submenu.Length] = userInput;
+                                language.MenuItems[i].Submenu = elementTemp;
+
+                                //from children remove "New Layer"
+                                var childrenTemp = language.MenuItems[i].Children;
+                                childrenTemp = childrenTemp.Where((source, index) => index != 0).ToArray();
+                                language.MenuItems[i].Children = childrenTemp;
+                            }
+                            menuItem[i] = language.MenuItems[i];
+                        }
+
+                        var item = new Menuitem
+                        {
+                            Name = userInput,
+                            Parent = element.Parent,
+                            Submenu = Array.Empty<string>(),
+                            Children = new[] { "Custom Object", "Custom Function", "New Layer" },
+                            Icon = "Code"
+                        };
+                        menuItem[menuItem.Length - 1] = item;
+
+                        language.MenuItems = menuItem;
+
+                        // create corresponding commands ("New Layer" and "Create Command") in the Commands section
+                        var commandsList = new Command[language.Commands.Length + 3];
+                        for (var i = 0; i < language.Commands.Length; i++)//copy to new array
+                        {
+                            commandsList[i] = language.Commands[i];
+                        }
+
+                        var customFunction = new Command
+                        {
+                            Text = "Custom Function",
+                            Parent = userInput,
+                            Preview = "",
+                            Color = "#FF00FFFF",
+                            Type = ""
+                        };
+
+                        var customObject = new Command
+                        {
+                            Text = "Custom Object",
+                            Parent = userInput,
+                            Preview = "",
+                            Color = "#FF00FFFF",
+                            Type = ""
+                        };
+
+                        var newSubMenu = new Command
+                        {
+                            Text = "New Layer",
+                            Parent = userInput,
+                            Preview = "",
+                            Color = "#FF00FFFF",
+                            Type = ""
+                        };
+                        commandsList[commandsList.Length - 3] = customFunction;
+                        commandsList[commandsList.Length - 2] = customObject;
+                        commandsList[commandsList.Length - 1] = newSubMenu;
+
+                        language.Commands = commandsList;
+
+                        var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
+                        var file = Path.Combine(dir!, "Schema", "Modified.json");
+                        File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+
+                        Options.Settings.Instance.CustomBlock = true;
+                        Options.Settings.Instance.Save();
+
+                        RadialMenuGeneration();
+                        break;
                     }
-                    new_child_list[new_child_list.Length - 1] = user_input;
-                }
-            }
-            // create corresponding commands ("New Layer" and "Create Command") in the Commands section
-            Command[] commandsList = new Command[language.Commands.Length + 1];
-            for (int i = 0; i < language.Commands.Length; i++)//copy to new array
-            {
-                commandsList[i] = language.Commands[i];
-            }
-
-
-            Command newCommand = new Command();
-            newCommand.Text = user_input;
-            newCommand.Parent = element.Parent;
-            newCommand.Preview = "";  // TODO: program a input dialog to get the preview
-            newCommand.Color = "#FFBF00"; // TODO: program a input dialog to get the color
-            newCommand.Type = "custom_object";  // TODO: program a input dialog to get the Type
-
-
-            commandsList[commandsList.Length - 1] = newCommand;
-
-            language.Commands = commandsList;
-            var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
-            var file = Path.Combine(dir!, "Schema", "Modified.json");
-            File.WriteAllText(file, JsonConvert.SerializeObject(_json));
-            RadialMenuGeneration();
-
-        }
-        else if (element.Text.Equals("Create Command") )
-        {
-            // TODO: program a input dialog to get the name of the new command 
-            string user_input = "Test Command";
-            // modify children list (add the command into the children string array)
-            foreach (var item in language.MenuItems)
-            {
-                if (item.Name.Equals(element.Parent))
-                {
-                    string[] new_child_list = new string[item.Children.Length + 1];
-                    for (int i = 0; i < item.Children.Length; i++)
+                case "Custom Object":
+                case "Custom Function":
                     {
-                        new_child_list[i] = item.Children[i];
+                        DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
+                        string userInput;
+                        string type;
+                        if (element.Text.Equals("Custom Function"))
+                        {
+                            userInput = docView.TextView.Selection.StreamSelectionSpan.GetText() + "( )";
+                            SnapshotPoint position = docView.TextView.Caret.Position.BufferPosition;
+                            type = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        }
+                        else
+                        {
+                            userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                            type = userInput;
+                        }
+
+
+                        if (userInput.Equals(""))
+                        {
+                            MessageBoxResult result = System.Windows.MessageBox.Show("Select object name in coding area");
+                            return;
+                        }
+                        // modify children list (add the command into the children string array)
+                        foreach (var item in language.MenuItems)
+                        {
+                            if (!item.Name.Equals(element.Parent)) continue;
+                            var newChildList = new string[item.Children.Length + 1];
+                            for (var i = 0; i < item.Children.Length; i++)
+                            {
+                                newChildList[i] = item.Children[i];
+                            }
+                            newChildList[newChildList.Length - 1] = userInput;
+                        }
+                        // create corresponding commands ("New Layer" and "Create Command") in the Commands section
+                        var commandsList = new Command[language.Commands.Length + 1];
+                        for (var i = 0; i < language.Commands.Length; i++)//copy to new array
+                        {
+                            commandsList[i] = language.Commands[i];
+                        }
+
+                        string type_prefix = element.Text.Equals("Custom Object") ? "custom_object_" : "custom_function_";
+
+                        var newCommand = new Command
+                        {
+                            Text = userInput,
+                            Parent = element.Parent,
+                            Preview = "",
+                            Color = "#FFBF00", // TODO: program a input dialog to get the color
+                            Type = type_prefix + type // TODO: program a input dialog to get the Type
+                        };
+
+                        commandsList[commandsList.Length - 1] = newCommand;
+
+                        language.Commands = commandsList;
+                        var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
+                        var file = Path.Combine(dir!, "Schema", "Modified.json");
+                        File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+
+                        Options.Settings.Instance.CustomBlock = true;
+                        Options.Settings.Instance.Save();
+
+                        RadialMenuGeneration();
+                        break;
                     }
-                    new_child_list[new_child_list.Length - 1] = user_input;
-                }
+                default:
+                    BuildingWindow.Instance.SetCurrentCommand(element);
+                    break;
             }
-            // create corresponding commands ("New Layer" and "Create Command") in the Commands section
-            Command[] commandsList = new Command[language.Commands.Length + 1];
-            for (int i = 0; i < language.Commands.Length; i++)//copy to new array
-            {
-                commandsList[i] = language.Commands[i];
-            }
-
-            Command newCommand = new Command();
-            newCommand.Text = user_input;
-            newCommand.Parent = element.Parent;
-            newCommand.Preview = "";  // TODO: program a input dialog to get the preview
-            newCommand.Color = "#FFBF00"; // TODO: program a input dialog to get the color
-            newCommand.Type = "";  // TODO: program a input dialog to get the Type
-
-            commandsList[commandsList.Length - 1] = newCommand;
-            
-            language.Commands = commandsList;
-            var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
-            var file = Path.Combine(dir!, "Schema", "Modified.json");
-            File.WriteAllText(file, JsonConvert.SerializeObject(_json));
-            RadialMenuGeneration();
-        }
-        else
-        {
-            BuildingWindow.Instance.SetCurrentCommand(element);
-        }
     }
 
     /// <summary>
@@ -573,28 +588,5 @@ public partial class RadialWindowControl
             var buildingWindow = VsShellUtilities.GetWindowObject(buildingFrame);
             buildingWindow.IsFloating = false;
         }).FireAndForget();
-    }
-
-    private static String getSelectionText()
-    {
-        String text = "";
-
-        ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-        {
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-            EnvDTE.DTE dte = Package.GetGlobalService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
-
-            if (dte.ActiveDocument != null)
-            {
-                var selection = (EnvDTE.TextSelection)dte.ActiveDocument.Selection;
-                text = selection.Text;
-            }
-
-            return text;
-        }).FireAndForget();
-
-        return text;
-        
     }
 }
