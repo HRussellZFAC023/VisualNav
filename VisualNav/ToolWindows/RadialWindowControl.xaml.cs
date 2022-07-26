@@ -288,7 +288,7 @@ public partial class RadialWindowControl
     /// Button click handler, if the element clicked is a member of UI menu, adopt different event
     /// </summary>
     /// <param name="element"></param>
-    private void RadialDialElement_Click(Command element, Radialmenu language)
+    private async void RadialDialElement_Click(Command element, Radialmenu language)
     {
         if (element.Type.Equals("UI"))
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
@@ -308,10 +308,16 @@ public partial class RadialWindowControl
                 }
             }).FireAndForget();
         else switch (element.Text)
-        {
+            {
                 case "New Layer":
                     {
-                        const string userInput = "Custom TEST";
+                        DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
+                        string userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        if (userInput.Equals(""))
+                        {
+                            MessageBoxResult result = System.Windows.MessageBox.Show("Select layer name in coding area");
+                            return;
+                        }
                         // Modify Menuitems section of the json file
                         var menuItem = new Menuitem[language.MenuItems.Length + 1];
                         for (var i = 0; i < language.MenuItems.Length; i++)//copy to new array
@@ -337,7 +343,7 @@ public partial class RadialWindowControl
                             Name = userInput,
                             Parent = element.Parent,
                             Submenu = Array.Empty<string>(),
-                            Children = new[] { "New Layer", "Create Command" },
+                            Children = new[] { "Custom Object", "Custom Function", "New Layer" },
                             Icon = "Code"
                         };
                         menuItem[menuItem.Length - 1] = item;
@@ -345,15 +351,24 @@ public partial class RadialWindowControl
                         language.MenuItems = menuItem;
 
                         // create corresponding commands ("New Layer" and "Create Command") in the Commands section
-                        var commandsList = new Command[language.Commands.Length + 2];
+                        var commandsList = new Command[language.Commands.Length + 3];
                         for (var i = 0; i < language.Commands.Length; i++)//copy to new array
                         {
                             commandsList[i] = language.Commands[i];
                         }
 
-                        var newCommand = new Command
+                        var customFunction = new Command
                         {
-                            Text = "Create Command",
+                            Text = "Custom Function",
+                            Parent = userInput,
+                            Preview = "",
+                            Color = "#FF00FFFF",
+                            Type = ""
+                        };
+
+                        var customObject = new Command
+                        {
+                            Text = "Custom Object",
                             Parent = userInput,
                             Preview = "",
                             Color = "#FF00FFFF",
@@ -368,7 +383,8 @@ public partial class RadialWindowControl
                             Color = "#FF00FFFF",
                             Type = ""
                         };
-                        commandsList[commandsList.Length - 2] = newCommand;
+                        commandsList[commandsList.Length - 3] = customFunction;
+                        commandsList[commandsList.Length - 2] = customObject;
                         commandsList[commandsList.Length - 1] = newSubMenu;
 
                         language.Commands = commandsList;
@@ -383,11 +399,16 @@ public partial class RadialWindowControl
                         RadialMenuGeneration();
                         break;
                     }
-                case "Create Command":
-                case "Create Object":
+                case "Custom Object":
+                case "Custom Function":
                     {
-                        // TODO: program a input dialog to get the name of the new command
-                        const string userInput = "Test Command";
+                        DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
+                        string userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        if (userInput.Equals(""))
+                        {
+                            MessageBoxResult result = System.Windows.MessageBox.Show("Select object name in coding area");
+                            return;
+                        }
                         // modify children list (add the command into the children string array)
                         foreach (var item in language.MenuItems)
                         {
@@ -405,13 +426,16 @@ public partial class RadialWindowControl
                         {
                             commandsList[i] = language.Commands[i];
                         }
+                        string type = element.Text.Equals("Custom Object") ? "custom_object_" : "custom_function_";
+                        userInput = element.Text.Equals("Custom Function") ? userInput + "( )" : userInput;
+
                         var newCommand = new Command
                         {
                             Text = userInput,
                             Parent = element.Parent,
-                            Preview = "", // TODO: program a input dialog to get the preview
+                            Preview = "",
                             Color = "#FFBF00", // TODO: program a input dialog to get the color
-                            Type = "" // TODO: program a input dialog to get the Type
+                            Type = type + userInput // TODO: program a input dialog to get the Type
                         };
 
                         commandsList[commandsList.Length - 1] = newCommand;
