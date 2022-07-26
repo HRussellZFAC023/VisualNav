@@ -144,6 +144,7 @@ public partial class RadialWindowControl
                 {
                     var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, _colorMap["Varden"], _colorMap["CreamBrulee"]);
                     menuBlock.Click += (_, _) => RadialDialElement_Click(command, language); //Handler of the command
+                    menuBlock.MouseRightButtonDown += (_, _) => RadialDialElement_Remove(command, language); // right click to delete
                     menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
                     menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
                     // Highlight by increasing the radius of radial button
@@ -466,6 +467,46 @@ public partial class RadialWindowControl
                     BuildingWindow.Instance.SetCurrentCommand(element);
                     break;
             }
+    }
+
+    private void RadialDialElement_Remove(Command element, Radialmenu language)
+    {
+        if (element.Type.Contains("custom")){ // if it is a custom button
+
+            foreach (var item in language.MenuItems) // remove from child array
+            {
+                if (!item.Name.Equals(element.Text)) continue;
+                var newChildList = new string[item.Children.Length - 1];
+                for (var i = 0; i < item.Children.Length; i++)
+                {
+                    if (!item.Children[i].Equals(element.Text))
+                    {
+                        newChildList[i] = item.Children[i];
+                    }
+                }
+            }
+
+            var commandsList = new Command[language.Commands.Length - 1]; 
+            for (var i = 0; i < language.Commands.Length; i++) //remove from command list
+            {
+                if (!language.Commands[i].Text.Equals(element.Text))
+                {
+                    commandsList[i] = language.Commands[i];
+                }
+            }
+                
+            language.Commands = commandsList;
+            var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
+            var file = Path.Combine(dir!, "Schema", "Modified.json");
+            File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+
+            RadialMenuGeneration();
+        }
+        else
+        {
+            return;
+        }
+        
     }
 
     /// <summary>
