@@ -2,7 +2,6 @@ using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
 using RadialMenu.Controls;
 using System.Collections.Generic;
@@ -404,22 +403,8 @@ public partial class RadialWindowControl
                 case "Custom Function":
                     {
                         DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
-                        string userInput;
-                        string type;
-                        if (element.Text.Equals("Custom Function"))
-                        {
-                            userInput = docView.TextView.Selection.StreamSelectionSpan.GetText() + "( )";
-                            SnapshotPoint position = docView.TextView.Caret.Position.BufferPosition;
-                            type = docView.TextView.Selection.StreamSelectionSpan.GetText();
-                        }
-                        else
-                        {
-                            userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
-                            type = userInput;
-                        }
-
-
-                        if (userInput.Equals(""))
+                        string userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        if (userInput.Equals("")) //prevent empty name input
                         {
                             MessageBoxResult result = System.Windows.MessageBox.Show("Select object name in coding area");
                             return;
@@ -442,7 +427,18 @@ public partial class RadialWindowControl
                             commandsList[i] = language.Commands[i];
                         }
 
-                        string type_prefix = element.Text.Equals("Custom Object") ? "custom_object_" : "custom_function_";
+                        string type = element.Text.Equals("Custom Object") ? "custom_object_" : "custom_function_";
+                        type = type + userInput;
+                        userInput = element.Text.Equals("Custom Function") ? userInput + "( )" : userInput;
+
+                        foreach(var temp in language.Commands) //prevent duplicates
+                        {
+                            if (temp.Text.Equals(userInput))
+                            {
+                                MessageBoxResult result = System.Windows.MessageBox.Show("Duplicate object/function found, try another name.");
+                                return;
+                            }
+                        }
 
                         var newCommand = new Command
                         {
@@ -450,7 +446,7 @@ public partial class RadialWindowControl
                             Parent = element.Parent,
                             Preview = "",
                             Color = "#FFBF00", // TODO: program a input dialog to get the color
-                            Type = type_prefix + type // TODO: program a input dialog to get the Type
+                            Type = type
                         };
 
                         commandsList[commandsList.Length - 1] = newCommand;
