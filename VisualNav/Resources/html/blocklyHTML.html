@@ -123,7 +123,7 @@
                 // add a new block for custom_object
                 Blockly.defineBlocksWithJsonArray([{
                     "type": "custom_object_" + text,
-                    "message0": "new %1",
+                    "message0": "%1",
                     "args0": [
                         {
                             "type": "field_input",
@@ -140,9 +140,9 @@
                 Blockly.CSharp["custom_object_" + text] = function (block) {
                     var text_object_name = block.getFieldValue('object_name');
                     // TODO: Assemble JavaScript into code variable.
-                    var code = "new " + text_object_name;
+                    var code = text_object_name;
                     // TODO: Change ORDER_NONE to the correct strength.
-                    return [code, Blockly.CSharp.ORDER_NONE];
+                    return [code, Blockly.CSharp.ORDER_ATOMIC];
                 };
             } else if (typeArr[1] === 'function') {
                 Blockly.Blocks[type] = {
