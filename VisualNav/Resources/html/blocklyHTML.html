@@ -150,8 +150,7 @@
                      * Block for defining a custom function and generate custom blocks based on this function
                      */
                     init: function () {
-                        this.setPreviousStatement(true, null);
-                        this.setNextStatement(true, null);
+                        this.setOutput(true, null);
                         // Ensure two identically-named procedures don't exist.
                         var initName = Blockly.Procedures.findLegalName(typeArr[2], this);
                         // If the name of function is changed, rename any callers.
@@ -280,9 +279,26 @@
                 customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
                 callType_: 'procedures_callreturn'
                 };
+
+                Blockly.CSharp[type] = function (block) {
+                    var funcName = Blockly.CSharp.nameDB_.getName(
+                        this.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+                    var branch = Blockly.CSharp.statementToCode(this, type);
+
+                    if (Blockly.CSharp.INFINITE_LOOP_TRAP) {
+                        branch = Blockly.CSharp.INFINITE_LOOP_TRAP.replace(/%1/g,
+                            '\'' + this.id + '\'') + branch;
+                    }
+                    var args = [];
+                    for (var x = 0; x < this.arguments_.length; x++) {
+                        args[x] = Blockly.CSharp.nameDB_.getName(this.arguments_[x],
+                            Blockly.Variables.NAME_TYPE);
+                    }
+                    var code = funcName + '(' + args.join(', ') + ');';
+                    return [code, Blockly.CSharp.ORDER_ATOMIC];
+
+                };
             }
-
-
         }
 
         function showCode(language) {
