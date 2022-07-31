@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 
-// TODO (wip)
 namespace VisualNav.Utilities;
 
 /// <summary>

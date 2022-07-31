@@ -53,8 +53,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\MaximizeVisualNavToolwindows.cs" />
-    <Compile Include="Commands\OpenAllVisualNavWindows.cs" />
+
+    <Compile Include="Commands\MaximizeWindows.cs" />
+    <Compile Include="Commands\MinimizeWindows.cs" />
+    <Compile Include="Commands\OpenAllWindows.cs" />
     <Compile Include="Schema\Schema.cs" />
     <Compile Include="Utilities\BlocklyAdapter.cs" />
     <Compile Include="Utilities\InfoNotificationWrapper.cs" />
@@ -315,6 +317,10 @@
     <None Include="Resources\js\blockly\msg\json\zgh.json" />
     <None Include="Resources\js\blockly\msg\json\zh-hans.json" />
     <None Include="Resources\js\blockly\msg\json\zh-hant.json" />
+
+    <Content Include="Schema\Modified.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
       <Generator>VsixManifestGenerator</Generator>
