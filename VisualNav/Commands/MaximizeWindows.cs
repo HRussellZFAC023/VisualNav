@@ -3,7 +3,7 @@
 namespace VisualNav.Commands;
 
 [Command(PackageIds.Maximize)]
-internal sealed class MaximizeVisualNavToolwindows : BaseCommand<MaximizeVisualNavToolwindows>
+internal sealed class MaximizeWindows : BaseCommand<MaximizeWindows>
 {
     protected override Task ExecuteAsync(OleMenuCmdEventArgs e)
     {
