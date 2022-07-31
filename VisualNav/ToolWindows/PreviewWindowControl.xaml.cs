@@ -55,6 +55,7 @@ namespace VisualNav.ToolWindows
                     ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
                     {
                         await _blockly.ClearAsync();
+                        await _blockly.AddCustomBlockToAreaAsync(c);
                         await _blockly.AddNewBlockToAreaAsync(c);
                         _hover = true;
                     }).FireAndForget();

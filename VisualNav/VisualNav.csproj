@@ -7,6 +7,9 @@
   <PropertyGroup>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -50,6 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+
     <Compile Include="Commands\MaximizeWindows.cs" />
     <Compile Include="Commands\MinimizeWindows.cs" />
     <Compile Include="Commands\OpenAllWindows.cs" />
@@ -313,6 +317,7 @@
     <None Include="Resources\js\blockly\msg\json\zgh.json" />
     <None Include="Resources\js\blockly\msg\json\zh-hans.json" />
     <None Include="Resources\js\blockly\msg\json\zh-hant.json" />
+
     <Content Include="Schema\Modified.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
