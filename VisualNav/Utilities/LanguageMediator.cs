@@ -1,5 +1,5 @@
-﻿using System.IO;
-using Microsoft.VisualStudio.Text;
+﻿using Microsoft.VisualStudio.Text;
+using System.IO;
 
 namespace VisualNav.Utilities
 {
