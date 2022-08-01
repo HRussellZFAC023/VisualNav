@@ -101,14 +101,204 @@
             window.addEventListener('resize', onresize, false);
             onresize();
             Blockly.svgResize(workspace);
+
+
         }
 
-        function addNewBlockToArea(type) {
+        function addNewBlockToArea(text, type) {
+
+            if (type === 'custom_object' || type === 'custom_function') {
+                type = type + "_" + text;
+            }
 
             newBlock = workspace.newBlock(type);
             newBlock.initSvg();
             newBlock.render();
 
+        }
+
+        function addCustomBlockToArea(text, type, color) {
+            let typeArr = type.split('_');
+            if (typeArr[1] === 'object') {
+                // add a new block for custom_object
+                Blockly.defineBlocksWithJsonArray([{
+                    "type": "custom_object_" + text,
+                    "message0": "%1",
+                    "args0": [
+                        {
+                            "type": "field_input",
+                            "name": "object_name",
+                            "text": text,
+                        }
+                    ],
+                    "output": "String",
+                    "colour": color,
+                    "tooltip": "",
+                    "helpUrl": ""
+                }]);
+
+                Blockly.CSharp["custom_object_" + text] = function (block) {
+                    var text_object_name = block.getFieldValue('object_name');
+                    // TODO: Assemble JavaScript into code variable.
+                    var code = text_object_name;
+                    // TODO: Change ORDER_NONE to the correct strength.
+                    return [code, Blockly.CSharp.ORDER_ATOMIC];
+                };
+            } else if (typeArr[1] === 'function') {
+                Blockly.Blocks[type] = {
+                    /**
+                     * Block for defining a custom function and generate custom blocks based on this function
+                     */
+                    init: function () {
+                        this.setOutput(true, null);
+                        // Ensure two identically-named procedures don't exist.
+                        var initName = Blockly.Procedures.findLegalName(typeArr[2], this);
+                        // If the name of function is changed, rename any callers.
+                        var nameField = new Blockly.FieldTextInput(initName,
+                            Blockly.Procedures.rename);
+                        nameField.setSpellcheck(false);
+
+                        this.appendDummyInput()
+                            .appendField('custom function')
+                            .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_TITLE'])
+                            .appendField(nameField, 'NAME')
+                            .appendField('', 'PARAMS');
+                        this.appendValueInput('RETURN')
+                            .setAlign(Blockly.ALIGN_RIGHT)
+                            .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_RETURN'])
+			                .setCheck(null);
+                        this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+                    if((this.workspace.options.comments ||
+                        (this.workspace.options.parentWorkspace &&
+                            this.workspace.options.parentWorkspace.options.comments)) &&
+                    Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']) {
+                    this.setCommentText(Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']);
+                }
+                this.setStyle('procedure_blocks');
+                this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
+                this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
+                this.arguments_ = [];
+                this.argumentVarModels_ = [];
+                this.setStatements_(false);
+                this.statementConnection_ = null;
+                },
+
+                /**
+                * Add or remove the statement block from this function definition.
+                * @param {boolean} hasStatements True if a statement block is needed.
+                * @this {Block}
+                */
+                setStatements_: Blockly.Blocks['procedures_defnoreturn'].setStatements_,
+                /**
+                * Update the display of parameters for this procedure definition block.
+                * @private
+                * @this {Block}
+                */
+                updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
+                /**
+                    * Create XML to represent whether this block has a return value.
+                    * @return {!Element} XML storage element.
+                    * @this {Blockly.Block}
+                    */
+                mutationToDom: Blockly.Blocks['procedures_defnoreturn'].mutationToDom,
+                /**
+                * Parse XML to restore the argument inputs.
+                * @param {!Element} xmlElement XML storage element.
+                * @this {Blockly.Block}
+                */
+                domToMutation: Blockly.Blocks['procedures_defnoreturn'].domToMutation,
+                /**
+                * Populate the mutator's dialog with this block's components.
+                * @param {!Blockly.Workspace} workspace Mutator's workspace.
+                * @return {!Blockly.Block} Root block in mutator.
+                * @this {Blockly.Block}
+                */
+                decompose: Blockly.Blocks['procedures_defnoreturn'].decompose,
+                /**
+                    * Reconfigure this block based on the mutator dialog's components.
+                    * @param {!Blockly.Block} containerBlock Root block in mutator.
+                    * @this {Blockly.Block}
+                    */
+                compose: Blockly.Blocks['procedures_defnoreturn'].compose,
+                /**
+                    * Return the signature of this procedure definition.
+                    * @return {!Array} Tuple containing three elements:
+                    *     - the name of the defined procedure,
+                    *     - a list of all its arguments,
+                    *     - that it DOES have a return value.
+                    * @this {Blockly.Block}
+                    */
+                getProcedureDef: function () {
+                    return [this.getFieldValue('NAME'), this.arguments_, true];
+                },
+                /**
+                * Return all variables referenced by this block.
+                * @return {!Array<string>} List of variable names.
+                * @this {Blockly.Block}
+                */
+                getVars: Blockly.Blocks['procedures_defnoreturn'].getVars,
+                /**
+                * Return all variables referenced by this block.
+                * @return {!Array<!Blockly.VariableModel>} List of variable models.
+                * @this {Blockly.Block}
+                */
+                getVarModels: Blockly.Blocks['procedures_defnoreturn'].getVarModels,
+                /**
+                * Notification that a variable is renaming.
+                * If the ID matches one of this block's variables, rename it.
+                * @param {string} oldId ID of variable to rename.
+                * @param {string} newId ID of new variable.  May be the same as oldId, but
+                *     with an updated name.  Guaranteed to be the same type as the old
+                *     variable.
+                * @override
+                * @this {Blockly.Block}
+                */
+                renameVarById: Blockly.Blocks['procedures_defnoreturn'].renameVarById,
+                /**
+                * Notification that a variable is renaming but keeping the same ID.  If the
+                * variable is in use on this block, rerender to show the new name.
+                * @param {!Blockly.VariableModel} variable The variable being renamed.
+                * @package
+                * @override
+                * @this {Blockly.Block}
+                */
+                updateVarName: Blockly.Blocks['procedures_defnoreturn'].updateVarName,
+                /**
+                * Update the display to reflect a newly renamed argument.
+                * @param {string} oldName The old display name of the argument.
+                * @param {string} newName The new display name of the argument.
+                * @private
+                * @this {Blockly.Block}
+                */
+                displayRenamedVar_: Blockly.Blocks['procedures_defnoreturn'].displayRenamedVar_,
+                /**
+                * Add custom menu options to this block's context menu.
+                * @param {!Array} options List of menu options to add to.
+                * @this {Blockly.Block}
+                */
+                customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
+                callType_: 'procedures_callreturn'
+                };
+
+                Blockly.CSharp[type] = function (block) {
+                    var funcName = Blockly.CSharp.nameDB_.getName(
+                        this.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+                    var branch = Blockly.CSharp.statementToCode(this, type);
+
+                    if (Blockly.CSharp.INFINITE_LOOP_TRAP) {
+                        branch = Blockly.CSharp.INFINITE_LOOP_TRAP.replace(/%1/g,
+                            '\'' + this.id + '\'') + branch;
+                    }
+                    var args = [];
+                    for (var x = 0; x < this.arguments_.length; x++) {
+                        args[x] = Blockly.CSharp.nameDB_.getName(this.arguments_[x],
+                            Blockly.Variables.NAME_TYPE);
+                    }
+                    var code = funcName + '(' + args.join(', ') + ');';
+                    return [code, Blockly.CSharp.ORDER_ATOMIC];
+
+                };
+            }
         }
 
         function showCode(language) {

@@ -11,29 +11,21 @@ public class Schema
     public static async Task<Schema> LoadAsync()
     {
         var dir = Path.GetDirectoryName(typeof(Schema).Assembly.Location);
-
+        var file = Path.Combine(dir!, "Schema", "Modified.json");
         StreamReader reader = null;
-
-        bool custom = Options.Settings.Instance.CustomBlock;
-        if (custom) // use the custom setting
+        try
         {
-            var file = Path.Combine(dir!, "Schema", "Modified.json");
-            reader = new StreamReader(file);
-
-            var json = await reader.ReadToEndAsync();
-            return JsonConvert.DeserializeObject<Schema>(json);
+             reader = new StreamReader(file);
         }
-        else // copy the json val of the original to Modified.json to restore setting and read the unmodified version
+        catch (Exception e)
         {
-            var file = Path.Combine(dir!, "Schema", "Schema.json");
-            reader = new StreamReader(file);
-
-            var original_json = await reader.ReadToEndAsync();
-            var json_obj = JsonConvert.DeserializeObject<Schema>(original_json); 
-            File.WriteAllText(Path.Combine(dir!, "Schema", "Modified.json"), JsonConvert.SerializeObject(json_obj));
-
-            return json_obj;
+            file = Path.Combine(dir!, "Schema", "Schema.json");
+             reader = new StreamReader(file);
         }
+        
+        //using var reader = new StreamReader(file);
+        var json = await reader.ReadToEndAsync();
+        return JsonConvert.DeserializeObject<Schema>(json);
     }
 }
 

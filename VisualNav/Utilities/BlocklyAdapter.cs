@@ -72,14 +72,19 @@ public class BlocklyAdapter
 
     public async Task<JavascriptResponse> AddNewBlockToAreaAsync(Command c)
     {
-        return await _b.EvaluateScriptAsync("addNewBlockToArea", c.Type);
+        return await _b.EvaluateScriptAsync("addNewBlockToArea", c.Text, c.Type);
+    }
+
+    public async Task<JavascriptResponse> AddCustomBlockToAreaAsync(Command c)
+    {
+        // Text, Parent, Preview, Color, Type
+        return await _b.EvaluateScriptAsync("addCustomBlockToArea", c.Text, c.Type, c.Color);
     }
 
     public async Task ClearAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
     }
-
     public async Task CenterAsync()
     {
         await Task.Delay(100);
@@ -90,7 +95,7 @@ public class BlocklyAdapter
     public async Task ResetZoomAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
-        
+
     }
 
     public async Task ZoomOutAsync()
@@ -104,5 +109,4 @@ public class BlocklyAdapter
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(1)");
         // update settings
     }
-
 }
