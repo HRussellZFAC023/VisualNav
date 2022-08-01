@@ -168,6 +168,7 @@
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_RETURN'])
 			                .setCheck(null);
                         this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+                        this.setOutput(true, 'custom_function');
                     if((this.workspace.options.comments ||
                         (this.workspace.options.parentWorkspace &&
                             this.workspace.options.parentWorkspace.options.comments)) &&
@@ -289,12 +290,13 @@
                         branch = Blockly.CSharp.INFINITE_LOOP_TRAP.replace(/%1/g,
                             '\'' + this.id + '\'') + branch;
                     }
+                    var returnValue = Blockly.CSharp.valueToCode(this, 'RETURN', Blockly.CSharp.ORDER_NONE) || '';
                     var args = [];
                     for (var x = 0; x < this.arguments_.length; x++) {
                         args[x] = Blockly.CSharp.nameDB_.getName(this.arguments_[x],
                             Blockly.Variables.NAME_TYPE);
                     }
-                    var code = funcName + '(' + args.join(', ') + ');';
+                    var code = funcName + '(' + args.join(', ') + ')';
                     return [code, Blockly.CSharp.ORDER_ATOMIC];
 
                 };
