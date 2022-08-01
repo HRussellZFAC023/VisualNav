@@ -6,20 +6,6 @@
       "allow_insertion_from_menu": false,
       "MenuItems": [
         {
-          "name": "Thread",
-          "parent": "Main",
-          "submenu": [],
-          "children": [ "New thread" ],
-          "icon": "Thread"
-        },
-        {
-          "name": "Test",
-          "parent": "Main",
-          "submenu": [],
-          "children": [ "Asset" ],
-          "icon": "Test"
-        },
-        {
           "name": "Code",
           "parent": "Main",
           "submenu": [
@@ -45,6 +31,33 @@
             "New Layer"
           ],
           "icon": "Code"
+        },
+        {
+          "name": "Test",
+          "parent": "Main",
+          "submenu": [ "Assert" ],
+          "children": [
+            "Debug.Assert()"
+          ],
+          "icon": "Test"
+        },
+        {
+          "name": "Assert",
+          "parent": "Test",
+          "submenu": [],
+          "children": [
+            "AreEqual()",
+            "AreNotEqual()",
+            "AreNotSame()",
+            "AreSame()",
+            "Fail()",
+            "IsTrue()",
+            "IsFalse()",
+            "IsNull()",
+            "IsNotNull()",
+            "Equals()"
+          ],
+          "icon": "Test"
         },
         {
           "name": "Logic",
@@ -181,17 +194,81 @@
           "type": ""
         },
         {
-          "text": "New thread",
-          "parent": "Thread",
+          "text": "AreEqual()",
+          "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": ""
+          "type": "AreEqual(Double, Double, Double)"
         },
         {
-          "text": "Assert",
+          "text": "AreNotEqual()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "AreNotEqual(Double, Double, Double)"
+        },
+        {
+          "text": "AreNotSame()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "AreNotSame(Object, Object)"
+        },
+        {
+          "text": "AreSame()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "AreSame(Object, Object)"
+        },
+        {
+          "text": "Fail()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "Fail()"
+        },
+        {
+          "text": "IsTrue()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsTrue(Boolean)"
+        },
+        {
+          "text": "IsFalse()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsFalse(Boolean)"
+        },
+        {
+          "text": "IsNull()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsNull(Object)"
+        },
+        {
+          "text": "IsNotNull()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsNotNull(Object)"
+        },
+        {
+          "text": "Equals()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "Equals(Object, Object)"
+        },
+        {
+          "text": "Debug.Assert()",
           "parent": "Test",
           "preview": "",
-          "color": "#FF00FFFF"
+          "color": "#FF00FFFF",
+          "type": "Debug.Assert(Boolean)"
         },
         {
           "text": "boolean",
