@@ -116,6 +116,22 @@ public partial class BuildingWindowControl
         }).FireAndForget();
     }
 
+    public void DecreaseSize(object sender, RoutedEventArgs e)
+    {
+        ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+        {
+            await _blockly.ZoomOutAsync();
+        }).FireAndForget();
+    }
+
+    public void IncreaseSize(object sender, RoutedEventArgs e)
+    {
+        ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+        {
+            await _blockly.ZoomInAsync();
+        }).FireAndForget();
+    }
+
     public void SetCurrentCommand(Command c)
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>

@@ -6,14 +6,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:browser="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
-    xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
     xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"
-    xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
+    xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
+    xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit" xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
     mc:Ignorable="d"
-    toolkit:Themes.UseVsTheme="True">
 
+    toolkit:Themes.UseVsTheme="True">
     
+    <UserControl.Resources>
+    <ui:BrushToColorConverter x:Key="BrushToColorConverter" />
+    </UserControl.Resources>
     <Grid
         VerticalAlignment="Stretch"
         HorizontalAlignment="Stretch"
@@ -21,23 +24,30 @@
         MinHeight="200">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
-        <!-- NEEDS FIXING  -->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
-                    platformUi:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
-            <imaging:CrispImage x:Name="Minimize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
-            <imaging:CrispImage MouseDown="UIElement_OnMouseDown" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
+        <StackPanel
+            
+            Orientation="Horizontal" Panel.ZIndex="100" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
+                                theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
+            <imaging:CrispImage x:Name="Minimize" MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
+            <imaging:CrispImage  MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
         </StackPanel>
-        <Border>
 
-            <browser:ChromiumWebBrowser x:Name="Browser" />
-        </Border>
+        <!--<Button Margin="0,0,25,0" HorizontalAlignment="Right" Content= "size-"  Width="25" Height="25" MaxHeight="25" MaxWidth="25" MinHeight="25" MinWidth="25" Panel.ZIndex="100" />
+        <Button  HorizontalAlignment="Right" Content= "size+"  Width="25" Height="25" MaxHeight="25" MaxWidth="25" MinHeight="25" MinWidth="25" Panel.ZIndex="100" />-->
+        
+        
+        
+            
+        <browser:ChromiumWebBrowser x:Name="Browser" Grid.Row="1" />
+        
 
         <StackPanel
-                Grid.Row="1"
+                Grid.Row="2"
                 Background="{DynamicResource {markup:Static SystemColors.InfoBrushKey}}"
                 Orientation="Horizontal" Name="Controls"
                 MinHeight="20">
