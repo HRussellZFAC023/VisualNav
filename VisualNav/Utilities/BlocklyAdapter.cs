@@ -102,11 +102,13 @@ public class BlocklyAdapter
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(-1)");
         // update settings
+        // - 1
     }
 
     public async Task ZoomInAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(1)");
         // update settings
+        // + 1
     }
 }

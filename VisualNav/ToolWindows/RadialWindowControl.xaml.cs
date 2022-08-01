@@ -520,6 +520,19 @@ public partial class RadialWindowControl
         RadialMenuGeneration();
     }
 
+
+    public void ToggleFullscreen(object sender = null, RoutedEventArgs e = null)
+    {
+        // if fullscreen = true then DecreaseSize()
+        // set fullscreen = false
+        // else
+        // IncreaseSize
+        // set fullscreen = true
+
+    }
+
+
+
     /// <summary>
     /// The handler of the full screen button
     /// </summary>

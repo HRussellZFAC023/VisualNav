@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using System.Windows;
+using System.Windows.Input;
 using VisualNav.Utilities;
 using Command = VisualNav.Schema.Command;
 
@@ -127,5 +128,11 @@ public partial class BuildingWindowControl
             }
 
         }).FireAndForget();
+    }
+
+    private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        _blockly.CenterAsync().FireAndForget();
+        _blockly.ZoomInAsync().FireAndForget();
     }
 }
