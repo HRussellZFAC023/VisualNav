@@ -100,11 +100,21 @@
 
 			<Button guid="VisualNav" id="Insert" priority="0x0500" type="Button">
 				<Parent guid="VisualNav" id="ToolGroup" />
-				<Icon guid="ImageCatalogGuid" id="InsertParameter" />
+				<Icon guid="ImageCatalogGuid" id="Paste" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
 					<ButtonText>Insert Code Snippet - Visual Nav</ButtonText>
 					<LocCanonicalName>.Tools.Insert</LocCanonicalName>
+				</Strings>
+			</Button>
+
+			<Button guid="VisualNav" id="Clip" priority="0x0500" type="Button">
+				<Parent guid="VisualNav" id="ToolGroup" />
+				<Icon guid="ImageCatalogGuid" id="Copy" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>Copy Code Snippet - Visual Nav</ButtonText>
+					<LocCanonicalName>.Tools.Clip</LocCanonicalName>
 				</Strings>
 			</Button>
 		</Buttons>
@@ -112,15 +122,19 @@
 	<KeyBindings>
 
 		<KeyBinding guid="VisualNav" id="OpenAllWindows"
-		            editor="guidVSStd97" key1="k" key2="f" mod1="Control" mod2="Shift" />
+		            editor="guidVSStd97" key1="k" key2="1" mod1="Control" mod2="Shift" />
 		<KeyBinding guid="VisualNav" id="Maximize"
-		            editor="guidVSStd97" key1="k" key2="VK_ADD" mod1="Control" mod2="Shift" />
+		            editor="guidVSStd97" key1="k" key2="2" mod1="Control" mod2="Shift" />
 		<KeyBinding guid="VisualNav" id="Minimize"
-					editor="guidVSStd97" key1="k" key2="VK_SUBTRACT" mod1="Control" mod2="Shift" />
+					editor="guidVSStd97" key1="k" key2="3" mod1="Control" mod2="Shift" />
 		<KeyBinding guid="VisualNav" id="ZoomIn"
-		            editor="guidVSStd97" key1="k" key2="VK_ADD" mod1="Control" />
+		            editor="guidVSStd97" key1="k" key2="4" mod1="Control" mod2="Shift" />
 		<KeyBinding guid="VisualNav" id="ZoomOut"
-					editor="guidVSStd97" key1="k" key2="VK_SUBTRACT" mod1="Control" />
+					editor="guidVSStd97" key1="k" key2="5" mod1="Control"  mod2="Shift" />
+		<KeyBinding guid="VisualNav" id="Insert"
+		            editor="guidVSStd97" key1="k" key2="6" mod1="Control"  mod2="Shift" />
+		<KeyBinding guid="VisualNav" id="Clip"
+		            editor="guidVSStd97" key1="k" key2="7" mod1="Control"  mod2="Shift" />
 	</KeyBindings>
 	<Symbols>
 		<GuidSymbol name="VisualNav" value="{fb0f5ed1-f75d-4774-a7f9-5a3a7d612e5d}">
@@ -135,6 +149,7 @@
 			<IDSymbol name="ZoomIn" value="0x0106" />
 			<IDSymbol name="ZoomOut" value="0x0107" />
 			<IDSymbol name="Insert" value="0x0108" />
+			<IDSymbol name="Clip" value="0x0109" />
 		</GuidSymbol>
 		<GuidSymbol name="RadialWindow" value="{34b9ebb5-2c75-4bef-a755-39d77e165ecc}" />
 		<GuidSymbol name="BuildingWindow" value="{3056e2ec-342f-4817-8eeb-eddadeaf2432}" />

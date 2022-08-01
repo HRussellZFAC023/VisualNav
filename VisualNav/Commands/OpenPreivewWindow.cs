@@ -1,13 +1,12 @@
 ﻿using VisualNav.ToolWindows;
 
-namespace VisualNav.Commands
+namespace VisualNav.Commands;
+
+[Command(PackageIds.OpenCommandPreview)]
+internal sealed class OpenCommandPreview : BaseCommand<OpenCommandPreview>
 {
-    [Command(PackageIds.OpenCommandPreview)]
-    internal sealed class OpenCommandPreview : BaseCommand<OpenCommandPreview>
+    protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
     {
-        protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
-        {
-            await PreviewWindow.ShowAsync();
-        }
+        await PreviewWindow.ShowAsync();
     }
 }

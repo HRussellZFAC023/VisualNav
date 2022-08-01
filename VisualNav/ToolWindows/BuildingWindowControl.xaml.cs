@@ -7,7 +7,7 @@ namespace VisualNav.ToolWindows;
 
 public partial class BuildingWindowControl
 {
-    private readonly BlocklyAdapter _blockly;
+    public readonly BlocklyAdapter _blockly;
 
     public BuildingWindowControl()
     {
@@ -18,7 +18,7 @@ public partial class BuildingWindowControl
 
         Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
         _blockly.CenterAsync().FireAndForget();
-        SizeChanged += (_,_) => _blockly.CenterAsync().FireAndForget();
+        SizeChanged += (_, _) => _blockly.CenterAsync().FireAndForget();
     }
 
     private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
@@ -46,7 +46,7 @@ public partial class BuildingWindowControl
         }).FireAndForget();
     }
 
-    private void InsertCodeButton_Click(object sender, RoutedEventArgs e)
+    public void InsertCodeButton_Click(object sender, RoutedEventArgs e)
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
@@ -67,7 +67,7 @@ public partial class BuildingWindowControl
         }).FireAndForget();
     }
 
-    private void ClipboardButton_Click(object sender, RoutedEventArgs e)
+    public void ClipboardButton_Click(object sender, RoutedEventArgs e)
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {

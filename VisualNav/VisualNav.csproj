@@ -50,9 +50,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\BuidlingWindowCopy.cs" />
+    <Compile Include="Commands\BuildingWindowInsert.cs" />
     <Compile Include="Commands\MaximizeWindows.cs" />
     <Compile Include="Commands\MinimizeWindows.cs" />
     <Compile Include="Commands\OpenAllWindows.cs" />
+    <Compile Include="Commands\ZoomInBuildingWindow.cs" />
+    <Compile Include="Commands\ZoomOutBuildingWindow.cs" />
     <Compile Include="Schema\Schema.cs" />
     <Compile Include="Utilities\BlocklyAdapter.cs" />
     <Compile Include="Utilities\InfoNotificationWrapper.cs" />

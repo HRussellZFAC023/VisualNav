@@ -1,13 +1,12 @@
 ﻿using VisualNav.ToolWindows;
 
-namespace VisualNav.Commands
+namespace VisualNav.Commands;
+
+[Command(PackageIds.OpenRadialMenu)]
+internal sealed class OpenRadialMenu : BaseCommand<OpenRadialMenu>
 {
-    [Command(PackageIds.OpenRadialMenu)]
-    internal sealed class OpenRadialMenu : BaseCommand<OpenRadialMenu>
+    protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
     {
-        protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
-        {
-            await RadialWindow.ShowAsync();
-        }
+        await RadialWindow.ShowAsync();
     }
 }
