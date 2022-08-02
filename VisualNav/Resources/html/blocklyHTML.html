@@ -111,6 +111,162 @@
                 type = type + "_" + text;
             }
 
+            Blockly.defineBlocksWithJsonArray([{
+                "type": "areequal",
+                "message0": "Assert.AreEqual %1 expected %2 actual %3 delta %4 message %5",
+                "args0": [
+                    {
+                        "type": "input_dummy"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "String"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "arenotequal",
+                "message0": "Assert.AreNotEqual %1 notExpected %2 actual %3 delta %4 message %5",
+                "args0": [
+                    {
+                        "type": "input_dummy"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "String"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "aresame",
+                "message0": "Assert.AreSame %1 expected %2 actual %3 message %4",
+                "args0": [
+                    {
+                        "type": "input_dummy"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "String",
+                        "align": "RIGHT"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "arenotsame",
+                "message0": "Assert.AreNotSame %1 notExpected %2 actual %3 message %4",
+                "args0": [
+                    {
+                        "type": "input_dummy",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "String",
+                        "align": "RIGHT"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "fail",
+                "message0": "Assert.Fail %1 message %2",
+                "args0": [
+                    {
+                        "type": "input_dummy"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "String",
+                        "align": "RIGHT"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            }]);
+
             newBlock = workspace.newBlock(type);
             newBlock.initSvg();
             newBlock.render();

@@ -48,8 +48,8 @@
           "children": [
             "AreEqual()",
             "AreNotEqual()",
-            "AreNotSame()",
             "AreSame()",
+            "AreNotSame()",
             "Fail()",
             "IsTrue()",
             "IsFalse()",
@@ -101,7 +101,6 @@
             "math_number_property",
             "math_change",
             "math_round",
-
             "math_modulo",
             "math_constrain",
             "math_random_int",
@@ -198,35 +197,35 @@
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "AreEqual(Double, Double, Double)"
+          "type": "areequal"
         },
         {
           "text": "AreNotEqual()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "AreNotEqual(Double, Double, Double)"
-        },
-        {
-          "text": "AreNotSame()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "AreNotSame(Object, Object)"
+          "type": "arenotequal"
         },
         {
           "text": "AreSame()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "AreSame(Object, Object)"
+          "type": "aresame"
+        },
+        {
+          "text": "AreNotSame()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "arenotsame"
         },
         {
           "text": "Fail()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "Fail()"
+          "type": "fail"
         },
         {
           "text": "IsTrue()",
