@@ -232,35 +232,35 @@
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsTrue(Boolean)"
+          "type": "IsTrue"
         },
         {
           "text": "IsFalse()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsFalse(Boolean)"
+          "type": "IsFalse"
         },
         {
           "text": "IsNull()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsNull(Object)"
+          "type": "IsNull"
         },
         {
           "text": "IsNotNull()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsNotNull(Object)"
+          "type": "IsNotNull"
         },
         {
           "text": "Equals()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "Equals(Object, Object)"
+          "type": "Equals"
         },
         {
           "text": "Debug.Assert()",
