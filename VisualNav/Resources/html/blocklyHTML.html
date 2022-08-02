@@ -67,7 +67,7 @@
                     {
                         zoom:
                         {
-                            controls: false,
+                            controls: true,
                             startScale: 1.0,
                             maxScale: 3,
                             minScale: 0.3,
@@ -77,6 +77,7 @@
                         trashcan: true
                     });
             }
+
 
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -102,6 +103,9 @@
             onresize();
             Blockly.svgResize(workspace);
 
+            var zoomControl = document.querySelectorAll(".blocklyZoom");
+            zoomControl[0].style.display = "none";
+            zoomControl[1].style.display = "none";
 
         }
 

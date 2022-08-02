@@ -151,4 +151,5 @@ public partial class BuildingWindowControl
         _blockly.CenterAsync().FireAndForget();
         _blockly.ZoomInAsync().FireAndForget();
     }
+
 }

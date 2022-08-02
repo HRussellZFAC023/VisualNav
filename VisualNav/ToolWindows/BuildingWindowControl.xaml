@@ -37,13 +37,14 @@
             <imaging:CrispImage  MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
         </StackPanel>
 
-        <!--<Button Margin="0,0,25,0" HorizontalAlignment="Right" Content= "size-"  Width="25" Height="25" MaxHeight="25" MaxWidth="25" MinHeight="25" MinWidth="25" Panel.ZIndex="100" />
-        <Button  HorizontalAlignment="Right" Content= "size+"  Width="25" Height="25" MaxHeight="25" MaxWidth="25" MinHeight="25" MinWidth="25" Panel.ZIndex="100" />-->
         
-        
-        
-            
-        <browser:ChromiumWebBrowser x:Name="Browser" Grid.Row="1" />
+
+
+
+        <Border Grid.Row="1">
+            <browser:ChromiumWebBrowser x:Name="Browser" Grid.Row="1" />
+        </Border>    
+       
         
 
         <StackPanel

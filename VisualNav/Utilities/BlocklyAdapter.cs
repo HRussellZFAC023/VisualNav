@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using VisualNav.Schema;
 
 namespace VisualNav.Utilities;
@@ -31,6 +32,7 @@ public class BlocklyAdapter
         var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
         _blocklyJs = Path.Combine(root!, "Resources", "js", "blockly");
         _blocklyHtml = Path.Combine(root!, "Resources", "html", "blocklyHTML.html");
+        //_ = ZoomInAsync();
     }
 
     public async Task LoadHtmlAsync()
@@ -61,6 +63,10 @@ public class BlocklyAdapter
         }
 
         await _b.EvaluateScriptAsync("init", _preview);
+        
+        //init the block size with setting
+        int settingSize = Options.Settings.Instance.BlockSize;
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(" + settingSize.ToString() + ")");
     }
 
     public async Task<JavascriptResponse> ShowCodeAsync()
@@ -101,6 +107,12 @@ public class BlocklyAdapter
     public async Task ZoomOutAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(-1)");
+        if (Options.Settings.Instance.BlockSize > -7)
+        {
+            Options.Settings.Instance.BlockSize--;
+        }
+        
+        await Options.Settings.Instance.SaveAsync();
         // update settings
         // - 1
     }
@@ -108,7 +120,14 @@ public class BlocklyAdapter
     public async Task ZoomInAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(1)");
+        if (Options.Settings.Instance.BlockSize < 7)
+        {
+            Options.Settings.Instance.BlockSize++;
+        }
+            
+        await Options.Settings.Instance.SaveAsync();
         // update settings
         // + 1
     }
+
 }

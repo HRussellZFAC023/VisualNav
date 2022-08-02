@@ -30,7 +30,7 @@ public partial class RadialWindowControl
 
     // create a list of languages that require the "insertion" button
     private string _currentState = "";
-
+    private bool fullScreen = false;
     private Schema.Schema _json;
     private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without hierarchy
     private string _progress = "";
@@ -523,12 +523,20 @@ public partial class RadialWindowControl
 
     public void ToggleFullscreen(object sender = null, RoutedEventArgs e = null)
     {
-        // if fullscreen = true then DecreaseSize()
         // set fullscreen = false
         // else
         // IncreaseSize
         // set fullscreen = true
-
+        if (fullScreen == true) 
+        {
+            DecreaseSize();
+        }
+        else
+        {
+            IncreaseSize();
+        }
+        fullScreen = !fullScreen;
+        
     }
 
 
