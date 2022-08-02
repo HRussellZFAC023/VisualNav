@@ -1,24 +1,628 @@
 {
   "RadialMenu": [
     {
-      "fileExt": [ ".cs", ".js", ".php", ".py", ".lua", ".dart" ],
+      "fileExt": [ ".js", ".php", ".py", ".lua", ".dart" ],
       "text": "Code",
       "allow_insertion_from_menu": false,
       "MenuItems": [
         {
-          "name": "Thread",
+          "name": "Code",
           "parent": "Main",
-          "submenu": [],
-          "children": [ "New thread" ],
-          "icon": "Thread"
+          "submenu": [
+            "I/O",
+            "Method/Keyword",
+            "Condition",
+            "Loop",
+            "Variables",
+            "Operator",
+            "Comparator",
+            "Custom Blocks"
+          ],
+          "children": [],
+          "icon": "Code"
         },
         {
           "name": "Test",
           "parent": "Main",
-          "submenu": [],
-          "children": [ "Asset" ],
+          "submenu": [ "Assert" ],
+          "children": [
+            "Debug.Assert()"
+          ],
           "icon": "Test"
         },
+        {
+          "name": "Assert",
+          "parent": "Test",
+          "submenu": [],
+          "children": [
+            "AreEqual()",
+            "AreNotEqual()",
+            "AreNotSame()",
+            "AreSame()",
+            "Fail()",
+            "IsTrue()",
+            "IsFalse()",
+            "IsNull()",
+            "IsNotNull()",
+            "Equals()"
+          ],
+          "icon": "Test"
+        },
+        {
+          "name": "Logic",
+          "parent": "Code",
+          "submenu": [],
+          "children": [
+            "logic_boolean",
+            "controls_if",
+            "controls_ifelse",
+            "logic_compare",
+            "logic_operation",
+            "logic_negate",
+            "logic_null",
+            "logic_ternary"
+          ],
+          "icon": "CrossGroupLink"
+        },
+        {
+          "name": "Loops",
+          "parent": "Code",
+          "submenu": [],
+          "children": [
+            "controls_repeat_ext",
+            "controls_whileUntil",
+            "controls_for",
+            "controls_forEach",
+            "controls_flow_statements"
+          ],
+          "icon": "ConditionalLoop"
+        },
+        {
+          "name": "Math",
+          "parent": "Code",
+          "submenu": [],
+          "children": [
+            "math_number",
+            "math_arithmetic",
+            "math_single",
+            "math_trig",
+            "math_constant",
+            "math_number_property",
+            "math_change",
+            "math_round",
+
+            "math_modulo",
+            "math_constrain",
+            "math_random_int",
+            "math_random_float"
+          ],
+          "icon": "Calculator"
+        },
+        {
+          "name": "Text",
+          "parent": "Code",
+          "submenu": [],
+          "children": [
+            "text",
+            "text_multiline",
+            "text_join",
+            "text_append",
+            "text_length",
+            "text_isEmpty",
+            "text_indexOf",
+            "text_charAt",
+            "text_getSubstring",
+            "text_changeCase",
+            "text_trim",
+            "text_print"
+          ],
+          "icon": "TextBox"
+        },
+        {
+          "name": "Lists",
+          "parent": "Code",
+          "submenu": [],
+          "children": [
+            "lists_create_empty",
+            "lists_repeat",
+            "lists_isEmpty",
+            "lists_length",
+            "lists_create_with",
+            "lists_indexOf",
+            "lists_getIndex",
+            "lists_setIndex",
+            "lists_getSublist",
+            "lists_sort",
+            "lists_split",
+            "math_on_list"
+          ],
+          "icon": "BulletList"
+        },
+        {
+          "name": "Variables",
+          "parent": "Code",
+          "submenu": [],
+          "children": [
+            "variables_get",
+            "variables_set"
+          ],
+          "icon": "LocalVariable"
+        },
+        {
+          "name": "Functions",
+          "parent": "Code",
+          "submenu": [],
+          "children": [
+            "procedures_callreturn",
+            "procedures_callnoreturn",
+            "procedures_ifreturn"
+          ],
+          "icon": "TableFunction"
+        }
+      ],
+      "commands": [
+        {
+          "text": "AreEqual()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "AreEqual(Double, Double, Double)"
+        },
+        {
+          "text": "AreNotEqual()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "AreNotEqual(Double, Double, Double)"
+        },
+        {
+          "text": "AreNotSame()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "AreNotSame(Object, Object)"
+        },
+        {
+          "text": "AreSame()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "AreSame(Object, Object)"
+        },
+        {
+          "text": "Fail()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "Fail()"
+        },
+        {
+          "text": "IsTrue()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsTrue(Boolean)"
+        },
+        {
+          "text": "IsFalse()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsFalse(Boolean)"
+        },
+        {
+          "text": "IsNull()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsNull(Object)"
+        },
+        {
+          "text": "IsNotNull()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsNotNull(Object)"
+        },
+        {
+          "text": "Equals()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "Equals(Object, Object)"
+        },
+        {
+          "text": "Debug.Assert()",
+          "parent": "Test",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "Debug.Assert(Boolean)"
+        },
+        {
+          "text": "boolean",
+          "parent": "Logic",
+          "preview": "",
+          "color": "#4C97FF",
+          "type": "logic_boolean"
+        },
+        {
+          "text": "if",
+          "parent": "Logic",
+          "preview": "",
+          "color": "#4C97FF",
+          "type": "controls_if"
+        },
+        {
+          "text": "if else",
+          "parent": "Logic",
+          "preview": "",
+          "color": "#4C97FF",
+          "type": "controls_ifelse"
+        },
+        {
+          "text": "compare",
+          "parent": "Logic",
+          "preview": "",
+          "color": "#4C97FF",
+          "type": "logic_compare"
+        },
+        {
+          "text": "and or",
+          "parent": "Logic",
+          "preview": "",
+          "color": "#4C97FF",
+          "type": "logic_operation"
+        },
+        {
+          "text": "negate",
+          "parent": "Logic",
+          "preview": "",
+          "color": "#4C97FF",
+          "type": "logic_negate"
+        },
+        {
+          "text": "null",
+          "parent": "Logic",
+          "preview": "",
+          "color": "#4C97FF",
+          "type": "logic_null"
+        },
+        {
+          "text": "ternary",
+          "parent": "Logic",
+          "preview": "",
+          "color": "#4C97FF",
+          "type": "logic_ternary"
+        },
+        {
+          "text": "repeat",
+          "parent": "Loops",
+          "preview": "",
+          "color": "#0fBD8C",
+          "type": "controls_repeat_ext"
+        },
+        {
+          "text": "while",
+          "parent": "Loops",
+          "preview": "",
+          "color": "#0fBD8C",
+          "type": "controls_whileUntil"
+        },
+        {
+          "text": "for",
+          "parent": "Loops",
+          "preview": "",
+          "color": "#0fBD8C",
+          "type": "controls_for"
+        },
+        {
+          "text": "for each",
+          "parent": "Loops",
+          "preview": "",
+          "color": "#0fBD8C",
+          "type": "controls_forEach"
+        },
+        {
+          "text": "flow control",
+          "parent": "Loops",
+          "preview": "",
+          "color": "#0fBD8C",
+          "type": "controls_flow_statements"
+        },
+        {
+          "text": "number",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_number"
+        },
+        {
+          "text": "arithmetic",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_arithmetic"
+        },
+        {
+          "text": "single",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_single"
+        },
+        {
+          "text": "trig",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_trig"
+        },
+        {
+          "text": "constant",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_constant"
+        },
+        {
+          "text": "number property",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_number_property"
+        },
+        {
+          "text": "change",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_change"
+        },
+        {
+          "text": "round",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_round"
+        },
+        {
+          "text": "modulo",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_modulo"
+        },
+        {
+          "text": "constrain",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_constrain"
+        },
+        {
+          "text": "random int",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_random_int"
+        },
+        {
+          "text": "random float",
+          "parent": "Math",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_random_float"
+        },
+        {
+          "text": "text",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text"
+        },
+        {
+          "text": "join",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_join"
+        },
+        {
+          "text": "append",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_append"
+        },
+        {
+          "text": "length",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_length"
+        },
+        {
+          "text": "isEmpty",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_isEmpty"
+        },
+        {
+          "text": "indexOf",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_indexOf"
+        },
+        {
+          "text": "charAt",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_charAt"
+        },
+        {
+          "text": "getSubstring",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_getSubstring"
+        },
+        {
+          "text": "changeCase",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_changeCase"
+        },
+        {
+          "text": "trim",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_trim"
+        },
+        {
+          "text": "print",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_print"
+        },
+        {
+          "text": "empty list",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_create_empty"
+        },
+        {
+          "text": "multiline",
+          "parent": "Text",
+          "preview": "",
+          "color": "#FFBF00",
+          "type": "text_multiline"
+        },
+        {
+          "text": "repeat",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_repeat"
+        },
+        {
+          "text": "isEmpty",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_isEmpty"
+        },
+        {
+          "text": "length",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_length"
+        },
+        {
+          "text": "create with",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_create_with"
+        },
+        {
+          "text": "indexOf",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_indexOf"
+        },
+        {
+          "text": "getIndex",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_getIndex"
+        },
+        {
+          "text": "setIndex",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_setIndex"
+        },
+        {
+          "text": "getSublist",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_getSublist"
+        },
+        {
+          "text": "sort",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_sort"
+        },
+        {
+          "text": "split",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#9966FF",
+          "type": "lists_split"
+        },
+        {
+          "text": "math list",
+          "parent": "Lists",
+          "preview": "",
+          "color": "#59C059",
+          "type": "math_on_list"
+        },
+        {
+          "text": "get",
+          "parent": "Variables",
+          "preview": "",
+          "color": "#FF8C1A",
+          "type": "variables_get"
+        },
+        {
+          "text": "set",
+          "parent": "Variables",
+          "preview": "",
+          "color": "#FF8C1A",
+          "type": "variables_set"
+        },
+        {
+          "text": "def no return",
+          "parent": "Functions",
+          "preview": "",
+          "color": "#FF6680",
+          "type": "procedures_callnoreturn"
+        },
+        {
+          "text": "def return",
+          "parent": "Functions",
+          "preview": "",
+          "color": "#FF6680",
+          "type": "procedures_callreturn"
+        },
+        {
+          "text": "if return",
+          "parent": "Functions",
+          "preview": "",
+          "color": "#FF6680",
+          "type": "procedures_ifreturn"
+        }
+      ]
+    },
+    {
+      "fileExt": [ ".cs" ],
+      "text": "Code",
+      "allow_insertion_from_menu": false,
+      "MenuItems": [
         {
           "name": "Code",
           "parent": "Main",
@@ -44,7 +648,34 @@
             "Custom Function",
             "New Layer"
           ],
-          "icon": "Code"
+          "icon": "AddEvent"
+        },
+        {
+          "name": "Test",
+          "parent": "Main",
+          "submenu": [ "Assert" ],
+          "children": [
+            "Debug.Assert()"
+          ],
+          "icon": "Test"
+        },
+        {
+          "name": "Assert",
+          "parent": "Test",
+          "submenu": [],
+          "children": [
+            "AreEqual()",
+            "AreNotEqual()",
+            "AreNotSame()",
+            "AreSame()",
+            "Fail()",
+            "IsTrue()",
+            "IsFalse()",
+            "IsNull()",
+            "IsNotNull()",
+            "Equals()"
+          ],
+          "icon": "Test"
         },
         {
           "name": "Logic",
@@ -181,17 +812,81 @@
           "type": ""
         },
         {
-          "text": "New thread",
-          "parent": "Thread",
+          "text": "AreEqual()",
+          "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": ""
+          "type": "AreEqual(Double, Double, Double)"
         },
         {
-          "text": "Assert",
+          "text": "AreNotEqual()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "AreNotEqual(Double, Double, Double)"
+        },
+        {
+          "text": "AreNotSame()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "AreNotSame(Object, Object)"
+        },
+        {
+          "text": "AreSame()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "AreSame(Object, Object)"
+        },
+        {
+          "text": "Fail()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "Fail()"
+        },
+        {
+          "text": "IsTrue()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsTrue(Boolean)"
+        },
+        {
+          "text": "IsFalse()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsFalse(Boolean)"
+        },
+        {
+          "text": "IsNull()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsNull(Object)"
+        },
+        {
+          "text": "IsNotNull()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsNotNull(Object)"
+        },
+        {
+          "text": "Equals()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "Equals(Object, Object)"
+        },
+        {
+          "text": "Debug.Assert()",
           "parent": "Test",
           "preview": "",
-          "color": "#FF00FFFF"
+          "color": "#FF00FFFF",
+          "type": "Debug.Assert(Boolean)"
         },
         {
           "text": "boolean",
