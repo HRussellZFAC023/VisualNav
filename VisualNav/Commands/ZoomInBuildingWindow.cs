@@ -7,6 +7,6 @@ internal sealed class ZoomInBuildingWindow : BaseCommand<ZoomInBuildingWindow>
 {
     protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
     {
-        await BuildingWindow.Instance._blockly.ZoomInAsync();
+        await BuildingWindow.Instance.Blockly.ZoomInAsync();
     }
 }

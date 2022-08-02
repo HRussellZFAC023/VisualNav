@@ -1,7 +1,6 @@
 ﻿using CefSharp;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 using VisualNav.Schema;
 
 namespace VisualNav.Utilities;
@@ -63,9 +62,9 @@ public class BlocklyAdapter
         }
 
         await _b.EvaluateScriptAsync("init", _preview);
-        
+
         //init the block size with setting
-        int settingSize = Options.Settings.Instance.BlockSize;
+        var settingSize = Options.Settings.Instance.BlockSize;
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(" + settingSize.ToString() + ")");
     }
 
@@ -91,6 +90,7 @@ public class BlocklyAdapter
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
     }
+
     public async Task CenterAsync()
     {
         await Task.Delay(100);
@@ -101,7 +101,6 @@ public class BlocklyAdapter
     public async Task ResetZoomAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
-
     }
 
     public async Task ZoomOutAsync()
@@ -111,7 +110,7 @@ public class BlocklyAdapter
         {
             Options.Settings.Instance.BlockSize--;
         }
-        
+
         await Options.Settings.Instance.SaveAsync();
         // update settings
         // - 1
@@ -124,10 +123,9 @@ public class BlocklyAdapter
         {
             Options.Settings.Instance.BlockSize++;
         }
-            
+
         await Options.Settings.Instance.SaveAsync();
         // update settings
         // + 1
     }
-
 }

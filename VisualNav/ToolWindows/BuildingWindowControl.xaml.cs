@@ -8,25 +8,25 @@ namespace VisualNav.ToolWindows;
 
 public partial class BuildingWindowControl
 {
-    public readonly BlocklyAdapter _blockly;
+    public readonly BlocklyAdapter Blockly;
 
     public BuildingWindowControl()
     {
         InitializeComponent();
         Focus();
-        _blockly = new BlocklyAdapter(Browser, false);
-        ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.LoadHtmlAsync(); }).FireAndForget();
+        Blockly = new BlocklyAdapter(Browser, false);
+        ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await Blockly.LoadHtmlAsync(); }).FireAndForget();
 
         Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
-        _blockly.CenterAsync().FireAndForget();
-        SizeChanged += (_, _) => _blockly.CenterAsync().FireAndForget();
+        Blockly.CenterAsync().FireAndForget();
+        SizeChanged += (_, _) => Blockly.CenterAsync().FireAndForget();
     }
 
     private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
     {
         if (!e.IsLoading)
         {
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.InitAsync(); }).FireAndForget();
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await Blockly.InitAsync(); }).FireAndForget();
         }
     }
 
@@ -34,7 +34,7 @@ public partial class BuildingWindowControl
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
-            var ret = await _blockly.ShowCodeAsync();
+            var ret = await Blockly.ShowCodeAsync();
 
             if (ret.Success != true)
             {
@@ -51,7 +51,7 @@ public partial class BuildingWindowControl
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
-            var ret = await _blockly.ShowCodeAsync();
+            var ret = await Blockly.ShowCodeAsync();
 
             if (ret.Success != true)
             {
@@ -59,41 +59,35 @@ public partial class BuildingWindowControl
             }
             else
             {
-                String re = (string)ret.Result;
+                var re = (string)ret.Result;
                 var docView = await VS.Documents.GetActiveDocumentViewAsync();
                 if (docView?.TextView == null) return;
-                int position = docView.TextView.Caret.Position.BufferPosition;
-                int spaceNum = docView.TextView.Caret.Position.VirtualSpaces;
+                var position = docView.TextView.Caret.Position.BufferPosition;
 
-                int space_num = docView.TextView.Caret.Position.VirtualSpaces;
+                var spaceNum = docView.TextView.Caret.Position.VirtualSpaces;
 
-                String spaces = "";
-                String new_res = "";
-                for (int i = 0; i < space_num; i++)
+                var spaces = "";
+                var newRes = "";
+                for (var i = 0; i < spaceNum; i++)
                 {
                     spaces += ' ';
                 }
 
-                new_res += spaces;
-                foreach (char c in re)
+                newRes += spaces;
+                foreach (var c in re)
                 {
                     if (c == '\n')
                     {
-                        new_res += c;
-                        new_res += spaces;
+                        newRes += c;
+                        newRes += spaces;
                     }
                     else
                     {
-                        new_res += c;
+                        newRes += c;
                     }
                 }
 
-                docView.TextBuffer?.Insert(position, new_res);
-
-                // another implementation?
-                //EnvDTE.DTE myDTE = Package.GetGlobalService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
-                //myDTE.ExecuteCommand("Edit.FormatDocument", string.Empty);
-
+                docView.TextBuffer?.Insert(position, newRes);
             }
         }).FireAndForget();
     }
@@ -102,7 +96,7 @@ public partial class BuildingWindowControl
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
-            var ret = await _blockly.ShowCodeAsync();
+            var ret = await Blockly.ShowCodeAsync();
 
             if (ret.Success != true)
             {
@@ -118,38 +112,30 @@ public partial class BuildingWindowControl
 
     public void DecreaseSize(object sender, RoutedEventArgs e)
     {
-        ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-        {
-            await _blockly.ZoomOutAsync();
-        }).FireAndForget();
+        Blockly.ZoomOutAsync().FireAndForget();
     }
 
     public void IncreaseSize(object sender, RoutedEventArgs e)
     {
-        ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-        {
-            await _blockly.ZoomInAsync();
-        }).FireAndForget();
+        Blockly.ZoomInAsync().FireAndForget();
     }
 
     public void SetCurrentCommand(Command c)
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
-            await _blockly.AddCustomBlockToAreaAsync(c);
-            var ret = await _blockly.AddNewBlockToAreaAsync(c);
+            await Blockly.AddCustomBlockToAreaAsync(c);
+            var ret = await Blockly.AddNewBlockToAreaAsync(c);
             if (ret.Success != true)
             {
                 await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
             }
-
         }).FireAndForget();
     }
 
-    private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
-    {
-        _blockly.CenterAsync().FireAndForget();
-        _blockly.ZoomInAsync().FireAndForget();
-    }
 
+    private void Center(object sender, MouseButtonEventArgs e)
+    {
+        Blockly.CenterAsync().FireAndForget();
+    }
 }

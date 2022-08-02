@@ -11,11 +11,10 @@
     xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit" xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
     mc:Ignorable="d"
-
     toolkit:Themes.UseVsTheme="True">
-    
+
     <UserControl.Resources>
-    <ui:BrushToColorConverter x:Key="BrushToColorConverter" />
+        <ui:BrushToColorConverter x:Key="BrushToColorConverter" />
     </UserControl.Resources>
     <Grid
         VerticalAlignment="Stretch"
@@ -24,33 +23,29 @@
         MinHeight="200">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <StackPanel
-            
-            Orientation="Horizontal" Panel.ZIndex="100" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
+            Margin="5"
+            Orientation="Horizontal" Panel.ZIndex="100" Grid.Row="0" Grid.Column="0" MaxHeight="25" HorizontalAlignment="Right"
                                 theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
-            <imaging:CrispImage x:Name="Minimize" MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
+            <imaging:CrispImage  MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
+            <imaging:CrispImage  MouseDown="Center" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.RadioButton}" />
+
             <imaging:CrispImage  MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
         </StackPanel>
 
-        
-
-
-
-        <Border Grid.Row="1">
-            <browser:ChromiumWebBrowser x:Name="Browser" Grid.Row="1" />
-        </Border>    
-       
-        
+        <Border Grid.Row="0" Grid.RowSpan="2">
+            <browser:ChromiumWebBrowser x:Name="Browser" />
+        </Border>
 
         <StackPanel
                 Grid.Row="2"
                 Background="{DynamicResource {markup:Static SystemColors.InfoBrushKey}}"
-                Orientation="Horizontal" Name="Controls"
+                Orientation="Horizontal"
                 MinHeight="20">
 
             <!-- instead of combo-box, detect based on the current file type -->

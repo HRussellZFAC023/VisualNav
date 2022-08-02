@@ -30,6 +30,7 @@ public partial class RadialWindowControl
 
     // create a list of languages that require the "insertion" button
     private string _currentState = "";
+
     private bool fullScreen = false;
     private Schema.Schema _json;
     private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without hierarchy
@@ -135,8 +136,10 @@ public partial class RadialWindowControl
                 var ratio = radius / 150; // conversion rate of radius to size on screen
                 var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 9), 32); // sync all font size in this plugin
                 ProgressText.FontSize = fontSize;
-                Insertion.Height = fontSize;
                 InsertionLabel.FontSize = fontSize;
+                Insertion.Height = fontSize * 1.5;
+                Insertion.Width = fontSize * 1.5;
+                Insertion.Margin = new Thickness(0, fontSize * 0.25, 0, 0);
                 MainMenu.CentralItem.Height = Convert.ToDouble(60 * ratio);
                 MainMenu.CentralItem.Width = Convert.ToDouble(60 * ratio);
 
@@ -312,11 +315,11 @@ public partial class RadialWindowControl
             {
                 case "New Layer":
                     {
-                        DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
-                        string userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        var docView = await VS.Documents.GetActiveDocumentViewAsync();
+                        var userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
                         if (userInput.Equals(""))
                         {
-                            MessageBoxResult result = System.Windows.MessageBox.Show("Select layer name in coding area");
+                            var result = System.Windows.MessageBox.Show("Select layer name in coding area");
                             return;
                         }
                         // Modify Menuitems section of the json file
@@ -403,11 +406,11 @@ public partial class RadialWindowControl
                 case "Custom Object":
                 case "Custom Function":
                     {
-                        DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
-                        string userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        var docView = await VS.Documents.GetActiveDocumentViewAsync();
+                        var userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
                         if (userInput.Equals("")) //prevent empty name input
                         {
-                            MessageBoxResult result = System.Windows.MessageBox.Show("Select object name in coding area");
+                            var result = System.Windows.MessageBox.Show("Select object name in coding area");
                             return;
                         }
                         // modify children list (add the command into the children string array)
@@ -428,15 +431,15 @@ public partial class RadialWindowControl
                             commandsList[i] = language.Commands[i];
                         }
 
-                        string type = element.Text.Equals("Custom Object") ? "custom_object_" : "custom_function_";
+                        var type = element.Text.Equals("Custom Object") ? "custom_object_" : "custom_function_";
                         type = type + userInput;
                         userInput = element.Text.Equals("Custom Function") ? userInput + "( )" : userInput;
 
-                        foreach(var temp in language.Commands) //prevent duplicates
+                        foreach (var temp in language.Commands) //prevent duplicates
                         {
                             if (temp.Text.Equals(userInput))
                             {
-                                MessageBoxResult result = System.Windows.MessageBox.Show("Duplicate object/function found, try another name.");
+                                var result = System.Windows.MessageBox.Show("Duplicate object/function found, try another name.");
                                 return;
                             }
                         }
@@ -471,8 +474,8 @@ public partial class RadialWindowControl
 
     private void RadialDialElement_Remove(Command element, Radialmenu language)
     {
-        if (element.Type.Contains("custom")){ // if it is a custom button
-
+        if (element.Type.Contains("custom"))
+        { // if it is a custom button
             foreach (var item in language.MenuItems) // remove from child array
             {
                 if (!item.Name.Equals(element.Text)) continue;
@@ -486,7 +489,7 @@ public partial class RadialWindowControl
                 }
             }
 
-            var commandsList = new Command[language.Commands.Length - 1]; 
+            var commandsList = new Command[language.Commands.Length - 1];
             for (var i = 0; i < language.Commands.Length; i++) //remove from command list
             {
                 if (!language.Commands[i].Text.Equals(element.Text))
@@ -494,7 +497,7 @@ public partial class RadialWindowControl
                     commandsList[i] = language.Commands[i];
                 }
             }
-                
+
             language.Commands = commandsList;
             var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
             var file = Path.Combine(dir!, "Schema", "Modified.json");
@@ -506,7 +509,6 @@ public partial class RadialWindowControl
         {
             return;
         }
-        
     }
 
     /// <summary>
@@ -520,14 +522,9 @@ public partial class RadialWindowControl
         RadialMenuGeneration();
     }
 
-
-    public void ToggleFullscreen(object sender = null, RoutedEventArgs e = null)
+    private void ToggleFullscreen(object sender = null, RoutedEventArgs e = null)
     {
-        // set fullscreen = false
-        // else
-        // IncreaseSize
-        // set fullscreen = true
-        if (fullScreen == true) 
+        if (fullScreen)
         {
             DecreaseSize();
         }
@@ -536,10 +533,7 @@ public partial class RadialWindowControl
             IncreaseSize();
         }
         fullScreen = !fullScreen;
-        
     }
-
-
 
     /// <summary>
     /// The handler of the full screen button
