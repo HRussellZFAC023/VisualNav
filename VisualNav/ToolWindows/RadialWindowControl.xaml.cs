@@ -31,7 +31,7 @@ public partial class RadialWindowControl
     // create a list of languages that require the "insertion" button
     private string _currentState = "";
 
-    private bool fullScreen = false;
+    private bool _fullScreen;
     private Schema.Schema _json;
     private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without hierarchy
     private string _progress = "";
@@ -46,7 +46,7 @@ public partial class RadialWindowControl
     }
 
     /// <summary>
-    /// When the size of a window/panle chenges, pass the event and regerate the radial menu
+    /// When the size of a window/panle changes, pass the event and regenerate the radial menu
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -117,7 +117,8 @@ public partial class RadialWindowControl
                     // name
                     stackPanel.Children.Add(new TextBlock { Text = menuItem.Name });
                     // event handler
-                    item.Click += (_, _) => RadialDialControl_Click(menuItem.Name, false);
+                    item.Click += (_, _) =>
+                        RadialDialControl_Click(menuItem.Name, false);
 
                     if (!_menu.ContainsKey(menuItem.Parent))
                     {
@@ -129,8 +130,8 @@ public partial class RadialWindowControl
 
                 ProgressText.Text = "Main";  // default progress indicator is Main (top level menu)
                 MainMenu.Items = _menu["Main"];
-                MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
-                MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
+                MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync();
+                MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync();
 
                 var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); // RenderSize is the size of window, choose the min between height and width
                 var ratio = radius / 150; // conversion rate of radius to size on screen
@@ -145,11 +146,22 @@ public partial class RadialWindowControl
 
                 foreach (var command in language.Commands) // iterates commands in the language in schema.json
                 {
-                    var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, _colorMap["Varden"], _colorMap["CreamBrulee"]);
-                    menuBlock.Click += (_, _) => RadialDialElement_Click(command, language); //Handler of the command
-                    menuBlock.MouseRightButtonDown += (_, _) => RadialDialElement_Remove(command, language); // right click to delete
-                    menuBlock.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentCommand(command);
-                    menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommand();
+                    var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, _colorMap["Varden"],
+                        _colorMap["CreamBrulee"]);
+                    menuBlock.Click += (_, _) =>
+                        RadialDialElement_ClickAsync(command, language).FireAndForget(); //Handler of the command
+                    menuBlock.MouseRightButtonDown +=
+                        (_, _) => RadialDialElement_Remove(command, language); // right click to delete
+                    menuBlock.MouseEnter += (_, _) =>
+                    {
+                        ThreadHelper.JoinableTaskFactory.Run(async () =>
+                        {
+                            await PreviewWindow.Instance.ClearCurrentCommandAsync();
+                            PreviewWindow.Instance.SetCurrentCommand(command);
+                        });
+                    };
+
+                    menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync().FireAndForget();
                     // Highlight by increasing the radius of radial button
                     menuBlock.MouseEnter += (_, _) => IncreaseOnHover(menuBlock, _colorMap);
                     menuBlock.MouseLeave += (_, _) => ResetSizeOnExitHover(menuBlock, _colorMap);
@@ -291,35 +303,37 @@ public partial class RadialWindowControl
     /// <summary>
     /// Button click handler, if the element clicked is a member of UI menu, adopt different event
     /// </summary>
-    /// <param name="element"></param>
-    private async void RadialDialElement_Click(Command element, Radialmenu language)
+    /// <param name="element"> Code block or UI item in Schema format </param>
+    /// <param name="language">Programming Language</param>
+    private async Task RadialDialElement_ClickAsync(Command element, Radialmenu language)
     {
         if (element.Type.Equals("UI"))
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            if (Insertion.IsChecked != null && (bool)Insertion.IsChecked)
             {
-                if (Insertion.IsChecked != null && (bool)Insertion.IsChecked)
-                {
-                    var docView = await VS.Documents.GetActiveDocumentViewAsync();
-                    if (docView?.TextView == null) return; //not a text window
-                    var position = docView.TextView.Caret.Position.BufferPosition;
-                    docView.TextBuffer?.Insert(position, element.Preview); // Inserts text at the caret
-                }
-                else
-                {
-                    Clipboard.SetText(element.Preview);
-                    await VS.StatusBar.ShowMessageAsync("Copied to clipboard.");
-                    await InfoNotificationWrapper.ShowSimpleAsync("Copied to clipboard.", "Copy", PackageGuids.RadialWindowString, 1500);
-                }
-            }).FireAndForget();
-        else switch (element.Text)
+                var docView = await VS.Documents.GetActiveDocumentViewAsync();
+                if (docView?.TextView == null) return; //not a text window
+                var position = docView.TextView.Caret.Position.BufferPosition;
+                docView.TextBuffer?.Insert(position, element.Preview); // Inserts text at the caret
+                InfoNotificationWrapper.ShowSimpleAsync(element.Text + " was placed in the editor",
+                    "DropPointTarget", PackageGuids.PreviewWindowString, 1500).FireAndForget();
+            }
+            else
+            {
+                Clipboard.SetText(element.Preview);
+                await VS.StatusBar.ShowMessageAsync(element.Text + " Copied to clipboard.");
+                await InfoNotificationWrapper.ShowSimpleAsync(element.Text + "Copied to clipboard.", "Copy", PackageGuids.PreviewWindowString, 1500);
+            }
+        else
+
+            switch (element.Text)
             {
                 case "New Layer":
                     {
                         var docView = await VS.Documents.GetActiveDocumentViewAsync();
-                        var userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
-                        if (userInput.Equals(""))
+                        var userInput = docView?.TextView!.Selection.StreamSelectionSpan.GetText();
+                        if (userInput!.Equals(""))
                         {
-                            var result = System.Windows.MessageBox.Show("Select layer name in coding area");
+                            InfoNotificationWrapper.ShowSimpleAsync("Select layer name by highlighting text in the editor", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
                             return;
                         }
                         // Modify Menuitems section of the json file
@@ -398,19 +412,21 @@ public partial class RadialWindowControl
                         File.WriteAllText(file, JsonConvert.SerializeObject(_json));
 
                         Options.Settings.Instance.CustomBlock = true;
-                        Options.Settings.Instance.Save();
+                        await Options.Settings.Instance.SaveAsync();
 
                         RadialMenuGeneration();
+                        InfoNotificationWrapper.ShowSimpleAsync("New Layer Created",
+                            "StatusOkOutline", PackageGuids.PreviewWindowString, 1500).FireAndForget();
                         break;
                     }
                 case "Custom Object":
                 case "Custom Function":
                     {
                         var docView = await VS.Documents.GetActiveDocumentViewAsync();
-                        var userInput = docView.TextView.Selection.StreamSelectionSpan.GetText();
+                        var userInput = docView!.TextView!.Selection.StreamSelectionSpan.GetText();
                         if (userInput.Equals("")) //prevent empty name input
                         {
-                            var result = System.Windows.MessageBox.Show("Select object name in coding area");
+                            InfoNotificationWrapper.ShowSimpleAsync("Select creation type by highlighting text in the editor", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
                             return;
                         }
                         // modify children list (add the command into the children string array)
@@ -432,16 +448,13 @@ public partial class RadialWindowControl
                         }
 
                         var type = element.Text.Equals("Custom Object") ? "custom_object_" : "custom_function_";
-                        type = type + userInput;
+                        type += userInput;
                         userInput = element.Text.Equals("Custom Function") ? userInput + "( )" : userInput;
 
-                        foreach (var temp in language.Commands) //prevent duplicates
+                        if (language.Commands.Any(temp => temp.Text.Equals(userInput)))
                         {
-                            if (temp.Text.Equals(userInput))
-                            {
-                                var result = System.Windows.MessageBox.Show("Duplicate object/function found, try another name.");
-                                return;
-                            }
+                            InfoNotificationWrapper.ShowSimpleAsync("Duplicate object/function found, try another name.", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
+                            return;
                         }
 
                         var newCommand = new Command
@@ -461,54 +474,52 @@ public partial class RadialWindowControl
                         File.WriteAllText(file, JsonConvert.SerializeObject(_json));
 
                         Options.Settings.Instance.CustomBlock = true;
-                        Options.Settings.Instance.Save();
+                        await Options.Settings.Instance.SaveAsync();
 
                         RadialMenuGeneration();
+                        InfoNotificationWrapper.ShowSimpleAsync(newCommand.Text + " (Custom Block) was Created",
+                            "StatusOkOutline", PackageGuids.PreviewWindowString, 1500).FireAndForget();
                         break;
                     }
                 default:
                     BuildingWindow.Instance.SetCurrentCommand(element);
+                    InfoNotificationWrapper.ShowSimpleAsync(element.Text + " was placed in the Building Window",
+                        "DropPointTarget", PackageGuids.PreviewWindowString, 1500).FireAndForget();
                     break;
             }
     }
 
     private void RadialDialElement_Remove(Command element, Radialmenu language)
     {
-        if (element.Type.Contains("custom"))
-        { // if it is a custom button
-            foreach (var item in language.MenuItems) // remove from child array
-            {
-                if (!item.Name.Equals(element.Text)) continue;
-                var newChildList = new string[item.Children.Length - 1];
-                for (var i = 0; i < item.Children.Length; i++)
-                {
-                    if (!item.Children[i].Equals(element.Text))
-                    {
-                        newChildList[i] = item.Children[i];
-                    }
-                }
-            }
-
-            var commandsList = new Command[language.Commands.Length - 1];
-            for (var i = 0; i < language.Commands.Length; i++) //remove from command list
-            {
-                if (!language.Commands[i].Text.Equals(element.Text))
-                {
-                    commandsList[i] = language.Commands[i];
-                }
-            }
-
-            language.Commands = commandsList;
-            var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
-            var file = Path.Combine(dir!, "Schema", "Modified.json");
-            File.WriteAllText(file, JsonConvert.SerializeObject(_json));
-
-            RadialMenuGeneration();
-        }
-        else
+        if (!element.Type.Contains("custom")) return; // if it is a custom button
+        foreach (var item in language.MenuItems) // remove from child array
         {
-            return;
+            if (!item.Name.Equals(element.Text)) continue;
+            var newChildList = new string[item.Children.Length - 1];
+            for (var i = 0; i < item.Children.Length; i++)
+            {
+                if (!item.Children[i].Equals(element.Text))
+                {
+                    newChildList[i] = item.Children[i];
+                }
+            }
         }
+
+        var commandsList = new Command[language.Commands.Length - 1];
+        for (var i = 0; i < language.Commands.Length; i++) //remove from command list
+        {
+            if (!language.Commands[i].Text.Equals(element.Text))
+            {
+                commandsList[i] = language.Commands[i];
+            }
+        }
+
+        language.Commands = commandsList;
+        var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
+        var file = Path.Combine(dir!, "Schema", "Modified.json");
+        File.WriteAllText(file, JsonConvert.SerializeObject(_json));
+
+        RadialMenuGeneration();
     }
 
     /// <summary>
@@ -524,7 +535,7 @@ public partial class RadialWindowControl
 
     private void ToggleFullscreen(object sender = null, RoutedEventArgs e = null)
     {
-        if (fullScreen)
+        if (_fullScreen)
         {
             DecreaseSize();
         }
@@ -532,7 +543,7 @@ public partial class RadialWindowControl
         {
             IncreaseSize();
         }
-        fullScreen = !fullScreen;
+        _fullScreen = !_fullScreen;
     }
 
     /// <summary>
@@ -554,6 +565,11 @@ public partial class RadialWindowControl
         {
             _state.Push(_state.Count == 0 ? "Main" : _currentState);
             _currentState = subMenu;
+            InfoNotificationWrapper.ShowSimpleAsync(subMenu + " Selected", "StatusOKOutline", PackageGuids.PreviewWindowString, 1500).FireAndForget();
+        }
+        else
+        {
+            InfoNotificationWrapper.ShowSimpleAsync(subMenu + " Page was changed", "StatusOKOutline", PackageGuids.PreviewWindowString, 1500).FireAndForget();
         }
 
         _progress = "";
@@ -577,6 +593,7 @@ public partial class RadialWindowControl
         var temp = _state.Count == 0 ? "Main" : _state.Pop();
         _currentState = temp;
         MainMenu.Items = _menu[temp];
+        InfoNotificationWrapper.ShowSimpleAsync("Menu level restored", "Backwards", PackageGuids.PreviewWindowString, 1500).FireAndForget();
     }
 
     /// <summary>

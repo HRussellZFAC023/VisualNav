@@ -31,7 +31,6 @@ public class BlocklyAdapter
         var root = Path.GetDirectoryName(typeof(VisualStudioServices).Assembly.Location);
         _blocklyJs = Path.Combine(root!, "Resources", "js", "blockly");
         _blocklyHtml = Path.Combine(root!, "Resources", "html", "blocklyHTML.html");
-        //_ = ZoomInAsync();
     }
 
     public async Task LoadHtmlAsync()
@@ -62,10 +61,6 @@ public class BlocklyAdapter
         }
 
         await _b.EvaluateScriptAsync("init", _preview);
-
-        //init the block size with setting
-        var settingSize = Options.Settings.Instance.BlockSize;
-        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(" + settingSize.ToString() + ")");
     }
 
     public async Task<JavascriptResponse> ShowCodeAsync()
@@ -75,32 +70,60 @@ public class BlocklyAdapter
             "showCode", lang);
     }
 
-    public async Task<JavascriptResponse> AddNewBlockToAreaAsync(Command c)
+    private bool _blockBeingAdded; // mutex
+    private bool _clear = true;
+
+    public async Task<JavascriptResponse> AddNewBlockToAreaAsync(Command c, bool preview, bool custom)
     {
-        return await _b.EvaluateScriptAsync("addNewBlockToArea", c.Text, c.Type);
+        var method = custom ? "addCustomBlockToArea" : "addNewBlockToArea";
+        while (_blockBeingAdded)
+        {
+            await Task.Delay(1);
+            if (!_clear)
+            {
+                return null;
+            }
+        }
+
+        _clear = false;
+        _blockBeingAdded = true;
+        if (_preview)
+        {
+            await ClearAsync();
+        }
+        var ret = await _b.EvaluateScriptAsync(method, c.Text, c.Type);
+        if (!preview)
+        {
+            await CenterAsync();
+        }
+        _blockBeingAdded = false;
+        return ret;
     }
 
-    public async Task<JavascriptResponse> AddCustomBlockToAreaAsync(Command c)
+    public async Task<JavascriptResponse> ClearAsync()
     {
-        // Text, Parent, Preview, Color, Type
-        return await _b.EvaluateScriptAsync("addCustomBlockToArea", c.Text, c.Type, c.Color);
-    }
-
-    public async Task ClearAsync()
-    {
-        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
+        var ret = await _b.EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
+        _clear = true; // accept new blocks
+        return ret;
     }
 
     public async Task CenterAsync()
     {
         await Task.Delay(100);
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
+        await Task.Delay(500);
         // restore zoom from settings
+        var settingSize = Options.Settings.Instance.BlockSize;
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(" + settingSize + ")");
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.cleanUp()");
     }
 
     public async Task ResetZoomAsync()
     {
+        await Task.Delay(100);
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
+        Options.Settings.Instance.BlockSize = 0;
+        await Options.Settings.Instance.SaveAsync();
     }
 
     public async Task ZoomOutAsync()

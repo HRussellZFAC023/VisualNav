@@ -18,6 +18,7 @@ public partial class BuildingWindowControl
         ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await Blockly.LoadHtmlAsync(); }).FireAndForget();
 
         Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
+        //init the block size with setting
         Blockly.CenterAsync().FireAndForget();
         SizeChanged += (_, _) => Blockly.CenterAsync().FireAndForget();
     }
@@ -88,6 +89,7 @@ public partial class BuildingWindowControl
                 }
 
                 docView.TextBuffer?.Insert(position, newRes);
+                await InfoNotificationWrapper.ShowSimpleAsync("Inserted into Document.", "InsertPage", PackageGuids.BuildingWindowString, 1500);
             }
         }).FireAndForget();
     }
@@ -124,18 +126,26 @@ public partial class BuildingWindowControl
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
-            await Blockly.AddCustomBlockToAreaAsync(c);
-            var ret = await Blockly.AddNewBlockToAreaAsync(c);
-            if (ret.Success != true)
+            JavascriptResponse ret;
+            if (c.Type.Contains("custom"))
             {
-                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
+                ret = await Blockly.AddNewBlockToAreaAsync(c, false, true); // try custom
             }
+            else
+            {
+                ret = await Blockly.AddNewBlockToAreaAsync(c, false, false);
+            }
+            await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
         }).FireAndForget();
     }
 
-
-    private void Center(object sender, MouseButtonEventArgs e)
+    private void ResetZoom(object sender, MouseButtonEventArgs e)
     {
-        Blockly.CenterAsync().FireAndForget();
+        Blockly.ResetZoomAsync().FireAndForget();
+    }
+
+    private void ClearAllButton_Click(object sender, RoutedEventArgs e)
+    {
+        Blockly.ClearAsync().FireAndForget();
     }
 }

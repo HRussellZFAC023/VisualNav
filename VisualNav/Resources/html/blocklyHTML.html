@@ -29,7 +29,9 @@
             width: 100%;
         }
 
-        #blocklyArea { height: 99%; }
+        #blocklyArea {
+            height: 99%;
+        }
     </style>
 </head>
 
@@ -96,8 +98,6 @@
                 blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
                 blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
                 Blockly.svgResize(workspace);
-
-                console.log('resize');
             };
 
             window.addEventListener('resize', onresize, false);

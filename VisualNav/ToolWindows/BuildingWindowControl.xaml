@@ -23,7 +23,7 @@
         MinHeight="200">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
@@ -33,7 +33,7 @@
             Orientation="Horizontal" Panel.ZIndex="100" Grid.Row="0" Grid.Column="0" MaxHeight="25" HorizontalAlignment="Right"
                                 theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
             <imaging:CrispImage  MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
-            <imaging:CrispImage  MouseDown="Center" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.RadioButton}" />
+            <imaging:CrispImage  MouseDown="ResetZoom" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.RadioButton}" />
 
             <imaging:CrispImage  MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
         </StackPanel>
@@ -63,6 +63,11 @@
                     Name="ClipboardButton"
                     Click="ClipboardButton_Click"
                     Content="Clipboard" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+            <Button
+                    Name="ClearAllButton"
+                    Click="ClearAllButton_Click"
+                    Content="Clear " Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" />
         </StackPanel>
     </Grid>
 </UserControl>
