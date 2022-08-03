@@ -3,7 +3,7 @@
 namespace VisualNav.Commands;
 
 [Command(PackageIds.Clip)]
-internal sealed class BuidlingWindowCopy : BaseCommand<BuidlingWindowCopy>
+internal sealed class BuildingWindowClip : BaseCommand<BuildingWindowClip>
 {
     protected override Task ExecuteAsync(OleMenuCmdEventArgs e)
     {
