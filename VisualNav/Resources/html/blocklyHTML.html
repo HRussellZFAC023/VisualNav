@@ -101,7 +101,7 @@
             window.addEventListener('resize', onresize, false);
             onresize();
             Blockly.svgResize(workspace);
-
+            initCodeGenerator();
 
         }
 
@@ -268,7 +268,7 @@
             },
             {
                 "type": "IsTrue",
-                "message0": "isTrue %1",
+                "message0": "is true %1 message %2",
                 "args0": [
                     {
                         "type": "input_value",
@@ -277,9 +277,13 @@
                             "Boolean",
                             "custom_function"
                         ]
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "Message",
+                        "check": "String"
                     }
                 ],
-                "inputsInline": true,
                 "previousStatement": null,
                 "nextStatement": null,
                 "colour": 230,
@@ -288,7 +292,7 @@
             },
             {
                 "type": "IsFalse",
-                "message0": "isFalse %1",
+                "message0": "is false %1 message %2",
                 "args0": [
                     {
                         "type": "input_value",
@@ -297,9 +301,13 @@
                             "Boolean",
                             "custom_function"
                         ]
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "Message",
+                        "check": "String"
                     }
                 ],
-                "inputsInline": true,
                 "previousStatement": null,
                 "nextStatement": null,
                 "colour": 230,
@@ -308,14 +316,19 @@
             },
             {
                 "type": "IsNull",
-                "message0": "isNull %1",
+                "message0": "is null %1 message %2",
                 "args0": [
                     {
                         "type": "input_value",
                         "name": "NAME"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "Message",
+                        "check": "String"
                     }
                 ],
-                "inputsInline": true,
+                "inputsInline": false,
                 "previousStatement": null,
                 "nextStatement": null,
                 "colour": 230,
@@ -324,14 +337,19 @@
             },
             {
                 "type": "IsNotNull",
-                "message0": "isNotNull %1",
+                "message0": "is not null %1 message %2",
                 "args0": [
                     {
                         "type": "input_value",
                         "name": "NAME"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "Message",
+                        "check": "String"
                     }
                 ],
-                "inputsInline": true,
+                "inputsInline": false,
                 "previousStatement": null,
                 "nextStatement": null,
                 "colour": 230,
@@ -344,11 +362,11 @@
                 "args0": [
                     {
                         "type": "input_value",
-                        "name": "NAME"
+                        "name": "A"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME"
+                        "name": "B"
                     }
                 ],
                 "inputsInline": true,
@@ -570,6 +588,63 @@
 
             return code;
 
+        }
+
+        function initCodeGenerator() {
+            Blockly.CSharp['IsTrue'] = function (block) {
+                var argument = Blockly.CSharp.valueToCode(this, 'Name',
+                    Blockly.CSharp.ORDER_NONE) || 'false';
+                var message = Blockly.CSharp.valueToCode(this, 'Message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                if (message == '') {
+                    var code = 'Assert.IsTrue(' + argument + ');';
+                } else {
+                    var code = 'Assert.IsTrue(' + argument + ', ' + message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['IsFalse'] = function (block) {
+                var argument = Blockly.CSharp.valueToCode(this, 'Name',
+                    Blockly.CSharp.ORDER_NONE) || 'false';
+                var message = Blockly.CSharp.valueToCode(this, 'Message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                if (message == '') {
+                    var code = 'Assert.IsFalse(' + argument + ');';
+                } else {
+                    var code = 'Assert.IsFalse(' + argument + ', ' + message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['IsNull'] = function (block) {
+                var argument = Blockly.CSharp.valueToCode(this, 'Name',
+                    Blockly.CSharp.ORDER_NONE) || 'null';
+                var message = Blockly.CSharp.valueToCode(this, 'Message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                if (message == '') {
+                    var code = 'Assert.IsNull(' + argument + ');';
+                } else {
+                    var code = 'Assert.IsNull(' + argument + ', ' + message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['IsNotNull'] = function (block) {
+                var argument = Blockly.CSharp.valueToCode(this, 'Name',
+                    Blockly.CSharp.ORDER_NONE) || 'null';
+                var message = Blockly.CSharp.valueToCode(this, 'Message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                if (message == '') {
+                    var code = 'Assert.IsNotNull(' + argument + ');';
+                } else {
+                    var code = 'Assert.IsNotNull(' + argument + ', ' + message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['Equals'] = function (block) {
+                var argument0 = Blockly.CSharp.valueToCode(this, 'A', Blockly.CSharp.ORDER_NONE) || 'null';
+                var argument1 = Blockly.CSharp.valueToCode(this, 'B', Blockly.CSharp.ORDER_NONE) || 'null';
+                var code = 'Assert.Equals(' + argument0 + ', ' + argument1 + ');';
+                return code;
+            };
         }
     </script>
 </body>
