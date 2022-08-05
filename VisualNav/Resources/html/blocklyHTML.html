@@ -120,26 +120,27 @@
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "expected",
                         "check": "Number",
                         "align": "RIGHT"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "actual",
                         "check": "Number",
                         "align": "RIGHT"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "delta",
                         "check": "Number",
                         "align": "RIGHT"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
-                        "check": "String"
+                        "name": "message",
+                        "check": "String",
+                        "align": "RIGHT"
                     }
                 ],
                 "previousStatement": null,
@@ -157,26 +158,27 @@
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "notExpected",
                         "check": "Number",
                         "align": "RIGHT"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "actual",
                         "check": "Number",
                         "align": "RIGHT"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "delta",
                         "check": "Number",
                         "align": "RIGHT"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
-                        "check": "String"
+                        "name": "message",
+                        "check": "String",
+                        "align": "RIGHT"
                     }
                 ],
                 "previousStatement": null,
@@ -194,17 +196,17 @@
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "expected",
                         "align": "RIGHT"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "actual",
                         "align": "RIGHT"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "message",
                         "check": "String",
                         "align": "RIGHT"
                     }
@@ -225,17 +227,17 @@
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "notExpected",
                         "align": "RIGHT"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "actual",
                         "align": "RIGHT"
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "message",
                         "check": "String",
                         "align": "RIGHT"
                     }
@@ -255,7 +257,7 @@
                     },
                     {
                         "type": "input_value",
-                        "name": "NAME",
+                        "name": "message",
                         "check": "String",
                         "align": "RIGHT"
                     }
@@ -406,9 +408,7 @@
 
                 Blockly.CSharp["custom_object_" + text] = function (block) {
                     var text_object_name = block.getFieldValue('object_name');
-                    // TODO: Assemble JavaScript into code variable.
                     var code = text_object_name;
-                    // TODO: Change ORDER_NONE to the correct strength.
                     return [code, Blockly.CSharp.ORDER_ATOMIC];
                 };
             } else if (typeArr[1] === 'function') {
@@ -591,6 +591,82 @@
         }
 
         function initCodeGenerator() {
+            Blockly.CSharp['areequal'] = function (block) {
+                var value_expected = Blockly.CSharp.valueToCode(this, 'expected',
+                    Blockly.CSharp.ORDER_ATOMIC) || '0.0';
+                var value_actual = Blockly.CSharp.valueToCode(this, 'actual',
+                    Blockly.CSharp.ORDER_ATOMIC) || '0.0';
+                var value_delta = Blockly.CSharp.valueToCode(this, 'delta',
+                    Blockly.CSharp.ORDER_ATOMIC) || '0.0';
+                var value_message = Blockly.CSharp.valueToCode(this, 'message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+
+                if (value_message == '') {
+                    var code = 'Assert.AreEqual(' + value_expected + ', ' + value_actual + ', ' + value_delta + ');';
+                } else {
+                    var code = 'Assert.AreEqual(' + value_expected + ', ' + value_actual + ', ' + value_delta + ', ' + value_message + ');';
+                }
+
+                return code;
+            };
+            Blockly.CSharp['arenotequal'] = function (block) {
+                var value_notexpected = Blockly.CSharp.valueToCode(this, 'notExpected',
+                    Blockly.CSharp.ORDER_ATOMIC) || '0.0';
+                var value_actual = Blockly.CSharp.valueToCode(this, 'actual',
+                    Blockly.CSharp.ORDER_ATOMIC) || '0.0';
+                var value_delta = Blockly.CSharp.valueToCode(this, 'delta',
+                    Blockly.CSharp.ORDER_ATOMIC) || '0.0';
+                var value_message = Blockly.CSharp.valueToCode(this, 'message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                
+                if (value_message == '') {
+                    var code = 'Assert.AreNotEqual(' + value_notexpected + ', ' + value_actual + ', ' + value_delta + ');';
+                } else {
+                    var code = 'Assert.AreNotEqual(' + value_notexpected + ', ' + value_actual + ', ' + value_delta + ', ' + value_message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['aresame'] = function (block) {
+                var value_expected = Blockly.CSharp.valueToCode(this, 'expected',
+                    Blockly.CSharp.ORDER_ATOMIC) || 'null';
+                var value_actual = Blockly.CSharp.valueToCode(this, 'actual',
+                    Blockly.CSharp.ORDER_ATOMIC) || 'null';
+                var value_message = Blockly.CSharp.valueToCode(this, 'message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                
+                if (value_message == '') {
+                    var code = 'Assert.AreSame(' + value_expected + ', ' + value_actual + ');';
+                } else {
+                    var code = 'Assert.AreSame(' + value_expected + ', ' + value_actual + ', ' + value_message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['arenotsame'] = function (block) {
+                var value_notexpected = Blockly.CSharp.valueToCode(this, 'notExpected',
+                    Blockly.CSharp.ORDER_ATOMIC);
+                var value_actual = Blockly.CSharp.valueToCode(this, 'actual',
+                    Blockly.CSharp.ORDER_ATOMIC);
+                var value_message = Blockly.CSharp.valueToCode(this, 'message',
+                    Blockly.CSharp.ORDER_ATOMIC);
+
+                if (value_message == '') {
+                    var code = 'Assert.AreNotSame(' + value_notexpected + ', ' + value_actual + ');';
+                } else {
+                    var code = 'Assert.AreNotSame(' + value_notexpected + ', ' + value_actual + ', ' + value_message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['fail'] = function (block) {
+                var value_message = Blockly.CSharp.valueToCode(block, 'message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                if (value_message == '') {
+                    var code = 'Assert.Fail();';
+                } else {
+                    var code = 'Assert.Fail(' + value_message + ');';
+                }
+                return code;
+            };
+
             Blockly.CSharp['IsTrue'] = function (block) {
                 var argument = Blockly.CSharp.valueToCode(this, 'Name',
                     Blockly.CSharp.ORDER_NONE) || 'false';
