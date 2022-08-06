@@ -267,7 +267,7 @@
           "parent": "Test",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "Debug.Assert(Boolean)"
+          "type": "debugassert"
         },
         {
           "text": "boolean",
