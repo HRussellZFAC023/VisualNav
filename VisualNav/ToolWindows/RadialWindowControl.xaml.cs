@@ -196,7 +196,7 @@ public partial class RadialWindowControl
                     tempMenu.Add(parent + "\x00A0 [Page 2]", page2);
                 }
 
-                foreach (var key in tempMenu.Keys)  // replace the orinigal into the divided menus
+                foreach (var key in tempMenu.Keys)  // replace the origal into the divided menus
                     if (key.Any(char.IsDigit))
                         _menu.Add(key, tempMenu[key]);
                     else
