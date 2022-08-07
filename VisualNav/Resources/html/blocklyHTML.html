@@ -104,10 +104,14 @@
             onresize();
             Blockly.svgResize(workspace);
 
+
             var zoomControl = document.querySelectorAll('.blocklyZoom');
             zoomControl[0].style.display = 'none';
             zoomControl[1].style.display = 'none';
             zoomControl[2].style.display = 'none';
+
+            initCodeGenerator();
+
         }
 
         function addNewBlockToArea(text, type) {
@@ -115,6 +119,273 @@
             if (type === 'custom_object' || type === 'custom_function') {
                 type = type + '_' + text;
             }
+
+            Blockly.defineBlocksWithJsonArray([{
+                "type": "areequal",
+                "message0": "Assert.AreEqual %1 expected %2 actual %3 delta %4 message %5",
+                "args0": [
+                    {
+                        "type": "input_dummy"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "String"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "arenotequal",
+                "message0": "Assert.AreNotEqual %1 notExpected %2 actual %3 delta %4 message %5",
+                "args0": [
+                    {
+                        "type": "input_dummy"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "Number",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "String"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "aresame",
+                "message0": "Assert.AreSame %1 expected %2 actual %3 message %4",
+                "args0": [
+                    {
+                        "type": "input_dummy"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "String",
+                        "align": "RIGHT"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "arenotsame",
+                "message0": "Assert.AreNotSame %1 notExpected %2 actual %3 message %4",
+                "args0": [
+                    {
+                        "type": "input_dummy",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "align": "RIGHT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "String",
+                        "align": "RIGHT"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "fail",
+                "message0": "Assert.Fail %1 message %2",
+                "args0": [
+                    {
+                        "type": "input_dummy"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "NAME",
+                        "check": "String",
+                        "align": "RIGHT"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "IsTrue",
+                "message0": "is true %1 message %2",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "Name",
+                        "check": [
+                            "Boolean",
+                            "custom_function"
+                        ]
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "Message",
+                        "check": "String"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "IsFalse",
+                "message0": "is false %1 message %2",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "Name",
+                        "check": [
+                            "Boolean",
+                            "custom_function"
+                        ]
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "Message",
+                        "check": "String"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "IsNull",
+                "message0": "is null %1 message %2",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "NAME"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "Message",
+                        "check": "String"
+                    }
+                ],
+                "inputsInline": false,
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "IsNotNull",
+                "message0": "is not null %1 message %2",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "NAME"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "Message",
+                        "check": "String"
+                    }
+                ],
+                "inputsInline": false,
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            },
+            {
+                "type": "Equals",
+                "message0": "%1 equals %2",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "A"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "B"
+                    }
+                ],
+                "inputsInline": true,
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 230,
+                "tooltip": "",
+                "helpUrl": ""
+            }
+            ]);
 
             newBlock = workspace.newBlock(type);
             newBlock.initSvg();
@@ -168,27 +439,32 @@
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_TITLE'])
                             .appendField(nameField, 'NAME')
                             .appendField('', 'PARAMS');
+                        /*
                         this.appendValueInput('RETURN')
                             .setAlign(Blockly.ALIGN_RIGHT)
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_RETURN'])
                             .setCheck(null);
-                        this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+//
 
-                        this.setOutput(true, 'custom_function');
-                    if((this.workspace.options.comments ||
-                        (this.workspace.options.parentWorkspace &&
-                            this.workspace.options.parentWorkspace.options.comments)) &&
-                    Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']) {
-                    this.setCommentText(Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']);
-                }
-                this.setStyle('procedure_blocks');
-                this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
-                this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
-                this.arguments_ = [];
-                this.argumentVarModels_ = [];
-                this.setStatements_(false);
-                this.statementConnection_ = null;
-                },
+//                             */
+//
+//                         this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+
+//                         this.setOutput(true, 'custom_function');
+//                         if ((this.workspace.options.comments ||
+//                             (this.workspace.options.parentWorkspace &&
+//                                 this.workspace.options.parentWorkspace.options.comments)) &&
+//                             Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']) {
+//                             this.setCommentText(Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']);
+//                         }
+//                         this.setStyle('procedure_blocks');
+//                         this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
+//                         this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
+//                         this.arguments_ = [];
+//                         this.argumentVarModels_ = [];
+//                         this.setStatements_(false);
+//                         this.statementConnection_ = null;
+                    },
 
                     /**
                     * Add or remove the statement block from this function definition.
@@ -325,6 +601,63 @@
 
             return code;
 
+        }
+
+        function initCodeGenerator() {
+            Blockly.CSharp['IsTrue'] = function (block) {
+                var argument = Blockly.CSharp.valueToCode(this, 'Name',
+                    Blockly.CSharp.ORDER_NONE) || 'false';
+                var message = Blockly.CSharp.valueToCode(this, 'Message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                if (message == '') {
+                    var code = 'Assert.IsTrue(' + argument + ');';
+                } else {
+                    var code = 'Assert.IsTrue(' + argument + ', ' + message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['IsFalse'] = function (block) {
+                var argument = Blockly.CSharp.valueToCode(this, 'Name',
+                    Blockly.CSharp.ORDER_NONE) || 'false';
+                var message = Blockly.CSharp.valueToCode(this, 'Message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                if (message == '') {
+                    var code = 'Assert.IsFalse(' + argument + ');';
+                } else {
+                    var code = 'Assert.IsFalse(' + argument + ', ' + message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['IsNull'] = function (block) {
+                var argument = Blockly.CSharp.valueToCode(this, 'Name',
+                    Blockly.CSharp.ORDER_NONE) || 'null';
+                var message = Blockly.CSharp.valueToCode(this, 'Message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                if (message == '') {
+                    var code = 'Assert.IsNull(' + argument + ');';
+                } else {
+                    var code = 'Assert.IsNull(' + argument + ', ' + message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['IsNotNull'] = function (block) {
+                var argument = Blockly.CSharp.valueToCode(this, 'Name',
+                    Blockly.CSharp.ORDER_NONE) || 'null';
+                var message = Blockly.CSharp.valueToCode(this, 'Message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                if (message == '') {
+                    var code = 'Assert.IsNotNull(' + argument + ');';
+                } else {
+                    var code = 'Assert.IsNotNull(' + argument + ', ' + message + ');';
+                }
+                return code;
+            };
+            Blockly.CSharp['Equals'] = function (block) {
+                var argument0 = Blockly.CSharp.valueToCode(this, 'A', Blockly.CSharp.ORDER_NONE) || 'null';
+                var argument1 = Blockly.CSharp.valueToCode(this, 'B', Blockly.CSharp.ORDER_NONE) || 'null';
+                var code = 'Assert.Equals(' + argument0 + ', ' + argument1 + ');';
+                return code;
+            };
         }
     </script>
 </body>

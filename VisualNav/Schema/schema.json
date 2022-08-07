@@ -666,8 +666,8 @@
           "children": [
             "AreEqual()",
             "AreNotEqual()",
-            "AreNotSame()",
             "AreSame()",
+            "AreNotSame()",
             "Fail()",
             "IsTrue()",
             "IsFalse()",
@@ -719,7 +719,6 @@
             "math_number_property",
             "math_change",
             "math_round",
-
             "math_modulo",
             "math_constrain",
             "math_random_int",
@@ -816,70 +815,70 @@
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "AreEqual(Double, Double, Double)"
+          "type": "areequal"
         },
         {
           "text": "AreNotEqual()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "AreNotEqual(Double, Double, Double)"
-        },
-        {
-          "text": "AreNotSame()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "AreNotSame(Object, Object)"
+          "type": "arenotequal"
         },
         {
           "text": "AreSame()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "AreSame(Object, Object)"
+          "type": "aresame"
+        },
+        {
+          "text": "AreNotSame()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "arenotsame"
         },
         {
           "text": "Fail()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "Fail()"
+          "type": "fail"
         },
         {
           "text": "IsTrue()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsTrue(Boolean)"
+          "type": "IsTrue"
         },
         {
           "text": "IsFalse()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsFalse(Boolean)"
+          "type": "IsFalse"
         },
         {
           "text": "IsNull()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsNull(Object)"
+          "type": "IsNull"
         },
         {
           "text": "IsNotNull()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsNotNull(Object)"
+          "type": "IsNotNull"
         },
         {
           "text": "Equals()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "Equals(Object, Object)"
+          "type": "Equals"
         },
         {
           "text": "Debug.Assert()",
