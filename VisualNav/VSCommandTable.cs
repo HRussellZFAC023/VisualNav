@@ -39,7 +39,8 @@ namespace VisualNav
         public const int Minimize = 0x0105;
         public const int ZoomIn = 0x0106;
         public const int ZoomOut = 0x0107;
-        public const int Insert = 0x0108;
-        public const int Clip = 0x0109;
+        public const int ResetZoom = 0x0108;
+        public const int Insert = 0x0109;
+        public const int Clip = 0x0110;
     }
 }

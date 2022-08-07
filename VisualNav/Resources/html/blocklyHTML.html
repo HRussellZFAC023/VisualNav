@@ -1,6 +1,10 @@
 <html lang="en">
 
 <head>
+    <title>
+        Building Area
+    </title>
+
     <meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=10" />
 
     <style>
@@ -94,8 +98,6 @@
                 blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
                 blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
                 Blockly.svgResize(workspace);
-
-                console.log('resize');
             };
 
             window.addEventListener('resize', onresize, false);
@@ -103,12 +105,16 @@
             Blockly.svgResize(workspace);
             initCodeGenerator();
 
+            var zoomControl = document.querySelectorAll('.blocklyZoom');
+            zoomControl[0].style.display = 'none';
+            zoomControl[1].style.display = 'none';
+            zoomControl[2].style.display = 'none';
         }
 
         function addNewBlockToArea(text, type) {
 
             if (type === 'custom_object' || type === 'custom_function') {
-                type = type + "_" + text;
+                type = type + '_' + text;
             }
 
             Blockly.defineBlocksWithJsonArray([{
@@ -411,26 +417,26 @@
         }
 
         function addCustomBlockToArea(text, type, color) {
-            let typeArr = type.split('_');
+            var typeArr = type.split('_');
             if (typeArr[1] === 'object') {
                 // add a new block for custom_object
                 Blockly.defineBlocksWithJsonArray([{
-                    "type": "custom_object_" + text,
-                    "message0": "%1",
-                    "args0": [
+                    'type': 'custom_object_' + text,
+                    'message0': '%1',
+                    'args0': [
                         {
-                            "type": "field_input",
-                            "name": "object_name",
-                            "text": text,
+                            'type': 'field_input',
+                            'name': 'object_name',
+                            'text': text,
                         }
                     ],
-                    "output": "String",
-                    "colour": color,
-                    "tooltip": "",
-                    "helpUrl": ""
+                    'output': 'String',
+                    'colour': color,
+                    'tooltip': '',
+                    'helpUrl': ''
                 }]);
 
-                Blockly.CSharp["custom_object_" + text] = function (block) {
+                Blockly.CSharp['custom_object_' + text] = function (block) {
                     var text_object_name = block.getFieldValue('object_name');
                     var code = text_object_name;
                     return [code, Blockly.CSharp.ORDER_ATOMIC];
@@ -459,8 +465,8 @@
                             .setAlign(Blockly.ALIGN_RIGHT)
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_RETURN'])
                             .setCheck(null);
-                            */
                         this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+
                         this.setOutput(true, 'custom_function');
                         if ((this.workspace.options.comments ||
                             (this.workspace.options.parentWorkspace &&
@@ -598,15 +604,15 @@
 
         function showCode(language) {
 
-            var code = "";
+            var code = '';
 
-            if (language === ".js") {
+            if (language === '.js') {
                 code = Blockly.JavaScript.workspaceToCode(workspace);
-            } else if (language === ".py") {
+            } else if (language === '.py') {
                 code = Blockly.Python.workspaceToCode(workspace);
-            } else if (language === ".php") {
+            } else if (language === '.php') {
                 code = Blockly.PHP.workspaceToCode(workspace);
-            } else if (language === ".cs") {
+            } else if (language === '.cs') {
                 code = Blockly.CSharp.workspaceToCode(workspace);
             }
 
