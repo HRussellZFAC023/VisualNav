@@ -104,7 +104,6 @@
             onresize();
             Blockly.svgResize(workspace);
 
-
             var zoomControl = document.querySelectorAll('.blocklyZoom');
             zoomControl[0].style.display = 'none';
             zoomControl[1].style.display = 'none';
@@ -120,6 +119,8 @@
             if (type === 'custom_object' || type === 'custom_function') {
                 type = type + '_' + text;
             }
+            alert(text);
+            alert(type);
 
 
 
@@ -397,6 +398,7 @@
         }
 
         function addCustomBlockToArea(text, type, color) {
+
             var typeArr = type.split('_');
             if (typeArr[1] === 'object') {
                 // add a new block for custom_object
@@ -443,7 +445,7 @@
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_TITLE'])
                             .appendField(nameField, 'NAME')
                             .appendField('', 'PARAMS');
-                        /*
+
                         this.appendValueInput('RETURN')
                             .setAlign(Blockly.ALIGN_RIGHT)
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_RETURN'])
@@ -578,6 +580,7 @@
                     }
                     var returnValue = Blockly.CSharp.valueToCode(this, 'RETURN', Blockly.CSharp.ORDER_NONE) || '';
                     var args = [];
+
                     for (var x = 0; x < this.arguments_.length; x++) {
                         args[x] = Blockly.CSharp.nameDB_.getName(this.arguments_[x],
                             Blockly.Variables.NAME_TYPE);

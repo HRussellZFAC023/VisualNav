@@ -22,21 +22,24 @@ internal class InfoNotificationWrapper
     public static async Task ShowSimpleAsync(string message, string i, string guid, int timeout)
     {
         var propertyInfo = typeof(KnownMonikers).GetProperty(i);
-        var icon = (ImageMoniker)propertyInfo?.GetValue(null, null)!;
+        if (propertyInfo != null)
+        {
+            var icon = (ImageMoniker)propertyInfo.GetValue(null, null)!;
 
-        var model = new InfoBarModel(
-            new[]
-            {
-                new InfoBarTextSpan(message),
-            },
-            icon,
-            false);
+            var model = new InfoBarModel(
+                new[]
+                {
+                    new InfoBarTextSpan(message),
+                },
+                icon,
+                false);
 
-        var infoBar = await VS.InfoBar.CreateAsync(guid, model);
-        if (infoBar == null) return;
-        await infoBar.TryShowInfoBarUIAsync();
+            var infoBar = await VS.InfoBar.CreateAsync(guid, model);
+            if (infoBar == null) return;
+            await infoBar.TryShowInfoBarUIAsync();
 
-        await Task.Delay(timeout);
-        infoBar.Close();
+            await Task.Delay(timeout);
+            infoBar.Close();
+        }
     }
 }

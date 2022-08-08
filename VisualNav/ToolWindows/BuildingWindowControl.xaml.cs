@@ -39,7 +39,7 @@ public partial class BuildingWindowControl
 
             if (ret.Success != true)
             {
-                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
+                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 3000);
             }
             else
             {
@@ -56,7 +56,7 @@ public partial class BuildingWindowControl
 
             if (ret.Success != true)
             {
-                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
+                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 3000);
             }
             else
             {
@@ -102,7 +102,7 @@ public partial class BuildingWindowControl
 
             if (ret.Success != true)
             {
-                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
+                await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 3000);
             }
             else
             {

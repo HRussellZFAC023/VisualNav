@@ -75,7 +75,9 @@ public class BlocklyAdapter
 
     public async Task<JavascriptResponse> AddNewBlockToAreaAsync(Command c, bool preview, bool custom)
     {
-        var method = custom ? "addCustomBlockToArea" : "addNewBlockToArea";
+        var method = custom ? "addCustomBlockToArea" // does not actually add the block? Only adds to radial menu
+            : "addNewBlockToArea";
+
         while (_blockBeingAdded)
         {
             await Task.Delay(1);
