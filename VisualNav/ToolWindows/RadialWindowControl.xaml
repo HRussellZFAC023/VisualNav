@@ -39,7 +39,7 @@
             <radialMenu:RadialMenuItem />
             <radialMenu:RadialMenuItem />
         </radialMenu:RadialMenu>
-        
+
         <StackPanel Margin="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Name="ProgressText">Main</TextBlock>
             <StackPanel Orientation="Horizontal" x:Name="InsertionPanel">
@@ -51,8 +51,8 @@
                                 theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
             <imaging:CrispImage Visibility="Hidden"  Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageLeft}" />
             <imaging:CrispImage Visibility="Hidden"  Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageRight}" />
-            <imaging:CrispImage x:Name="Minimize" MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
-            <imaging:CrispImage MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
+
+            <imaging:CrispImage x:Name="fullscreen" MouseDown="ToggleFullscreen" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FullScreen}" />
         </StackPanel>
     </Grid>
 </UserControl>

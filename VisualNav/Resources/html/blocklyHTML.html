@@ -1,6 +1,10 @@
 <html lang="en">
 
 <head>
+    <title>
+        Building Area
+    </title>
+
     <meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=10" />
 
     <style>
@@ -94,21 +98,26 @@
                 blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
                 blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
                 Blockly.svgResize(workspace);
-
-                console.log('resize');
             };
 
             window.addEventListener('resize', onresize, false);
             onresize();
             Blockly.svgResize(workspace);
+
+            var zoomControl = document.querySelectorAll('.blocklyZoom');
+            zoomControl[0].style.display = 'none';
+            zoomControl[1].style.display = 'none';
+            zoomControl[2].style.display = 'none';
+
             initCodeGenerator();
 
         }
 
         function addNewBlockToArea(text, type) {
 
+
             if (type === 'custom_object' || type === 'custom_function') {
-                type = type + "_" + text;
+                type = type + '_' + text;
             }
 
             Blockly.defineBlocksWithJsonArray([{
@@ -411,31 +420,33 @@
         }
 
         function addCustomBlockToArea(text, type, color) {
-            let typeArr = type.split('_');
+
+            var typeArr = type.split('_');
             if (typeArr[1] === 'object') {
                 // add a new block for custom_object
                 Blockly.defineBlocksWithJsonArray([{
-                    "type": "custom_object_" + text,
-                    "message0": "%1",
-                    "args0": [
+                    'type': 'custom_object_' + text,
+                    'message0': '%1',
+                    'args0': [
                         {
-                            "type": "field_input",
-                            "name": "object_name",
-                            "text": text,
+                            'type': 'field_input',
+                            'name': 'object_name',
+                            'text': text,
                         }
                     ],
-                    "output": "String",
-                    "colour": color,
-                    "tooltip": "",
-                    "helpUrl": ""
+                    'output': 'String',
+                    'colour': color,
+                    'tooltip': '',
+                    'helpUrl': ''
                 }]);
 
-                Blockly.CSharp["custom_object_" + text] = function (block) {
+                Blockly.CSharp['custom_object_' + text] = function (block) {
                     var text_object_name = block.getFieldValue('object_name');
                     var code = text_object_name;
                     return [code, Blockly.CSharp.ORDER_ATOMIC];
                 };
             } else if (typeArr[1] === 'function') {
+
                 Blockly.Blocks[type] = {
                     /**
                      * Block for defining a custom function and generate custom blocks based on this function
@@ -454,27 +465,32 @@
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_TITLE'])
                             .appendField(nameField, 'NAME')
                             .appendField('', 'PARAMS');
+
                         /*
                         this.appendValueInput('RETURN')
                             .setAlign(Blockly.ALIGN_RIGHT)
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_RETURN'])
                             .setCheck(null);
-                            */
-                        this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
-                        this.setOutput(true, 'custom_function');
-                        if ((this.workspace.options.comments ||
-                            (this.workspace.options.parentWorkspace &&
-                                this.workspace.options.parentWorkspace.options.comments)) &&
-                            Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']) {
-                            this.setCommentText(Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']);
-                        }
-                        this.setStyle('procedure_blocks');
-                        this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
-                        this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
-                        this.arguments_ = [];
-                        this.argumentVarModels_ = [];
-                        this.setStatements_(false);
-                        this.statementConnection_ = null;
+
+
+                             */
+
+                         this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+
+                         this.setOutput(true, 'custom_function');
+                         if ((this.workspace.options.comments ||
+                             (this.workspace.options.parentWorkspace &&
+                                 this.workspace.options.parentWorkspace.options.comments)) &&
+                             Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']) {
+                             this.setCommentText(Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']);
+                         }
+                         this.setStyle('procedure_blocks');
+                         this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
+                         this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
+                         this.arguments_ = [];
+                         this.argumentVarModels_ = [];
+                         this.setStatements_(false);
+                         this.statementConnection_ = null;
                     },
 
                     /**
@@ -585,6 +601,7 @@
                     }
                     var returnValue = Blockly.CSharp.valueToCode(this, 'RETURN', Blockly.CSharp.ORDER_NONE) || '';
                     var args = [];
+
                     for (var x = 0; x < this.arguments_.length; x++) {
                         args[x] = Blockly.CSharp.nameDB_.getName(this.arguments_[x],
                             Blockly.Variables.NAME_TYPE);
@@ -598,15 +615,15 @@
 
         function showCode(language) {
 
-            var code = "";
+            var code = '';
 
-            if (language === ".js") {
+            if (language === '.js') {
                 code = Blockly.JavaScript.workspaceToCode(workspace);
-            } else if (language === ".py") {
+            } else if (language === '.py') {
                 code = Blockly.Python.workspaceToCode(workspace);
-            } else if (language === ".php") {
+            } else if (language === '.php') {
                 code = Blockly.PHP.workspaceToCode(workspace);
-            } else if (language === ".cs") {
+            } else if (language === '.cs') {
                 code = Blockly.CSharp.workspaceToCode(workspace);
             }
 

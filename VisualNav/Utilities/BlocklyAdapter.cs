@@ -70,43 +70,94 @@ public class BlocklyAdapter
             "showCode", lang);
     }
 
-    public async Task<JavascriptResponse> AddNewBlockToAreaAsync(Command c)
+    private bool _blockBeingAdded; // mutex
+    private bool _clear = true;
+
+    public async Task<JavascriptResponse> AddNewBlockToAreaAsync(Command c, bool preview, bool custom)
     {
-        return await _b.EvaluateScriptAsync("addNewBlockToArea", c.Text, c.Type);
+        var method = custom ? "addCustomBlockToArea" // does not actually add the block? Only adds to radial menu
+            : "addNewBlockToArea";
+
+        while (_blockBeingAdded)
+        {
+            await Task.Delay(1);
+            if (!_clear)
+            {
+                return null;
+            }
+        }
+
+        _clear = false;
+        _blockBeingAdded = true;
+        if (_preview)
+        {
+            await ClearAsync();
+        }
+        JavascriptResponse ret;
+        if (custom)
+        {
+            ret = await _b.EvaluateScriptAsync(method, c.Text, c.Type, c.Color);
+        } else
+        {
+            ret = await _b.EvaluateScriptAsync(method, c.Text, c.Type);
+        }
+        if (!preview)
+        {
+            await CenterAsync();
+        }
+        _blockBeingAdded = false;
+        return ret;
     }
 
-    public async Task<JavascriptResponse> AddCustomBlockToAreaAsync(Command c)
+    public async Task<JavascriptResponse> ClearAsync()
     {
-        // Text, Parent, Preview, Color, Type
-        return await _b.EvaluateScriptAsync("addCustomBlockToArea", c.Text, c.Type, c.Color);
+        var ret = await _b.EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
+        _clear = true; // accept new blocks
+        return ret;
     }
 
-    public async Task ClearAsync()
-    {
-        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.clear()");
-    }
     public async Task CenterAsync()
     {
         await Task.Delay(100);
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
+        await Task.Delay(500);
         // restore zoom from settings
+        var settingSize = Options.Settings.Instance.BlockSize;
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(" + settingSize + ")");
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.cleanUp()");
     }
 
     public async Task ResetZoomAsync()
     {
+        await Task.Delay(100);
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
-
+        Options.Settings.Instance.BlockSize = 0;
+        await Options.Settings.Instance.SaveAsync();
     }
 
     public async Task ZoomOutAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(-1)");
+        if (Options.Settings.Instance.BlockSize > -7)
+        {
+            Options.Settings.Instance.BlockSize--;
+        }
+
+        await Options.Settings.Instance.SaveAsync();
         // update settings
+        // - 1
     }
 
     public async Task ZoomInAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(1)");
+        if (Options.Settings.Instance.BlockSize < 7)
+        {
+            Options.Settings.Instance.BlockSize++;
+        }
+
+        await Options.Settings.Instance.SaveAsync();
         // update settings
+        // + 1
     }
 }

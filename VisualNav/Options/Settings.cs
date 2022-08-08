@@ -25,5 +25,11 @@ namespace VisualNav.Options
         [Description("True for custom blocks, False to restore.")]
         [DefaultValue(false)]
         public bool CustomBlock { get; set; } = false;
+
+        [Category("Options")]
+        [DisplayName("Block size")]
+        [Description("Positive Integer for zoom in, negative integer for zoom out, 0 for default size")]
+        [DefaultValue(0)]
+        public int BlockSize { get; set; } = 0;
     }
 }

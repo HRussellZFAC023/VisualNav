@@ -5,81 +5,81 @@ using VisualNav.Utilities;
 using Label = System.Windows.Controls.Label;
 using SelectionChangedEventArgs = Community.VisualStudio.Toolkit.SelectionChangedEventArgs;
 
-namespace VisualNav.ToolWindows
+namespace VisualNav.ToolWindows;
+
+public partial class PreviewWindowControl
 {
-    public partial class PreviewWindowControl
+    private Command _currentCommand;
+    private readonly BlocklyAdapter _blockly;
+
+    public PreviewWindowControl()
     {
-        private Command _currentCommand;
-        private readonly BlocklyAdapter _blockly;
+        _currentCommand = null;
+        InitializeComponent();
+        Focus();
+        _blockly = new BlocklyAdapter(Browser, true);
+        ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.LoadHtmlAsync(); }).FireAndForget();
+        Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
+        VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged;
+        _blockly.ResetZoomAsync().FireAndForget();
+    }
 
-        public PreviewWindowControl()
+    private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+    {
+        if (!e.IsLoading)
         {
-            _currentCommand = null;
-            InitializeComponent();
-            Focus();
-            _blockly = new BlocklyAdapter(Browser, true);
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.LoadHtmlAsync(); }).FireAndForget();
-            Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
-            VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged;
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.InitAsync(); }).FireAndForget();
         }
+    }
 
-        private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+    private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    { UpdateCommands(); }
+
+    private void UpdateCommands()
+    {
+        Widgets.Children.Clear();
+        Widgets.Children.Add(_currentCommand != null
+            ? new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() + " - " + _currentCommand.Text }
+            : new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() });
+    }
+
+    public void SetCurrentCommand(Command c)
+    {
+        // if there is no preview, then it is a blockly block
+        if (c.Preview.Equals(""))
         {
-            if (!e.IsLoading)
+            if (c.Type == "") return;
+
+            BrowserBorder.Visibility = Visibility.Visible;
+            TextBorder.Visibility = Visibility.Hidden;
+            JavascriptResponse ret1 = null, ret2 = null;
+            ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.InitAsync(); }).FireAndForget();
-            }
-        }
+                ret2 = await _blockly.AddNewBlockToAreaAsync(c, true, true);
+                ret1 = await _blockly.AddNewBlockToAreaAsync(c, true, false);
+            }).FireAndForget();
 
-        private void SelectionEventsOnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        { UpdateCommands(); }
-
-        private void UpdateCommands()
-        {
-            Widgets.Children.Clear();
-            Widgets.Children.Add(_currentCommand != null
-                ? new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() + " - " + _currentCommand.Text }
-                : new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() });
-        }
-
-        private static bool _hover;
-
-        public void SetCurrentCommand(Command c)
-        {
-            PreviewText.Text = "";
-            switch (_hover)
-            {
-                case false when c.Preview.Equals(""):
-                    BrowserBorder.Visibility = Visibility.Visible;
-                    TextBorder.Visibility = Visibility.Hidden;
-                    ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
-                    {
-                        await _blockly.ClearAsync();
-                        await _blockly.AddCustomBlockToAreaAsync(c);
-                        await _blockly.AddNewBlockToAreaAsync(c);
-                        _hover = true;
-                    }).FireAndForget();
-                    break;
-
-                case false:
-                    BrowserBorder.Visibility = Visibility.Hidden;
-                    TextBorder.Visibility = Visibility.Visible;
-                    PreviewText.Text = c.Preview;
-                    PreviewText.Foreground = new System.Windows.Media.BrushConverter().ConvertFromString(c.Color) as System.Windows.Media.SolidColorBrush;
-                    break;
-            }
-
+            if (ret1 == null && ret2 == null) return;
             _currentCommand = c;
             UpdateCommands();
         }
-
-        public void ClearCurrentCommand()
+        else
         {
-            PreviewText.Text = "";
-            _hover = false;
-            _currentCommand = null;
-            ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.ClearAsync(); }).FireAndForget();
+            BrowserBorder.Visibility = Visibility.Hidden;
+            TextBorder.Visibility = Visibility.Visible;
+            PreviewText.Text = c.Preview;
+            PreviewText.Foreground =
+                new System.Windows.Media.BrushConverter().ConvertFromString(c.Color) as
+                    System.Windows.Media.SolidColorBrush;
+            _currentCommand = c;
             UpdateCommands();
         }
+    }
+
+    public async Task ClearCurrentCommandAsync()
+    {
+        await _blockly.ClearAsync();
+        _currentCommand = null;
+        UpdateCommands();
     }
 }
