@@ -119,10 +119,6 @@
             if (type === 'custom_object' || type === 'custom_function') {
                 type = type + '_' + text;
             }
-            alert(text);
-            alert(type);
-
-
 
             Blockly.defineBlocksWithJsonArray([{
                 "type": "areequal",
@@ -446,6 +442,7 @@
                             .appendField(nameField, 'NAME')
                             .appendField('', 'PARAMS');
 
+                        /*
                         this.appendValueInput('RETURN')
                             .setAlign(Blockly.ALIGN_RIGHT)
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_RETURN'])
