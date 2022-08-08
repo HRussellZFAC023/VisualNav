@@ -48,15 +48,15 @@ public partial class PreviewWindowControl
         // if there is no preview, then it is a blockly block
         if (c.Preview.Equals(""))
         {
+            if (c.Type == "") return;
+
             BrowserBorder.Visibility = Visibility.Visible;
             TextBorder.Visibility = Visibility.Hidden;
             JavascriptResponse ret1 = null, ret2 = null;
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                if (c.Type.Contains("custom"))
-                    ret2 = await _blockly.AddNewBlockToAreaAsync(c, true, true);
-                else
-                    ret1 = await _blockly.AddNewBlockToAreaAsync(c, true, false);
+                ret2 = await _blockly.AddNewBlockToAreaAsync(c, true, true);
+                ret1 = await _blockly.AddNewBlockToAreaAsync(c, true, false);
             }).FireAndForget();
 
             if (ret1 == null && ret2 == null) return;

@@ -113,6 +113,7 @@
 
         function addNewBlockToArea(text, type) {
 
+
             if (type === 'custom_object' || type === 'custom_function') {
                 type = type + '_' + text;
             }
@@ -386,11 +387,8 @@
                 },
             {
                 "type": "debugassert",
-                "message0": "Debug.Assert %1 %2",
+                "message0": "Debug.Assert %1 message %2",
                 "args0": [
-                    {
-                        "type": "input_dummy"
-                    },
                     {
                         "type": "input_value",
                         "name": "NAME",
@@ -398,6 +396,11 @@
                             "Boolean",
                             "custom_function"
                         ]
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "Message",
+                        "check": "String"
                     }
                 ],
                 "previousStatement": null,
@@ -415,6 +418,7 @@
         }
 
         function addCustomBlockToArea(text, type, color) {
+
             var typeArr = type.split('_');
             if (typeArr[1] === 'object') {
                 // add a new block for custom_object
@@ -440,6 +444,7 @@
                     return [code, Blockly.CSharp.ORDER_ATOMIC];
                 };
             } else if (typeArr[1] === 'function') {
+
                 Blockly.Blocks[type] = {
                     /**
                      * Block for defining a custom function and generate custom blocks based on this function
@@ -458,27 +463,29 @@
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_TITLE'])
                             .appendField(nameField, 'NAME')
                             .appendField('', 'PARAMS');
+
                         /*
                         this.appendValueInput('RETURN')
                             .setAlign(Blockly.ALIGN_RIGHT)
                             .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_RETURN'])
                             .setCheck(null);
+                            */
                         this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
 
-                        this.setOutput(true, 'custom_function');
-                        if ((this.workspace.options.comments ||
-                            (this.workspace.options.parentWorkspace &&
-                                this.workspace.options.parentWorkspace.options.comments)) &&
-                            Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']) {
-                            this.setCommentText(Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']);
-                        }
-                        this.setStyle('procedure_blocks');
-                        this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
-                        this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
-                        this.arguments_ = [];
-                        this.argumentVarModels_ = [];
-                        this.setStatements_(false);
-                        this.statementConnection_ = null;
+                         this.setOutput(true, 'custom_function');
+                         if ((this.workspace.options.comments ||
+                             (this.workspace.options.parentWorkspace &&
+                                 this.workspace.options.parentWorkspace.options.comments)) &&
+                             Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']) {
+                             this.setCommentText(Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']);
+                         }
+                         this.setStyle('procedure_blocks');
+                         this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
+                         this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
+                         this.arguments_ = [];
+                         this.argumentVarModels_ = [];
+                         this.setStatements_(false);
+                         this.statementConnection_ = null;
                     },
 
                     /**
@@ -589,6 +596,7 @@
                     }
                     var returnValue = Blockly.CSharp.valueToCode(this, 'RETURN', Blockly.CSharp.ORDER_NONE) || '';
                     var args = [];
+
                     for (var x = 0; x < this.arguments_.length; x++) {
                         args[x] = Blockly.CSharp.nameDB_.getName(this.arguments_[x],
                             Blockly.Variables.NAME_TYPE);
@@ -753,7 +761,13 @@
             Blockly.CSharp['debugassert'] = function (block) {
                 var argument = Blockly.CSharp.valueToCode(this, 'NAME',
                     Blockly.CSharp.ORDER_NONE) || 'false';
-                var code = 'Debug.Assert(' + argument + ');';
+                var message = Blockly.CSharp.valueToCode(this, 'Message',
+                    Blockly.CSharp.ORDER_ATOMIC) || '';
+                if (message == '') {
+                    var code = 'Debug.Assert(' + argument + ');';
+                } else {
+                    var code = 'Debug.Assert(' + argument + ', ' + message + ');';
+                }
                 return code;
             };
         }
