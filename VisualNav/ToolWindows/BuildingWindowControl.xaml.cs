@@ -127,14 +127,11 @@ public partial class BuildingWindowControl
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
         {
             JavascriptResponse ret;
-            if (c.Type.Contains("custom"))
-            {
-                ret = await Blockly.AddNewBlockToAreaAsync(c, false, true); // try custom
-            }
-            else
-            {
-                ret = await Blockly.AddNewBlockToAreaAsync(c, false, false);
-            }
+
+            ret = await Blockly.AddNewBlockToAreaAsync(c, false, true); // try custom
+
+            ret = await Blockly.AddNewBlockToAreaAsync(c, false, false);
+
             await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
         }).FireAndForget();
     }

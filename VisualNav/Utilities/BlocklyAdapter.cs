@@ -91,7 +91,14 @@ public class BlocklyAdapter
         {
             await ClearAsync();
         }
-        var ret = await _b.EvaluateScriptAsync(method, c.Text, c.Type);
+        JavascriptResponse ret;
+        if (custom)
+        {
+            ret = await _b.EvaluateScriptAsync(method, c.Text, c.Type, c.Color);
+        } else
+        {
+            ret = await _b.EvaluateScriptAsync(method, c.Text, c.Type);
+        }
         if (!preview)
         {
             await CenterAsync();
