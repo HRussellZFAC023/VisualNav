@@ -57,8 +57,11 @@ public partial class PreviewWindowControl
                     ret2 = await _blockly.AddNewBlockToAreaAsync(c, true, true);
                 else
                     ret1 = await _blockly.AddNewBlockToAreaAsync(c, true, false);
-            }).FireAndForget();
 
+                
+            }).FireAndForget();
+            
+            
             if (ret1 == null && ret2 == null) return;
             _currentCommand = c;
             UpdateCommands();
@@ -75,10 +78,21 @@ public partial class PreviewWindowControl
             UpdateCommands();
         }
     }
+    public void DecreaseSize(object sender, RoutedEventArgs e)
+    {
+        
+        _blockly.ZoomOutAsync().FireAndForget();
+    }
+
+    public void IncreaseSize(object sender, RoutedEventArgs e)
+    {
+        _blockly.ZoomInAsync().FireAndForget();
+    }
 
     public async Task ClearCurrentCommandAsync()
     {
         await _blockly.ClearAsync();
+        
         _currentCommand = null;
         UpdateCommands();
     }
