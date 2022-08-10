@@ -265,375 +265,437 @@
       ],
       "commands": [
         {
+          "text": "boolean",
+          "parent": "Logic",
+          "preview": "",
+          "color": "#4C97FF",
+          "type": "logic_boolean",
+          "description": "Create a new boolean (data type with 2 possible states: true/false)."
+        },
+        {
           "text": "if",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "controls_if"
+          "type": "controls_if",
+          "description": "Create a new if statement (conditional statement)."
         },
         {
           "text": "if else",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "controls_ifelse"
+          "type": "controls_ifelse",
+          "description": "Create a new if else statement (conditional statement)."
         },
         {
           "text": "compare",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_compare"
+          "type": "logic_compare",
+          "description": "Create a new comparison operator which compares 2 values & returns true or false."
         },
         {
           "text": "and or",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_operation"
+          "type": "logic_operation",
+          "description": "Create 'and' and 'or' statements."
         },
         {
           "text": "negate",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_negate"
+          "type": "logic_negate",
+          "description": "Create a negation. In other words, invert the selected value."
         },
         {
           "text": "null",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_null"
+          "type": "logic_null",
+          "description": "Add a null value (absence of value)."
         },
         {
           "text": "ternary",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_ternary"
+          "type": "logic_ternary",
+          "description": "Add base-three arithmetic."
         },
         {
           "text": "repeat",
           "parent": "Loops",
           "preview": "",
           "color": "#0fBD8C",
-          "type": "controls_repeat_ext"
+          "type": "controls_repeat_ext",
+          "description": "Repeat an action X amount of times and then do something."
         },
         {
           "text": "while",
           "parent": "Loops",
           "preview": "",
           "color": "#0fBD8C",
-          "type": "controls_whileUntil"
+          "type": "controls_whileUntil",
+          "description": "Add a while loop (run code repeatedly with a given condition)."
         },
         {
           "text": "for",
           "parent": "Loops",
           "preview": "",
           "color": "#0fBD8C",
-          "type": "controls_for"
+          "type": "controls_for",
+          "description": "Add a for loop (run code repeatedly with a given condition)."
         },
         {
           "text": "for each",
           "parent": "Loops",
           "preview": "",
           "color": "#0fBD8C",
-          "type": "controls_forEach"
+          "type": "controls_forEach",
+          "description": "Add a for each loop (run code repeatedly on a collection of items)."
         },
         {
           "text": "flow control",
           "parent": "Loops",
           "preview": "",
           "color": "#0fBD8C",
-          "type": "controls_flow_statements"
+          "type": "controls_flow_statements",
+          "description": "Add flow control statement (choice of which path to follow)."
         },
         {
           "text": "number",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_number"
+          "type": "math_number",
+          "description": "Add a numeric value."
         },
         {
           "text": "arithmetic",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_arithmetic"
+          "type": "math_arithmetic",
+          "description": "Add operations such as addition or substraction."
         },
         {
           "text": "single",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_single"
+          "type": "math_single",
+          "description": "Raise to the power of a given expression such as 'e', log10 and more."
+
         },
         {
           "text": "trig",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_trig"
+          "type": "math_trig",
+          "description": "Add trigonometry values such as sin, cos, tan and more."
         },
         {
           "text": "constant",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_constant"
+          "type": "math_constant",
+          "description": "Add a constant value (set, known value)."
         },
         {
           "text": "number property",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_number_property"
+          "type": "math_number_property",
+          "description": "Retrieve properties of a number such as if it's even or odd."
         },
         {
           "text": "change",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_change"
+          "type": "math_change",
+          "description": "Change item or edit it by deleting it or renaming it."
         },
         {
           "text": "round",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_round"
+          "type": "math_round",
+          "description": "Round up or down the selected value."
         },
         {
           "text": "modulo",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_modulo"
+          "type": "math_modulo",
+          "description": "Initiate a modulo operation (returns remainder of a division)."
         },
         {
           "text": "constrain",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_constrain"
+          "type": "math_constrain",
+          "description": "Optimization problem's condition that the answer should meet."
         },
         {
           "text": "random int",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_random_int"
+          "type": "math_random_int",
+          "description": "Generate random integer between 2 values."
         },
         {
           "text": "random float",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_random_float"
+          "type": "math_random_float",
+          "description": "Generate a random float."
         },
         {
           "text": "text",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text"
+          "type": "text",
+          "description": "Add simple text."
         },
         {
           "text": "join",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_join"
+          "type": "text_join",
+          "description": "Combine pieces of text."
         },
         {
           "text": "append",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_append"
+          "type": "text_append",
+          "description": "Add to the end of text."
         },
         {
           "text": "length",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_length"
+          "type": "text_length",
+          "description": "Get the length of an item."
         },
         {
           "text": "isEmpty",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_isEmpty"
+          "type": "text_isEmpty",
+          "description": "Check if an item is empty or not."
         },
         {
           "text": "indexOf",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_indexOf"
+          "type": "text_indexOf",
+          "description": "Get the index (position) of an item."
         },
         {
           "text": "charAt",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_charAt"
+          "type": "text_charAt",
+          "description": "Get the character that is located in a specific position."
         },
         {
           "text": "getSubstring",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_getSubstring"
+          "type": "text_getSubstring",
+          "description": "Get a portion of the text from a specific position."
         },
         {
           "text": "changeCase",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_changeCase"
+          "type": "text_changeCase",
+          "description": "Make text lower case or capitals."
         },
         {
           "text": "trim",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_trim"
+          "type": "text_trim",
+          "description": "Reduce the length of text."
         },
         {
           "text": "print",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_print"
+          "type": "text_print",
+          "description": "Output the value in a readable manner."
         },
         {
           "text": "empty list",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_create_empty"
+          "type": "lists_create_empty",
+          "description": "Generate a list with no values."
         },
         {
           "text": "multiline",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_multiline"
+          "type": "text_multiline",
+          "description": "Create text with multiple lines."
         },
         {
           "text": "repeat",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_repeat"
+          "type": "lists_repeat",
+          "description": "Create a list with an item that is repeated X number of times."
         },
         {
           "text": "isEmpty",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_isEmpty"
+          "type": "lists_isEmpty",
+          "description": "Check if a list is empty or not."
         },
         {
           "text": "length",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_length"
+          "type": "lists_length",
+          "description": "Get the length of a list."
         },
         {
           "text": "create with",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_create_with"
+          "type": "lists_create_with",
+          "description": "Create a list with another extra entity."
         },
         {
           "text": "indexOf",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_indexOf"
+          "type": "lists_indexOf",
+          "description": "Find the first or last occurence of an item in a list."
         },
         {
           "text": "getIndex",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_getIndex"
+          "type": "lists_getIndex",
+          "description": "Get the position of an item in a list."
         },
         {
           "text": "setIndex",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_setIndex"
+          "type": "lists_setIndex",
+          "description": "Set the position of an item in the list."
         },
         {
           "text": "getSublist",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_getSublist"
+          "type": "lists_getSublist",
+          "description": "Retrieve specific sublist from inside list (first, position or position from end)."
         },
         {
           "text": "sort",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_sort"
+          "type": "lists_sort",
+          "description": "Organize list in a numerical or alphabetic manner, ascending or descending."
         },
         {
           "text": "split",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_split"
+          "type": "lists_split",
+          "description": "Create list from text or vice versa."
         },
         {
           "text": "math list",
           "parent": "Lists",
           "preview": "",
           "color": "#59C059",
-          "type": "math_on_list"
+          "type": "math_on_list",
+          "description": "Get mathematical properties of a list such as its sum, min, max and more."
         },
         {
           "text": "get",
           "parent": "Variables",
           "preview": "",
           "color": "#FF8C1A",
-          "type": "variables_get"
+          "type": "variables_get",
+          "description": "Get specific variable."
         },
         {
           "text": "set",
           "parent": "Variables",
           "preview": "",
           "color": "#FF8C1A",
-          "type": "variables_set"
+          "type": "variables_set",
+          "description": "Set specific variable to something else."
         },
         {
           "text": "def no return",
           "parent": "Functions",
           "preview": "",
           "color": "#FF6680",
-          "type": "procedures_callnoreturn"
+          "type": "procedures_callnoreturn",
+          "description": "Define function with no returned value."
         },
         {
           "text": "def return",
           "parent": "Functions",
           "preview": "",
           "color": "#FF6680",
-          "type": "procedures_callreturn"
+          "type": "procedures_callreturn",
+          "description": "Define function with returned value."
         },
         {
           "text": "if return",
           "parent": "Functions",
           "preview": "",
           "color": "#FF6680",
-          "type": "procedures_ifreturn"
+          "type": "procedures_ifreturn",
+          "description": "Define function with returned value if a specific condition is met."
         }
       ]
     },
