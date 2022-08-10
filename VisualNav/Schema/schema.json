@@ -1,6 +1,5 @@
 {
   "RadialMenu": [
-
     {
       "fileExt": [ ".cs" ],
       "text": "Code",
@@ -15,7 +14,8 @@
             "Custom Function",
             "New Layer"
           ],
-          "icon": "AddEvent"
+          "icon": "AddEvent",
+          "description" :""
         },
         {
           "name": "Test",
@@ -24,7 +24,8 @@
           "children": [
             "Debug.Assert()"
           ],
-          "icon": "Test"
+          "icon": "Test",
+          "description" :""
         },
         {
           "name": "Assert",
@@ -42,7 +43,8 @@
             "IsNotNull()",
             "Equals()"
           ],
-          "icon": "Test"
+          "icon": "Test",
+          "description" :""
         }
       ],
       "commands": [
@@ -51,42 +53,48 @@
           "parent": "Custom Blocks",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": ""
+          "type": "",
+          "description" :""
         },
         {
           "text": "Custom Function",
           "parent": "Custom Blocks",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": ""
+          "type": "",
+          "description" :""
         },
         {
           "text": "New Layer",
           "parent": "Custom Blocks",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": ""
+          "type": "",
+          "description" :""
         },
         {
           "text": "AreEqual()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "areequal"
+          "type": "areequal",
+          "description" :""
         },
         {
           "text": "AreNotEqual()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "arenotequal"
+          "type": "arenotequal",
+          "description" :""
         },
         {
           "text": "AreSame()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "aresame"
+          "type": "aresame",
+          "description" :""
         },
         {
           "text": "AreNotSame()",
@@ -100,49 +108,56 @@
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "fail"
+          "type": "fail",
+          "description" :""
         },
         {
           "text": "IsTrue()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsTrue"
+          "type": "IsTrue",
+          "description" :""
         },
         {
           "text": "IsFalse()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsFalse"
+          "type": "IsFalse",
+          "description" :""
         },
         {
           "text": "IsNull()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsNull"
+          "type": "IsNull",
+          "description" :""
         },
         {
           "text": "IsNotNull()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "IsNotNull"
+          "type": "IsNotNull",
+          "description" :""
         },
         {
           "text": "Equals()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "Equals"
+          "type": "Equals",
+          "description" :""
         },
         {
           "text": "Debug.Assert()",
           "parent": "Test",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "debugassert"
+          "type": "debugassert",
+          "description" :""
         }
       ]
     },
@@ -165,7 +180,8 @@
             "logic_null",
             "logic_ternary"
           ],
-          "icon": "CrossGroupLink"
+          "icon": "CrossGroupLink",
+          "description" :""
         },
         {
           "name": "Loops",
@@ -178,7 +194,8 @@
             "controls_forEach",
             "controls_flow_statements"
           ],
-          "icon": "ConditionalLoop"
+          "icon": "ConditionalLoop",
+          "description" :""
         },
         {
           "name": "Math",
@@ -199,7 +216,8 @@
             "math_random_int",
             "math_random_float"
           ],
-          "icon": "Calculator"
+          "icon": "Calculator",
+          "description" :""
         },
         {
           "name": "Text",
@@ -219,7 +237,8 @@
             "text_trim",
             "text_print"
           ],
-          "icon": "TextBox"
+          "icon": "TextBox",
+          "description" :""
         },
         {
           "name": "Lists",
@@ -239,7 +258,8 @@
             "lists_split",
             "math_on_list"
           ],
-          "icon": "BulletList"
+          "icon": "BulletList",
+          "description" :""
         },
         {
           "name": "Variables",
@@ -260,7 +280,8 @@
             "procedures_callnoreturn",
             "procedures_ifreturn"
           ],
-          "icon": "TableFunction"
+          "icon": "TableFunction",
+          "description" :""
         }
       ],
       "commands": [
@@ -699,7 +720,6 @@
         }
       ]
     },
-
     {
       "fileExt": [ ".xaml" ],
       "text": "XAML",
@@ -717,7 +737,8 @@
             "ToolBarPanel",
             "ToolBarTray"
           ],
-          "icon": "ApplicationBar"
+          "icon": "ApplicationBar",
+          "description" :""
         },
         {
           "name": "Input",
@@ -735,7 +756,8 @@
             "RadioButton",
             "Slider"
           ],
-          "icon": "InheritedUserControl"
+          "icon": "InheritedUserControl",
+          "description" :""
         },
         {
           "name": "Display",
@@ -766,7 +788,8 @@
             "Separator",
             "Expander"
           ],
-          "icon": "FlowLayoutPanel"
+          "icon": "FlowLayoutPanel",
+          "description" :""
         },
         {
           "name": "Container",
@@ -781,7 +804,8 @@
             "TreeView",
             "WrapPanel"
           ],
-          "icon": "Container"
+          "icon": "Container",
+          "description" :""
         }
       ],
       "commands": [
@@ -790,273 +814,312 @@
           "parent": "Layout",
           "preview": "<Border Background=\"Coral\" Width=\"300\" Padding=\"10\" CornerRadius=\"20\">\n    <TextBlock FontSize=\"16\">Text Surrounded by a Border</TextBlock>\n</Border>",
           "color": "#c0392b",
-          "type": "UI"
+          "type": "UI",
+          "description" :  "Add border (lines) surrounding the relevant text."
         },
         {
           "text": "Button",
           "parent": "Input",
           "preview": "<Button Name=\"btn\" Click=\"OnClick\" ClickMode=\"Release\">\n  Reset\n</Button>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Add a button."
         },
         {
           "text": "Canvas",
           "parent": "Container",
           "preview": "<Canvas Height=\"400\" Width=\"400\">\n  <Canvas Height=\"100\" Width=\"100\" Top=\"0\" Left=\"0\" Background=\"Red\"/>\n  <Canvas Height=\"100\" Width=\"100\" Top=\"100\" Left=\"100\" Background=\"Green\"/>\n</Canvas>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new canvas (container with drawing entities)."
         },
         {
           "text": "CheckBox",
           "parent": "Input",
           "preview": "<CheckBox>Enable feature ABC</CheckBox>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new checkbox"
         },
         {
           "text": "ComboBox",
           "parent": "Input",
           "preview": "<ComboBox Name=\"comboBox1\"\n            ItemsSource=\"{StaticResource myVacations}\"\n            Text=\"My Cities\"\n            IsEditable=\"true\"\n            IsReadOnly=\"true\"/>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new combobox. It 'Represents a selection control that combines a non-editable text box and a drop-down list box that allows users to select an item from a list. (Microsoft Documentation)'"
         },
         {
           "text": "ContentControl",
           "parent": "Input",
           "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create new content control. It 'Represents a control with a single piece of content of any type. (Microsoft Documentation)'"
         },
         {
           "text": "DataGrid",
           "parent": "Display",
           "preview": "<DataGrid Name=\"DG1\" ItemsSource=\"{Binding}\" AutoGenerateColumns=\"False\" >\n    <DataGrid.Columns>\n        <DataGridTextColumn Header=\"First Name\"  Binding=\"{Binding FirstName}\"/>\n        <DataGridTextColumn Header=\"Last Name\" Binding=\"{Binding LastName}\" />\n    </DataGrid.Columns>\n</DataGrid>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new data grid. 'The DataGrid control provides a flexible way to display a collection of data in rows and columns. (Microsoft Documentation)'"
         },
         {
           "text": "DatePicker",
           "parent": "Input",
           "preview": "<DatePicker/>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new date picker allowing the user to input a date."
         },
         {
           "text": "DockPanel",
           "parent": "Container",
           "preview": "<DockPanel LastChildFill = \"True\"> \n   <Button Content = \"Top\" DockPanel.Dock = \"Top\" Click = \"Click_Me\" /> \n   <Button Content = \"Bottom\" DockPanel.Dock = \"Bottom\" Click = \"Click_Me\" />\n   <Button Content = \"Left\" Click = \"Click_Me\" /> \n   <Button Content = \"Right\" DockPanel.Dock = \"Right\" Click = \"Click_Me\" /> \n   <Button Content = \"Center\" Click = \"Click_Me\" /> \n</DockPanel>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new dock panel. It 'Defines an area where you can arrange child elements either horizontally or vertically, relative to each other. (Microsoft Documentation)'"
         },
         {
           "text": "DocumentViewer",
           "parent": "Display",
           "preview": "<DocumentViewer/>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new document viewer. "
         },
         {
           "text": "Ellipse",
           "parent": "Display",
           "preview": "<Ellipse\n  Width=\"100\"\n  Height=\"50\"\n  Fill=\"Blue\"\n  Stroke=\"Black\"\n  StrokeThickness=\"4\"\n  Canvas.Left=\"10\"\n  Canvas.Top=\"100\"/>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new ellipse. It 'Gets or sets the geometry used to define the outline of the contents of an element. (Microsoft Documentation)'"
         },
         {
           "text": "Expander",
           "parent": "Layout",
           "preview": "<Expander>  \n    <TextBlock TextWrapping=\"Wrap\" FontSize=\"18\">  \n    Text \n    </TextBlock>  \n</Expander>",
           "color": "#c0392b",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new expander. 'An Expander control provides a way to provide content in an expandable area that resembles a window and includes a header' (Microsoft Documentation)"
         },
         {
           "text": "Grid",
           "parent": "Container",
           "preview": "<Grid VerticalAlignment=\"Top\" HorizontalAlignment=\"Left\" ShowGridLines=\"True\" Width=\"250\" Height=\"100\">\n  <Grid.ColumnDefinitions>\n    <ColumnDefinition />\n    <ColumnDefinition />\n  </Grid.ColumnDefinitions>\n  <Grid.RowDefinitions>\n    <RowDefinition />\n    <RowDefinition />\n  </Grid.RowDefinitions>\n  <TextBlock Grid.Row=\"0\" Grid.Column=\"0\">text</TextBlock>\n  <TextBlock Grid.Row=\"0\" Grid.Column=\"1\">text</TextBlock>\n  <TextBlock Grid.Row=\"1\" Grid.Column=\"0\">text</TextBlock>\n  <TextBlock Grid.Row=\"1\" Grid.Column=\"1\">text</TextBlock>\n</Grid>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new grid. It 'Defines a flexible grid area that consists of columns and rows. (Microsoft Documentation)'"
         },
         {
           "text": "GridSplitter",
           "parent": "Layout",
           "preview": "<GridSplitter Grid.Column=\"1\"\n              HorizontalAlignment=\"Center\"\n              VerticalAlignment=\"Stretch\"\n              Background=\"Black\" \n              ShowsPreview=\"True\"\n              Width=\"5\"\n              />",
           "color": "#c0392b",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new grid splitter. It 'Represents the control that redistributes space between columns or rows of a Grid control. (Microsoft Documentation)'"
         },
         {
           "text": "GroupBox",
           "parent": "Input",
           "preview": "<GroupBox Header=\"GroupBox Sample\" Margin=\"10\" Padding=\"10\">\n    <StackPanel>\n    <TextBlock>First name:</TextBlock>\n    <TextBox />\n    <TextBlock>Last name:</TextBlock>\n    <TextBox />\n    <Button Margin=\"0,20\">Add User</Button>\n    </StackPanel>\n</GroupBox>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new group box. 'The GroupBox control is a HeaderedContentControl that provides a titled container for graphical user interface (GUI) content. (Microsoft Documentation)'"
         },
         {
           "text": "Image",
           "parent": "Display",
           "preview": "<Image Width=\\\"200\\\">\n  <Image.Source>\n    <BitmapImage DecodePixelWidth=\\\"200\\\"  \n     UriSource=\\\"C:\\Documents and Settings\\Water Lilies.jpg\\\" />\n  </Image.Source>\n</Image>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new image."
         },
         {
           "text": "Label",
           "parent": "Display",
           "preview": "<Label Content=\"This is a Label control.\" />",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new label. "
         },
         {
           "text": "ListBox",
           "parent": "Input",
           "preview": "<ListBox>\n    <ListBoxItem>ListBox Item #1</ListBoxItem>\n    <ListBoxItem>ListBox Item #2</ListBoxItem>\n    <ListBoxItem>ListBox Item #3</ListBoxItem>\n</ListBox>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new list box. It 'lets users select from a pre-defined list of options presented like a text control'. (Microsoft Documentation)'"
         },
         {
           "text": "MediaElement",
           "parent": "Display",
           "preview": "<MediaElement Height=\"100\" Width=\"100\"/>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new media element. It 'represents a control that contains audio and/or video. (Microsoft Documentation)'"
         },
         {
           "text": "Menu",
           "parent": "Container",
           "preview": "<Menu>\n  <MenuItem Header=\"_Edit\">\n    <MenuItem Command=\"ApplicationCommands.Copy\"/>\n    <MenuItem Command=\"ApplicationCommands.Cut\"/>\n    <MenuItem Command=\"ApplicationCommands.Paste\"/>\n  </MenuItem>\n</Menu>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new menu containing a collection of menu items."
         },
         {
           "text": "PasswordBox",
           "parent": "Input",
           "preview": "<PasswordBox x:Name=\"passwordBox\" Width=\"200\" MaxLength=\"16\"\n             PasswordChanged=\"passwordBox_PasswordChanged\"/>\n<TextBlock x:Name=\"statusText\" Margin=\"10\" HorizontalAlignment=\"Center\"/>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new password box where the user enters a hidden password."
         },
         {
           "text": "ProgressBar",
           "parent": "Tool Bars",
           "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new progress bar. It 'represents a control that indicates the progress of an operation, where the typical visual appearance is a bar that animates a filled area as progress continues.' (Microsoft Documentation) "
         },
         {
           "text": "RadioButton",
           "parent": "Input",
           "preview": "<RadioButton>\n    content\n</RadioButton>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a radio button, allowing the user to choose from a list of options."
         },
         {
           "text": "Rectangle",
           "parent": "Display",
           "preview": "<Rectangle Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create an item with a rectangular form."
         },
         {
           "text": "RichTextBox",
           "parent": "Input",
           "preview": "<Page xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n  xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">\n  <StackPanel>\n    <RichTextBox>\n      <FlowDocument>\n        <Paragraph>\n          This is flow content and you can <Bold>edit me!</Bold>\n        </Paragraph>\n      </FlowDocument>\n    </RichTextBox>\n  </StackPanel>\n</Page>\n",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a rich text box. It 'enables you to display or edit flow content including paragraphs, images, tables, and more. (Microsoft Documentation)'"
         },
         {
           "text": "ScrollBar",
           "parent": "Tool Bars",
           "preview": "<ScrollBar />",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a scrollbar. It 'represents a control that provides a scroll bar that has a sliding Thumb whose position corresponds to a value.' (Microsoft Documentation)"
         },
         {
           "text": "ScrollViewer",
           "parent": "Display",
           "preview": "<Page xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n      xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n      WindowTitle=\"ScrollViewer Sample\">\n  <ScrollViewer HorizontalScrollBarVisibility=\"Auto\">\n    <StackPanel VerticalAlignment=\"Top\" HorizontalAlignment=\"Left\">\n      <TextBlock TextWrapping=\"Wrap\" Margin=\"0,0,0,20\">Scrolling is enabled when it is necessary.\n       Resize the window, making it larger and smaller.</TextBlock>\n      <Rectangle Fill=\"Red\" Width=\"500\" Height=\"500\"></Rectangle>\n    </StackPanel>\n  </ScrollViewer>\n</Page>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a scroll viewer. It 'enables content to be displayed in a smaller area than its actual size' (Microsoft Documentation)"
         },
         {
           "text": "Separator",
           "parent": "Layout",
           "preview": "<ToolBarTray Background=\\\"White\\\">\n    <ToolBar Band=\\\"1\\\" BandIndex=\\\"1\\\">\n      <Button>\n        <Image Source=\\\"toolbargraphics\\new.bmp\\\" />\n      </Button>\n      <Separator/>\n      <Button>\n        <Image Source=\\\"toolbargraphics\\cut.bmp\\\" />\n      </Button>\n      <Separator/>\n      <Button>\n        <Image Source=\\\"toolbargraphics\\print.bmp\\\" />\n      </Button>\n    </ToolBar>\n  </ToolBarTray>",
           "color": "#c0392b",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a separator. It is a 'A Separator control draws a line, horizontal or vertical, between items in controls, such as ListBox, Menu, and ToolBar. (Microsoft Documentation)'"
         },
         {
           "text": "Slider",
           "parent": "Input",
           "preview": "<Slider Width=\"120\"/>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a slider. It is a 'a control that lets the user select from a range of values by moving a Thumb control along a track.' (Microsoft Documentation)"
         },
         {
           "text": "StackPanel",
           "parent": "Container",
           "preview": "<StackPanel Height=\"100\" Width=\"100\">\n</StackPanel>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new stack panel. It is a 'a layout panel that arranges child elements into a single line that can be oriented horizontally or vertically.' (Microsoft Documentation)"
         },
         {
           "text": "StatusBar",
           "parent": "Tool Bars",
           "preview": "<StatusBar Name=\"sbar\"\n            VerticalAlignment=\"Bottom\" Background=\"Beige\" >\n  <StatusBarItem>\n    <TextBlock>Downloading File</TextBlock>\n  </StatusBarItem>\n</StatusBar>",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new status bar. It is a 'a horizontal area at the bottom of a window where an application can display status information. (Microsoft Documentation)'"
         },
         {
           "text": "TabControl",
           "parent": "Layout",
           "preview": "<TabControl>\n    <TabItem>\n      <TabItem.Header>\n        <StackPanel Orientation=\"Horizontal\">\n          <Ellipse Width=\"10\" Height=\"10\" Fill=\"DarkGray\"/>\n          <TextBlock>Tab 1</TextBlock>\n        </StackPanel>\n      </TabItem.Header>\n    </TabItem>\n  </TabControl>",
           "color": "#c0392b",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a tab control (containing multiple tab items)"
         },
         {
           "text": "TextBox",
           "parent": "Display",
           "preview": "<TextBox TextWrapping=\"Wrap\" Text=\"TextBox\" Width=\"120\"/>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a box containing text."
         },
         {
           "text": "ToolBar",
           "parent": "Tool Bars",
           "preview": "<ToolBar Band=\"1\" BandIndex=\"1\">\n    <Button>\n      <Image Source=\"toolbargraphics\new.bmp\" />\n    </Button>\n</ToolBar>",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new toolbar (a row of commands)."
         },
         {
           "text": "ToolBarPanel",
           "parent": "Tool Bars",
           "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new toolbar panel (a panel of a row of commands)."
         },
         {
           "text": "ToolBarTray",
           "parent": "Tool Bars",
           "preview": "<ToolBarTray Background=\\\"White\\\">\n    <ToolBar Band=\\\"1\\\" BandIndex=\\\"1\\\">\n      <Button>\n        <Image Source=\\\"toolbargraphics\\cut.bmp\\\" />\n      </Button>\n    </ToolBar>\n  </ToolBarTray>",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new toolbar tray. It is 'A ToolBarTray is responsible for handling placement, sizing, drag-and-drop operations, and rearranging of ToolBar controls.' (Microsoft Documentation)"
         },
         {
           "text": "TreeView",
           "parent": "Container",
           "preview": "<TreeView>\n    <TreeViewItem Header=\"Employee1\">\n      <TreeViewItem Header=\"Jesper\"/>\n      <TreeViewItem Header=\"Aaberg\"/>\n      <TreeViewItem Header=\"12345\"/>\n    </TreeViewItem>\n   <TreeViewItem Header=\"Employee2\">\n      <TreeViewItem Header=\"Dominik\"/>\n      <TreeViewItem Header=\"Paiha\"/>\n      <TreeViewItem Header=\"98765\"/>\n    </TreeViewItem>\n  </TreeView>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new treeview. It 'represents a control that displays hierarchical data in a tree structure that has items that can expand and collapse.' (Microsoft Documentation)"
         },
         {
           "text": "Viewbox",
           "parent": "Display",
           "preview": "<Viewbox Height=\"200\" HorizontalAlignment=\"Left\" Margin=\"19,45,0,0\"\n     Name=\"viewbox1\" VerticalAlignment=\"Top\" Width=\"300\"\n    Stretch=\"Fill\">\n<Ellipse Width=\"100\" Height=\"100\" Fill=\"Red\" />\n</Viewbox>  ",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new viewbox. 'Viewbox is a container control that scales its content to a specified size.' (Microsoft Documentation)"
         },
         {
           "text": "WrapPanel",
           "parent": "Container",
           "preview": "<WrapPanel Background=\"LightBlue\" Width=\"200\" Height=\"100\">\n     <Button Width=\"200\">Button 1      </Button>\n     <Button>Button 2</Button>\n     <Button>Button 3</Button>\n     <Button>Button 4</Button>\n</WrapPanel>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a wrap panel (wrapping the entities until no place is left)."
         }
       ]
     }
