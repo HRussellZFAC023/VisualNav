@@ -15,7 +15,7 @@
             "New Layer"
           ],
           "icon": "AddEvent",
-          "description" :""
+          "description" :"Add your own custom blocks such as objects, functions or new layers."
         },
         {
           "name": "Test",
@@ -25,7 +25,7 @@
             "Debug.Assert()"
           ],
           "icon": "Test",
-          "description" :""
+          "description" :"Create code block for testing purposes."
         },
         {
           "name": "Assert",
@@ -44,7 +44,7 @@
             "Equals()"
           ],
           "icon": "Test",
-          "description" :""
+          "description" :"Create block to assert the relationship between 2 objects."
         }
       ],
       "commands": [
@@ -54,7 +54,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "",
-          "description" :""
+          "description" :"Create a custom object, which is an abstract data type."
         },
         {
           "text": "Custom Function",
@@ -62,7 +62,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "",
-          "description" :""
+          "description" :"Create a custom function, allowing it to perform a task of your choice."
         },
         {
           "text": "New Layer",
@@ -70,7 +70,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "",
-          "description" :""
+          "description" : "Create a new layer (interactive functional component)."
         },
         {
           "text": "AreEqual()",
@@ -78,7 +78,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "areequal",
-          "description" :""
+          "description" :"Check if two enities are equal."
         },
         {
           "text": "AreNotEqual()",
@@ -86,7 +86,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "arenotequal",
-          "description" :""
+          "description" :"Check if two entities are not equal"
         },
         {
           "text": "AreSame()",
@@ -94,14 +94,14 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "aresame",
-          "description" :""
+          "description" :"Tests whether the specified objects both refer to the same object and throws an exception if the two inputs do not refer to the same object. (Microsoft Documentation)"
         },
         {
           "text": "AreNotSame()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "arenotsame"
+          "type": "Tests whether the specified objects refer to different objects and throws an exception if the two inputs refer to the same object. (Microsoft Documentation)"
         },
         {
           "text": "Fail()",
@@ -109,7 +109,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "fail",
-          "description" :""
+          "description" :"Throws an AssertFailedException."
         },
         {
           "text": "IsTrue()",
@@ -117,7 +117,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "IsTrue",
-          "description" :""
+          "description" :"Tests whether the specified condition is true and throws an exception if the condition is false. (Microsoft Documentation)"
         },
         {
           "text": "IsFalse()",
@@ -125,7 +125,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "IsFalse",
-          "description" :""
+          "description" :"Tests whether the specified condition is false and throws an exception if the condition is true. (Microsoft Documentation)"
         },
         {
           "text": "IsNull()",
@@ -133,7 +133,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "IsNull",
-          "description" :""
+          "description" :"Check if object is null"
         },
         {
           "text": "IsNotNull()",
@@ -141,7 +141,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "IsNotNull",
-          "description" :""
+          "description" :"Check if object is not null"
         },
         {
           "text": "Equals()",
@@ -149,7 +149,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "Equals",
-          "description" :""
+          "description" :"Determines whether the specified object is equal to the current object. (Microsoft Documentation)"
         },
         {
           "text": "Debug.Assert()",
@@ -157,7 +157,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "debugassert",
-          "description" :""
+          "description" :"Checks for a condition; if the condition is false, outputs messages and displays a message box that shows the call stack. (Microsoft Documentation)"
         }
       ]
     },
@@ -181,7 +181,7 @@
             "logic_ternary"
           ],
           "icon": "CrossGroupLink",
-          "description" :""
+          "description" :"Add logical blocks of code such as conditional statements that perform a task if true."
         },
         {
           "name": "Loops",
@@ -195,7 +195,7 @@
             "controls_flow_statements"
           ],
           "icon": "ConditionalLoop",
-          "description" :""
+          "description" :"Add blocks of code that is repeated until a specific condition is met."
         },
         {
           "name": "Math",
@@ -217,7 +217,7 @@
             "math_random_float"
           ],
           "icon": "Calculator",
-          "description" :""
+          "description" :"Create blocks of code that are related to mathematical properties such as rounding up."
         },
         {
           "name": "Text",
@@ -238,7 +238,7 @@
             "text_print"
           ],
           "icon": "TextBox",
-          "description" :""
+          "description" :"Create blocks of code that are related to textual properties such as appending text."
         },
         {
           "name": "Lists",
@@ -259,7 +259,7 @@
             "math_on_list"
           ],
           "icon": "BulletList",
-          "description" :""
+          "description" :"Create blocks of code that are related to lists (abstract data type referring to a collection of items) such as getting the index of an item in a list."
         },
         {
           "name": "Variables",
@@ -269,7 +269,8 @@
             "variables_get",
             "variables_set"
           ],
-          "icon": "LocalVariable"
+          "icon": "LocalVariable",
+		  "description" :"Create blocks of code that are related to variables (data values) such as getting and setting a variable."
         },
         {
           "name": "Functions",
@@ -281,7 +282,7 @@
             "procedures_ifreturn"
           ],
           "icon": "TableFunction",
-          "description" :""
+          "description" :"Create blocks of code that are related to functions such as defining a function with or without a returned value."
         }
       ],
       "commands": [
@@ -738,7 +739,7 @@
             "ToolBarTray"
           ],
           "icon": "ApplicationBar",
-          "description" :""
+          "description" :"Add any kind of bar (graphical control element) to the layout such as status bars or tool bars."
         },
         {
           "name": "Input",
@@ -757,7 +758,7 @@
             "Slider"
           ],
           "icon": "InheritedUserControl",
-          "description" :""
+          "description" :"Add any kind of holders of data that will be sent for processing such as password boxes or date pickers."
         },
         {
           "name": "Display",
@@ -775,7 +776,8 @@
             "DocumentViewer",
             "ContentControl"
           ],
-          "icon": "DisplayNone"
+          "icon": "DisplayNone",
+          "description" :"Add visual elements such as images or document viewers."
         },
         {
           "name": "Layout",
@@ -789,7 +791,7 @@
             "Expander"
           ],
           "icon": "FlowLayoutPanel",
-          "description" :""
+          "description" :"Add elements that control the layout such as tab controls or expanders."
         },
         {
           "name": "Container",
@@ -805,7 +807,7 @@
             "WrapPanel"
           ],
           "icon": "Container",
-          "description" :""
+          "description" :"Add containers to the layout such menus, assisting you in organizing screen elements, including for different display sizes."
         }
       ],
       "commands": [
