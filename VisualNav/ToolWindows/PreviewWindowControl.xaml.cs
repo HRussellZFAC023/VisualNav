@@ -1,5 +1,6 @@
 using CefSharp;
 using System.Windows;
+using System.Windows.Input;
 using VisualNav.Schema;
 using VisualNav.Utilities;
 using Label = System.Windows.Controls.Label;
@@ -89,6 +90,10 @@ public partial class PreviewWindowControl
         _blockly.ZoomInAsync().FireAndForget();
     }
 
+    private void ResetZoom(object sender, MouseButtonEventArgs e)
+    {
+        _blockly.ResetZoomAsync().FireAndForget();
+    }
     public async Task ClearCurrentCommandAsync()
     {
         await _blockly.ClearAsync();

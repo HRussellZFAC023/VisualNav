@@ -36,6 +36,7 @@
             Orientation="Horizontal" Panel.ZIndex="100" Grid.Row="0" Grid.Column="0" MaxHeight="25" HorizontalAlignment="Right"
                                 theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
             <imaging:CrispImage  MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
+            <imaging:CrispImage  MouseDown="ResetZoom" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.RadioButton}" />
             <imaging:CrispImage  MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
         </StackPanel>
         
