@@ -101,7 +101,8 @@
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-          "type": "Tests whether the specified objects refer to different objects and throws an exception if the two inputs refer to the same object. (Microsoft Documentation)"
+	  "type": "arenotsame",
+          "description": "Tests whether the specified objects refer to different objects and throws an exception if the two inputs refer to the same object. (Microsoft Documentation)"
         },
         {
           "text": "Fail()",
