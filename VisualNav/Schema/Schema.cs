@@ -12,12 +12,12 @@ public class Schema
     {
         var dir = Path.GetDirectoryName(typeof(Schema).Assembly.Location);
         var file = Path.Combine(dir!, "Schema", "Modified.json");
-        StreamReader reader = null;
+        StreamReader reader;
         try
         {
              reader = new StreamReader(file);
         }
-        catch (Exception e)
+        catch (Exception)
         {
             file = Path.Combine(dir!, "Schema", "Schema.json");
              reader = new StreamReader(file);
@@ -55,3 +55,5 @@ public class Command
     public string Color { get; set; }
     public string Type { get; set; }
 }
+
+
