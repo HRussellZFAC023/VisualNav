@@ -45,6 +45,7 @@ public class Menuitem
     public string[] Submenu { get; set; }
     public string[] Children { get; set; }
     public string Icon { get; set; }
+    public string Description {get; set; }
 }
 
 public class Command
@@ -54,6 +55,7 @@ public class Command
     public string Preview { get; set; }
     public string Color { get; set; }
     public string Type { get; set; }
+    public string Description { get; set; }
 }
 
 
