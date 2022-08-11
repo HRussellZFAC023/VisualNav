@@ -181,8 +181,14 @@ public partial class RadialWindowControl
                 {
                     ThreadHelper.JoinableTaskFactory.Run(async () =>
                     {
-                        await PreviewWindow.Instance.ClearCurrentCommandAsync();
-                        PreviewWindow.Instance.SetCurrentCommand(command);
+                        try{
+                            await PreviewWindow.Instance.ClearCurrentCommandAsync();
+                            PreviewWindow.Instance.SetCurrentCommand(command);
+                        }catch (Exception)
+                        {
+                            InfoNotificationWrapper.ShowSimpleAsync("Preview window has not started yet.", "StatusWarning", PackageGuids.RadialWindowString, 1500).FireAndForget();
+                        }
+
                     });
                 };
 
