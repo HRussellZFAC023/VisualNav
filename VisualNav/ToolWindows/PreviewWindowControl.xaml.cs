@@ -1,5 +1,6 @@
 using CefSharp;
 using System.Windows;
+using System.Windows.Input;
 using VisualNav.Schema;
 using VisualNav.Utilities;
 using Label = System.Windows.Controls.Label;
@@ -55,10 +56,14 @@ public partial class PreviewWindowControl
             JavascriptResponse ret1 = null, ret2 = null;
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
             {
-                ret2 = await _blockly.AddNewBlockToAreaAsync(c, true, true);
-                ret1 = await _blockly.AddNewBlockToAreaAsync(c, true, false);
+                if (c.Type.Contains("custom"))
+                    ret2 = await _blockly.AddNewBlockToAreaAsync(c, true, true);
+                else
+                    ret1 = await _blockly.AddNewBlockToAreaAsync(c, true, false);
+                
             }).FireAndForget();
-
+            
+            
             if (ret1 == null && ret2 == null) return;
             _currentCommand = c;
             UpdateCommands();
@@ -75,10 +80,25 @@ public partial class PreviewWindowControl
             UpdateCommands();
         }
     }
+    public void DecreaseSize(object sender, RoutedEventArgs e)
+    {
+        
+        _blockly.ZoomOutAsync().FireAndForget();
+    }
 
+    public void IncreaseSize(object sender, RoutedEventArgs e)
+    {
+        _blockly.ZoomInAsync().FireAndForget();
+    }
+
+    private void ResetZoom(object sender, MouseButtonEventArgs e)
+    {
+        _blockly.ResetZoomAsync().FireAndForget();
+    }
     public async Task ClearCurrentCommandAsync()
     {
         await _blockly.ClearAsync();
+        
         _currentCommand = null;
         UpdateCommands();
     }
