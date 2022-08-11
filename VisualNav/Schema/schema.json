@@ -405,7 +405,7 @@
           "preview": "",
           "color": "#59C059",
           "type": "math_arithmetic",
-          "description": "Add operations such as addition or substraction."
+          "description": "Add operations such as addition or subtraction."
         },
         {
           "text": "single",
@@ -630,7 +630,7 @@
           "preview": "",
           "color": "#9966FF",
           "type": "lists_indexOf",
-          "description": "Find the first or last occurence of an item in a list."
+          "description": "Find the first or last occurrence of an item in a list."
         },
         {
           "text": "getIndex",
@@ -654,7 +654,7 @@
           "preview": "",
           "color": "#9966FF",
           "type": "lists_getSublist",
-          "description": "Retrieve specific sublist from inside list (first, position or position from end)."
+          "description": "Retrieve specific sub-list from inside list (first, position or position from end)."
         },
         {
           "text": "sort",
@@ -850,7 +850,7 @@
           "preview": "<ComboBox Name=\"comboBox1\"\n            ItemsSource=\"{StaticResource myVacations}\"\n            Text=\"My Cities\"\n            IsEditable=\"true\"\n            IsReadOnly=\"true\"/>",
           "color": "#3498db",
           "type": "UI",
-          "description": "Create a new combobox. It 'Represents a selection control that combines a non-editable text box and a drop-down list box that allows users to select an item from a list. (Microsoft Documentation)'"
+          "description": "Create a new combo-box. It 'Represents a selection control that combines a non-editable text box and a drop-down list box that allows users to select an item from a list. (Microsoft Documentation)'"
         },
         {
           "text": "ContentControl",
