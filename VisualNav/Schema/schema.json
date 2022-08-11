@@ -1,11 +1,385 @@
 {
   "RadialMenu": [
-
+    {
+      "fileExt": [ ".xaml" ],
+      "text": "specific",
+      "allow_insertion_from_menu": true,
+      "MenuItems": [
+        {
+          "name": "Tool Bars",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "ProgressBar",
+            "ScrollBar",
+            "StatusBar",
+            "ToolBar",
+            "ToolBarPanel",
+            "ToolBarTray"
+          ],
+          "icon": "ApplicationBar"
+        },
+        {
+          "name": "Input",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "Button",
+            "CheckBox",
+            "ComboBox",
+            "DatePicker",
+            "GroupBox",
+            "ListBox",
+            "PasswordBox",
+            "RichTextBox",
+            "RadioButton",
+            "Slider"
+          ],
+          "icon": "InheritedUserControl"
+        },
+        {
+          "name": "Display",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "DataGrid",
+            "Viewbox",
+            "Ellipse",
+            "Image",
+            "Label",
+            "MediaElement",
+            "Rectangle",
+            "ScrollViewer",
+            "DocumentViewer",
+            "ContentControl"
+          ],
+          "icon": "DisplayNone"
+        },
+        {
+          "name": "Layout",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "TabControl",
+            "Border",
+            "GridSplitter",
+            "Separator",
+            "Expander"
+          ],
+          "icon": "FlowLayoutPanel"
+        },
+        {
+          "name": "Container",
+          "parent": "Main",
+          "submenu": [],
+          "children": [
+            "Canvas",
+            "DockPanel",
+            "Grid",
+            "Menu",
+            "StackPanel",
+            "TreeView",
+            "WrapPanel"
+          ],
+          "icon": "Container"
+        }
+      ],
+      "commands": [
+        {
+          "text": "Border",
+          "parent": "Layout",
+          "preview": "<Border Background=\"Coral\" Width=\"300\" Padding=\"10\" CornerRadius=\"20\">\n    <TextBlock FontSize=\"16\">Text Surrounded by a Border</TextBlock>\n</Border>",
+          "color": "#c0392b",
+          "type": "UI"
+        },
+        {
+          "text": "Button",
+          "parent": "Input",
+          "preview": "<Button Name=\"btn\" Click=\"OnClick\" ClickMode=\"Release\">\n  Reset\n</Button>",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "Canvas",
+          "parent": "Container",
+          "preview": "<Canvas Height=\"400\" Width=\"400\">\n  <Canvas Height=\"100\" Width=\"100\" Top=\"0\" Left=\"0\" Background=\"Red\"/>\n  <Canvas Height=\"100\" Width=\"100\" Top=\"100\" Left=\"100\" Background=\"Green\"/>\n</Canvas>",
+          "color": "#fbc531",
+          "type": "UI"
+        },
+        {
+          "text": "CheckBox",
+          "parent": "Input",
+          "preview": "<CheckBox>Enable feature ABC</CheckBox>",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "ComboBox",
+          "parent": "Input",
+          "preview": "<ComboBox Name=\"comboBox1\"\n            ItemsSource=\"{StaticResource myVacations}\"\n            Text=\"My Cities\"\n            IsEditable=\"true\"\n            IsReadOnly=\"true\"/>",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "ContentControl",
+          "parent": "Input",
+          "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "DataGrid",
+          "parent": "Display",
+          "preview": "<DataGrid Name=\"DG1\" ItemsSource=\"{Binding}\" AutoGenerateColumns=\"False\" >\n    <DataGrid.Columns>\n        <DataGridTextColumn Header=\"First Name\"  Binding=\"{Binding FirstName}\"/>\n        <DataGridTextColumn Header=\"Last Name\" Binding=\"{Binding LastName}\" />\n    </DataGrid.Columns>\n</DataGrid>",
+          "color": "#27ae60",
+          "type": "UI"
+        },
+        {
+          "text": "DatePicker",
+          "parent": "Input",
+          "preview": "<DatePicker/>",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "DockPanel",
+          "parent": "Container",
+          "preview": "<DockPanel LastChildFill = \"True\"> \n   <Button Content = \"Top\" DockPanel.Dock = \"Top\" Click = \"Click_Me\" /> \n   <Button Content = \"Bottom\" DockPanel.Dock = \"Bottom\" Click = \"Click_Me\" />\n   <Button Content = \"Left\" Click = \"Click_Me\" /> \n   <Button Content = \"Right\" DockPanel.Dock = \"Right\" Click = \"Click_Me\" /> \n   <Button Content = \"Center\" Click = \"Click_Me\" /> \n</DockPanel>",
+          "color": "#fbc531",
+          "type": "UI"
+        },
+        {
+          "text": "DocumentViewer",
+          "parent": "Display",
+          "preview": "<DocumentViewer/>",
+          "color": "#27ae60",
+          "type": "UI"
+        },
+        {
+          "text": "Ellipse",
+          "parent": "Display",
+          "preview": "<Ellipse\n  Width=\"100\"\n  Height=\"50\"\n  Fill=\"Blue\"\n  Stroke=\"Black\"\n  StrokeThickness=\"4\"\n  Canvas.Left=\"10\"\n  Canvas.Top=\"100\"/>",
+          "color": "#27ae60",
+          "type": "UI"
+        },
+        {
+          "text": "Expander",
+          "parent": "Layout",
+          "preview": "<Expander>  \n    <TextBlock TextWrapping=\"Wrap\" FontSize=\"18\">  \n    Text \n    </TextBlock>  \n</Expander>",
+          "color": "#c0392b",
+          "type": "UI"
+        },
+        {
+          "text": "Grid",
+          "parent": "Container",
+          "preview": "<Grid VerticalAlignment=\"Top\" HorizontalAlignment=\"Left\" ShowGridLines=\"True\" Width=\"250\" Height=\"100\">\n  <Grid.ColumnDefinitions>\n    <ColumnDefinition />\n    <ColumnDefinition />\n  </Grid.ColumnDefinitions>\n  <Grid.RowDefinitions>\n    <RowDefinition />\n    <RowDefinition />\n  </Grid.RowDefinitions>\n  <TextBlock Grid.Row=\"0\" Grid.Column=\"0\">text</TextBlock>\n  <TextBlock Grid.Row=\"0\" Grid.Column=\"1\">text</TextBlock>\n  <TextBlock Grid.Row=\"1\" Grid.Column=\"0\">text</TextBlock>\n  <TextBlock Grid.Row=\"1\" Grid.Column=\"1\">text</TextBlock>\n</Grid>",
+          "color": "#fbc531",
+          "type": "UI"
+        },
+        {
+          "text": "GridSplitter",
+          "parent": "Layout",
+          "preview": "<GridSplitter Grid.Column=\"1\"\n              HorizontalAlignment=\"Center\"\n              VerticalAlignment=\"Stretch\"\n              Background=\"Black\" \n              ShowsPreview=\"True\"\n              Width=\"5\"\n              />",
+          "color": "#c0392b",
+          "type": "UI"
+        },
+        {
+          "text": "GroupBox",
+          "parent": "Input",
+          "preview": "<GroupBox Header=\"GroupBox Sample\" Margin=\"10\" Padding=\"10\">\n    <StackPanel>\n    <TextBlock>First name:</TextBlock>\n    <TextBox />\n    <TextBlock>Last name:</TextBlock>\n    <TextBox />\n    <Button Margin=\"0,20\">Add User</Button>\n    </StackPanel>\n</GroupBox>",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "Image",
+          "parent": "Display",
+          "preview": "<Image Width=\\\"200\\\">\n  <Image.Source>\n    <BitmapImage DecodePixelWidth=\\\"200\\\"  \n     UriSource=\\\"C:\\Documents and Settings\\Water Lilies.jpg\\\" />\n  </Image.Source>\n</Image>",
+          "color": "#27ae60",
+          "type": "UI"
+        },
+        {
+          "text": "Label",
+          "parent": "Display",
+          "preview": "<Label Content=\"This is a Label control.\" />",
+          "color": "#27ae60",
+          "type": "UI"
+        },
+        {
+          "text": "ListBox",
+          "parent": "Input",
+          "preview": "<ListBox>\n    <ListBoxItem>ListBox Item #1</ListBoxItem>\n    <ListBoxItem>ListBox Item #2</ListBoxItem>\n    <ListBoxItem>ListBox Item #3</ListBoxItem>\n</ListBox>",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "MediaElement",
+          "parent": "Display",
+          "preview": "<MediaElement Height=\"100\" Width=\"100\"/>",
+          "color": "#27ae60",
+          "type": "UI"
+        },
+        {
+          "text": "Menu",
+          "parent": "Container",
+          "preview": "<Menu>\n  <MenuItem Header=\"_Edit\">\n    <MenuItem Command=\"ApplicationCommands.Copy\"/>\n    <MenuItem Command=\"ApplicationCommands.Cut\"/>\n    <MenuItem Command=\"ApplicationCommands.Paste\"/>\n  </MenuItem>\n</Menu>",
+          "color": "#fbc531",
+          "type": "UI"
+        },
+        {
+          "text": "PasswordBox",
+          "parent": "Input",
+          "preview": "<PasswordBox x:Name=\"passwordBox\" Width=\"200\" MaxLength=\"16\"\n             PasswordChanged=\"passwordBox_PasswordChanged\"/>\n<TextBlock x:Name=\"statusText\" Margin=\"10\" HorizontalAlignment=\"Center\"/>",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "ProgressBar",
+          "parent": "Tool Bars",
+          "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
+          "color": "#9b59b6",
+          "type": "UI"
+        },
+        {
+          "text": "RadioButton",
+          "parent": "Input",
+          "preview": "<RadioButton>\n    content\n</RadioButton>",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "Rectangle",
+          "parent": "Display",
+          "preview": "<Rectangle Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
+          "color": "#27ae60",
+          "type": "UI"
+        },
+        {
+          "text": "RichTextBox",
+          "parent": "Input",
+          "preview": "<Page xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n  xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">\n  <StackPanel>\n    <RichTextBox>\n      <FlowDocument>\n        <Paragraph>\n          This is flow content and you can <Bold>edit me!</Bold>\n        </Paragraph>\n      </FlowDocument>\n    </RichTextBox>\n  </StackPanel>\n</Page>\n",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "ScrollBar",
+          "parent": "Tool Bars",
+          "preview": "<ScrollBar />",
+          "color": "#9b59b6",
+          "type": "UI"
+        },
+        {
+          "text": "ScrollViewer",
+          "parent": "Display",
+          "preview": "<Page xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n      xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n      WindowTitle=\"ScrollViewer Sample\">\n  <ScrollViewer HorizontalScrollBarVisibility=\"Auto\">\n    <StackPanel VerticalAlignment=\"Top\" HorizontalAlignment=\"Left\">\n      <TextBlock TextWrapping=\"Wrap\" Margin=\"0,0,0,20\">Scrolling is enabled when it is necessary.\n       Resize the window, making it larger and smaller.</TextBlock>\n      <Rectangle Fill=\"Red\" Width=\"500\" Height=\"500\"></Rectangle>\n    </StackPanel>\n  </ScrollViewer>\n</Page>",
+          "color": "#27ae60",
+          "type": "UI"
+        },
+        {
+          "text": "Separator",
+          "parent": "Layout",
+          "preview": "<ToolBarTray Background=\\\"White\\\">\n    <ToolBar Band=\\\"1\\\" BandIndex=\\\"1\\\">\n      <Button>\n        <Image Source=\\\"toolbargraphics\\new.bmp\\\" />\n      </Button>\n      <Separator/>\n      <Button>\n        <Image Source=\\\"toolbargraphics\\cut.bmp\\\" />\n      </Button>\n      <Separator/>\n      <Button>\n        <Image Source=\\\"toolbargraphics\\print.bmp\\\" />\n      </Button>\n    </ToolBar>\n  </ToolBarTray>",
+          "color": "#c0392b",
+          "type": "UI"
+        },
+        {
+          "text": "Slider",
+          "parent": "Input",
+          "preview": "<Slider Width=\"120\"/>",
+          "color": "#3498db",
+          "type": "UI"
+        },
+        {
+          "text": "StackPanel",
+          "parent": "Container",
+          "preview": "<StackPanel Height=\"100\" Width=\"100\">\n</StackPanel>",
+          "color": "#fbc531",
+          "type": "UI"
+        },
+        {
+          "text": "StatusBar",
+          "parent": "Tool Bars",
+          "preview": "<StatusBar Name=\"sbar\"\n            VerticalAlignment=\"Bottom\" Background=\"Beige\" >\n  <StatusBarItem>\n    <TextBlock>Downloading File</TextBlock>\n  </StatusBarItem>\n</StatusBar>",
+          "color": "#9b59b6",
+          "type": "UI"
+        },
+        {
+          "text": "TabControl",
+          "parent": "Layout",
+          "preview": "<TabControl>\n    <TabItem>\n      <TabItem.Header>\n        <StackPanel Orientation=\"Horizontal\">\n          <Ellipse Width=\"10\" Height=\"10\" Fill=\"DarkGray\"/>\n          <TextBlock>Tab 1</TextBlock>\n        </StackPanel>\n      </TabItem.Header>\n    </TabItem>\n  </TabControl>",
+          "color": "#c0392b",
+          "type": "UI"
+        },
+        {
+          "text": "TextBox",
+          "parent": "Display",
+          "preview": "<TextBox TextWrapping=\"Wrap\" Text=\"TextBox\" Width=\"120\"/>",
+          "color": "#27ae60",
+          "type": "UI"
+        },
+        {
+          "text": "ToolBar",
+          "parent": "Tool Bars",
+          "preview": "<ToolBar Band=\"1\" BandIndex=\"1\">\n    <Button>\n      <Image Source=\"toolbargraphics\new.bmp\" />\n    </Button>\n</ToolBar>",
+          "color": "#9b59b6",
+          "type": "UI"
+        },
+        {
+          "text": "ToolBarPanel",
+          "parent": "Tool Bars",
+          "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
+          "color": "#9b59b6",
+          "type": "UI"
+        },
+        {
+          "text": "ToolBarTray",
+          "parent": "Tool Bars",
+          "preview": "<ToolBarTray Background=\\\"White\\\">\n    <ToolBar Band=\\\"1\\\" BandIndex=\\\"1\\\">\n      <Button>\n        <Image Source=\\\"toolbargraphics\\cut.bmp\\\" />\n      </Button>\n    </ToolBar>\n  </ToolBarTray>",
+          "color": "#9b59b6",
+          "type": "UI"
+        },
+        {
+          "text": "TreeView",
+          "parent": "Container",
+          "preview": "<TreeView>\n    <TreeViewItem Header=\"Employee1\">\n      <TreeViewItem Header=\"Jesper\"/>\n      <TreeViewItem Header=\"Aaberg\"/>\n      <TreeViewItem Header=\"12345\"/>\n    </TreeViewItem>\n   <TreeViewItem Header=\"Employee2\">\n      <TreeViewItem Header=\"Dominik\"/>\n      <TreeViewItem Header=\"Paiha\"/>\n      <TreeViewItem Header=\"98765\"/>\n    </TreeViewItem>\n  </TreeView>",
+          "color": "#fbc531",
+          "type": "UI"
+        },
+        {
+          "text": "Viewbox",
+          "parent": "Display",
+          "preview": "<Viewbox Height=\"200\" HorizontalAlignment=\"Left\" Margin=\"19,45,0,0\"\n     Name=\"viewbox1\" VerticalAlignment=\"Top\" Width=\"300\"\n    Stretch=\"Fill\">\n<Ellipse Width=\"100\" Height=\"100\" Fill=\"Red\" />\n</Viewbox>  ",
+          "color": "#27ae60",
+          "type": "UI"
+        },
+        {
+          "text": "WrapPanel",
+          "parent": "Container",
+          "preview": "<WrapPanel Background=\"LightBlue\" Width=\"200\" Height=\"100\">\n     <Button Width=\"200\">Button 1      </Button>\n     <Button>Button 2</Button>\n     <Button>Button 3</Button>\n     <Button>Button 4</Button>\n</WrapPanel>",
+          "color": "#3498db",
+          "type": "UI"
+        }
+      ]
+    },
     {
       "fileExt": [ ".cs" ],
-      "text": "Code",
+      "text": "specific",
       "allow_insertion_from_menu": false,
       "MenuItems": [
+        {
+          "name": "Code",
+          "parent": "Main",
+          "submenu": [
+            "Logic",
+            "Loops",
+            "Math",
+            "Text",
+            "Lists",
+            "Variables",
+            "Functions"
+          ],
+          "children": [],
+          "icon": "Code"
+        },
         {
           "name": "Custom Blocks",
           "parent": "Main",
@@ -634,367 +1008,6 @@
           "preview": "",
           "color": "#FF6680",
           "type": "procedures_ifreturn"
-        }
-      ]
-    },
-
-    {
-      "fileExt": [ ".xaml" ],
-      "text": "XAML",
-      "allow_insertion_from_menu": true,
-      "MenuItems": [
-        {
-          "name": "Tool Bars",
-          "parent": "Main",
-          "submenu": [],
-          "children": [
-            "ProgressBar",
-            "ScrollBar",
-            "StatusBar",
-            "ToolBar",
-            "ToolBarPanel",
-            "ToolBarTray"
-          ],
-          "icon": "ApplicationBar"
-        },
-        {
-          "name": "Input",
-          "parent": "Main",
-          "submenu": [],
-          "children": [
-            "Button",
-            "CheckBox",
-            "ComboBox",
-            "DatePicker",
-            "GroupBox",
-            "ListBox",
-            "PasswordBox",
-            "RichTextBox",
-            "RadioButton",
-            "Slider"
-          ],
-          "icon": "InheritedUserControl"
-        },
-        {
-          "name": "Display",
-          "parent": "Main",
-          "submenu": [],
-          "children": [
-            "DataGrid",
-            "Viewbox",
-            "Ellipse",
-            "Image",
-            "Label",
-            "MediaElement",
-            "Rectangle",
-            "ScrollViewer",
-            "DocumentViewer",
-            "ContentControl"
-          ],
-          "icon": "DisplayNone"
-        },
-        {
-          "name": "Layout",
-          "parent": "Main",
-          "submenu": [],
-          "children": [
-            "TabControl",
-            "Border",
-            "GridSplitter",
-            "Separator",
-            "Expander"
-          ],
-          "icon": "FlowLayoutPanel"
-        },
-        {
-          "name": "Container",
-          "parent": "Main",
-          "submenu": [],
-          "children": [
-            "Canvas",
-            "DockPanel",
-            "Grid",
-            "Menu",
-            "StackPanel",
-            "TreeView",
-            "WrapPanel"
-          ],
-          "icon": "Container"
-        }
-      ],
-      "commands": [
-        {
-          "text": "Border",
-          "parent": "Layout",
-          "preview": "<Border Background=\"Coral\" Width=\"300\" Padding=\"10\" CornerRadius=\"20\">\n    <TextBlock FontSize=\"16\">Text Surrounded by a Border</TextBlock>\n</Border>",
-          "color": "#c0392b",
-          "type": "UI"
-        },
-        {
-          "text": "Button",
-          "parent": "Input",
-          "preview": "<Button Name=\"btn\" Click=\"OnClick\" ClickMode=\"Release\">\n  Reset\n</Button>",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "Canvas",
-          "parent": "Container",
-          "preview": "<Canvas Height=\"400\" Width=\"400\">\n  <Canvas Height=\"100\" Width=\"100\" Top=\"0\" Left=\"0\" Background=\"Red\"/>\n  <Canvas Height=\"100\" Width=\"100\" Top=\"100\" Left=\"100\" Background=\"Green\"/>\n</Canvas>",
-          "color": "#fbc531",
-          "type": "UI"
-        },
-        {
-          "text": "CheckBox",
-          "parent": "Input",
-          "preview": "<CheckBox>Enable feature ABC</CheckBox>",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "ComboBox",
-          "parent": "Input",
-          "preview": "<ComboBox Name=\"comboBox1\"\n            ItemsSource=\"{StaticResource myVacations}\"\n            Text=\"My Cities\"\n            IsEditable=\"true\"\n            IsReadOnly=\"true\"/>",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "ContentControl",
-          "parent": "Input",
-          "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "DataGrid",
-          "parent": "Display",
-          "preview": "<DataGrid Name=\"DG1\" ItemsSource=\"{Binding}\" AutoGenerateColumns=\"False\" >\n    <DataGrid.Columns>\n        <DataGridTextColumn Header=\"First Name\"  Binding=\"{Binding FirstName}\"/>\n        <DataGridTextColumn Header=\"Last Name\" Binding=\"{Binding LastName}\" />\n    </DataGrid.Columns>\n</DataGrid>",
-          "color": "#27ae60",
-          "type": "UI"
-        },
-        {
-          "text": "DatePicker",
-          "parent": "Input",
-          "preview": "<DatePicker/>",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "DockPanel",
-          "parent": "Container",
-          "preview": "<DockPanel LastChildFill = \"True\"> \n   <Button Content = \"Top\" DockPanel.Dock = \"Top\" Click = \"Click_Me\" /> \n   <Button Content = \"Bottom\" DockPanel.Dock = \"Bottom\" Click = \"Click_Me\" />\n   <Button Content = \"Left\" Click = \"Click_Me\" /> \n   <Button Content = \"Right\" DockPanel.Dock = \"Right\" Click = \"Click_Me\" /> \n   <Button Content = \"Center\" Click = \"Click_Me\" /> \n</DockPanel>",
-          "color": "#fbc531",
-          "type": "UI"
-        },
-        {
-          "text": "DocumentViewer",
-          "parent": "Display",
-          "preview": "<DocumentViewer/>",
-          "color": "#27ae60",
-          "type": "UI"
-        },
-        {
-          "text": "Ellipse",
-          "parent": "Display",
-          "preview": "<Ellipse\n  Width=\"100\"\n  Height=\"50\"\n  Fill=\"Blue\"\n  Stroke=\"Black\"\n  StrokeThickness=\"4\"\n  Canvas.Left=\"10\"\n  Canvas.Top=\"100\"/>",
-          "color": "#27ae60",
-          "type": "UI"
-        },
-        {
-          "text": "Expander",
-          "parent": "Layout",
-          "preview": "<Expander>  \n    <TextBlock TextWrapping=\"Wrap\" FontSize=\"18\">  \n    Text \n    </TextBlock>  \n</Expander>",
-          "color": "#c0392b",
-          "type": "UI"
-        },
-        {
-          "text": "Grid",
-          "parent": "Container",
-          "preview": "<Grid VerticalAlignment=\"Top\" HorizontalAlignment=\"Left\" ShowGridLines=\"True\" Width=\"250\" Height=\"100\">\n  <Grid.ColumnDefinitions>\n    <ColumnDefinition />\n    <ColumnDefinition />\n  </Grid.ColumnDefinitions>\n  <Grid.RowDefinitions>\n    <RowDefinition />\n    <RowDefinition />\n  </Grid.RowDefinitions>\n  <TextBlock Grid.Row=\"0\" Grid.Column=\"0\">text</TextBlock>\n  <TextBlock Grid.Row=\"0\" Grid.Column=\"1\">text</TextBlock>\n  <TextBlock Grid.Row=\"1\" Grid.Column=\"0\">text</TextBlock>\n  <TextBlock Grid.Row=\"1\" Grid.Column=\"1\">text</TextBlock>\n</Grid>",
-          "color": "#fbc531",
-          "type": "UI"
-        },
-        {
-          "text": "GridSplitter",
-          "parent": "Layout",
-          "preview": "<GridSplitter Grid.Column=\"1\"\n              HorizontalAlignment=\"Center\"\n              VerticalAlignment=\"Stretch\"\n              Background=\"Black\" \n              ShowsPreview=\"True\"\n              Width=\"5\"\n              />",
-          "color": "#c0392b",
-          "type": "UI"
-        },
-        {
-          "text": "GroupBox",
-          "parent": "Input",
-          "preview": "<GroupBox Header=\"GroupBox Sample\" Margin=\"10\" Padding=\"10\">\n    <StackPanel>\n    <TextBlock>First name:</TextBlock>\n    <TextBox />\n    <TextBlock>Last name:</TextBlock>\n    <TextBox />\n    <Button Margin=\"0,20\">Add User</Button>\n    </StackPanel>\n</GroupBox>",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "Image",
-          "parent": "Display",
-          "preview": "<Image Width=\\\"200\\\">\n  <Image.Source>\n    <BitmapImage DecodePixelWidth=\\\"200\\\"  \n     UriSource=\\\"C:\\Documents and Settings\\Water Lilies.jpg\\\" />\n  </Image.Source>\n</Image>",
-          "color": "#27ae60",
-          "type": "UI"
-        },
-        {
-          "text": "Label",
-          "parent": "Display",
-          "preview": "<Label Content=\"This is a Label control.\" />",
-          "color": "#27ae60",
-          "type": "UI"
-        },
-        {
-          "text": "ListBox",
-          "parent": "Input",
-          "preview": "<ListBox>\n    <ListBoxItem>ListBox Item #1</ListBoxItem>\n    <ListBoxItem>ListBox Item #2</ListBoxItem>\n    <ListBoxItem>ListBox Item #3</ListBoxItem>\n</ListBox>",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "MediaElement",
-          "parent": "Display",
-          "preview": "<MediaElement Height=\"100\" Width=\"100\"/>",
-          "color": "#27ae60",
-          "type": "UI"
-        },
-        {
-          "text": "Menu",
-          "parent": "Container",
-          "preview": "<Menu>\n  <MenuItem Header=\"_Edit\">\n    <MenuItem Command=\"ApplicationCommands.Copy\"/>\n    <MenuItem Command=\"ApplicationCommands.Cut\"/>\n    <MenuItem Command=\"ApplicationCommands.Paste\"/>\n  </MenuItem>\n</Menu>",
-          "color": "#fbc531",
-          "type": "UI"
-        },
-        {
-          "text": "PasswordBox",
-          "parent": "Input",
-          "preview": "<PasswordBox x:Name=\"passwordBox\" Width=\"200\" MaxLength=\"16\"\n             PasswordChanged=\"passwordBox_PasswordChanged\"/>\n<TextBlock x:Name=\"statusText\" Margin=\"10\" HorizontalAlignment=\"Center\"/>",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "ProgressBar",
-          "parent": "Tool Bars",
-          "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
-          "color": "#9b59b6",
-          "type": "UI"
-        },
-        {
-          "text": "RadioButton",
-          "parent": "Input",
-          "preview": "<RadioButton>\n    content\n</RadioButton>",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "Rectangle",
-          "parent": "Display",
-          "preview": "<Rectangle Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
-          "color": "#27ae60",
-          "type": "UI"
-        },
-        {
-          "text": "RichTextBox",
-          "parent": "Input",
-          "preview": "<Page xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n  xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">\n  <StackPanel>\n    <RichTextBox>\n      <FlowDocument>\n        <Paragraph>\n          This is flow content and you can <Bold>edit me!</Bold>\n        </Paragraph>\n      </FlowDocument>\n    </RichTextBox>\n  </StackPanel>\n</Page>\n",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "ScrollBar",
-          "parent": "Tool Bars",
-          "preview": "<ScrollBar />",
-          "color": "#9b59b6",
-          "type": "UI"
-        },
-        {
-          "text": "ScrollViewer",
-          "parent": "Display",
-          "preview": "<Page xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n      xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n      WindowTitle=\"ScrollViewer Sample\">\n  <ScrollViewer HorizontalScrollBarVisibility=\"Auto\">\n    <StackPanel VerticalAlignment=\"Top\" HorizontalAlignment=\"Left\">\n      <TextBlock TextWrapping=\"Wrap\" Margin=\"0,0,0,20\">Scrolling is enabled when it is necessary.\n       Resize the window, making it larger and smaller.</TextBlock>\n      <Rectangle Fill=\"Red\" Width=\"500\" Height=\"500\"></Rectangle>\n    </StackPanel>\n  </ScrollViewer>\n</Page>",
-          "color": "#27ae60",
-          "type": "UI"
-        },
-        {
-          "text": "Separator",
-          "parent": "Layout",
-          "preview": "<ToolBarTray Background=\\\"White\\\">\n    <ToolBar Band=\\\"1\\\" BandIndex=\\\"1\\\">\n      <Button>\n        <Image Source=\\\"toolbargraphics\\new.bmp\\\" />\n      </Button>\n      <Separator/>\n      <Button>\n        <Image Source=\\\"toolbargraphics\\cut.bmp\\\" />\n      </Button>\n      <Separator/>\n      <Button>\n        <Image Source=\\\"toolbargraphics\\print.bmp\\\" />\n      </Button>\n    </ToolBar>\n  </ToolBarTray>",
-          "color": "#c0392b",
-          "type": "UI"
-        },
-        {
-          "text": "Slider",
-          "parent": "Input",
-          "preview": "<Slider Width=\"120\"/>",
-          "color": "#3498db",
-          "type": "UI"
-        },
-        {
-          "text": "StackPanel",
-          "parent": "Container",
-          "preview": "<StackPanel Height=\"100\" Width=\"100\">\n</StackPanel>",
-          "color": "#fbc531",
-          "type": "UI"
-        },
-        {
-          "text": "StatusBar",
-          "parent": "Tool Bars",
-          "preview": "<StatusBar Name=\"sbar\"\n            VerticalAlignment=\"Bottom\" Background=\"Beige\" >\n  <StatusBarItem>\n    <TextBlock>Downloading File</TextBlock>\n  </StatusBarItem>\n</StatusBar>",
-          "color": "#9b59b6",
-          "type": "UI"
-        },
-        {
-          "text": "TabControl",
-          "parent": "Layout",
-          "preview": "<TabControl>\n    <TabItem>\n      <TabItem.Header>\n        <StackPanel Orientation=\"Horizontal\">\n          <Ellipse Width=\"10\" Height=\"10\" Fill=\"DarkGray\"/>\n          <TextBlock>Tab 1</TextBlock>\n        </StackPanel>\n      </TabItem.Header>\n    </TabItem>\n  </TabControl>",
-          "color": "#c0392b",
-          "type": "UI"
-        },
-        {
-          "text": "TextBox",
-          "parent": "Display",
-          "preview": "<TextBox TextWrapping=\"Wrap\" Text=\"TextBox\" Width=\"120\"/>",
-          "color": "#27ae60",
-          "type": "UI"
-        },
-        {
-          "text": "ToolBar",
-          "parent": "Tool Bars",
-          "preview": "<ToolBar Band=\"1\" BandIndex=\"1\">\n    <Button>\n      <Image Source=\"toolbargraphics\new.bmp\" />\n    </Button>\n</ToolBar>",
-          "color": "#9b59b6",
-          "type": "UI"
-        },
-        {
-          "text": "ToolBarPanel",
-          "parent": "Tool Bars",
-          "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
-          "color": "#9b59b6",
-          "type": "UI"
-        },
-        {
-          "text": "ToolBarTray",
-          "parent": "Tool Bars",
-          "preview": "<ToolBarTray Background=\\\"White\\\">\n    <ToolBar Band=\\\"1\\\" BandIndex=\\\"1\\\">\n      <Button>\n        <Image Source=\\\"toolbargraphics\\cut.bmp\\\" />\n      </Button>\n    </ToolBar>\n  </ToolBarTray>",
-          "color": "#9b59b6",
-          "type": "UI"
-        },
-        {
-          "text": "TreeView",
-          "parent": "Container",
-          "preview": "<TreeView>\n    <TreeViewItem Header=\"Employee1\">\n      <TreeViewItem Header=\"Jesper\"/>\n      <TreeViewItem Header=\"Aaberg\"/>\n      <TreeViewItem Header=\"12345\"/>\n    </TreeViewItem>\n   <TreeViewItem Header=\"Employee2\">\n      <TreeViewItem Header=\"Dominik\"/>\n      <TreeViewItem Header=\"Paiha\"/>\n      <TreeViewItem Header=\"98765\"/>\n    </TreeViewItem>\n  </TreeView>",
-          "color": "#fbc531",
-          "type": "UI"
-        },
-        {
-          "text": "Viewbox",
-          "parent": "Display",
-          "preview": "<Viewbox Height=\"200\" HorizontalAlignment=\"Left\" Margin=\"19,45,0,0\"\n     Name=\"viewbox1\" VerticalAlignment=\"Top\" Width=\"300\"\n    Stretch=\"Fill\">\n<Ellipse Width=\"100\" Height=\"100\" Fill=\"Red\" />\n</Viewbox>  ",
-          "color": "#27ae60",
-          "type": "UI"
-        },
-        {
-          "text": "WrapPanel",
-          "parent": "Container",
-          "preview": "<WrapPanel Background=\"LightBlue\" Width=\"200\" Height=\"100\">\n     <Button Width=\"200\">Button 1      </Button>\n     <Button>Button 2</Button>\n     <Button>Button 3</Button>\n     <Button>Button 4</Button>\n</WrapPanel>",
-          "color": "#3498db",
-          "type": "UI"
         }
       ]
     }

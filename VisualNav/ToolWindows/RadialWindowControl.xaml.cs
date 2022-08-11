@@ -61,161 +61,172 @@ public partial class RadialWindowControl
     private void RadialMenuGeneration()
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+        {
+            _menu = new Dictionary<string, List<RadialMenuItem>>();
+            _state = new Stack<string>();
+            MainMenu.Items = new List<RadialMenuItem>();
+            _json ??= await Schema.Schema.LoadAsync();
+
+            // get the current language + Check if it is contained in the list.
+            Radialmenu language = null;
+            var defaultTxt = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types:"; // .cs, .xaml
+
+            foreach (var lan in _json.RadialMenu)
             {
-                _menu = new Dictionary<string, List<RadialMenuItem>>();
-                _state = new Stack<string>();
-                MainMenu.Items = new List<RadialMenuItem>();
-                _json ??= await Schema.Schema.LoadAsync();
-
-                // get the current language + Check if it is contained in the list.
-                Radialmenu language = null;
-                var defaultTxt = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types:"; // .cs, .xaml
-
-                foreach (var lan in _json.RadialMenu)
+                foreach (var ext in lan.FileExt)
                 {
-                    foreach (var ext in lan.FileExt)
-                    {
-                        defaultTxt = defaultTxt + ext + " ";
-                        if (!ext.Equals(LanguageMediator.GetCurrentActiveFileExtension())) continue;
+                    defaultTxt = defaultTxt + ext + " ";
+                    if (!ext.Equals(LanguageMediator.GetCurrentActiveFileExtension())) continue;
 
-                        if (language == null)
-                            language = lan;
-                        else
-                        {
-                            // join the two entries menu items and commands
-                            var temp = language;
-                            
-                            language = new Radialmenu
-                            {
-                                FileExt = temp.FileExt.Concat(lan.FileExt).ToArray(),
-                                Text = "Code",
-                                allow_insertion_from_menu = temp.allow_insertion_from_menu || lan.allow_insertion_from_menu,
-                                MenuItems = temp.MenuItems.Concat(lan.MenuItems).ToArray(),
-                                Commands = temp.Commands.Concat(lan.Commands).ToArray(),
-                        };
-                        }
-                    }
-                }
-
-                if (language == null) // if not a file, hide insertion checkbox, and show message
-                {
-                    ProgressText.Text = defaultTxt;
-                    MainMenu.CentralItem = null;
-                    InsertionPanel.Visibility = Visibility.Hidden;
-                    return;
-                }
-
-                InsertionPanel.Visibility = language.allow_insertion_from_menu // if a file type supports insert mode, val from schema.json
-                                        ? Visibility.Visible
-                                        : Visibility.Hidden;
-
-                MainGrid.ClipToBounds = true;
-
-                MainMenu.CentralItem = new RadialMenuCentralItem // central back button
-                {
-                    Content = BuildIcon("Backwards"),
-                    Background = (SolidColorBrush)new BrushConverter().ConvertFrom(_colorMap["WhiteIce"])
-                };
-                MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
-
-                // Populate menu
-                foreach (var menuItem in language.MenuItems) // iterates menus in the language in schema.json
-                {
-                    var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
-                    var item = MenuBlock(stackPanel, _colorMap["WhiteIce"], _colorMap["Chambray"]);
-                    item.MouseEnter += (_, _) => IncreaseOnHover(item, _colorMap);
-                    item.MouseLeave += (_, _) => ResetSizeOnExitHover(item, _colorMap);
-                    // icon
-                    var image = BuildIcon(menuItem.Icon);
-                    stackPanel.Children.Add(image);
-                    // name
-                    stackPanel.Children.Add(new TextBlock { Text = menuItem.Name });
-                    // event handler
-                    item.Click += (_, _) =>
-                        RadialDialControl_Click(menuItem.Name, false);
-
-                    if (!_menu.ContainsKey(menuItem.Parent))
-                    {
-                        _menu.Add(menuItem.Parent, new List<RadialMenuItem>());
-                    }
-
-                    _menu[menuItem.Parent].Add(item); // Add menu structure to menu dictionary
-                }
-
-                ProgressText.Text = "Main";  // default progress indicator is Main (top level menu)
-                MainMenu.Items = _menu["Main"];
-                MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync().FireAndForget();
-                MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync().FireAndForget();
-
-                var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); // RenderSize is the size of window, choose the min between height and width
-                var ratio = radius / 150; // conversion rate of radius to size on screen
-                var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 9), 32); // sync all font size in this plugin
-                ProgressText.FontSize = fontSize;
-                InsertionLabel.FontSize = fontSize;
-                Insertion.Height = fontSize * 1.5;
-                Insertion.Width = fontSize * 1.5;
-                Insertion.Margin = new Thickness(0, fontSize * 0.25, 0, 0);
-                MainMenu.CentralItem.Height = Convert.ToDouble(60 * ratio);
-                MainMenu.CentralItem.Width = Convert.ToDouble(60 * ratio);
-
-                foreach (var command in language.Commands) // iterates commands in the language in schema.json
-                {
-                    var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, _colorMap["Varden"],
-                        _colorMap["CreamBrulee"]);
-                    menuBlock.Click += (_, _) =>
-                        RadialDialElement_ClickAsync(command, language).FireAndForget(); //Handler of the command
-                    menuBlock.MouseRightButtonDown +=
-                        (_, _) => RadialDialElement_Remove(command, language); // right click to delete
-                    menuBlock.MouseEnter += (_, _) =>
-                    {
-                        ThreadHelper.JoinableTaskFactory.Run(async () =>
-                        {
-                            await PreviewWindow.Instance.ClearCurrentCommandAsync();
-                            PreviewWindow.Instance.SetCurrentCommand(command);
-                        });
-                    };
-
-                    menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync().FireAndForget();
-                    // Highlight by increasing the radius of radial button
-                    menuBlock.MouseEnter += (_, _) => IncreaseOnHover(menuBlock, _colorMap);
-                    menuBlock.MouseLeave += (_, _) => ResetSizeOnExitHover(menuBlock, _colorMap);
-
-                    if (!_menu.ContainsKey(command.Parent))
-                        _menu.Add(command.Parent, new List<RadialMenuItem>());
-                    _menu[command.Parent].Add(menuBlock);
-                }
-
-                // if a menu contains too many items, it will get unreadable, divide the menu into two
-                IDictionary<string, List<RadialMenuItem>> tempMenu = new Dictionary<string, List<RadialMenuItem>>();
-                foreach (var parent in _menu.Keys)
-                {
-                    if (_menu[parent].Count <= 6 || !_menu[parent][0].Background.ToString().Equals("#FFFFF6E0")) // each command menu
-                        continue;
-
-                    var page1 = _menu[parent].GetRange(0, _menu[parent].Count / 2);
-                    var page1Next = MenuBlock(BuildIcon("BrowseNext"), _colorMap["Varden"], _colorMap["CreamBrulee"]);
-                    page1Next.MouseEnter += (_, _) => IncreaseOnHover(page1Next, _colorMap);
-                    page1Next.MouseLeave += (_, _) => ResetSizeOnExitHover(page1Next, _colorMap);
-                    page1Next.Click += (_, _) => RadialDialControl_Click(parent + "\x00A0 [Page 2]", true);
-                    page1.Add(page1Next);
-
-                    var page2 = _menu[parent].GetRange(_menu[parent].Count / 2, _menu[parent].Count / 2);
-                    var page2Prev = MenuBlock(BuildIcon("BrowsePrevious"), _colorMap["Varden"], _colorMap["CreamBrulee"]);
-                    page2Prev.MouseEnter += (_, _) => IncreaseOnHover(page2Prev, _colorMap);
-                    page2Prev.MouseLeave += (_, _) => ResetSizeOnExitHover(page2Prev, _colorMap);
-                    page2Prev.Click += (_, _) => RadialDialControl_Click(parent, true);
-                    page2.Add(page2Prev);
-
-                    tempMenu.Add(parent, page1);
-                    tempMenu.Add(parent + "\x00A0 [Page 2]", page2);
-                }
-
-                foreach (var key in tempMenu.Keys)  // replace the origal into the divided menus
-                    if (key.Any(char.IsDigit))
-                        _menu.Add(key, tempMenu[key]);
+                    if (language == null)
+                        language = lan;
                     else
-                        _menu[key] = tempMenu[key];
+                    {
+                        // join the two entries menu items and commands
+                        var temp = language;
+                        if (lan.Text.Equals("Code"))
+                        {
+                            foreach (var menu in lan.MenuItems)
+                            {
+                                if (menu.Parent.Equals("Main"))
+                                {
+                                    menu.Parent = "Code";
+                                }
+                            }
+                        }
+                        language = new Radialmenu
+                        {
+                            FileExt = temp.FileExt.Concat(lan.FileExt).ToArray(),
+                            Text = "Code",
+                            allow_insertion_from_menu = temp.allow_insertion_from_menu || lan.allow_insertion_from_menu,
+                            MenuItems = temp.MenuItems.Concat(lan.MenuItems).ToArray(),
+                            Commands = temp.Commands.Concat(lan.Commands).ToArray(),
+                        };
+
+
+                    }
+                }
             }
+
+            if (language == null) // if not a file, hide insertion checkbox, and show message
+            {
+                ProgressText.Text = defaultTxt;
+                MainMenu.CentralItem = null;
+                InsertionPanel.Visibility = Visibility.Hidden;
+                return;
+            }
+
+            InsertionPanel.Visibility = language.allow_insertion_from_menu // if a file type supports insert mode, val from schema.json
+                                    ? Visibility.Visible
+                                    : Visibility.Hidden;
+
+            MainGrid.ClipToBounds = true;
+
+            MainMenu.CentralItem = new RadialMenuCentralItem // central back button
+            {
+                Content = BuildIcon("Backwards"),
+                Background = (SolidColorBrush)new BrushConverter().ConvertFrom(_colorMap["WhiteIce"])
+            };
+            MainMenu.CentralItem.Click += (_, _) => RadialDialControl_Back();
+
+            // Populate menu
+            foreach (var menuItem in language.MenuItems) // iterates menus in the language in schema.json
+            {
+                var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
+                var item = MenuBlock(stackPanel, _colorMap["WhiteIce"], _colorMap["Chambray"]);
+                item.MouseEnter += (_, _) => IncreaseOnHover(item, _colorMap);
+                item.MouseLeave += (_, _) => ResetSizeOnExitHover(item, _colorMap);
+                // icon
+                var image = BuildIcon(menuItem.Icon);
+                stackPanel.Children.Add(image);
+                // name
+                stackPanel.Children.Add(new TextBlock { Text = menuItem.Name });
+                // event handler
+                item.Click += (_, _) =>
+                    RadialDialControl_Click(menuItem.Name, false);
+
+                if (!_menu.ContainsKey(menuItem.Parent))
+                {
+                    _menu.Add(menuItem.Parent, new List<RadialMenuItem>());
+                }
+
+                _menu[menuItem.Parent].Add(item); // Add menu structure to menu dictionary
+            }
+
+            ProgressText.Text = "Main";  // default progress indicator is Main (top level menu)
+            MainMenu.Items = _menu["Main"];
+            MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync().FireAndForget();
+            MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync().FireAndForget();
+
+            var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); // RenderSize is the size of window, choose the min between height and width
+            var ratio = radius / 150; // conversion rate of radius to size on screen
+            var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 9), 32); // sync all font size in this plugin
+            ProgressText.FontSize = fontSize;
+            InsertionLabel.FontSize = fontSize;
+            Insertion.Height = fontSize * 1.5;
+            Insertion.Width = fontSize * 1.5;
+            Insertion.Margin = new Thickness(0, fontSize * 0.25, 0, 0);
+            MainMenu.CentralItem.Height = Convert.ToDouble(60 * ratio);
+            MainMenu.CentralItem.Width = Convert.ToDouble(60 * ratio);
+
+            foreach (var command in language.Commands) // iterates commands in the language in schema.json
+            {
+                var menuBlock = MenuBlock(new TextBlock { Text = command.Text }, _colorMap["Varden"],
+                    _colorMap["CreamBrulee"]);
+                menuBlock.Click += (_, _) =>
+                    RadialDialElement_ClickAsync(command, language).FireAndForget(); //Handler of the command
+                menuBlock.MouseRightButtonDown +=
+                    (_, _) => RadialDialElement_Remove(command, language); // right click to delete
+                menuBlock.MouseEnter += (_, _) =>
+                {
+                    ThreadHelper.JoinableTaskFactory.Run(async () =>
+                    {
+                        await PreviewWindow.Instance.ClearCurrentCommandAsync();
+                        PreviewWindow.Instance.SetCurrentCommand(command);
+                    });
+                };
+
+                menuBlock.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync().FireAndForget();
+                // Highlight by increasing the radius of radial button
+                menuBlock.MouseEnter += (_, _) => IncreaseOnHover(menuBlock, _colorMap);
+                menuBlock.MouseLeave += (_, _) => ResetSizeOnExitHover(menuBlock, _colorMap);
+
+                if (!_menu.ContainsKey(command.Parent))
+                    _menu.Add(command.Parent, new List<RadialMenuItem>());
+                _menu[command.Parent].Add(menuBlock);
+            }
+
+            // if a menu contains too many items, it will get unreadable, divide the menu into two
+            IDictionary<string, List<RadialMenuItem>> tempMenu = new Dictionary<string, List<RadialMenuItem>>();
+            foreach (var parent in _menu.Keys)
+            {
+                if (_menu[parent].Count <= 6 || !_menu[parent][0].Background.ToString().Equals("#FFFFF6E0")) // each command menu
+                    continue;
+
+                var page1 = _menu[parent].GetRange(0, _menu[parent].Count / 2);
+                var page1Next = MenuBlock(BuildIcon("BrowseNext"), _colorMap["Varden"], _colorMap["CreamBrulee"]);
+                page1Next.MouseEnter += (_, _) => IncreaseOnHover(page1Next, _colorMap);
+                page1Next.MouseLeave += (_, _) => ResetSizeOnExitHover(page1Next, _colorMap);
+                page1Next.Click += (_, _) => RadialDialControl_Click(parent + "\x00A0 [Page 2]", true);
+                page1.Add(page1Next);
+
+                var page2 = _menu[parent].GetRange(_menu[parent].Count / 2, _menu[parent].Count / 2);
+                var page2Prev = MenuBlock(BuildIcon("BrowsePrevious"), _colorMap["Varden"], _colorMap["CreamBrulee"]);
+                page2Prev.MouseEnter += (_, _) => IncreaseOnHover(page2Prev, _colorMap);
+                page2Prev.MouseLeave += (_, _) => ResetSizeOnExitHover(page2Prev, _colorMap);
+                page2Prev.Click += (_, _) => RadialDialControl_Click(parent, true);
+                page2.Add(page2Prev);
+
+                tempMenu.Add(parent, page1);
+                tempMenu.Add(parent + "\x00A0 [Page 2]", page2);
+            }
+
+            foreach (var key in tempMenu.Keys)  // replace the origal into the divided menus
+                if (key.Any(char.IsDigit))
+                    _menu.Add(key, tempMenu[key]);
+                else
+                    _menu[key] = tempMenu[key];
+        }
         ).FireAndForget();
     }
 
@@ -673,5 +684,5 @@ public partial class RadialWindowControl
         }).FireAndForget();
     }
 
-   
+
 }
