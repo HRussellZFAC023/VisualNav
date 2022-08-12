@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using VisualNav.Schema;
 using VisualNav.Utilities;
-using Label = System.Windows.Controls.Label;
 
 namespace VisualNav.ToolWindows;
 
@@ -44,8 +43,12 @@ public partial class PreviewWindowControl
 
     public void SetCurrentMenu(Menuitem m)
     {
-        Descriptions.Children.Clear();
-        Descriptions.Children.Add(new Label { Content = m.Description });
+        ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+        {
+            await Task.Delay(100);
+            Descriptions.Children.Clear();
+            Descriptions.Children.Add(new TextBlock { Text = m.Description, TextWrapping = TextWrapping.Wrap });
+        }).FireAndForget();
     }
 
     public void SetCurrentCommand(Command c)
