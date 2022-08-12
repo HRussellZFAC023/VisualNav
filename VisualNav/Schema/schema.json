@@ -15,7 +15,7 @@
             "New Layer"
           ],
           "icon": "AddEvent",
-          "description": "Allows you to custom functions and objects that do not exist in the standard blocks.\n To create, 'double click' on the desired code in the editor to highlight it (you can find or paste or use intellisense here).These are saved in 'layers' for easy reuse, to remove an item, use 'left click'"
+          "description": "Allows you to custom functions and objects that do not exist in the standard blocks.\nTo create, 'double click' on the desired code in the editor to highlight it (you can find or paste or use intellisense here).These are saved in 'layers' for easy reuse, to remove an item, use 'left click'"
         },
         {
           "name": "Test",

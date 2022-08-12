@@ -23,8 +23,8 @@
           MinWidth="200"
           MinHeight="300">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
+            <RowDefinition  />
+            <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -37,8 +37,8 @@
             <imaging:CrispImage  MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" />
-        <StackPanel Orientation="Horizontal" Name="Descriptions"  Grid.Row="1" Grid.Column="0" />
+        <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" Margin="5" />
+        <StackPanel Orientation="Horizontal" Name="Descriptions"  Grid.Row="1" Grid.Column="0" Margin="5" />
 
         <Border  Grid.Row="2"
                  Grid.Column="0"
