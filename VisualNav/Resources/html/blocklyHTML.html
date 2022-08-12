@@ -81,6 +81,10 @@
                         trashcan: true
                     });
             }
+            var zoomControl = document.querySelectorAll('.blocklyZoom');
+            zoomControl[0].style.display = 'none';
+            zoomControl[1].style.display = 'none';
+            zoomControl[2].style.display = 'none';
 
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -105,14 +109,9 @@
             Blockly.svgResize(workspace);
             initCodeGenerator();
 
-            var zoomControl = document.querySelectorAll('.blocklyZoom');
-            zoomControl[0].style.display = 'none';
-            zoomControl[1].style.display = 'none';
-            zoomControl[2].style.display = 'none';
         }
 
         function addNewBlockToArea(text, type) {
-
 
             if (type === 'custom_object' || type === 'custom_function') {
                 type = type + '_' + text;
@@ -384,7 +383,7 @@
                 "colour": 230,
                 "tooltip": "",
                 "helpUrl": ""
-                },
+            },
             {
                 "type": "debugassert",
                 "message0": "Debug.Assert %1 message %2",
@@ -472,20 +471,20 @@
                             */
                         this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
 
-                         this.setOutput(true, 'custom_function');
-                         if ((this.workspace.options.comments ||
-                             (this.workspace.options.parentWorkspace &&
-                                 this.workspace.options.parentWorkspace.options.comments)) &&
-                             Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']) {
-                             this.setCommentText(Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']);
-                         }
-                         this.setStyle('procedure_blocks');
-                         this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
-                         this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
-                         this.arguments_ = [];
-                         this.argumentVarModels_ = [];
-                         this.setStatements_(false);
-                         this.statementConnection_ = null;
+                        this.setOutput(true, 'custom_function');
+                        if ((this.workspace.options.comments ||
+                            (this.workspace.options.parentWorkspace &&
+                                this.workspace.options.parentWorkspace.options.comments)) &&
+                            Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']) {
+                            this.setCommentText(Blockly.Msg['PROCEDURES_DEFRETURN_COMMENT']);
+                        }
+                        this.setStyle('procedure_blocks');
+                        this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
+                        this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
+                        this.arguments_ = [];
+                        this.argumentVarModels_ = [];
+                        this.setStatements_(false);
+                        this.statementConnection_ = null;
                     },
 
                     /**
@@ -654,7 +653,7 @@
                     Blockly.CSharp.ORDER_ATOMIC) || '0.0';
                 var value_message = Blockly.CSharp.valueToCode(this, 'message',
                     Blockly.CSharp.ORDER_ATOMIC) || '';
-                
+
                 if (value_message == '') {
                     var code = 'Assert.AreNotEqual(' + value_notexpected + ', ' + value_actual + ', ' + value_delta + ');';
                 } else {
@@ -669,7 +668,7 @@
                     Blockly.CSharp.ORDER_ATOMIC) || 'null';
                 var value_message = Blockly.CSharp.valueToCode(this, 'message',
                     Blockly.CSharp.ORDER_ATOMIC) || '';
-                
+
                 if (value_message == '') {
                     var code = 'Assert.AreSame(' + value_expected + ', ' + value_actual + ');';
                 } else {

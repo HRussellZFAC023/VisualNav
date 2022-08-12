@@ -26,22 +26,24 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="60" />
+            <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
-
-        <StackPanel
-            Margin="5"
-            Orientation="Horizontal" Panel.ZIndex="100" Grid.Row="0" Grid.Column="0" MaxHeight="25" HorizontalAlignment="Right"
-            theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
-            <imaging:CrispImage  MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
-            <imaging:CrispImage  MouseDown="ResetZoom" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.RadioButton}" />
-            <imaging:CrispImage  MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
-        </StackPanel>
 
         <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" Margin="5" />
         <StackPanel Orientation="Horizontal" Name="Descriptions"  Grid.Row="1" Grid.Column="0" Margin="5" />
 
+        <StackPanel
+            Margin="5"
+            Name="icons"
+            Orientation="Horizontal" Panel.ZIndex="100" Grid.Row="2" Grid.Column="0" MaxHeight="25" HorizontalAlignment="Right"
+            theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
+            <imaging:CrispImage  MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
+            <imaging:CrispImage  MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
+        </StackPanel>
+
         <Border  Grid.Row="2"
+                 Grid.RowSpan="2"
                  Grid.Column="0"
                  Visibility="Hidden"
                  Name="TextBorder"
@@ -51,6 +53,7 @@
             <TextBlock Name="PreviewText" />
         </Border>
         <Border  Grid.Row="2"
+                 Grid.RowSpan="2"
                  Grid.Column="0"
                  BorderBrush="LightSlateGray"
                  BorderThickness="1"
