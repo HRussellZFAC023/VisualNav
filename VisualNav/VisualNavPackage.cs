@@ -25,6 +25,6 @@ public sealed class VisualNavPackage : ToolkitPackage
         await this.RegisterCommandsAsync();
         this.RegisterToolWindows();
         await LanguageMediator.InitializeAsync();
-        
+
     }
 }

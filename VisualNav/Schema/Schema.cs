@@ -15,14 +15,14 @@ public class Schema
         StreamReader reader;
         try
         {
-             reader = new StreamReader(file);
+            reader = new StreamReader(file);
         }
         catch (Exception)
         {
             file = Path.Combine(dir!, "Schema", "Schema.json");
-             reader = new StreamReader(file);
+            reader = new StreamReader(file);
         }
-        
+
         //using var reader = new StreamReader(file);
         var json = await reader.ReadToEndAsync();
         return JsonConvert.DeserializeObject<Schema>(json);
@@ -45,7 +45,7 @@ public class Menuitem
     public string[] Submenu { get; set; }
     public string[] Children { get; set; }
     public string Icon { get; set; }
-    public string Description {get; set; }
+    public string Description { get; set; }
 }
 
 public class Command

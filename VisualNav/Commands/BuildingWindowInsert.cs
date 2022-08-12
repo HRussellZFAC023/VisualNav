@@ -7,7 +7,7 @@ internal sealed class BuildingWindowInsert : BaseCommand<BuildingWindowInsert>
 {
     protected override Task ExecuteAsync(OleMenuCmdEventArgs e)
     {
-        BuildingWindow.Instance.InsertCodeButton_Click(null,null);
+        BuildingWindow.Instance.InsertCodeButton_Click(null, null);
         return Task.CompletedTask;
     }
 }

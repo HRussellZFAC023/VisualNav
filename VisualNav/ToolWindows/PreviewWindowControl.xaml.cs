@@ -35,22 +35,22 @@ public partial class PreviewWindowControl
             await Task.Delay(100);
             Widgets.Children.Clear();
             Descriptions.Children.Clear();
-            Descriptions.Children.Add(
-                new TextBlock
-                {
-                    Text = c.Description,
-                    TextWrapping = TextWrapping.Wrap,
-                    Width = RootGrid.Width,
-                    FontSize = GetFontSize()
-                });
             Widgets.Children.Add(
-                new TextBlock
-                {
-                    Text = LanguageMediator.GetCurrentActiveFileExtension() + " - " + c.Text,
-                    TextWrapping = TextWrapping.Wrap,
-                    Width = RootGrid.Width,
-                    FontSize = GetFontSize()
-                });
+            new TextBlock
+            {
+                Text = LanguageMediator.GetCurrentActiveFileExtension() + " - " + c.Text,
+                TextWrapping = TextWrapping.Wrap,
+                Width = RootGrid.Width,
+                FontSize = GetFontSize()
+            });
+            Descriptions.Children.Add(
+        new TextBlock
+        {
+            Text = c.Description,
+            TextWrapping = TextWrapping.Wrap,
+            Width = RootGrid.Width,
+            FontSize = c.Description.Length > 70 ? GetFontSize() : GetFontSize() / 2
+        });
         }).FireAndForget();
     }
 
@@ -75,7 +75,7 @@ public partial class PreviewWindowControl
                     Text = m.Description,
                     TextWrapping = TextWrapping.Wrap,
                     Width = RootGrid.Width,
-                    FontSize = GetFontSize()
+                    FontSize = m.Description.Length > 70 ? GetFontSize() : GetFontSize() / 2
                 });
         }).FireAndForget();
     }
