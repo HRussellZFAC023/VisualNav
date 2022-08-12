@@ -50,6 +50,9 @@
         function init(preview) {
             blocklyArea = document.getElementById('blocklyArea');
             var blocklyDiv = document.getElementById('blocklyDiv');
+            var zoomControl = document.querySelectorAll('.blocklyZoom');
+            zoomControl[0].style.display = 'none';
+            zoomControl[1].style.display = 'none';
 
             if (preview) { // Only if preview is set to true should we hide the trashcan
                 workspace = Blockly.inject(blocklyDiv,
@@ -81,10 +84,6 @@
                         trashcan: true
                     });
             }
-            var zoomControl = document.querySelectorAll('.blocklyZoom');
-            zoomControl[0].style.display = 'none';
-            zoomControl[1].style.display = 'none';
-            zoomControl[2].style.display = 'none';
 
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -108,6 +107,11 @@
             onresize();
             Blockly.svgResize(workspace);
             initCodeGenerator();
+            var zoomControl = document.querySelectorAll('.blocklyZoom');
+            zoomControl[0].style.display = 'none';
+            zoomControl[1].style.display = 'none';
+            zoomControl[2].style.display = 'none';
+
 
         }
 
