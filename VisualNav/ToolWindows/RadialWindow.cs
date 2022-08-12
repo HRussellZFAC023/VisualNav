@@ -11,7 +11,7 @@ namespace VisualNav.ToolWindows
         public override string GetTitle(int toolWindowId) => "Command Pallet";
 
         public static readonly RadialWindowControl Instance = new();
-        
+
         public override Type PaneType => typeof(Pane);
 
         public override Task<FrameworkElement> CreateAsync(int toolWindowId, CancellationToken cancellationToken)
