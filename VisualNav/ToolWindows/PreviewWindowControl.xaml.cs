@@ -49,7 +49,7 @@ public partial class PreviewWindowControl
             Text = c.Description,
             TextWrapping = TextWrapping.Wrap,
             Width = RootGrid.Width,
-            FontSize = c.Description.Length < 70 ? GetFontSize() : Math.Max(GetFontSize() / 1.5, 9)
+            FontSize = c.Description.Length < 70 ? GetFontSize() : Math.Max(GetFontSize() / 1.5, 12)
         });
         }).FireAndForget();
     }
@@ -75,7 +75,7 @@ public partial class PreviewWindowControl
                     Text = m.Description,
                     TextWrapping = TextWrapping.Wrap,
                     Width = RootGrid.Width,
-                    FontSize = m.Description.Length < 70 ? GetFontSize() : Math.Max(GetFontSize() / 1.5,9)
+                    FontSize = m.Description.Length < 70 ? GetFontSize() : Math.Max(GetFontSize() / 1.5,12)
                 });
         }).FireAndForget();
     }
@@ -84,7 +84,7 @@ public partial class PreviewWindowControl
     {
         var radius = (RenderSize.Width * 0.4); // RenderSize is the width of window
         var ratio = radius / 150; // conversion rate of radial dial radius to size on screen
-        var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 9), 24);
+        var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 12), 24);
         return fontSize;
     }
 

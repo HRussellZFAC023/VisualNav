@@ -61,7 +61,7 @@
                             maxScale: 3,
                             minScale: 0.3,
                             scaleSpeed: 1.2,
-                            pinch: false
+                            pinch: true
                         },
                         trashcan: false
                     });
@@ -81,6 +81,10 @@
                         trashcan: true
                     });
             }
+            var zoomControl = document.querySelectorAll('.blocklyZoom');
+            zoomControl[0].style.display = 'none';
+            zoomControl[1].style.display = 'none';
+            zoomControl[2].style.display = 'none';
 
             var onresize = function (e) {
                 // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -105,10 +109,6 @@
             Blockly.svgResize(workspace);
             initCodeGenerator();
 
-            var zoomControl = document.querySelectorAll('.blocklyZoom');
-            zoomControl[0].style.display = 'none';
-            zoomControl[1].style.display = 'none';
-            zoomControl[2].style.display = 'none';
         }
 
         function addNewBlockToArea(text, type) {
