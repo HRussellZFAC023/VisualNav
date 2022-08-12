@@ -1,5 +1,6 @@
 using CefSharp;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using VisualNav.Schema;
 using VisualNav.Utilities;
@@ -31,10 +32,14 @@ public partial class PreviewWindowControl
 
     private void UpdateCommands(Command c)
     {
-        Widgets.Children.Clear();
-        Descriptions.Children.Clear();
-        Descriptions.Children.Add(new Label { Content = c.Description });
-        Widgets.Children.Add(new Label { Content = LanguageMediator.GetCurrentActiveFileExtension() + " - " + c.Text });
+        ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+        {
+            await Task.Delay(100);
+            Widgets.Children.Clear();
+            Descriptions.Children.Clear();
+            Descriptions.Children.Add(new TextBlock { Text = c.Description, TextWrapping = TextWrapping.Wrap });
+            Widgets.Children.Add(new TextBlock { Text = LanguageMediator.GetCurrentActiveFileExtension() + " - " + c.Text, TextWrapping = TextWrapping.Wrap });
+        }).FireAndForget();
     }
 
     public void SetCurrentMenu(Menuitem m)
