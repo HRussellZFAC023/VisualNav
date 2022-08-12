@@ -1,7 +1,6 @@
 using CefSharp;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using VisualNav.Schema;
 using VisualNav.Utilities;
 
@@ -36,8 +35,22 @@ public partial class PreviewWindowControl
             await Task.Delay(100);
             Widgets.Children.Clear();
             Descriptions.Children.Clear();
-            Descriptions.Children.Add(new TextBlock { Text = c.Description, TextWrapping = TextWrapping.Wrap });
-            Widgets.Children.Add(new TextBlock { Text = LanguageMediator.GetCurrentActiveFileExtension() + " - " + c.Text, TextWrapping = TextWrapping.Wrap });
+            Descriptions.Children.Add(
+                new TextBlock
+                {
+                    Text = c.Description,
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = RootGrid.Width,
+                    FontSize = GetFontSize()
+                });
+            Widgets.Children.Add(
+                new TextBlock
+                {
+                    Text = LanguageMediator.GetCurrentActiveFileExtension() + " - " + c.Text,
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = RootGrid.Width,
+                    FontSize = GetFontSize()
+                });
         }).FireAndForget();
     }
 
@@ -47,8 +60,32 @@ public partial class PreviewWindowControl
         {
             await Task.Delay(100);
             Descriptions.Children.Clear();
-            Descriptions.Children.Add(new TextBlock { Text = m.Description, TextWrapping = TextWrapping.Wrap });
+            Widgets.Children.Clear();
+            Widgets.Children.Add(
+                new TextBlock
+                {
+                    Text = LanguageMediator.GetCurrentActiveFileExtension() + " - " + m.Name,
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = RootGrid.Width,
+                    FontSize = GetFontSize()
+                });
+            Descriptions.Children.Add(
+                new TextBlock
+                {
+                    Text = m.Description,
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = RootGrid.Width,
+                    FontSize = GetFontSize()
+                });
         }).FireAndForget();
+    }
+
+    private double GetFontSize()
+    {
+        var radius = (RenderSize.Width * 0.4); // RenderSize is the width of window
+        var ratio = radius / 150; // conversion rate of radial dial radius to size on screen
+        var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 9), 24);
+        return fontSize;
     }
 
     public void SetCurrentCommand(Command c)
@@ -57,7 +94,8 @@ public partial class PreviewWindowControl
         // if there is no preview, then it is a blockly block
         if (c.Preview.Equals(""))
         {
-            if (c.Type == "") return;
+            if (c.Type == "") return; // no block type to display
+            icons.Visibility = Visibility.Visible;
             BrowserBorder.Visibility = Visibility.Visible;
             TextBorder.Visibility = Visibility.Hidden;
             ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
@@ -70,8 +108,10 @@ public partial class PreviewWindowControl
         }
         else
         {
+            icons.Visibility = Visibility.Hidden;
             BrowserBorder.Visibility = Visibility.Hidden;
             TextBorder.Visibility = Visibility.Visible;
+            PreviewText.FontSize = GetFontSize() * 1.5;
             PreviewText.Text = c.Preview;
             PreviewText.Foreground =
                 new System.Windows.Media.BrushConverter().ConvertFromString(c.Color) as
@@ -81,17 +121,14 @@ public partial class PreviewWindowControl
 
     public void DecreaseSize(object sender, RoutedEventArgs e)
     {
+        // update settings here!
         _blockly.ZoomOutAsync().FireAndForget();
     }
 
     public void IncreaseSize(object sender, RoutedEventArgs e)
     {
+        // update settings here!
         _blockly.ZoomInAsync().FireAndForget();
-    }
-
-    private void ResetZoom(object sender, MouseButtonEventArgs e)
-    {
-        _blockly.ResetZoomAsync().FireAndForget();
     }
 
     public async Task ClearCurrentCommandAsync()

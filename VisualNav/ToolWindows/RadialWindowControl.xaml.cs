@@ -152,6 +152,7 @@ public partial class RadialWindowControl
                 var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); // RenderSize is the size of window, choose the min between height and width
                 var ratio = radius / 150; // conversion rate of radius to size on screen
                 var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 9), 32); // sync all font size in this plugin
+
                 ProgressText.FontSize = fontSize;
                 InsertionLabel.FontSize = fontSize;
                 Insertion.Height = fontSize * 1.5;
