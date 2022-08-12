@@ -23,8 +23,8 @@
           MinWidth="200"
           MinHeight="300">
         <Grid.RowDefinitions>
-            <RowDefinition  />
-            <RowDefinition />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
