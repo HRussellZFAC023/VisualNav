@@ -49,7 +49,7 @@ public partial class PreviewWindowControl
             Text = c.Description,
             TextWrapping = TextWrapping.Wrap,
             Width = RootGrid.Width,
-            FontSize = c.Description.Length > 70 ? GetFontSize() : GetFontSize() / 2
+            FontSize = c.Description.Length < 70 ? GetFontSize() : GetFontSize() / 1.5
         });
         }).FireAndForget();
     }
@@ -75,7 +75,7 @@ public partial class PreviewWindowControl
                     Text = m.Description,
                     TextWrapping = TextWrapping.Wrap,
                     Width = RootGrid.Width,
-                    FontSize = m.Description.Length > 70 ? GetFontSize() : GetFontSize() / 2
+                    FontSize = m.Description.Length < 70 ? GetFontSize() : GetFontSize() / 1.5
                 });
         }).FireAndForget();
     }
