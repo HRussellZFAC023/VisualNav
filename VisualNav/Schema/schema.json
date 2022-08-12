@@ -15,7 +15,7 @@
             "New Layer"
           ],
           "icon": "AddEvent",
-          "description" :"Add your own custom blocks such as objects, functions or new layers."
+          "description": "Allows you to custom functions and objects that do not exist in the standard blocks.\nTo create, 'double click' on the desired code in the editor to highlight it (you can find or paste or use intellisense here).These are saved in 'layers' for easy reuse, to remove an item, use 'left click'"
         },
         {
           "name": "Test",
@@ -25,7 +25,7 @@
             "Debug.Assert()"
           ],
           "icon": "Test",
-          "description" :"Create code block for testing purposes."
+          "description": "Create test assertions for test driven development."
         },
         {
           "name": "Assert",
@@ -44,7 +44,7 @@
             "Equals()"
           ],
           "icon": "Test",
-          "description" :"Create block to assert the relationship between 2 objects."
+          "description": "Create block to assert the relationship between 2 objects."
         }
       ],
       "commands": [
@@ -54,7 +54,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "",
-          "description" :"Create a custom object, which is an abstract data type."
+          "description": "Create a custom object, which is an abstract data type."
         },
         {
           "text": "Custom Function",
@@ -62,7 +62,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "",
-          "description" :"Create a custom function, allowing it to perform a task of your choice."
+          "description": "Create a custom function, allowing it to perform a task of your choice."
         },
         {
           "text": "New Layer",
@@ -70,7 +70,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "",
-          "description" : "Create a new layer (interactive functional component)."
+          "description": "Create a new layer (interactive functional component)."
         },
         {
           "text": "AreEqual()",
@@ -78,7 +78,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "areequal",
-          "description" :"Check if two enities are equal."
+          "description": "Check if two enities are equal."
         },
         {
           "text": "AreNotEqual()",
@@ -86,7 +86,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "arenotequal",
-          "description" :"Check if two entities are not equal"
+          "description": "Check if two entities are not equal"
         },
         {
           "text": "AreSame()",
@@ -94,14 +94,14 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "aresame",
-          "description" :"Tests whether the specified objects both refer to the same object and throws an exception if the two inputs do not refer to the same object. (Microsoft Documentation)"
+          "description": "Tests whether the specified objects both refer to the same object and throws an exception if the two inputs do not refer to the same object. (Microsoft Documentation)"
         },
         {
           "text": "AreNotSame()",
           "parent": "Assert",
           "preview": "",
           "color": "#FF00FFFF",
-	  "type": "arenotsame",
+          "type": "arenotsame",
           "description": "Tests whether the specified objects refer to different objects and throws an exception if the two inputs refer to the same object. (Microsoft Documentation)"
         },
         {
@@ -110,7 +110,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "fail",
-          "description" :"Throws an AssertFailedException."
+          "description": "Throws an AssertFailedException."
         },
         {
           "text": "IsTrue()",
@@ -118,7 +118,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "IsTrue",
-          "description" :"Tests whether the specified condition is true and throws an exception if the condition is false. (Microsoft Documentation)"
+          "description": "Tests whether the specified condition is true and throws an exception if the condition is false. (Microsoft Documentation)"
         },
         {
           "text": "IsFalse()",
@@ -126,7 +126,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "IsFalse",
-          "description" :"Tests whether the specified condition is false and throws an exception if the condition is true. (Microsoft Documentation)"
+          "description": "Tests whether the specified condition is false and throws an exception if the condition is true. (Microsoft Documentation)"
         },
         {
           "text": "IsNull()",
@@ -134,7 +134,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "IsNull",
-          "description" :"Check if object is null"
+          "description": "Check if object is null"
         },
         {
           "text": "IsNotNull()",
@@ -142,7 +142,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "IsNotNull",
-          "description" :"Check if object is not null"
+          "description": "Check if object is not null"
         },
         {
           "text": "Equals()",
@@ -150,7 +150,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "Equals",
-          "description" :"Determines whether the specified object is equal to the current object. (Microsoft Documentation)"
+          "description": "Determines whether the specified object is equal to the current object. (Microsoft Documentation)"
         },
         {
           "text": "Debug.Assert()",
@@ -158,7 +158,7 @@
           "preview": "",
           "color": "#FF00FFFF",
           "type": "debugassert",
-          "description" :"Checks for a condition; if the condition is false, outputs messages and displays a message box that shows the call stack. (Microsoft Documentation)"
+          "description": "Checks for a condition; if the condition is false, outputs messages and displays a message box that shows the call stack. (Microsoft Documentation)"
         }
       ]
     },
@@ -182,7 +182,7 @@
             "logic_ternary"
           ],
           "icon": "CrossGroupLink",
-          "description" :"Add logical blocks of code such as conditional statements that perform a task if true."
+          "description": "Add logical blocks of code such as conditional statements that perform a task if true."
         },
         {
           "name": "Loops",
@@ -196,7 +196,7 @@
             "controls_flow_statements"
           ],
           "icon": "ConditionalLoop",
-          "description" :"Add blocks of code that is repeated until a specific condition is met."
+          "description": "Add blocks of code that is repeated until a specific condition is met."
         },
         {
           "name": "Math",
@@ -218,7 +218,7 @@
             "math_random_float"
           ],
           "icon": "Calculator",
-          "description" :"Create blocks of code that are related to mathematical properties such as rounding up."
+          "description": "Create blocks of code that are related to mathematical properties such as rounding up."
         },
         {
           "name": "Text",
@@ -239,7 +239,7 @@
             "text_print"
           ],
           "icon": "TextBox",
-          "description" :"Create blocks of code that are related to textual properties such as appending text."
+          "description": "Create blocks of code that are related to textual properties such as appending text."
         },
         {
           "name": "Lists",
@@ -260,7 +260,7 @@
             "math_on_list"
           ],
           "icon": "BulletList",
-          "description" :"Create blocks of code that are related to lists (abstract data type referring to a collection of items) such as getting the index of an item in a list."
+          "description": "Create blocks of code that are related to lists (abstract data type referring to a collection of items) such as getting the index of an item in a list."
         },
         {
           "name": "Variables",
@@ -271,7 +271,7 @@
             "variables_set"
           ],
           "icon": "LocalVariable",
-		  "description" :"Create blocks of code that are related to variables (data values) such as getting and setting a variable."
+          "description": "Create blocks of code that are related to variables (data values) such as getting and setting a variable."
         },
         {
           "name": "Functions",
@@ -283,7 +283,7 @@
             "procedures_ifreturn"
           ],
           "icon": "TableFunction",
-          "description" :"Create blocks of code that are related to functions such as defining a function with or without a returned value."
+          "description": "Create blocks of code that are related to functions such as defining a function with or without a returned value."
         }
       ],
       "commands": [
@@ -405,7 +405,7 @@
           "preview": "",
           "color": "#59C059",
           "type": "math_arithmetic",
-          "description": "Add operations such as addition or substraction."
+          "description": "Add operations such as addition or subtraction."
         },
         {
           "text": "single",
@@ -414,7 +414,6 @@
           "color": "#59C059",
           "type": "math_single",
           "description": "Raise to the power of a given expression such as 'e', log10 and more."
-
         },
         {
           "text": "trig",
@@ -630,7 +629,7 @@
           "preview": "",
           "color": "#9966FF",
           "type": "lists_indexOf",
-          "description": "Find the first or last occurence of an item in a list."
+          "description": "Find the first or last occurrence of an item in a list."
         },
         {
           "text": "getIndex",
@@ -654,7 +653,7 @@
           "preview": "",
           "color": "#9966FF",
           "type": "lists_getSublist",
-          "description": "Retrieve specific sublist from inside list (first, position or position from end)."
+          "description": "Retrieve specific sub-list from inside list (first, position or position from end)."
         },
         {
           "text": "sort",
@@ -740,7 +739,7 @@
             "ToolBarTray"
           ],
           "icon": "ApplicationBar",
-          "description" :"Add any kind of bar (graphical control element) to the layout such as status bars or tool bars."
+          "description": "Add any kind of bar (graphical control element) to the layout such as status bars or tool bars."
         },
         {
           "name": "Input",
@@ -759,7 +758,7 @@
             "Slider"
           ],
           "icon": "InheritedUserControl",
-          "description" :"Add any kind of holders of data that will be sent for processing such as password boxes or date pickers."
+          "description": "Add any kind of holders of data that will be sent for processing such as password boxes or date pickers."
         },
         {
           "name": "Display",
@@ -778,7 +777,7 @@
             "ContentControl"
           ],
           "icon": "DisplayNone",
-          "description" :"Add visual elements such as images or document viewers."
+          "description": "Add visual elements such as images or document viewers."
         },
         {
           "name": "Layout",
@@ -792,7 +791,7 @@
             "Expander"
           ],
           "icon": "FlowLayoutPanel",
-          "description" :"Add elements that control the layout such as tab controls or expanders."
+          "description": "Add elements that control the layout such as tab controls or expanders."
         },
         {
           "name": "Container",
@@ -808,7 +807,7 @@
             "WrapPanel"
           ],
           "icon": "Container",
-          "description" :"Add containers to the layout such menus, assisting you in organizing screen elements, including for different display sizes."
+          "description": "Add containers to the layout such menus, assisting you in organizing screen elements, including for different display sizes."
         }
       ],
       "commands": [
@@ -818,7 +817,7 @@
           "preview": "<Border Background=\"Coral\" Width=\"300\" Padding=\"10\" CornerRadius=\"20\">\n    <TextBlock FontSize=\"16\">Text Surrounded by a Border</TextBlock>\n</Border>",
           "color": "#c0392b",
           "type": "UI",
-          "description" :  "Add border (lines) surrounding the relevant text."
+          "description": "Add border (lines) surrounding the relevant text."
         },
         {
           "text": "Button",
@@ -850,7 +849,7 @@
           "preview": "<ComboBox Name=\"comboBox1\"\n            ItemsSource=\"{StaticResource myVacations}\"\n            Text=\"My Cities\"\n            IsEditable=\"true\"\n            IsReadOnly=\"true\"/>",
           "color": "#3498db",
           "type": "UI",
-          "description": "Create a new combobox. It 'Represents a selection control that combines a non-editable text box and a drop-down list box that allows users to select an item from a list. (Microsoft Documentation)'"
+          "description": "Create a new combo-box. It 'Represents a selection control that combines a non-editable text box and a drop-down list box that allows users to select an item from a list. (Microsoft Documentation)'"
         },
         {
           "text": "ContentControl",

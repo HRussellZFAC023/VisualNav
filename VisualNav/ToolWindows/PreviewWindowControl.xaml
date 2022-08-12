@@ -1,4 +1,4 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="VisualNav.ToolWindows.PreviewWindowControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,11 +13,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     toolkit:Themes.UseVsTheme="True">
-    
     <UserControl.Resources>
         <ui:BrushToColorConverter x:Key="BrushToColorConverter" />
     </UserControl.Resources>
-    
     <Grid
           Margin="0,0,0,0"
           VerticalAlignment="Stretch"
@@ -26,32 +24,36 @@
           MinHeight="300">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
+            <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        
-        <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0"/>
         <StackPanel
             Margin="5"
             Orientation="Horizontal" Panel.ZIndex="100" Grid.Row="0" Grid.Column="0" MaxHeight="25" HorizontalAlignment="Right"
-                                theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
+            theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
             <imaging:CrispImage  MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
             <imaging:CrispImage  MouseDown="ResetZoom" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.RadioButton}" />
             <imaging:CrispImage  MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
         </StackPanel>
-        
-        <Border  Grid.Row="1"
+
+        <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" Margin="5" />
+        <StackPanel Orientation="Horizontal" Name="Descriptions"  Grid.Row="1" Grid.Column="0" Margin="5" />
+
+        <Border  Grid.Row="2"
                  Grid.Column="0"
                  Visibility="Hidden"
                  Name="TextBorder"
                  BorderBrush="LightSlateGray"
                  BorderThickness="1"
-                 Margin="1"
-                 >
+                 Margin="1">
             <TextBlock Name="PreviewText" />
         </Border>
-        <Border  Grid.Row="1"
+        <Border  Grid.Row="2"
                  Grid.Column="0"
+                 BorderBrush="LightSlateGray"
+                 BorderThickness="1"
+                 Margin="1"
                  Name="BrowserBorder">
             <browser:ChromiumWebBrowser x:Name="Browser" />
         </Border>

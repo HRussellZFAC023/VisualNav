@@ -84,7 +84,7 @@ public partial class RadialWindowControl
                         {
                             // join the two entries menu items and commands
                             var temp = language;
-                            
+
                             language = new Radialmenu
                             {
                                 FileExt = temp.FileExt.Concat(lan.FileExt).ToArray(),
@@ -92,7 +92,7 @@ public partial class RadialWindowControl
                                 allow_insertion_from_menu = temp.allow_insertion_from_menu || lan.allow_insertion_from_menu,
                                 MenuItems = temp.MenuItems.Concat(lan.MenuItems).ToArray(),
                                 Commands = temp.Commands.Concat(lan.Commands).ToArray(),
-                        };
+                            };
                         }
                     }
                 }
@@ -125,6 +125,8 @@ public partial class RadialWindowControl
                     var item = MenuBlock(stackPanel, _colorMap["WhiteIce"], _colorMap["Chambray"]);
                     item.MouseEnter += (_, _) => IncreaseOnHover(item, _colorMap);
                     item.MouseLeave += (_, _) => ResetSizeOnExitHover(item, _colorMap);
+                    item.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentMenu(menuItem);
+
                     // icon
                     var image = BuildIcon(menuItem.Icon);
                     stackPanel.Children.Add(image);
@@ -145,7 +147,7 @@ public partial class RadialWindowControl
                 ProgressText.Text = "Main";  // default progress indicator is Main (top level menu)
                 MainMenu.Items = _menu["Main"];
                 MainGrid.MouseLeave += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync().FireAndForget();
-                MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync().FireAndForget();
+                //MainGrid.MouseEnter += (_, _) => PreviewWindow.Instance.ClearCurrentCommandAsync().FireAndForget();
 
                 var radius = Math.Min(RenderSize.Width * 0.4, RenderSize.Height * 0.4); // RenderSize is the size of window, choose the min between height and width
                 var ratio = radius / 150; // conversion rate of radius to size on screen
@@ -672,6 +674,4 @@ public partial class RadialWindowControl
             buildingWindow.IsFloating = false;
         }).FireAndForget();
     }
-
-   
 }

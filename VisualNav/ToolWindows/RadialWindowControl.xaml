@@ -47,12 +47,13 @@
                 <CheckBox  x:Name="Insertion" />
             </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
-                                theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
+        <StackPanel Margin="5" Orientation="Horizontal" Grid.Row="0" Grid.Column="1" MaxHeight="25" HorizontalAlignment="Right"
+                                theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background,
+                                RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
             <imaging:CrispImage Visibility="Hidden"  Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageLeft}" />
             <imaging:CrispImage Visibility="Hidden"  Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FormatPageRight}" />
 
-            <imaging:CrispImage x:Name="fullscreen" MouseDown="ToggleFullscreen" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FullScreen}" />
+            <imaging:CrispImage MouseDown="ToggleFullscreen" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.FullScreen}" />
         </StackPanel>
     </Grid>
 </UserControl>
