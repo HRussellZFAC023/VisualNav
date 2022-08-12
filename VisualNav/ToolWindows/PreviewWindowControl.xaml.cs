@@ -36,8 +36,20 @@ public partial class PreviewWindowControl
             await Task.Delay(100);
             Widgets.Children.Clear();
             Descriptions.Children.Clear();
-            Descriptions.Children.Add(new TextBlock { Text = c.Description, TextWrapping = TextWrapping.Wrap });
-            Widgets.Children.Add(new TextBlock { Text = LanguageMediator.GetCurrentActiveFileExtension() + " - " + c.Text, TextWrapping = TextWrapping.Wrap });
+            Descriptions.Children.Add(
+                new TextBlock
+                {
+                    Text = c.Description,
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = RootGrid.Width
+                });
+            Widgets.Children.Add(
+                new TextBlock
+                {
+                    Text = LanguageMediator.GetCurrentActiveFileExtension() + " - " + c.Text,
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = RootGrid.Width
+                });
         }).FireAndForget();
     }
 
@@ -47,7 +59,21 @@ public partial class PreviewWindowControl
         {
             await Task.Delay(100);
             Descriptions.Children.Clear();
-            Descriptions.Children.Add(new TextBlock { Text = m.Description, TextWrapping = TextWrapping.Wrap });
+            Widgets.Children.Clear();
+            Widgets.Children.Add(
+                new TextBlock
+                {
+                    Text = LanguageMediator.GetCurrentActiveFileExtension() + " - " + m.Name,
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = RootGrid.Width
+                });
+            Descriptions.Children.Add(
+                new TextBlock
+                {
+                    Text = m.Description,
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = RootGrid.Width
+                });
         }).FireAndForget();
     }
 
