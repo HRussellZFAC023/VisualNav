@@ -407,10 +407,9 @@ public partial class RadialWindowControl
                         menuItem[menuItem.Length - 1] = item;
 
                         language.MenuItems = menuItem;
-
                         // create corresponding commands ("New Layer" and "Create Command") in the Commands section
-                        var commandsList = new Command[language.Commands.Length + 3];
-                        for (var i = 0; i < language.Commands.Length; i++)//copy to new array
+                        var commandsList = new Command[original_command_len + 3];
+                        for (var i = 0; i < original_command_len; i++)//copy to new array
                         {
                             commandsList[i] = language.Commands[i];
                         }
@@ -446,6 +445,7 @@ public partial class RadialWindowControl
                         commandsList[commandsList.Length - 1] = newSubMenu;
 
                         language.Commands = commandsList;
+                        _json.RadialMenu[original_lan_index] = language;
 
                         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
                         var file = Path.Combine(dir!, "Schema", "Modified.json");
