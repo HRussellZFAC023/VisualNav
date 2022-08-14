@@ -67,7 +67,7 @@ public partial class RadialWindowControl
             _state = new Stack<string>();
             MainMenu.Items = new List<RadialMenuItem>();
             _json ??= await Schema.Schema.LoadAsync();
-
+            // original_lan_index = 0;
             // get the current language + Check if it is contained in the list.
             Radialmenu language = null;
             var defaultTxt = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types:"; // .cs, .xaml
@@ -471,6 +471,12 @@ public partial class RadialWindowControl
                             InfoNotificationWrapper.ShowSimpleAsync("Select creation type by highlighting text in the editor", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
                             return;
                         }
+                        if (language.Commands.Any(temp => temp.Text.Equals(userInput)))
+                        {
+                            InfoNotificationWrapper.ShowSimpleAsync("Duplicate object/function found, try another name.", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
+                            return;
+                        }
+
                         // modify children list (add the command into the children string array)
                         foreach (var item in language.MenuItems)
                         {
@@ -494,11 +500,7 @@ public partial class RadialWindowControl
                         type += userInput;
                         userInput = element.Text.Equals("Custom Function") ? userInput + "( )" : userInput;
 
-                        if (language.Commands.Any(temp => temp.Text.Equals(userInput)))
-                        {
-                            InfoNotificationWrapper.ShowSimpleAsync("Duplicate object/function found, try another name.", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
-                            return;
-                        }
+
 
                         var newCommand = new Command
                         {
@@ -513,7 +515,7 @@ public partial class RadialWindowControl
                         language.Commands = commandsList;
 
                         _json.RadialMenu[original_lan_index] = language;
-                        
+
                         Clipboard.SetText(JsonConvert.SerializeObject(language));
                         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
                         var file = Path.Combine(dir!, "Schema", "Modified.json");
@@ -552,12 +554,18 @@ public partial class RadialWindowControl
                 }
             }
         }
-        var commandsList = new Command[original_command_len];
-        for (var i = 0; i < original_command_len; i++) //remove from command list
+        var commandsList = new Command[original_command_len - 1];
+        int put_index = 0;
+        for (var i = 0; i < language.Commands.Length; i++) //remove from command list
         {
+            if (put_index == original_command_len-1)
+            {
+                break;
+            }
             if (!language.Commands[i].Text.Equals(element.Text))
             {
-                commandsList[i] = language.Commands[i];
+                commandsList[put_index] = language.Commands[i];
+                put_index++;
             }
         }
 
