@@ -36,7 +36,8 @@ public partial class RadialWindowControl
     private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without hierarchy
     private string _progress = "";
     private Stack<string> _state = new(); // maintains the progress/state of the menu levels, (e.g.Main->Code->Array)
-
+    private int original_command_len = 0;
+    private int original_lan_index = 0;
     public RadialWindowControl()
     {
         InitializeComponent();
@@ -71,13 +72,20 @@ public partial class RadialWindowControl
             Radialmenu language = null;
             var defaultTxt = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types:"; // .cs, .xaml
 
-            foreach (var lan in _json.RadialMenu)
+            for (int i = 0; i < _json.RadialMenu.Length; i++)
             {
+                var lan = _json.RadialMenu[i];
                 foreach (var ext in lan.FileExt)
                 {
                     defaultTxt = defaultTxt + ext + " ";
-                    if (!ext.Equals(LanguageMediator.GetCurrentActiveFileExtension())) continue;
-
+                    if (!ext.Equals(LanguageMediator.GetCurrentActiveFileExtension()))
+                    {
+                        if (original_lan_index == 0)
+                        {
+                            original_lan_index = i;
+                        }
+                        continue;
+                    }
                     if (language == null)
                         language = lan;
                     else
@@ -94,16 +102,15 @@ public partial class RadialWindowControl
                                 }
                             }
                         }
+                        original_command_len = language.Commands.Length;
                         language = new Radialmenu
                         {
-                            FileExt = temp.FileExt.Concat(lan.FileExt).ToArray(),
+                            FileExt = temp.FileExt,
                             Text = "Code",
                             allow_insertion_from_menu = temp.allow_insertion_from_menu || lan.allow_insertion_from_menu,
                             MenuItems = temp.MenuItems.Concat(lan.MenuItems).ToArray(),
                             Commands = temp.Commands.Concat(lan.Commands).ToArray(),
                         };
-
-
                     }
                 }
             }
@@ -181,10 +188,12 @@ public partial class RadialWindowControl
                 {
                     ThreadHelper.JoinableTaskFactory.Run(async () =>
                     {
-                        try{
+                        try
+                        {
                             await PreviewWindow.Instance.ClearCurrentCommandAsync();
                             PreviewWindow.Instance.SetCurrentCommand(command);
-                        }catch (Exception)
+                        }
+                        catch (Exception)
                         {
                             InfoNotificationWrapper.ShowSimpleAsync("Preview window has not started yet.", "StatusWarning", PackageGuids.RadialWindowString, 1500).FireAndForget();
                         }
@@ -373,7 +382,7 @@ public partial class RadialWindowControl
                         {
                             if (language.MenuItems[i].Name.Equals(element.Parent))
                             {
-                                // add "Custom TEST"(just a test val, need user input for the name) to submenu to represent a sub menu
+                                // add Custom  to submenu to represent a sub menu
                                 var elementTemp = language.MenuItems[i].Submenu;
                                 Array.Resize(ref elementTemp, language.MenuItems[i].Submenu.Length + 1);
                                 elementTemp[language.MenuItems[i].Submenu.Length] = userInput;
@@ -445,9 +454,11 @@ public partial class RadialWindowControl
                         Options.Settings.Instance.CustomBlock = true;
                         await Options.Settings.Instance.SaveAsync();
 
-                        RadialMenuGeneration();
                         InfoNotificationWrapper.ShowSimpleAsync("New Layer Created",
                             "StatusOkOutline", PackageGuids.PreviewWindowString, 1500).FireAndForget();
+
+                        RadialMenuGeneration();
+
                         break;
                     }
                 case "Custom Object":
@@ -470,10 +481,11 @@ public partial class RadialWindowControl
                                 newChildList[i] = item.Children[i];
                             }
                             newChildList[newChildList.Length - 1] = userInput;
+                            item.Children = newChildList;
                         }
-                        // create corresponding commands ("New Layer" and "Create Command") in the Commands section
-                        var commandsList = new Command[language.Commands.Length + 1];
-                        for (var i = 0; i < language.Commands.Length; i++)//copy to new array
+                        // create corresponding commands in the Commands section
+                        var commandsList = new Command[original_command_len + 1];
+                        for (var i = 0; i < original_command_len; i++)//copy to new array
                         {
                             commandsList[i] = language.Commands[i];
                         }
@@ -498,8 +510,11 @@ public partial class RadialWindowControl
                         };
 
                         commandsList[commandsList.Length - 1] = newCommand;
-
                         language.Commands = commandsList;
+
+                        _json.RadialMenu[original_lan_index] = language;
+                        
+                        Clipboard.SetText(JsonConvert.SerializeObject(language));
                         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
                         var file = Path.Combine(dir!, "Schema", "Modified.json");
                         File.WriteAllText(file, JsonConvert.SerializeObject(_json));
@@ -507,9 +522,11 @@ public partial class RadialWindowControl
                         Options.Settings.Instance.CustomBlock = true;
                         await Options.Settings.Instance.SaveAsync();
 
-                        RadialMenuGeneration();
                         InfoNotificationWrapper.ShowSimpleAsync(newCommand.Text + " (Custom Block) was Created",
                             "StatusOkOutline", PackageGuids.PreviewWindowString, 1500).FireAndForget();
+
+                        RadialMenuGeneration();
+
                         break;
                     }
                 default:
