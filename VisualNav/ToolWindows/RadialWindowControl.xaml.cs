@@ -552,9 +552,8 @@ public partial class RadialWindowControl
                 }
             }
         }
-
-        var commandsList = new Command[language.Commands.Length - 1];
-        for (var i = 0; i < language.Commands.Length; i++) //remove from command list
+        var commandsList = new Command[original_command_len];
+        for (var i = 0; i < original_command_len; i++) //remove from command list
         {
             if (!language.Commands[i].Text.Equals(element.Text))
             {
@@ -563,6 +562,8 @@ public partial class RadialWindowControl
         }
 
         language.Commands = commandsList;
+        _json.RadialMenu[original_lan_index] = language;
+
         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
         var file = Path.Combine(dir!, "Schema", "Modified.json");
         File.WriteAllText(file, JsonConvert.SerializeObject(_json));
