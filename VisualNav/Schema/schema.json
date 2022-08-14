@@ -1,25 +1,21 @@
 {
   "RadialMenu": [
     {
-      "fileExt": [ ".js", ".php", ".py", ".lua", ".dart" ],
+      "fileExt": [ ".cs" ],
       "text": "Code",
       "allow_insertion_from_menu": false,
       "MenuItems": [
         {
-          "name": "Code",
+          "name": "Custom Blocks",
           "parent": "Main",
-          "submenu": [
-            "I/O",
-            "Method/Keyword",
-            "Condition",
-            "Loop",
-            "Variables",
-            "Operator",
-            "Comparator",
-            "Custom Blocks"
+          "submenu": [],
+          "children": [
+            "Custom Object",
+            "Custom Function",
+            "New Layer"
           ],
-          "children": [],
-          "icon": "Code"
+          "icon": "AddEvent",
+          "description": "Allows you to add custom functions and objects that do not exist in the standard blocks.\nTo create, 'double click' on the desired code in the editor to highlight it (you can find or paste or use intellisense here).These are saved in 'layers' for easy reuse, to remove an item, use 'left click'"
         },
         {
           "name": "Test",
@@ -28,7 +24,8 @@
           "children": [
             "Debug.Assert()"
           ],
-          "icon": "Test"
+          "icon": "Test",
+          "description": "Create test assertions for test driven development."
         },
         {
           "name": "Assert",
@@ -37,8 +34,8 @@
           "children": [
             "AreEqual()",
             "AreNotEqual()",
-            "AreNotSame()",
             "AreSame()",
+            "AreNotSame()",
             "Fail()",
             "IsTrue()",
             "IsFalse()",
@@ -46,11 +43,133 @@
             "IsNotNull()",
             "Equals()"
           ],
-          "icon": "Test"
+          "icon": "Test",
+          "description": "Create block to assert the relationship between 2 objects."
+        }
+      ],
+      "commands": [
+        {
+          "text": "Custom Object",
+          "parent": "Custom Blocks",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "",
+          "description": "Create a custom object, which is an abstract data type."
         },
         {
+          "text": "Custom Function",
+          "parent": "Custom Blocks",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "",
+          "description": "Create a custom function, allowing it to perform a task of your choice."
+        },
+        {
+          "text": "New Layer",
+          "parent": "Custom Blocks",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "",
+          "description": "Create a new layer (interactive functional component)."
+        },
+        {
+          "text": "AreEqual()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "areequal",
+          "description": "Check if two enities are equal."
+        },
+        {
+          "text": "AreNotEqual()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "arenotequal",
+          "description": "Check if two entities are not equal"
+        },
+        {
+          "text": "AreSame()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "aresame",
+          "description": "Tests whether the specified objects both refer to the same object and throws an exception if the two inputs do not refer to the same object. (Microsoft Documentation)"
+        },
+        {
+          "text": "AreNotSame()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "arenotsame",
+          "description": "Tests whether the specified objects refer to different objects and throws an exception if the two inputs refer to the same object. (Microsoft Documentation)"
+        },
+        {
+          "text": "Fail()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "fail",
+          "description": "Throws an AssertFailedException."
+        },
+        {
+          "text": "IsTrue()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsTrue",
+          "description": "Tests whether the specified condition is true and throws an exception if the condition is false. (Microsoft Documentation)"
+        },
+        {
+          "text": "IsFalse()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsFalse",
+          "description": "Tests whether the specified condition is false and throws an exception if the condition is true. (Microsoft Documentation)"
+        },
+        {
+          "text": "IsNull()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsNull",
+          "description": "Check if object is null"
+        },
+        {
+          "text": "IsNotNull()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "IsNotNull",
+          "description": "Check if object is not null"
+        },
+        {
+          "text": "Equals()",
+          "parent": "Assert",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "Equals",
+          "description": "Determines whether the specified object is equal to the current object. (Microsoft Documentation)"
+        },
+        {
+          "text": "Debug.Assert()",
+          "parent": "Test",
+          "preview": "",
+          "color": "#FF00FFFF",
+          "type": "debugassert",
+          "description": "Checks for a condition; if the condition is false, outputs messages and displays a message box that shows the call stack. (Microsoft Documentation)"
+        }
+      ]
+    },
+    {
+      "fileExt": [ ".cs", ".js", ".php", ".py", ".lua", ".dart" ],
+      "text": "Code",
+      "allow_insertion_from_menu": false,
+      "MenuItems": [
+        {
           "name": "Logic",
-          "parent": "Code",
+          "parent": "Main",
           "submenu": [],
           "children": [
             "logic_boolean",
@@ -62,11 +181,12 @@
             "logic_null",
             "logic_ternary"
           ],
-          "icon": "CrossGroupLink"
+          "icon": "CrossGroupLink",
+          "description": "Add logical blocks of code such as conditional statements that perform a task if true."
         },
         {
           "name": "Loops",
-          "parent": "Code",
+          "parent": "Main",
           "submenu": [],
           "children": [
             "controls_repeat_ext",
@@ -75,11 +195,12 @@
             "controls_forEach",
             "controls_flow_statements"
           ],
-          "icon": "ConditionalLoop"
+          "icon": "ConditionalLoop",
+          "description": "Add blocks of code that is repeated until a specific condition is met."
         },
         {
           "name": "Math",
-          "parent": "Code",
+          "parent": "Main",
           "submenu": [],
           "children": [
             "math_number",
@@ -96,11 +217,12 @@
             "math_random_int",
             "math_random_float"
           ],
-          "icon": "Calculator"
+          "icon": "Calculator",
+          "description": "Create blocks of code that are related to mathematical properties such as rounding up."
         },
         {
           "name": "Text",
-          "parent": "Code",
+          "parent": "Main",
           "submenu": [],
           "children": [
             "text",
@@ -116,11 +238,12 @@
             "text_trim",
             "text_print"
           ],
-          "icon": "TextBox"
+          "icon": "TextBox",
+          "description": "Create blocks of code that are related to textual properties such as appending text."
         },
         {
           "name": "Lists",
-          "parent": "Code",
+          "parent": "Main",
           "submenu": [],
           "children": [
             "lists_create_empty",
@@ -136,1134 +259,465 @@
             "lists_split",
             "math_on_list"
           ],
-          "icon": "BulletList"
+          "icon": "BulletList",
+          "description": "Create blocks of code that are related to lists (abstract data type referring to a collection of items) such as getting the index of an item in a list."
         },
         {
           "name": "Variables",
-          "parent": "Code",
+          "parent": "Main",
           "submenu": [],
           "children": [
             "variables_get",
             "variables_set"
           ],
-          "icon": "LocalVariable"
+          "icon": "LocalVariable",
+          "description": "Create blocks of code that are related to variables (data values) such as getting and setting a variable."
         },
         {
           "name": "Functions",
-          "parent": "Code",
+          "parent": "Main",
           "submenu": [],
           "children": [
             "procedures_callreturn",
             "procedures_callnoreturn",
             "procedures_ifreturn"
           ],
-          "icon": "TableFunction"
+          "icon": "TableFunction",
+          "description": "Create blocks of code that are related to functions such as defining a function with or without a returned value."
         }
       ],
       "commands": [
-        {
-          "text": "AreEqual()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "AreEqual(Double, Double, Double)"
-        },
-        {
-          "text": "AreNotEqual()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "AreNotEqual(Double, Double, Double)"
-        },
-        {
-          "text": "AreNotSame()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "AreNotSame(Object, Object)"
-        },
-        {
-          "text": "AreSame()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "AreSame(Object, Object)"
-        },
-        {
-          "text": "Fail()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "Fail()"
-        },
-        {
-          "text": "IsTrue()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "IsTrue(Boolean)"
-        },
-        {
-          "text": "IsFalse()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "IsFalse(Boolean)"
-        },
-        {
-          "text": "IsNull()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "IsNull(Object)"
-        },
-        {
-          "text": "IsNotNull()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "IsNotNull(Object)"
-        },
-        {
-          "text": "Equals()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "Equals(Object, Object)"
-        },
-        {
-          "text": "Debug.Assert()",
-          "parent": "Test",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "Debug.Assert(Boolean)"
-        },
         {
           "text": "boolean",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_boolean"
+          "type": "logic_boolean",
+          "description": "Create a new boolean (data type with 2 possible states: true/false)."
         },
         {
           "text": "if",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "controls_if"
+          "type": "controls_if",
+          "description": "Create a new if statement (conditional statement)."
         },
         {
           "text": "if else",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "controls_ifelse"
+          "type": "controls_ifelse",
+          "description": "Create a new if else statement (conditional statement)."
         },
         {
           "text": "compare",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_compare"
+          "type": "logic_compare",
+          "description": "Create a new comparison operator which compares 2 values & returns true or false."
         },
         {
           "text": "and or",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_operation"
+          "type": "logic_operation",
+          "description": "Create 'and' and 'or' statements."
         },
         {
           "text": "negate",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_negate"
+          "type": "logic_negate",
+          "description": "Create a negation. In other words, invert the selected value."
         },
         {
           "text": "null",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_null"
+          "type": "logic_null",
+          "description": "Add a null value (absence of value)."
         },
         {
           "text": "ternary",
           "parent": "Logic",
           "preview": "",
           "color": "#4C97FF",
-          "type": "logic_ternary"
+          "type": "logic_ternary",
+          "description": "Add base-three arithmetic."
         },
         {
           "text": "repeat",
           "parent": "Loops",
           "preview": "",
           "color": "#0fBD8C",
-          "type": "controls_repeat_ext"
+          "type": "controls_repeat_ext",
+          "description": "Repeat an action X amount of times and then do something."
         },
         {
           "text": "while",
           "parent": "Loops",
           "preview": "",
           "color": "#0fBD8C",
-          "type": "controls_whileUntil"
+          "type": "controls_whileUntil",
+          "description": "Add a while loop (run code repeatedly with a given condition)."
         },
         {
           "text": "for",
           "parent": "Loops",
           "preview": "",
           "color": "#0fBD8C",
-          "type": "controls_for"
+          "type": "controls_for",
+          "description": "Add a for loop (run code repeatedly with a given condition)."
         },
         {
           "text": "for each",
           "parent": "Loops",
           "preview": "",
           "color": "#0fBD8C",
-          "type": "controls_forEach"
+          "type": "controls_forEach",
+          "description": "Add a for each loop (run code repeatedly on a collection of items)."
         },
         {
           "text": "flow control",
           "parent": "Loops",
           "preview": "",
           "color": "#0fBD8C",
-          "type": "controls_flow_statements"
+          "type": "controls_flow_statements",
+          "description": "Add flow control statement (choice of which path to follow)."
         },
         {
           "text": "number",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_number"
+          "type": "math_number",
+          "description": "Add a numeric value."
         },
         {
           "text": "arithmetic",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_arithmetic"
+          "type": "math_arithmetic",
+          "description": "Add operations such as addition or subtraction."
         },
         {
           "text": "single",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_single"
+          "type": "math_single",
+          "description": "Raise to the power of a given expression such as 'e', log10 and more."
         },
         {
           "text": "trig",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_trig"
+          "type": "math_trig",
+          "description": "Add trigonometry values such as sin, cos, tan and more."
         },
         {
           "text": "constant",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_constant"
+          "type": "math_constant",
+          "description": "Add a constant value (set, known value)."
         },
         {
           "text": "number property",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_number_property"
+          "type": "math_number_property",
+          "description": "Retrieve properties of a number such as if it's even or odd."
         },
         {
           "text": "change",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_change"
+          "type": "math_change",
+          "description": "Change item or edit it by deleting it or renaming it."
         },
         {
           "text": "round",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_round"
+          "type": "math_round",
+          "description": "Round up or down the selected value."
         },
         {
           "text": "modulo",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_modulo"
+          "type": "math_modulo",
+          "description": "Initiate a modulo operation (returns remainder of a division)."
         },
         {
           "text": "constrain",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_constrain"
+          "type": "math_constrain",
+          "description": "Optimization problem's condition that the answer should meet."
         },
         {
           "text": "random int",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_random_int"
+          "type": "math_random_int",
+          "description": "Generate random integer between 2 values."
         },
         {
           "text": "random float",
           "parent": "Math",
           "preview": "",
           "color": "#59C059",
-          "type": "math_random_float"
+          "type": "math_random_float",
+          "description": "Generate a random float."
         },
         {
           "text": "text",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text"
+          "type": "text",
+          "description": "Add simple text."
         },
         {
           "text": "join",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_join"
+          "type": "text_join",
+          "description": "Combine pieces of text."
         },
         {
           "text": "append",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_append"
+          "type": "text_append",
+          "description": "Add to the end of text."
         },
         {
           "text": "length",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_length"
+          "type": "text_length",
+          "description": "Get the length of an item."
         },
         {
           "text": "isEmpty",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_isEmpty"
+          "type": "text_isEmpty",
+          "description": "Check if an item is empty or not."
         },
         {
           "text": "indexOf",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_indexOf"
+          "type": "text_indexOf",
+          "description": "Get the index (position) of an item."
         },
         {
           "text": "charAt",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_charAt"
+          "type": "text_charAt",
+          "description": "Get the character that is located in a specific position."
         },
         {
           "text": "getSubstring",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_getSubstring"
+          "type": "text_getSubstring",
+          "description": "Get a portion of the text from a specific position."
         },
         {
           "text": "changeCase",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_changeCase"
+          "type": "text_changeCase",
+          "description": "Make text lower case or capitals."
         },
         {
           "text": "trim",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_trim"
+          "type": "text_trim",
+          "description": "Reduce the length of text."
         },
         {
           "text": "print",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_print"
+          "type": "text_print",
+          "description": "Output the value in a readable manner."
         },
         {
           "text": "empty list",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_create_empty"
+          "type": "lists_create_empty",
+          "description": "Generate a list with no values."
         },
         {
           "text": "multiline",
           "parent": "Text",
           "preview": "",
           "color": "#FFBF00",
-          "type": "text_multiline"
+          "type": "text_multiline",
+          "description": "Create text with multiple lines."
         },
         {
           "text": "repeat",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_repeat"
+          "type": "lists_repeat",
+          "description": "Create a list with an item that is repeated X number of times."
         },
         {
           "text": "isEmpty",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_isEmpty"
+          "type": "lists_isEmpty",
+          "description": "Check if a list is empty or not."
         },
         {
           "text": "length",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_length"
+          "type": "lists_length",
+          "description": "Get the length of a list."
         },
         {
           "text": "create with",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_create_with"
+          "type": "lists_create_with",
+          "description": "Create a list with another extra entity."
         },
         {
           "text": "indexOf",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_indexOf"
+          "type": "lists_indexOf",
+          "description": "Find the first or last occurrence of an item in a list."
         },
         {
           "text": "getIndex",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_getIndex"
+          "type": "lists_getIndex",
+          "description": "Get the position of an item in a list."
         },
         {
           "text": "setIndex",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_setIndex"
+          "type": "lists_setIndex",
+          "description": "Set the position of an item in the list."
         },
         {
           "text": "getSublist",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_getSublist"
+          "type": "lists_getSublist",
+          "description": "Retrieve specific sub-list from inside list (first, position or position from end)."
         },
         {
           "text": "sort",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_sort"
+          "type": "lists_sort",
+          "description": "Organize list in a numerical or alphabetic manner, ascending or descending."
         },
         {
           "text": "split",
           "parent": "Lists",
           "preview": "",
           "color": "#9966FF",
-          "type": "lists_split"
+          "type": "lists_split",
+          "description": "Create list from text or vice versa."
         },
         {
           "text": "math list",
           "parent": "Lists",
           "preview": "",
           "color": "#59C059",
-          "type": "math_on_list"
+          "type": "math_on_list",
+          "description": "Get mathematical properties of a list such as its sum, min, max and more."
         },
         {
           "text": "get",
           "parent": "Variables",
           "preview": "",
           "color": "#FF8C1A",
-          "type": "variables_get"
+          "type": "variables_get",
+          "description": "Get specific variable."
         },
         {
           "text": "set",
           "parent": "Variables",
           "preview": "",
           "color": "#FF8C1A",
-          "type": "variables_set"
+          "type": "variables_set",
+          "description": "Set specific variable to something else."
         },
         {
           "text": "def no return",
           "parent": "Functions",
           "preview": "",
           "color": "#FF6680",
-          "type": "procedures_callnoreturn"
+          "type": "procedures_callnoreturn",
+          "description": "Define function with no returned value."
         },
         {
           "text": "def return",
           "parent": "Functions",
           "preview": "",
           "color": "#FF6680",
-          "type": "procedures_callreturn"
+          "type": "procedures_callreturn",
+          "description": "Define function with returned value."
         },
         {
           "text": "if return",
           "parent": "Functions",
           "preview": "",
           "color": "#FF6680",
-          "type": "procedures_ifreturn"
-        }
-      ]
-    },
-    {
-      "fileExt": [ ".cs" ],
-      "text": "Code",
-      "allow_insertion_from_menu": false,
-      "MenuItems": [
-        {
-          "name": "Code",
-          "parent": "Main",
-          "submenu": [
-            "I/O",
-            "Method/Keyword",
-            "Condition",
-            "Loop",
-            "Variables",
-            "Operator",
-            "Comparator",
-            "Custom Blocks"
-          ],
-          "children": [],
-          "icon": "Code"
-        },
-        {
-          "name": "Custom Blocks",
-          "parent": "Main",
-          "submenu": [],
-          "children": [
-            "Custom Object",
-            "Custom Function",
-            "New Layer"
-          ],
-          "icon": "AddEvent"
-        },
-        {
-          "name": "Test",
-          "parent": "Main",
-          "submenu": [ "Assert" ],
-          "children": [
-            "Debug.Assert()"
-          ],
-          "icon": "Test"
-        },
-        {
-          "name": "Assert",
-          "parent": "Test",
-          "submenu": [],
-          "children": [
-            "AreEqual()",
-            "AreNotEqual()",
-            "AreSame()",
-            "AreNotSame()",
-            "Fail()",
-            "IsTrue()",
-            "IsFalse()",
-            "IsNull()",
-            "IsNotNull()",
-            "Equals()"
-          ],
-          "icon": "Test"
-        },
-        {
-          "name": "Logic",
-          "parent": "Code",
-          "submenu": [],
-          "children": [
-            "logic_boolean",
-            "controls_if",
-            "controls_ifelse",
-            "logic_compare",
-            "logic_operation",
-            "logic_negate",
-            "logic_null",
-            "logic_ternary"
-          ],
-          "icon": "CrossGroupLink"
-        },
-        {
-          "name": "Loops",
-          "parent": "Code",
-          "submenu": [],
-          "children": [
-            "controls_repeat_ext",
-            "controls_whileUntil",
-            "controls_for",
-            "controls_forEach",
-            "controls_flow_statements"
-          ],
-          "icon": "ConditionalLoop"
-        },
-        {
-          "name": "Math",
-          "parent": "Code",
-          "submenu": [],
-          "children": [
-            "math_number",
-            "math_arithmetic",
-            "math_single",
-            "math_trig",
-            "math_constant",
-            "math_number_property",
-            "math_change",
-            "math_round",
-            "math_modulo",
-            "math_constrain",
-            "math_random_int",
-            "math_random_float"
-          ],
-          "icon": "Calculator"
-        },
-        {
-          "name": "Text",
-          "parent": "Code",
-          "submenu": [],
-          "children": [
-            "text",
-            "text_multiline",
-            "text_join",
-            "text_append",
-            "text_length",
-            "text_isEmpty",
-            "text_indexOf",
-            "text_charAt",
-            "text_getSubstring",
-            "text_changeCase",
-            "text_trim",
-            "text_print"
-          ],
-          "icon": "TextBox"
-        },
-        {
-          "name": "Lists",
-          "parent": "Code",
-          "submenu": [],
-          "children": [
-            "lists_create_empty",
-            "lists_repeat",
-            "lists_isEmpty",
-            "lists_length",
-            "lists_create_with",
-            "lists_indexOf",
-            "lists_getIndex",
-            "lists_setIndex",
-            "lists_getSublist",
-            "lists_sort",
-            "lists_split",
-            "math_on_list"
-          ],
-          "icon": "BulletList"
-        },
-        {
-          "name": "Variables",
-          "parent": "Code",
-          "submenu": [],
-          "children": [
-            "variables_get",
-            "variables_set"
-          ],
-          "icon": "LocalVariable"
-        },
-        {
-          "name": "Functions",
-          "parent": "Code",
-          "submenu": [],
-          "children": [
-            "procedures_callreturn",
-            "procedures_callnoreturn",
-            "procedures_ifreturn"
-          ],
-          "icon": "TableFunction"
-        }
-      ],
-      "commands": [
-        {
-          "text": "Custom Object",
-          "parent": "Custom Blocks",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": ""
-        },
-        {
-          "text": "Custom Function",
-          "parent": "Custom Blocks",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": ""
-        },
-        {
-          "text": "New Layer",
-          "parent": "Custom Blocks",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": ""
-        },
-        {
-          "text": "AreEqual()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "areequal"
-        },
-        {
-          "text": "AreNotEqual()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "arenotequal"
-        },
-        {
-          "text": "AreSame()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "aresame"
-        },
-        {
-          "text": "AreNotSame()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "arenotsame"
-        },
-        {
-          "text": "Fail()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "fail"
-        },
-        {
-          "text": "IsTrue()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "IsTrue"
-        },
-        {
-          "text": "IsFalse()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "IsFalse"
-        },
-        {
-          "text": "IsNull()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "IsNull"
-        },
-        {
-          "text": "IsNotNull()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "IsNotNull"
-        },
-        {
-          "text": "Equals()",
-          "parent": "Assert",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "Equals"
-        },
-        {
-          "text": "Debug.Assert()",
-          "parent": "Test",
-          "preview": "",
-          "color": "#FF00FFFF",
-          "type": "debugassert"
-        },
-        {
-          "text": "boolean",
-          "parent": "Logic",
-          "preview": "",
-          "color": "#4C97FF",
-          "type": "logic_boolean"
-        },
-        {
-          "text": "if",
-          "parent": "Logic",
-          "preview": "",
-          "color": "#4C97FF",
-          "type": "controls_if"
-        },
-        {
-          "text": "if else",
-          "parent": "Logic",
-          "preview": "",
-          "color": "#4C97FF",
-          "type": "controls_ifelse"
-        },
-        {
-          "text": "compare",
-          "parent": "Logic",
-          "preview": "",
-          "color": "#4C97FF",
-          "type": "logic_compare"
-        },
-        {
-          "text": "and or",
-          "parent": "Logic",
-          "preview": "",
-          "color": "#4C97FF",
-          "type": "logic_operation"
-        },
-        {
-          "text": "negate",
-          "parent": "Logic",
-          "preview": "",
-          "color": "#4C97FF",
-          "type": "logic_negate"
-        },
-        {
-          "text": "null",
-          "parent": "Logic",
-          "preview": "",
-          "color": "#4C97FF",
-          "type": "logic_null"
-        },
-        {
-          "text": "ternary",
-          "parent": "Logic",
-          "preview": "",
-          "color": "#4C97FF",
-          "type": "logic_ternary"
-        },
-        {
-          "text": "repeat",
-          "parent": "Loops",
-          "preview": "",
-          "color": "#0fBD8C",
-          "type": "controls_repeat_ext"
-        },
-        {
-          "text": "while",
-          "parent": "Loops",
-          "preview": "",
-          "color": "#0fBD8C",
-          "type": "controls_whileUntil"
-        },
-        {
-          "text": "for",
-          "parent": "Loops",
-          "preview": "",
-          "color": "#0fBD8C",
-          "type": "controls_for"
-        },
-        {
-          "text": "for each",
-          "parent": "Loops",
-          "preview": "",
-          "color": "#0fBD8C",
-          "type": "controls_forEach"
-        },
-        {
-          "text": "flow control",
-          "parent": "Loops",
-          "preview": "",
-          "color": "#0fBD8C",
-          "type": "controls_flow_statements"
-        },
-        {
-          "text": "number",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_number"
-        },
-        {
-          "text": "arithmetic",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_arithmetic"
-        },
-        {
-          "text": "single",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_single"
-        },
-        {
-          "text": "trig",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_trig"
-        },
-        {
-          "text": "constant",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_constant"
-        },
-        {
-          "text": "number property",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_number_property"
-        },
-        {
-          "text": "change",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_change"
-        },
-        {
-          "text": "round",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_round"
-        },
-        {
-          "text": "modulo",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_modulo"
-        },
-        {
-          "text": "constrain",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_constrain"
-        },
-        {
-          "text": "random int",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_random_int"
-        },
-        {
-          "text": "random float",
-          "parent": "Math",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_random_float"
-        },
-        {
-          "text": "text",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text"
-        },
-        {
-          "text": "join",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_join"
-        },
-        {
-          "text": "append",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_append"
-        },
-        {
-          "text": "length",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_length"
-        },
-        {
-          "text": "isEmpty",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_isEmpty"
-        },
-        {
-          "text": "indexOf",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_indexOf"
-        },
-        {
-          "text": "charAt",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_charAt"
-        },
-        {
-          "text": "getSubstring",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_getSubstring"
-        },
-        {
-          "text": "changeCase",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_changeCase"
-        },
-        {
-          "text": "trim",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_trim"
-        },
-        {
-          "text": "print",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_print"
-        },
-        {
-          "text": "empty list",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_create_empty"
-        },
-        {
-          "text": "multiline",
-          "parent": "Text",
-          "preview": "",
-          "color": "#FFBF00",
-          "type": "text_multiline"
-        },
-        {
-          "text": "repeat",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_repeat"
-        },
-        {
-          "text": "isEmpty",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_isEmpty"
-        },
-        {
-          "text": "length",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_length"
-        },
-        {
-          "text": "create with",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_create_with"
-        },
-        {
-          "text": "indexOf",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_indexOf"
-        },
-        {
-          "text": "getIndex",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_getIndex"
-        },
-        {
-          "text": "setIndex",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_setIndex"
-        },
-        {
-          "text": "getSublist",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_getSublist"
-        },
-        {
-          "text": "sort",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_sort"
-        },
-        {
-          "text": "split",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#9966FF",
-          "type": "lists_split"
-        },
-        {
-          "text": "math list",
-          "parent": "Lists",
-          "preview": "",
-          "color": "#59C059",
-          "type": "math_on_list"
-        },
-        {
-          "text": "get",
-          "parent": "Variables",
-          "preview": "",
-          "color": "#FF8C1A",
-          "type": "variables_get"
-        },
-        {
-          "text": "set",
-          "parent": "Variables",
-          "preview": "",
-          "color": "#FF8C1A",
-          "type": "variables_set"
-        },
-        {
-          "text": "def no return",
-          "parent": "Functions",
-          "preview": "",
-          "color": "#FF6680",
-          "type": "procedures_callnoreturn"
-        },
-        {
-          "text": "def return",
-          "parent": "Functions",
-          "preview": "",
-          "color": "#FF6680",
-          "type": "procedures_callreturn"
-        },
-        {
-          "text": "if return",
-          "parent": "Functions",
-          "preview": "",
-          "color": "#FF6680",
-          "type": "procedures_ifreturn"
+          "type": "procedures_ifreturn",
+          "description": "Define function with returned value if a specific condition is met."
         }
       ]
     },
@@ -1284,7 +738,8 @@
             "ToolBarPanel",
             "ToolBarTray"
           ],
-          "icon": "ApplicationBar"
+          "icon": "ApplicationBar",
+          "description": "Add any kind of bar (graphical control element) to the layout such as status bars or tool bars."
         },
         {
           "name": "Input",
@@ -1302,7 +757,8 @@
             "RadioButton",
             "Slider"
           ],
-          "icon": "InheritedUserControl"
+          "icon": "InheritedUserControl",
+          "description": "Add any kind of holders of data that will be sent for processing such as password boxes or date pickers."
         },
         {
           "name": "Display",
@@ -1320,7 +776,8 @@
             "DocumentViewer",
             "ContentControl"
           ],
-          "icon": "DisplayNone"
+          "icon": "DisplayNone",
+          "description": "Add visual elements such as images or document viewers."
         },
         {
           "name": "Layout",
@@ -1333,7 +790,8 @@
             "Separator",
             "Expander"
           ],
-          "icon": "FlowLayoutPanel"
+          "icon": "FlowLayoutPanel",
+          "description": "Add elements that control the layout such as tab controls or expanders."
         },
         {
           "name": "Container",
@@ -1348,7 +806,8 @@
             "TreeView",
             "WrapPanel"
           ],
-          "icon": "Container"
+          "icon": "Container",
+          "description": "Add containers to the layout such menus, assisting you in organizing screen elements, including for different display sizes."
         }
       ],
       "commands": [
@@ -1357,273 +816,312 @@
           "parent": "Layout",
           "preview": "<Border Background=\"Coral\" Width=\"300\" Padding=\"10\" CornerRadius=\"20\">\n    <TextBlock FontSize=\"16\">Text Surrounded by a Border</TextBlock>\n</Border>",
           "color": "#c0392b",
-          "type": "UI"
+          "type": "UI",
+          "description": "Add border (lines) surrounding the relevant text."
         },
         {
           "text": "Button",
           "parent": "Input",
           "preview": "<Button Name=\"btn\" Click=\"OnClick\" ClickMode=\"Release\">\n  Reset\n</Button>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Add a button."
         },
         {
           "text": "Canvas",
           "parent": "Container",
           "preview": "<Canvas Height=\"400\" Width=\"400\">\n  <Canvas Height=\"100\" Width=\"100\" Top=\"0\" Left=\"0\" Background=\"Red\"/>\n  <Canvas Height=\"100\" Width=\"100\" Top=\"100\" Left=\"100\" Background=\"Green\"/>\n</Canvas>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new canvas (container with drawing entities)."
         },
         {
           "text": "CheckBox",
           "parent": "Input",
           "preview": "<CheckBox>Enable feature ABC</CheckBox>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new checkbox"
         },
         {
           "text": "ComboBox",
           "parent": "Input",
           "preview": "<ComboBox Name=\"comboBox1\"\n            ItemsSource=\"{StaticResource myVacations}\"\n            Text=\"My Cities\"\n            IsEditable=\"true\"\n            IsReadOnly=\"true\"/>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new combo-box. It 'Represents a selection control that combines a non-editable text box and a drop-down list box that allows users to select an item from a list. (Microsoft Documentation)'"
         },
         {
           "text": "ContentControl",
           "parent": "Input",
           "preview": "<ContentControl Content=\"ContentControl\"/>\n</ContentControl>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create new content control. It 'Represents a control with a single piece of content of any type. (Microsoft Documentation)'"
         },
         {
           "text": "DataGrid",
           "parent": "Display",
           "preview": "<DataGrid Name=\"DG1\" ItemsSource=\"{Binding}\" AutoGenerateColumns=\"False\" >\n    <DataGrid.Columns>\n        <DataGridTextColumn Header=\"First Name\"  Binding=\"{Binding FirstName}\"/>\n        <DataGridTextColumn Header=\"Last Name\" Binding=\"{Binding LastName}\" />\n    </DataGrid.Columns>\n</DataGrid>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new data grid. 'The DataGrid control provides a flexible way to display a collection of data in rows and columns. (Microsoft Documentation)'"
         },
         {
           "text": "DatePicker",
           "parent": "Input",
           "preview": "<DatePicker/>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new date picker allowing the user to input a date."
         },
         {
           "text": "DockPanel",
           "parent": "Container",
           "preview": "<DockPanel LastChildFill = \"True\"> \n   <Button Content = \"Top\" DockPanel.Dock = \"Top\" Click = \"Click_Me\" /> \n   <Button Content = \"Bottom\" DockPanel.Dock = \"Bottom\" Click = \"Click_Me\" />\n   <Button Content = \"Left\" Click = \"Click_Me\" /> \n   <Button Content = \"Right\" DockPanel.Dock = \"Right\" Click = \"Click_Me\" /> \n   <Button Content = \"Center\" Click = \"Click_Me\" /> \n</DockPanel>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new dock panel. It 'Defines an area where you can arrange child elements either horizontally or vertically, relative to each other. (Microsoft Documentation)'"
         },
         {
           "text": "DocumentViewer",
           "parent": "Display",
           "preview": "<DocumentViewer/>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new document viewer. "
         },
         {
           "text": "Ellipse",
           "parent": "Display",
           "preview": "<Ellipse\n  Width=\"100\"\n  Height=\"50\"\n  Fill=\"Blue\"\n  Stroke=\"Black\"\n  StrokeThickness=\"4\"\n  Canvas.Left=\"10\"\n  Canvas.Top=\"100\"/>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new ellipse. It 'Gets or sets the geometry used to define the outline of the contents of an element. (Microsoft Documentation)'"
         },
         {
           "text": "Expander",
           "parent": "Layout",
           "preview": "<Expander>  \n    <TextBlock TextWrapping=\"Wrap\" FontSize=\"18\">  \n    Text \n    </TextBlock>  \n</Expander>",
           "color": "#c0392b",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new expander. 'An Expander control provides a way to provide content in an expandable area that resembles a window and includes a header' (Microsoft Documentation)"
         },
         {
           "text": "Grid",
           "parent": "Container",
           "preview": "<Grid VerticalAlignment=\"Top\" HorizontalAlignment=\"Left\" ShowGridLines=\"True\" Width=\"250\" Height=\"100\">\n  <Grid.ColumnDefinitions>\n    <ColumnDefinition />\n    <ColumnDefinition />\n  </Grid.ColumnDefinitions>\n  <Grid.RowDefinitions>\n    <RowDefinition />\n    <RowDefinition />\n  </Grid.RowDefinitions>\n  <TextBlock Grid.Row=\"0\" Grid.Column=\"0\">text</TextBlock>\n  <TextBlock Grid.Row=\"0\" Grid.Column=\"1\">text</TextBlock>\n  <TextBlock Grid.Row=\"1\" Grid.Column=\"0\">text</TextBlock>\n  <TextBlock Grid.Row=\"1\" Grid.Column=\"1\">text</TextBlock>\n</Grid>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new grid. It 'Defines a flexible grid area that consists of columns and rows. (Microsoft Documentation)'"
         },
         {
           "text": "GridSplitter",
           "parent": "Layout",
           "preview": "<GridSplitter Grid.Column=\"1\"\n              HorizontalAlignment=\"Center\"\n              VerticalAlignment=\"Stretch\"\n              Background=\"Black\" \n              ShowsPreview=\"True\"\n              Width=\"5\"\n              />",
           "color": "#c0392b",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new grid splitter. It 'Represents the control that redistributes space between columns or rows of a Grid control. (Microsoft Documentation)'"
         },
         {
           "text": "GroupBox",
           "parent": "Input",
           "preview": "<GroupBox Header=\"GroupBox Sample\" Margin=\"10\" Padding=\"10\">\n    <StackPanel>\n    <TextBlock>First name:</TextBlock>\n    <TextBox />\n    <TextBlock>Last name:</TextBlock>\n    <TextBox />\n    <Button Margin=\"0,20\">Add User</Button>\n    </StackPanel>\n</GroupBox>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new group box. 'The GroupBox control is a HeaderedContentControl that provides a titled container for graphical user interface (GUI) content. (Microsoft Documentation)'"
         },
         {
           "text": "Image",
           "parent": "Display",
           "preview": "<Image Width=\\\"200\\\">\n  <Image.Source>\n    <BitmapImage DecodePixelWidth=\\\"200\\\"  \n     UriSource=\\\"C:\\Documents and Settings\\Water Lilies.jpg\\\" />\n  </Image.Source>\n</Image>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new image."
         },
         {
           "text": "Label",
           "parent": "Display",
           "preview": "<Label Content=\"This is a Label control.\" />",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new label. "
         },
         {
           "text": "ListBox",
           "parent": "Input",
           "preview": "<ListBox>\n    <ListBoxItem>ListBox Item #1</ListBoxItem>\n    <ListBoxItem>ListBox Item #2</ListBoxItem>\n    <ListBoxItem>ListBox Item #3</ListBoxItem>\n</ListBox>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new list box. It 'lets users select from a pre-defined list of options presented like a text control'. (Microsoft Documentation)'"
         },
         {
           "text": "MediaElement",
           "parent": "Display",
           "preview": "<MediaElement Height=\"100\" Width=\"100\"/>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new media element. It 'represents a control that contains audio and/or video. (Microsoft Documentation)'"
         },
         {
           "text": "Menu",
           "parent": "Container",
           "preview": "<Menu>\n  <MenuItem Header=\"_Edit\">\n    <MenuItem Command=\"ApplicationCommands.Copy\"/>\n    <MenuItem Command=\"ApplicationCommands.Cut\"/>\n    <MenuItem Command=\"ApplicationCommands.Paste\"/>\n  </MenuItem>\n</Menu>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new menu containing a collection of menu items."
         },
         {
           "text": "PasswordBox",
           "parent": "Input",
           "preview": "<PasswordBox x:Name=\"passwordBox\" Width=\"200\" MaxLength=\"16\"\n             PasswordChanged=\"passwordBox_PasswordChanged\"/>\n<TextBlock x:Name=\"statusText\" Margin=\"10\" HorizontalAlignment=\"Center\"/>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new password box where the user enters a hidden password."
         },
         {
           "text": "ProgressBar",
           "parent": "Tool Bars",
           "preview": "<ProgressBar Height=\"10\" Width=\"100\"/>",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new progress bar. It 'represents a control that indicates the progress of an operation, where the typical visual appearance is a bar that animates a filled area as progress continues.' (Microsoft Documentation) "
         },
         {
           "text": "RadioButton",
           "parent": "Input",
           "preview": "<RadioButton>\n    content\n</RadioButton>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a radio button, allowing the user to choose from a list of options."
         },
         {
           "text": "Rectangle",
           "parent": "Display",
           "preview": "<Rectangle Height=\"100\" Stroke=\"Black\" Width=\"100\"/>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create an item with a rectangular form."
         },
         {
           "text": "RichTextBox",
           "parent": "Input",
           "preview": "<Page xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n  xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\">\n  <StackPanel>\n    <RichTextBox>\n      <FlowDocument>\n        <Paragraph>\n          This is flow content and you can <Bold>edit me!</Bold>\n        </Paragraph>\n      </FlowDocument>\n    </RichTextBox>\n  </StackPanel>\n</Page>\n",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a rich text box. It 'enables you to display or edit flow content including paragraphs, images, tables, and more. (Microsoft Documentation)'"
         },
         {
           "text": "ScrollBar",
           "parent": "Tool Bars",
           "preview": "<ScrollBar />",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a scrollbar. It 'represents a control that provides a scroll bar that has a sliding Thumb whose position corresponds to a value.' (Microsoft Documentation)"
         },
         {
           "text": "ScrollViewer",
           "parent": "Display",
           "preview": "<Page xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n      xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n      WindowTitle=\"ScrollViewer Sample\">\n  <ScrollViewer HorizontalScrollBarVisibility=\"Auto\">\n    <StackPanel VerticalAlignment=\"Top\" HorizontalAlignment=\"Left\">\n      <TextBlock TextWrapping=\"Wrap\" Margin=\"0,0,0,20\">Scrolling is enabled when it is necessary.\n       Resize the window, making it larger and smaller.</TextBlock>\n      <Rectangle Fill=\"Red\" Width=\"500\" Height=\"500\"></Rectangle>\n    </StackPanel>\n  </ScrollViewer>\n</Page>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a scroll viewer. It 'enables content to be displayed in a smaller area than its actual size' (Microsoft Documentation)"
         },
         {
           "text": "Separator",
           "parent": "Layout",
           "preview": "<ToolBarTray Background=\\\"White\\\">\n    <ToolBar Band=\\\"1\\\" BandIndex=\\\"1\\\">\n      <Button>\n        <Image Source=\\\"toolbargraphics\\new.bmp\\\" />\n      </Button>\n      <Separator/>\n      <Button>\n        <Image Source=\\\"toolbargraphics\\cut.bmp\\\" />\n      </Button>\n      <Separator/>\n      <Button>\n        <Image Source=\\\"toolbargraphics\\print.bmp\\\" />\n      </Button>\n    </ToolBar>\n  </ToolBarTray>",
           "color": "#c0392b",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a separator. It is a 'A Separator control draws a line, horizontal or vertical, between items in controls, such as ListBox, Menu, and ToolBar. (Microsoft Documentation)'"
         },
         {
           "text": "Slider",
           "parent": "Input",
           "preview": "<Slider Width=\"120\"/>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a slider. It is a 'a control that lets the user select from a range of values by moving a Thumb control along a track.' (Microsoft Documentation)"
         },
         {
           "text": "StackPanel",
           "parent": "Container",
           "preview": "<StackPanel Height=\"100\" Width=\"100\">\n</StackPanel>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new stack panel. It is a 'a layout panel that arranges child elements into a single line that can be oriented horizontally or vertically.' (Microsoft Documentation)"
         },
         {
           "text": "StatusBar",
           "parent": "Tool Bars",
           "preview": "<StatusBar Name=\"sbar\"\n            VerticalAlignment=\"Bottom\" Background=\"Beige\" >\n  <StatusBarItem>\n    <TextBlock>Downloading File</TextBlock>\n  </StatusBarItem>\n</StatusBar>",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new status bar. It is a 'a horizontal area at the bottom of a window where an application can display status information. (Microsoft Documentation)'"
         },
         {
           "text": "TabControl",
           "parent": "Layout",
           "preview": "<TabControl>\n    <TabItem>\n      <TabItem.Header>\n        <StackPanel Orientation=\"Horizontal\">\n          <Ellipse Width=\"10\" Height=\"10\" Fill=\"DarkGray\"/>\n          <TextBlock>Tab 1</TextBlock>\n        </StackPanel>\n      </TabItem.Header>\n    </TabItem>\n  </TabControl>",
           "color": "#c0392b",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a tab control (containing multiple tab items)"
         },
         {
           "text": "TextBox",
           "parent": "Display",
           "preview": "<TextBox TextWrapping=\"Wrap\" Text=\"TextBox\" Width=\"120\"/>",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a box containing text."
         },
         {
           "text": "ToolBar",
           "parent": "Tool Bars",
           "preview": "<ToolBar Band=\"1\" BandIndex=\"1\">\n    <Button>\n      <Image Source=\"toolbargraphics\new.bmp\" />\n    </Button>\n</ToolBar>",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new toolbar (a row of commands)."
         },
         {
           "text": "ToolBarPanel",
           "parent": "Tool Bars",
           "preview": "<ToolBarPanel Height=\"100\" Width=\"100\">\n</ToolBarPanel>",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new toolbar panel (a panel of a row of commands)."
         },
         {
           "text": "ToolBarTray",
           "parent": "Tool Bars",
           "preview": "<ToolBarTray Background=\\\"White\\\">\n    <ToolBar Band=\\\"1\\\" BandIndex=\\\"1\\\">\n      <Button>\n        <Image Source=\\\"toolbargraphics\\cut.bmp\\\" />\n      </Button>\n    </ToolBar>\n  </ToolBarTray>",
           "color": "#9b59b6",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new toolbar tray. It is 'A ToolBarTray is responsible for handling placement, sizing, drag-and-drop operations, and rearranging of ToolBar controls.' (Microsoft Documentation)"
         },
         {
           "text": "TreeView",
           "parent": "Container",
           "preview": "<TreeView>\n    <TreeViewItem Header=\"Employee1\">\n      <TreeViewItem Header=\"Jesper\"/>\n      <TreeViewItem Header=\"Aaberg\"/>\n      <TreeViewItem Header=\"12345\"/>\n    </TreeViewItem>\n   <TreeViewItem Header=\"Employee2\">\n      <TreeViewItem Header=\"Dominik\"/>\n      <TreeViewItem Header=\"Paiha\"/>\n      <TreeViewItem Header=\"98765\"/>\n    </TreeViewItem>\n  </TreeView>",
           "color": "#fbc531",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new treeview. It 'represents a control that displays hierarchical data in a tree structure that has items that can expand and collapse.' (Microsoft Documentation)"
         },
         {
           "text": "Viewbox",
           "parent": "Display",
           "preview": "<Viewbox Height=\"200\" HorizontalAlignment=\"Left\" Margin=\"19,45,0,0\"\n     Name=\"viewbox1\" VerticalAlignment=\"Top\" Width=\"300\"\n    Stretch=\"Fill\">\n<Ellipse Width=\"100\" Height=\"100\" Fill=\"Red\" />\n</Viewbox>  ",
           "color": "#27ae60",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a new viewbox. 'Viewbox is a container control that scales its content to a specified size.' (Microsoft Documentation)"
         },
         {
           "text": "WrapPanel",
           "parent": "Container",
           "preview": "<WrapPanel Background=\"LightBlue\" Width=\"200\" Height=\"100\">\n     <Button Width=\"200\">Button 1      </Button>\n     <Button>Button 2</Button>\n     <Button>Button 3</Button>\n     <Button>Button 4</Button>\n</WrapPanel>",
           "color": "#3498db",
-          "type": "UI"
+          "type": "UI",
+          "description": "Create a wrap panel (wrapping the entities until no place is left)."
         }
       ]
     }

@@ -97,7 +97,8 @@ public class BlocklyAdapter
         if (custom)
         {
             ret = await _b.EvaluateScriptAsync(method, c.Text, c.Type, c.Color);
-        } else
+        }
+        else
         {
             ret = await _b.EvaluateScriptAsync(method, c.Text, c.Type);
         }

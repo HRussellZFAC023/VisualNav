@@ -9,6 +9,6 @@ internal sealed class OpenBuildingWindow : BaseCommand<OpenBuildingWindow>
     {
         await BuildingWindow.ShowAsync();
         await BuildingWindow.Instance.Blockly.CenterAsync();
-        
+
     }
 }

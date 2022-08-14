@@ -48,7 +48,7 @@
 				</Strings>
 			</Button>
 
-			<Button guid="VisualNav" id="OpenBuildingWindow" priority="0x0100" type="Button">
+			<Button guid="VisualNav" id="OpenAllWindows" priority="0x0100" type="Button">
 				<Parent guid="VisualNav" id="ToolGroup" />
 				<Icon guid="ImageCatalogGuid" id="Processor" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
