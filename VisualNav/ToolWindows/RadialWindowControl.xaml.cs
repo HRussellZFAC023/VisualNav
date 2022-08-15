@@ -575,6 +575,7 @@ public partial class RadialWindowControl
                         put_index++;
                     }
                 }
+                item.Children = childList;
             }
         }
 
