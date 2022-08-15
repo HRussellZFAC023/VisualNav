@@ -364,7 +364,6 @@ public partial class RadialWindowControl
                 await InfoNotificationWrapper.ShowSimpleAsync(element.Text + "Copied to clipboard.", "Copy", PackageGuids.PreviewWindowString, 1500);
             }
         else
-
             switch (element.Text)
             {
                 case "New Layer":
@@ -466,19 +465,28 @@ public partial class RadialWindowControl
                     {
                         var docView = await VS.Documents.GetActiveDocumentViewAsync();
                         var userInput = docView!.TextView!.Selection.StreamSelectionSpan.GetText();
-                        if (userInput.Equals("")) //prevent empty name input
+                        // prevent empty name input
+                        if (userInput.Equals("")) 
                         {
                             InfoNotificationWrapper.ShowSimpleAsync("Select creation type by highlighting text in the editor", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
                             return;
                         }
-                        if (language.Commands.Any(temp => temp.Text.Equals(userInput)))
+                        // prevent duplicate
+                        if (language.Commands.Any(temp => temp.Text.Equals(userInput)) || language.MenuItems[1].Children.Any(temp => temp.Equals(userInput)))
                         {
                             InfoNotificationWrapper.ShowSimpleAsync("Duplicate object/function found, try another name.", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
                             return;
                         }
 
+                        // trim to original menu list
+                        var menuList = new Menuitem[_json.RadialMenu[original_lan_index].MenuItems.Length];
+                        for (int i = 0; i < menuList.Length; i++) 
+                        {
+                            menuList[i] = _json.RadialMenu[original_lan_index].MenuItems[i];
+                        }
+
                         // modify children list (add the command into the children string array)
-                        foreach (var item in language.MenuItems)
+                        foreach (var item in menuList)
                         {
                             if (!item.Name.Equals(element.Parent)) continue;
                             var newChildList = new string[item.Children.Length + 1];
@@ -489,6 +497,9 @@ public partial class RadialWindowControl
                             newChildList[newChildList.Length - 1] = userInput;
                             item.Children = newChildList;
                         }
+
+                        language.MenuItems = menuList;
+
                         // create corresponding commands in the Commands section
                         var commandsList = new Command[original_command_len + 1];
                         for (var i = 0; i < original_command_len; i++)//copy to new array
@@ -500,8 +511,6 @@ public partial class RadialWindowControl
                         type += userInput;
                         userInput = element.Text.Equals("Custom Function") ? userInput + "( )" : userInput;
 
-
-
                         var newCommand = new Command
                         {
                             Text = userInput,
@@ -510,13 +519,12 @@ public partial class RadialWindowControl
                             Color = "#FFBF00", // TODO: program a input dialog to get the color
                             Type = type
                         };
-
                         commandsList[commandsList.Length - 1] = newCommand;
+
                         language.Commands = commandsList;
 
                         _json.RadialMenu[original_lan_index] = language;
 
-                        Clipboard.SetText(JsonConvert.SerializeObject(language));
                         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
                         var file = Path.Combine(dir!, "Schema", "Modified.json");
                         File.WriteAllText(file, JsonConvert.SerializeObject(_json));
@@ -542,34 +550,51 @@ public partial class RadialWindowControl
     private void RadialDialElement_Remove(Command element, Radialmenu language)
     {
         if (!element.Type.Contains("custom")) return; // if it is a custom button
-        foreach (var item in language.MenuItems) // remove from child array
+
+        var menuList = new Menuitem[_json.RadialMenu[original_lan_index].MenuItems.Length];
+        for(int i = 0; i < menuList.Length; i++) // for each menu, trim to orginal menus
         {
-            if (!item.Name.Equals(element.Text)) continue;
-            var newChildList = new string[item.Children.Length - 1];
-            for (var i = 0; i < item.Children.Length; i++)
+            menuList[i] = _json.RadialMenu[original_lan_index].MenuItems[i];
+        }
+        Clipboard.SetText(JsonConvert.SerializeObject(_json.RadialMenu[original_lan_index]));
+        foreach (var item in menuList) //find the custom menu and trim the child list
+        {
+            if(item.Name == "Custom Blocks")
             {
-                if (!item.Children[i].Equals(element.Text))
+                var childList = new string[item.Children.Length - 1];
+                int put_index = 0;
+                for (var i = 0; i < item.Children.Length; i++) //remove from child list
                 {
-                    newChildList[i] = item.Children[i];
+                    if (put_index == item.Children.Length - 1)
+                    {
+                        break;
+                    }
+                    if (!item.Children[i].Equals(element.Text))
+                    {
+                        childList[put_index] = item.Children[i];
+                        put_index++;
+                    }
                 }
             }
         }
+
         var commandsList = new Command[original_command_len - 1];
-        int put_index = 0;
-        for (var i = 0; i < language.Commands.Length; i++) //remove from command list
+        int cur_index = 0;
+        for (var i = 0; i < _json.RadialMenu[original_lan_index].Commands.Length; i++) //remove from command list
         {
-            if (put_index == original_command_len-1)
+            if (cur_index == commandsList.Length)
             {
                 break;
             }
             if (!language.Commands[i].Text.Equals(element.Text))
             {
-                commandsList[put_index] = language.Commands[i];
-                put_index++;
+                commandsList[cur_index] = language.Commands[i];
+                cur_index++;
             }
         }
-
+        language.MenuItems = menuList;
         language.Commands = commandsList;
+       // Clipboard.SetText(JsonConvert.SerializeObject(language));
         _json.RadialMenu[original_lan_index] = language;
 
         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
