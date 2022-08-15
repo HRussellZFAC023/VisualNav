@@ -9,6 +9,7 @@ namespace VisualNav.ToolWindows;
 public partial class BuildingWindowControl
 {
     public readonly BlocklyAdapter Blockly;
+    
 
     public BuildingWindowControl()
     {
@@ -115,11 +116,23 @@ public partial class BuildingWindowControl
     public void DecreaseSize(object sender, RoutedEventArgs e)
     {
         Blockly.ZoomOutAsync().FireAndForget();
+        if (Options.Settings.Instance.BlockSize > -7)
+        {
+            Options.Settings.Instance.BlockSize--;
+        }
+
+        Options.Settings.Instance.SaveAsync();
     }
 
     public void IncreaseSize(object sender, RoutedEventArgs e)
     {
         Blockly.ZoomInAsync().FireAndForget();
+        if (Options.Settings.Instance.BlockSize < 7)
+        {
+            Options.Settings.Instance.BlockSize++;
+        }
+
+        Options.Settings.Instance.SaveAsync();
     }
 
     public void SetCurrentCommand(Command c)
