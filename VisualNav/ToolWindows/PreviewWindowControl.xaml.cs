@@ -17,7 +17,10 @@ public partial class PreviewWindowControl
         _blockly = new BlocklyAdapter(Browser, true);
         ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.LoadHtmlAsync(); }).FireAndForget();
         Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
-        _blockly.ResetZoomAsync().FireAndForget();
+        //_blockly.ResetPreviewZoomAsync().FireAndForget();
+        //_blockly.PreviewCentreAsync().FireAndForget();
+        SizeChanged += (_, _) => _blockly.PreviewCentreAsync().FireAndForget();
+        
     }
 
     private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
@@ -122,13 +125,27 @@ public partial class PreviewWindowControl
     public void DecreaseSize(object sender, RoutedEventArgs e)
     {
         // update settings here!
+       
         _blockly.ZoomOutAsync().FireAndForget();
+        if (Options.Settings.Instance.BlockSize_Preview > -7)
+        {
+            Options.Settings.Instance.BlockSize_Preview --;
+        }
+
+        Options.Settings.Instance.SaveAsync();
     }
 
     public void IncreaseSize(object sender, RoutedEventArgs e)
     {
         // update settings here!
+
         _blockly.ZoomInAsync().FireAndForget();
+        if (Options.Settings.Instance.BlockSize_Preview < 7)
+        {
+            Options.Settings.Instance.BlockSize_Preview++;
+        }
+
+        Options.Settings.Instance.SaveAsync();
     }
 
     public async Task ClearCurrentCommandAsync()

@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using VisualNav.Schema;
 
 namespace VisualNav.Utilities;
@@ -18,7 +19,7 @@ public class BlocklyAdapter
     private readonly IChromiumWebBrowserBase _b;
     private readonly string _blocklyJs;
     private readonly string _blocklyHtml;
-
+    
     /// <summary>
     /// BlocklyAdapter constructor method.
     /// </summary>
@@ -128,6 +129,20 @@ public class BlocklyAdapter
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.cleanUp()");
     }
 
+    public async Task PreviewCentreAsync()
+    {
+        await Task.Delay(100);
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
+        await Task.Delay(500);
+        // restore zoom from settings
+        var settingSize = Options.Settings.Instance.BlockSize_Preview;
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(" + settingSize + ")");
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.cleanUp()");
+        
+        
+        
+    }
+
     public async Task ResetZoomAsync()
     {
         await Task.Delay(100);
@@ -136,29 +151,22 @@ public class BlocklyAdapter
         await Options.Settings.Instance.SaveAsync();
     }
 
+    public async Task ResetPreviewZoomAsync()
+    {
+        await Task.Delay(100);
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
+        await Options.Settings.Instance.SaveAsync();
+    }
+
     public async Task ZoomOutAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(-1)");
-        if (Options.Settings.Instance.BlockSize > -7)
-        {
-            Options.Settings.Instance.BlockSize--;
-        }
-
-        await Options.Settings.Instance.SaveAsync();
-        // update settings
-        // - 1
+        
     }
 
     public async Task ZoomInAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(1)");
-        if (Options.Settings.Instance.BlockSize < 7)
-        {
-            Options.Settings.Instance.BlockSize++;
-        }
-
-        await Options.Settings.Instance.SaveAsync();
-        // update settings
-        // + 1
+        
     }
 }
