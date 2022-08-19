@@ -1,11 +1,23 @@
-﻿<UserControl x:Class="VisualNav.ToolWindows.PreviewWindowControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:browser="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-             xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
-             toolkit:Themes.UseVsTheme="True">
-
+﻿<UserControl
+    x:Class="VisualNav.ToolWindows.PreviewWindowControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:browser="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+    xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"
+    xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
+    xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
+    xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    toolkit:Themes.UseVsTheme="True">
+    <UserControl.Resources>
+        <ui:BrushToColorConverter x:Key="BrushToColorConverter" />
+    </UserControl.Resources>
     <Grid
+          Name="RootGrid"
           Margin="0,0,0,0"
           VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch"
@@ -13,11 +25,25 @@
           MinHeight="300">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" />
-        <Border  Grid.Row="1"
+        <StackPanel Orientation="Horizontal" Name="Widgets"  Grid.Row="0" Grid.Column="0" Margin="5" />
+        <StackPanel Orientation="Horizontal" Name="Descriptions"  Grid.Row="1" Grid.Column="0" Margin="5" />
+
+        <StackPanel
+            Margin="5"
+            Name="icons"
+            Orientation="Horizontal" Panel.ZIndex="100" Grid.Row="2" Grid.Column="0" MaxHeight="25" HorizontalAlignment="Right"
+            theming:ImageThemingUtilities.ImageBackgroundColor="{Binding Background, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushToColorConverter}}">
+            <imaging:CrispImage  MouseDown="DecreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomOut}" />
+            <imaging:CrispImage  MouseDown="IncreaseSize" Width="25" Height="25" Moniker="{x:Static catalog:KnownMonikers.ZoomIn}" />
+        </StackPanel>
+
+        <Border  Grid.Row="2"
+                 Grid.RowSpan="2"
                  Grid.Column="0"
                  Visibility="Hidden"
                  Name="TextBorder"
@@ -26,8 +52,12 @@
                  Margin="1">
             <TextBlock Name="PreviewText" />
         </Border>
-        <Border  Grid.Row="1"
+        <Border  Grid.Row="2"
+                 Grid.RowSpan="2"
                  Grid.Column="0"
+                 BorderBrush="LightSlateGray"
+                 BorderThickness="1"
+                 Margin="1"
                  Name="BrowserBorder">
             <browser:ChromiumWebBrowser x:Name="Browser" />
         </Border>
