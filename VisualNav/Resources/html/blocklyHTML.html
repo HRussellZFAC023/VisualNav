@@ -95,7 +95,7 @@
                     x += element.offsetLeft;
                     y += element.offsetTop;
                     element = element.offsetParent;
-                } while (element);
+                    } while (element);
                 // Position blocklyDiv over blocklyArea.
                 blocklyDiv.style.left = x + 'px';
                 blocklyDiv.style.top = y + 'px';
@@ -106,7 +106,6 @@
 
             window.addEventListener('resize', onresize, false);
             onresize();
-            Blockly.svgResize(workspace);
 
             var zoomControl = document.querySelectorAll('.blocklyZoom');
             zoomControl[0].style.display = 'none';
@@ -120,7 +119,6 @@
                 type = type + '_' + text;
             }
 
-            
             newBlock = workspace.newBlock(type);
             newBlock.initSvg();
             newBlock.render();
@@ -139,7 +137,7 @@
                         {
                             'type': 'field_input',
                             'name': 'object_name',
-                            'text': text,
+                            'text': text
                         }
                     ],
                     'output': 'String',
@@ -149,8 +147,8 @@
                 }]);
 
                 Blockly.CSharp['custom_object_' + text] = function (block) {
-                    var text_object_name = block.getFieldValue('object_name');
-                    var code = text_object_name;
+                    var textObjectName = block.getFieldValue('object_name');
+                    var code = textObjectName;
                     return [code, Blockly.CSharp.ORDER_ATOMIC];
                 };
             } else if (typeArr[1] === 'function') {
@@ -335,7 +333,6 @@
             return code;
 
         }
-
     </script>
 </body>
 </html>

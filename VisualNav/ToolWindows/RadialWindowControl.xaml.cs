@@ -36,8 +36,9 @@ public partial class RadialWindowControl
     private IDictionary<string, List<RadialMenuItem>> _menu; // Store all menu levels without hierarchy
     private string _progress = "";
     private Stack<string> _state = new(); // maintains the progress/state of the menu levels, (e.g.Main->Code->Array)
-    private int original_command_len = 0;
-    private int original_lan_index = 0;
+    private int _originalCommandLen;
+    private int _originalLanIndex;
+
     public RadialWindowControl()
     {
         InitializeComponent();
@@ -80,9 +81,9 @@ public partial class RadialWindowControl
                     defaultTxt = defaultTxt + ext + " ";
                     if (!ext.Equals(LanguageMediator.GetCurrentActiveFileExtension()))
                     {
-                        if (original_lan_index == 0)
+                        if (_originalLanIndex == 0)
                         {
-                            original_lan_index = i;
+                            _originalLanIndex = i;
                         }
                         continue;
                     }
@@ -102,7 +103,7 @@ public partial class RadialWindowControl
                                 }
                             }
                         }
-                        original_command_len = language.Commands.Length;
+                        _originalCommandLen = language.Commands.Length;
                         language = new Radialmenu
                         {
                             FileExt = temp.FileExt,
@@ -143,6 +144,7 @@ public partial class RadialWindowControl
                 var item = MenuBlock(stackPanel, _colorMap["WhiteIce"], _colorMap["Chambray"]);
                 item.MouseEnter += (_, _) => IncreaseOnHover(item, _colorMap);
                 item.MouseLeave += (_, _) => ResetSizeOnExitHover(item, _colorMap);
+                item.MouseEnter += (_, _) => PreviewWindow.Instance.SetCurrentMenu(menuItem);
                 // icon
                 var image = BuildIcon(menuItem.Icon);
                 stackPanel.Children.Add(image);
@@ -197,7 +199,6 @@ public partial class RadialWindowControl
                         {
                             InfoNotificationWrapper.ShowSimpleAsync("Preview window has not started yet.", "StatusWarning", PackageGuids.RadialWindowString, 1500).FireAndForget();
                         }
-
                     });
                 };
 
@@ -407,8 +408,8 @@ public partial class RadialWindowControl
 
                         language.MenuItems = menuItem;
                         // create corresponding commands ("New Layer" and "Create Command") in the Commands section
-                        var commandsList = new Command[original_command_len + 3];
-                        for (var i = 0; i < original_command_len; i++)//copy to new array
+                        var commandsList = new Command[_originalCommandLen + 3];
+                        for (var i = 0; i < _originalCommandLen; i++)//copy to new array
                         {
                             commandsList[i] = language.Commands[i];
                         }
@@ -444,7 +445,7 @@ public partial class RadialWindowControl
                         commandsList[commandsList.Length - 1] = newSubMenu;
 
                         language.Commands = commandsList;
-                        _json.RadialMenu[original_lan_index] = language;
+                        _json.RadialMenu[_originalLanIndex] = language;
 
                         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
                         var file = Path.Combine(dir!, "Schema", "Modified.json");
@@ -479,10 +480,10 @@ public partial class RadialWindowControl
                         }
 
                         // trim to original menu list
-                        var menuList = new Menuitem[_json.RadialMenu[original_lan_index].MenuItems.Length];
+                        var menuList = new Menuitem[_json.RadialMenu[_originalLanIndex].MenuItems.Length];
                         for (int i = 0; i < menuList.Length; i++)
                         {
-                            menuList[i] = _json.RadialMenu[original_lan_index].MenuItems[i];
+                            menuList[i] = _json.RadialMenu[_originalLanIndex].MenuItems[i];
                         }
 
                         // modify children list (add the command into the children string array)
@@ -498,12 +499,12 @@ public partial class RadialWindowControl
                             item.Children = newChildList;
                         }
 
-                        // apply changes 
+                        // apply changes
                         language.MenuItems = menuList;
 
                         // create corresponding commands in the Commands section
-                        var commandsList = new Command[original_command_len + 1];
-                        for (var i = 0; i < original_command_len; i++)//copy to new array
+                        var commandsList = new Command[_originalCommandLen + 1];
+                        for (var i = 0; i < _originalCommandLen; i++)//copy to new array
                         {
                             commandsList[i] = language.Commands[i];
                         }
@@ -522,9 +523,9 @@ public partial class RadialWindowControl
                         };
                         commandsList[commandsList.Length - 1] = newCommand;
 
-                        // apply changes 
+                        // apply changes
                         language.Commands = commandsList;
-                        _json.RadialMenu[original_lan_index] = language;
+                        _json.RadialMenu[_originalLanIndex] = language;
 
                         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
                         var file = Path.Combine(dir!, "Schema", "Modified.json");
@@ -552,10 +553,10 @@ public partial class RadialWindowControl
     {
         if (!element.Type.Contains("custom")) return; // if it is a custom button
 
-        var menuList = new Menuitem[_json.RadialMenu[original_lan_index].MenuItems.Length];
+        var menuList = new Menuitem[_json.RadialMenu[_originalLanIndex].MenuItems.Length];
         for (int i = 0; i < menuList.Length; i++) // for each menu, trim to orginal menus
         {
-            menuList[i] = _json.RadialMenu[original_lan_index].MenuItems[i];
+            menuList[i] = _json.RadialMenu[_originalLanIndex].MenuItems[i];
         }
 
         // Clipboard.SetText(JsonConvert.SerializeObject(_json.RadialMenu[original_lan_index]));
@@ -581,9 +582,9 @@ public partial class RadialWindowControl
             }
         }
 
-        var commandsList = new Command[original_command_len - 1];
+        var commandsList = new Command[_originalCommandLen - 1];
         int cur_index = 0;
-        for (var i = 0; i < _json.RadialMenu[original_lan_index].Commands.Length; i++) //remove from command list
+        for (var i = 0; i < _json.RadialMenu[_originalLanIndex].Commands.Length; i++) //remove from command list
         {
             if (cur_index == commandsList.Length)
             {
@@ -598,7 +599,7 @@ public partial class RadialWindowControl
         language.MenuItems = menuList;
         language.Commands = commandsList;
         // Clipboard.SetText(JsonConvert.SerializeObject(language));
-        _json.RadialMenu[original_lan_index] = language;
+        _json.RadialMenu[_originalLanIndex] = language;
 
         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
         var file = Path.Combine(dir!, "Schema", "Modified.json");
@@ -699,7 +700,7 @@ public partial class RadialWindowControl
             var radialWindow = VsShellUtilities.GetWindowObject(radialFrame);
             radialWindow.IsFloating = true;
             radialWindow.Width = (int)((int)SystemParameters.PrimaryScreenWidth * 0.5);
-            radialWindow.Height = (int)((int)SystemParameters.PrimaryScreenHeight * 0.75 - 80);
+            radialWindow.Height = (int)((int)SystemParameters.PrimaryScreenHeight * 0.66666 - 80);
             radialWindow.Left = 0;
             radialWindow.Top = 0;
             radialWindow.WindowState = EnvDTE.vsWindowState.vsWindowStateMaximize;
@@ -707,9 +708,9 @@ public partial class RadialWindowControl
             var previewWindow = VsShellUtilities.GetWindowObject(previewFrame);
             previewWindow.IsFloating = true;
             previewWindow.Width = (int)((int)SystemParameters.PrimaryScreenWidth * 0.5);
-            previewWindow.Height = (int)((int)SystemParameters.PrimaryScreenHeight * 0.25 - 20);
+            previewWindow.Height = (int)((int)SystemParameters.PrimaryScreenHeight * 0.33333 - 20);
             previewWindow.Left = 0;
-            previewWindow.Top = (int)((int)SystemParameters.PrimaryScreenHeight * 0.75 - 60);
+            previewWindow.Top = (int)((int)SystemParameters.PrimaryScreenHeight * 0.66666 - 60);
             previewWindow.WindowState = EnvDTE.vsWindowState.vsWindowStateMaximize;
 
             var buildingWindow = VsShellUtilities.GetWindowObject(buildingFrame);
@@ -743,6 +744,4 @@ public partial class RadialWindowControl
             buildingWindow.IsFloating = false;
         }).FireAndForget();
     }
-
-
 }
