@@ -139,8 +139,8 @@ public class BlocklyAdapter
     {
         await Task.Delay(100);
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
+        await Task.Delay(600);
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.cleanUp()");
-        await Task.Delay(500);
         Options.Settings.Instance.BlockSize = 0;
         await Options.Settings.Instance.SaveAsync();
     }
