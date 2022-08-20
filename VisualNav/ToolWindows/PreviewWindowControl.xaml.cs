@@ -17,10 +17,7 @@ public partial class PreviewWindowControl
         _blockly = new BlocklyAdapter(Browser, true);
         ThreadHelper.JoinableTaskFactory.RunAsync(async () => { await _blockly.LoadHtmlAsync(); }).FireAndForget();
         Browser.LoadingStateChanged += BrowserOnLoadingStateChanged;
-        //_blockly.ResetPreviewZoomAsync().FireAndForget();
-        //_blockly.PreviewCentreAsync().FireAndForget();
         SizeChanged += (_, _) => _blockly.PreviewCentreAsync().FireAndForget();
-        
     }
 
     private void BrowserOnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
@@ -52,7 +49,7 @@ public partial class PreviewWindowControl
             Text = c.Description,
             TextWrapping = TextWrapping.Wrap,
             Width = RootGrid.Width,
-            FontSize = c.Description.Length < 70 ? GetFontSize() : Math.Max(GetFontSize() / 1.5, 12)
+            FontSize = c.Description.Contains("\n") ? Math.Max(GetFontSize() / 1.5, 12) : GetFontSize()
         });
         }).FireAndForget();
     }
@@ -78,14 +75,14 @@ public partial class PreviewWindowControl
                     Text = m.Description,
                     TextWrapping = TextWrapping.Wrap,
                     Width = RootGrid.Width,
-                    FontSize = m.Description.Length < 70 ? GetFontSize() : Math.Max(GetFontSize() / 1.5,12)
+                    FontSize = m.Description.Contains("\n") ? Math.Max(GetFontSize() / 1.5, 12) : GetFontSize()
                 });
         }).FireAndForget();
     }
 
     private double GetFontSize()
     {
-        var radius = (RenderSize.Width * 0.4); // RenderSize is the width of window
+        var radius = RenderSize.Width * 0.4; // RenderSize is the width of window
         var ratio = radius / 150; // conversion rate of radial dial radius to size on screen
         var fontSize = Math.Min(Math.Max(Math.Ceiling(12 * ratio), 12), 24);
         return fontSize;
@@ -124,28 +121,24 @@ public partial class PreviewWindowControl
 
     public void DecreaseSize(object sender, RoutedEventArgs e)
     {
-        // update settings here!
-       
         _blockly.ZoomOutAsync().FireAndForget();
         if (Options.Settings.Instance.BlockSize_Preview > -7)
         {
-            Options.Settings.Instance.BlockSize_Preview --;
+            Options.Settings.Instance.BlockSize_Preview--;
         }
 
-        Options.Settings.Instance.SaveAsync();
+        Options.Settings.Instance.SaveAsync().FireAndForget();
     }
 
     public void IncreaseSize(object sender, RoutedEventArgs e)
     {
-        // update settings here!
-
         _blockly.ZoomInAsync().FireAndForget();
         if (Options.Settings.Instance.BlockSize_Preview < 7)
         {
             Options.Settings.Instance.BlockSize_Preview++;
         }
 
-        Options.Settings.Instance.SaveAsync();
+        Options.Settings.Instance.SaveAsync().FireAndForget();
     }
 
     public async Task ClearCurrentCommandAsync()

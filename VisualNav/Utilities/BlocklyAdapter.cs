@@ -1,7 +1,6 @@
 ﻿using CefSharp;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 using VisualNav.Schema;
 
 namespace VisualNav.Utilities;
@@ -19,7 +18,7 @@ public class BlocklyAdapter
     private readonly IChromiumWebBrowserBase _b;
     private readonly string _blocklyJs;
     private readonly string _blocklyHtml;
-    
+
     /// <summary>
     /// BlocklyAdapter constructor method.
     /// </summary>
@@ -103,10 +102,12 @@ public class BlocklyAdapter
         {
             ret = await _b.EvaluateScriptAsync(method, c.Text, c.Type);
         }
+
         if (!preview)
-        {
             await CenterAsync();
-        }
+        else
+            await PreviewCentreAsync();
+
         _blockBeingAdded = false;
         return ret;
     }
@@ -122,7 +123,7 @@ public class BlocklyAdapter
     {
         await Task.Delay(100);
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
-        await Task.Delay(500);
+        await Task.Delay(600);
         // restore zoom from settings
         var settingSize = Options.Settings.Instance.BlockSize;
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(" + settingSize + ")");
@@ -131,42 +132,25 @@ public class BlocklyAdapter
 
     public async Task PreviewCentreAsync()
     {
-        await Task.Delay(100);
-        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
-        await Task.Delay(500);
-        // restore zoom from settings
         var settingSize = Options.Settings.Instance.BlockSize_Preview;
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomToFit()");
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(" + settingSize + ")");
-        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.cleanUp()");
-        
-        
-        
     }
 
     public async Task ResetZoomAsync()
     {
-        await Task.Delay(100);
-        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
         Options.Settings.Instance.BlockSize = 0;
-        await Options.Settings.Instance.SaveAsync();
-    }
-
-    public async Task ResetPreviewZoomAsync()
-    {
-        await Task.Delay(100);
-        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
+        await CenterAsync();
         await Options.Settings.Instance.SaveAsync();
     }
 
     public async Task ZoomOutAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(-1)");
-        
     }
 
     public async Task ZoomInAsync()
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(1)");
-        
     }
 }
