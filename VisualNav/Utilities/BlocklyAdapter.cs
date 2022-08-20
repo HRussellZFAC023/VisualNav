@@ -121,9 +121,11 @@ public class BlocklyAdapter
 
     public async Task CenterAsync()
     {
+        await Task.Delay(100);
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
+        await Task.Delay(600);
         // restore zoom from settings
         var settingSize = Options.Settings.Instance.BlockSize;
-        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomToFit()");
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(" + settingSize + ")");
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.cleanUp()");
     }
@@ -137,9 +139,6 @@ public class BlocklyAdapter
 
     public async Task ResetZoomAsync()
     {
-        await Task.Delay(100);
-        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.resetZoom_()");
-        await Task.Delay(600);
         Options.Settings.Instance.BlockSize = 0;
         await CenterAsync();
         await Options.Settings.Instance.SaveAsync();
