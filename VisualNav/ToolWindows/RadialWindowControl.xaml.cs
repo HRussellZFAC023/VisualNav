@@ -375,9 +375,15 @@ public partial class RadialWindowControl
                             InfoNotificationWrapper.ShowSimpleAsync("Select layer name by highlighting text in the editor", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
                             return;
                         }
-                        // Modify Menuitems section of the json file
-                        var menuItem = new Menuitem[language.MenuItems.Length + 1];
-                        for (var i = 0; i < language.MenuItems.Length; i++)//copy to new array
+                        // prevent duplicate
+                        if (language.MenuItems.Any(temp => temp.Name.Equals(userInput)))
+                        {
+                            InfoNotificationWrapper.ShowSimpleAsync("Duplicate layer found, try another name.", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
+                            return;
+                        }
+                        // Modify Menuitems section of the json file and trim to original menu list
+                        var menuList = new Menuitem[_json.RadialMenu[original_lan_index].MenuItems.Length + 1];
+                        for (int i = 0; i < menuList.Length - 1; i++)
                         {
                             if (language.MenuItems[i].Name.Equals(element.Parent))
                             {
@@ -387,12 +393,9 @@ public partial class RadialWindowControl
                                 elementTemp[language.MenuItems[i].Submenu.Length] = userInput;
                                 language.MenuItems[i].Submenu = elementTemp;
 
-                                //from children remove "New Layer"
-                                var childrenTemp = language.MenuItems[i].Children;
-                                childrenTemp = childrenTemp.Where((source, index) => index != 0).ToArray();
-                                language.MenuItems[i].Children = childrenTemp;
+                                
                             }
-                            menuItem[i] = language.MenuItems[i];
+                            menuList[i] = _json.RadialMenu[original_lan_index].MenuItems[i];
                         }
 
                         var item = new Menuitem
@@ -403,9 +406,10 @@ public partial class RadialWindowControl
                             Children = new[] { "Custom Object", "Custom Function", "New Layer" },
                             Icon = "Code"
                         };
-                        menuItem[menuItem.Length - 1] = item;
+                        menuList[menuList.Length - 1] = item;
 
-                        language.MenuItems = menuItem;
+                        language.MenuItems = menuList;
+
                         // create corresponding commands ("New Layer" and "Create Command") in the Commands section
                         var commandsList = new Command[original_command_len + 3];
                         for (var i = 0; i < original_command_len; i++)//copy to new array
