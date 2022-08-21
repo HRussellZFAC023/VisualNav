@@ -68,7 +68,7 @@ public partial class RadialWindowControl
             _state = new Stack<string>();
             MainMenu.Items = new List<RadialMenuItem>();
             _json ??= await Schema.Schema.LoadAsync();
-            // original_lan_index = 0;
+            //original_lan_index = 0;
             // get the current language + Check if it is contained in the list.
             Radialmenu language = null;
             var defaultTxt = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types:"; // .cs, .xaml
@@ -383,7 +383,7 @@ public partial class RadialWindowControl
                             return;
                         }
                         // Modify Menuitems section of the json file and trim to original menu list
-                        var menuList = new Menuitem[_json.RadialMenu[original_lan_index].MenuItems.Length + 1];
+                        var menuList = new Menuitem[_json.RadialMenu[_originalLanIndex].MenuItems.Length + 1];
                         for (int i = 0; i < menuList.Length - 1; i++)
                         {
                             if (language.MenuItems[i].Name.Equals(element.Parent))
@@ -396,7 +396,7 @@ public partial class RadialWindowControl
 
                                 
                             }
-                            menuList[i] = _json.RadialMenu[original_lan_index].MenuItems[i];
+                            menuList[i] = _json.RadialMenu[_originalLanIndex].MenuItems[i];
                         }
 
                         var item = new Menuitem
@@ -563,7 +563,7 @@ public partial class RadialWindowControl
             menuList[i] = _json.RadialMenu[_originalLanIndex].MenuItems[i];
         }
 
-        // Clipboard.SetText(JsonConvert.SerializeObject(_json.RadialMenu[original_lan_index]));
+        // Clipboard.SetText(JsonConvert.SerializeObject(_json.RadialMenu[_originalLanIndex]));
         foreach (var item in menuList) //find the custom menu and trim the child list
         {
             if (item.Name == "Custom Blocks")
