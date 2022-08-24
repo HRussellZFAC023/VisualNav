@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using VisualNav.Utilities;
@@ -38,7 +39,7 @@ public partial class BuildingWindowControl
         {
             var ret = await Blockly.ShowCodeAsync();
 
-            if (ret.Success != true)
+            if (!ret.Success)
             {
                 await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 3000);
             }
@@ -55,7 +56,7 @@ public partial class BuildingWindowControl
         {
             var ret = await Blockly.ShowCodeAsync();
 
-            if (ret.Success != true)
+            if (!ret.Success)
             {
                 await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 3000);
             }
@@ -67,29 +68,28 @@ public partial class BuildingWindowControl
                 var position = docView.TextView.Caret.Position.BufferPosition;
 
                 var spaceNum = docView.TextView.Caret.Position.VirtualSpaces;
-
-                var spaces = "";
-                var newRes = "";
+                var spaces = new StringBuilder();
+                var newRes = new StringBuilder();
                 for (var i = 0; i < spaceNum; i++)
                 {
-                    spaces += ' ';
+                    spaces.Append(' ');
                 }
 
-                newRes += spaces;
+                newRes.Append(spaces);
                 foreach (var c in re)
                 {
                     if (c == '\n')
                     {
-                        newRes += c;
-                        newRes += spaces;
+                        newRes.Append(c);
+                        newRes.Append(spaces);
                     }
                     else
                     {
-                        newRes += c;
+                        newRes.Append(c);
                     }
                 }
 
-                docView.TextBuffer?.Insert(position, newRes);
+                docView.TextBuffer?.Insert(position, newRes.ToString());
                 await InfoNotificationWrapper.ShowSimpleAsync("Inserted into Document.", "InsertPage", PackageGuids.BuildingWindowString, 1500);
             }
         }).FireAndForget();
@@ -101,7 +101,7 @@ public partial class BuildingWindowControl
         {
             var ret = await Blockly.ShowCodeAsync();
 
-            if (ret.Success != true)
+            if (!ret.Success)
             {
                 await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 3000);
             }
@@ -121,7 +121,7 @@ public partial class BuildingWindowControl
             Options.Settings.Instance.BlockSize--;
         }
 
-        Options.Settings.Instance.SaveAsync();
+        _ = Options.Settings.Instance.SaveAsync();
     }
 
     public void IncreaseSize(object sender, RoutedEventArgs e)
@@ -132,7 +132,7 @@ public partial class BuildingWindowControl
             Options.Settings.Instance.BlockSize++;
         }
 
-        Options.Settings.Instance.SaveAsync();
+        _ = Options.Settings.Instance.SaveAsync();
     }
 
     public void SetCurrentCommand(Command c)
@@ -141,10 +141,9 @@ public partial class BuildingWindowControl
         {
             JavascriptResponse ret;
 
-            ret = await Blockly.AddNewBlockToAreaAsync(c, false, true); // try custom
+            await Blockly.AddNewBlockToAreaAsync(c, false, true); // try custom
 
             ret = await Blockly.AddNewBlockToAreaAsync(c, false, false);
-
             await InfoNotificationWrapper.ShowSimpleAsync(ret.Message, "StatusError", PackageGuids.BuildingWindowString, 1500);
         }).FireAndForget();
     }

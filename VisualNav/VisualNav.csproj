@@ -372,6 +372,9 @@
     <PackageReference Include="Json.Net">
       <Version>1.0.33</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.Metrics">
+      <Version>3.3.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Imaging">
       <Version>17.2.32505.113</Version>
     </PackageReference>

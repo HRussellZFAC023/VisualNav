@@ -11,6 +11,10 @@ namespace VisualNav.Utilities;
 /// </summary>
 internal class InfoNotificationWrapper
 {
+    protected InfoNotificationWrapper()
+    {
+    }
+
     /// <summary>
     /// A simple info message, without link or button that closes automatically
     /// </summary>

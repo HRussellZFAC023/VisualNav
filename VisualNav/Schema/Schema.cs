@@ -23,8 +23,8 @@ public class Schema
             reader = new StreamReader(file);
         }
 
-        //using var reader = new StreamReader(file);
         var json = await reader.ReadToEndAsync();
+        reader.Close();
         return JsonConvert.DeserializeObject<Schema>(json);
     }
 }

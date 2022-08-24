@@ -7,6 +7,7 @@ using RadialMenu.Controls;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -68,10 +69,9 @@ public partial class RadialWindowControl
             _state = new Stack<string>();
             MainMenu.Items = new List<RadialMenuItem>();
             _json ??= await Schema.Schema.LoadAsync();
-            //original_lan_index = 0;
-            // get the current language + Check if it is contained in the list.
+
             Radialmenu language = null;
-            var defaultTxt = "File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types:"; // .cs, .xaml
+            var defaultTxt = new StringBuilder("File type not yet supported or no file is open.\nTo get started load a file in the editor.\nSupported file types: "); // .cs, .xaml
             HashSet<String> set = new HashSet<String>();
             for (int i = 0; i < _json.RadialMenu.Length; i++)
             {
@@ -80,7 +80,7 @@ public partial class RadialWindowControl
                 {
                     if (!set.Contains(ext))
                     {
-                        defaultTxt = defaultTxt + ext + " ";
+                        defaultTxt.Append(ext + " ");
                         set.Add(ext);
                     }
                     
@@ -100,12 +100,9 @@ public partial class RadialWindowControl
                         var temp = language;
                         if (lan.Text.Equals("Code"))
                         {
-                            foreach (var menu in lan.MenuItems)
+                            foreach (var menu in lan.MenuItems.Where(menu => menu.Parent.Equals("Main")))
                             {
-                                if (menu.Parent.Equals("Main"))
-                                {
-                                    menu.Parent = "Code";
-                                }
+                                menu.Parent = "Code";
                             }
                         }
                         _originalCommandLen = language.Commands.Length;
@@ -123,7 +120,7 @@ public partial class RadialWindowControl
 
             if (language == null) // if not a file, hide insertion checkbox, and show message
             {
-                ProgressText.Text = defaultTxt;
+                ProgressText.Text = defaultTxt.ToString();
                 MainMenu.CentralItem = null;
                 InsertionPanel.Visibility = Visibility.Hidden;
                 return;
@@ -476,7 +473,7 @@ public partial class RadialWindowControl
                         var docView = await VS.Documents.GetActiveDocumentViewAsync();
                         var userInput = docView!.TextView!.Selection.StreamSelectionSpan.GetText();
                         // prevent empty name input
-                        if (userInput.Equals(""))
+                        if (string.IsNullOrEmpty(userInput))
                         {
                             InfoNotificationWrapper.ShowSimpleAsync("Select creation type by highlighting text in the editor", "StatusWarning", PackageGuids.PreviewWindowString, 1500).FireAndForget();
                             return;
@@ -527,7 +524,7 @@ public partial class RadialWindowControl
                             Text = userInput,
                             Parent = element.Parent,
                             Preview = "",
-                            Color = "#FFBF00", // TODO: program a input dialog to get the color
+                            Color = "#FFBF00",
                             Type = type
                         };
                         commandsList[commandsList.Length - 1] = newCommand;
@@ -568,7 +565,6 @@ public partial class RadialWindowControl
             menuList[i] = _json.RadialMenu[_originalLanIndex].MenuItems[i];
         }
 
-        // Clipboard.SetText(JsonConvert.SerializeObject(_json.RadialMenu[_originalLanIndex]));
         foreach (var item in menuList) //find the custom menu and trim the child list
         {
             if (item.Name == "Custom Blocks")
@@ -607,7 +603,6 @@ public partial class RadialWindowControl
         }
         language.MenuItems = menuList;
         language.Commands = commandsList;
-        // Clipboard.SetText(JsonConvert.SerializeObject(language));
         _json.RadialMenu[_originalLanIndex] = language;
 
         var dir = Path.GetDirectoryName(typeof(RadialWindowControl).Assembly.Location);
@@ -680,8 +675,8 @@ public partial class RadialWindowControl
         if (!ProgressText.Text.Equals("Main")) // if not at home page, go back to the previous level according to _progress
         {
             _progress = "";
-            foreach (var item in _state) _progress = _progress.Equals("") ? item : item + " → " + _progress;
-            _progress.Remove(_progress.Length - 4);
+            foreach (var item in _state) _progress = string.IsNullOrEmpty(_progress) ? item : item + " → " + _progress;
+            _ = _progress.Remove(_progress.Length - 4);
             ProgressText.Text = _progress;  // update progress display
         }
         // maintain _state stack
