@@ -1,10 +1,8 @@
 # VisualNav
 
-Download: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
-
-Website: https://sites.google.com/view/visualthreading/home
-
-Examples: https://github.com/HRussellZFAC023/VisualNavExamples/settings/access
+* Download: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
+* Website: https://sites.google.com/view/visualthreading/home
+* Examples: https://github.com/HRussellZFAC023/VisualNavExamples/settings/access
 
 Welcome to the “Intel® Visual Guidance Suite for Student Developers & Visual Nav Plugin in Visual Studio” project, aiming to create an equitable development by evening the playing field, such that disabled developers can write code at the same productivity of their peers.  
 
