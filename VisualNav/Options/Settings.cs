@@ -16,7 +16,7 @@ namespace VisualNav.Options
     {
         [Category("Options")]
         [DisplayName("Custom blocks")]
-        [Description("True to use custom blocks, False to restore, restart Visual studio to apply changes.")]
+        [Description("True to use custom blocks, False to restore to original configuration, restart Visual studio to apply changes.")]
         [DefaultValue(false)]
         public bool CustomBlock { get; set; } = false;
 
