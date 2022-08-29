@@ -309,7 +309,8 @@
                         args[x] = Blockly.CSharp.nameDB_.getName(this.arguments_[x],
                             Blockly.Variables.NAME_TYPE);
                     }
-                    var code = funcName + '(' + args.join(', ') + ')';
+                    var new_funcName = funcName.replace("_", ".");
+                    var code = new_funcName + '(' + args.join(', ') + ')';
                     return [code, Blockly.CSharp.ORDER_ATOMIC];
 
                 };
