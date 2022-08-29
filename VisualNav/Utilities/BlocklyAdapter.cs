@@ -153,4 +153,14 @@ public class BlocklyAdapter
     {
         await _b.EvaluateScriptAsync("Blockly.mainWorkspace.zoomControls_.zoom_(1)");
     }
+
+    public async Task UndoAsync()
+    {
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.undo(false)");
+    }
+
+    public async Task RedoAsync()
+    {
+        await _b.EvaluateScriptAsync("Blockly.mainWorkspace.undo(true)");
+    }
 }

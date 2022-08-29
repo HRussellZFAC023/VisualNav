@@ -13,6 +13,19 @@ public class Schema
         var dir = Path.GetDirectoryName(typeof(Schema).Assembly.Location);
         var file = Path.Combine(dir!, "Schema", "Modified.json");
         StreamReader reader;
+        
+        if (!Options.Settings.Instance.CustomBlock)
+        {
+            var original = Path.Combine(dir!, "Schema", "Schema.json");
+            var target = Path.Combine(dir!, "Schema", "Modified.json");
+
+            StreamReader tempReader = new StreamReader(original);
+            var originalJson = await tempReader.ReadToEndAsync();
+            tempReader.Close();
+
+            File.WriteAllText(target, originalJson);
+        }
+
         try
         {
             reader = new StreamReader(file);

@@ -15,14 +15,8 @@ namespace VisualNav.Options
     public class Settings : BaseOptionModel<Settings>
     {
         [Category("Options")]
-        [DisplayName("Child Friendly Mode")]
-        [Description("An informative description.")]
-        [DefaultValue(true)]
-        public bool ChildMode { get; set; } = true;
-
-        [Category("Options")]
         [DisplayName("Custom blocks")]
-        [Description("True for custom blocks, False to restore.")]
+        [Description("True to use custom blocks, False to restore to original configuration, restart Visual studio to apply changes.")]
         [DefaultValue(false)]
         public bool CustomBlock { get; set; } = false;
 

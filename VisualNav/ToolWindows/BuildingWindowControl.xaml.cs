@@ -112,6 +112,15 @@ public partial class BuildingWindowControl
             }
         }).FireAndForget();
     }
+    public void Redo(object sender, RoutedEventArgs e)
+    {
+        Blockly.RedoAsync().FireAndForget();
+    }
+
+    public void Undo(object sender, RoutedEventArgs e)
+    {
+        Blockly.UndoAsync().FireAndForget();
+    }
 
     public void DecreaseSize(object sender, RoutedEventArgs e)
     {
