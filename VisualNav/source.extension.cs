@@ -9,9 +9,10 @@ namespace VisualNav
     {
         public const string Id = "VisualNav.e558fd3f-b919-4f5d-8d91-56d337f74a73";
         public const string Name = "VisualNav";
-        public const string Description = @"Provides new metaphor's to navigate components in building an app!";
+        public const string Description = @"Existing tools do not provide enough support for those with disability. Our application, VisualNav is a first-of-its-kind touchless environment for coding, offering a new visual paradigm to traditional development.
+Our vision is for developers with a disability to be able to work together in a live share environment at the same productivity level as their peers.";
         public const string Language = "en-US";
-        public const string Version = "1.3";
+        public const string Version = "2.0";
         public const string Author = "UCL FacialNav for Visual Studio";
         public const string Tags = "";
     }
