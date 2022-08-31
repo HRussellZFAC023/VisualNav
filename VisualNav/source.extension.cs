@@ -7,11 +7,11 @@ namespace VisualNav
 {
     internal sealed partial class Vsix
     {
-        public const string Id = "VisualNav.e558fd3f-b919-4f5d-8d91-56d337f74a73";
+        public const string Id = "VisualNav.ca99c0be-57a0-4fe2-9b55-8178d44bec60";
         public const string Name = "VisualNav";
         public const string Description = @"Provides new metaphor's to navigate components in building an app!";
         public const string Language = "en-US";
-        public const string Version = "2.2";
+        public const string Version = "2.3";
         public const string Author = "UCL FacialNav for Visual Studio";
         public const string Tags = "";
     }
