@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="VisualNav.e558fd3f-b919-4f5d-8d91-56d337f74a73" Version="2.1" Language="en-US" Publisher="UCL FacialNav for Visual Studio" />
+        <Identity Id="VisualNav.e558fd3f-b919-4f5d-8d91-56d337f74a73" Version="2.2" Language="en-US" Publisher="UCL FacialNav for Visual Studio" />
         <DisplayName>VisualNav</DisplayName>
         <Description xml:space="preserve">Provides new metaphor's to navigate components in building an app!</Description>
         <Icon>Resources\Icon.png</Icon>

@@ -150,7 +150,7 @@
 		            editor="guidVSStd97" key1="k" key2="8" mod1="Control"  mod2="Shift" />
 	</KeyBindings>
 	<Symbols>
-		<GuidSymbol name="VisualNav" value="{fb0f5ed1-f75d-4774-a7f9-5a3a7d612e5d}">
+		<GuidSymbol name="VisualNav" value="{c739d2d9-3f91-4f11-b770-a7afe26acf73}">
 			<IDSymbol name="MyMenuGroup" value="0x0001" />
 			<IDSymbol name="ToolGroup" value="0x0002" />
 			<IDSymbol name="OpenRadialMenu" value="0x0100" />
@@ -165,8 +165,8 @@
 			<IDSymbol name="Insert" value="0x0109" />
 			<IDSymbol name="Clip" value="0x0110" />
 		</GuidSymbol>
-		<GuidSymbol name="RadialWindow" value="{34b9ebb5-2c75-4bef-a755-39d77e165ecc}" />
-		<GuidSymbol name="BuildingWindow" value="{3056e2ec-342f-4817-8eeb-eddadeaf2432}" />
-		<GuidSymbol name="PreviewWindow" value="{43d0085b-8358-4aa6-98b2-c831523cefbc}" />
+		<GuidSymbol name="RadialWindow" value="{7cc719fc-b24f-42fc-b5c2-a7bc93c64e21}" />
+		<GuidSymbol name="BuildingWindow" value="{2afd90c3-931f-4964-bbbc-005bc11950e9}" />
+		<GuidSymbol name="PreviewWindow" value="{8703a46e-2c71-4641-bfe2-73faafd33254}" />
 	</Symbols>
 </CommandTable>

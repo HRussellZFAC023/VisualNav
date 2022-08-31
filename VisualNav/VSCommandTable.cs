@@ -12,16 +12,16 @@ namespace VisualNav
     /// </summary>
     internal sealed partial class PackageGuids
     {
-        public const string VisualNavString = "fb0f5ed1-f75d-4774-a7f9-5a3a7d612e5d";
+        public const string VisualNavString = "c739d2d9-3f91-4f11-b770-a7afe26acf73";
         public static Guid VisualNav = new Guid(VisualNavString);
 
-        public const string RadialWindowString = "34b9ebb5-2c75-4bef-a755-39d77e165ecc";
+        public const string RadialWindowString = "7cc719fc-b24f-42fc-b5c2-a7bc93c64e21";
         public static Guid RadialWindow = new Guid(RadialWindowString);
 
-        public const string BuildingWindowString = "3056e2ec-342f-4817-8eeb-eddadeaf2432";
+        public const string BuildingWindowString = "2afd90c3-931f-4964-bbbc-005bc11950e9";
         public static Guid BuildingWindow = new Guid(BuildingWindowString);
 
-        public const string PreviewWindowString = "43d0085b-8358-4aa6-98b2-c831523cefbc";
+        public const string PreviewWindowString = "8703a46e-2c71-4641-bfe2-73faafd33254";
         public static Guid PreviewWindow = new Guid(PreviewWindowString);
     }
     /// <summary>
