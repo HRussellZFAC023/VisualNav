@@ -11,7 +11,7 @@ namespace VisualNav
         public const string Name = "VisualNav";
         public const string Description = @"Provides new metaphor's to navigate components in building an app!";
         public const string Language = "en-US";
-        public const string Version = "1.3";
+        public const string Version = "2.2";
         public const string Author = "UCL FacialNav for Visual Studio";
         public const string Tags = "";
     }
