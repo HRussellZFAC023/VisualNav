@@ -20,10 +20,7 @@ namespace VisualNav.Utilities
             if (dte.ActiveWindow.Kind == "Document")
             {
                 dte.ExecuteCommand("Edit.FormatDocument");
-                VS.MessageBox.Show("WOW");
             }
-
-
         }
     }
 }
