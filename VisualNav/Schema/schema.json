@@ -422,7 +422,8 @@
             "Functions"
           ],
           "children": [],
-          "icon": "Code"
+          "icon": "Code",
+          "description": "Contains blocks of code which can be added to the building window"
         },
         {
           "name": "Custom Blocks",
