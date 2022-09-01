@@ -28,15 +28,19 @@ Optional prerequisites:
      
 Setup instructions:
     
-To setup, simply naviage to the "Tools" bar and click on "open all windows".
+To setup, simply navigate to the "Tools" bar and click on "open all windows".
     
 How to get started with VisualNav
+
 How to run examples provided
     
 Screenshots:
 
-The radial menu interface, enabling efficient code block creation:
+The radial menu interface, preview and building windows enabling efficient code block creation:
+
 ![hierarchical](https://user-images.githubusercontent.com/96876320/187951335-05cff28b-045b-4fba-b289-031baa2efa4e.png)
+
+![mainScreenshot](https://user-images.githubusercontent.com/96876320/187952113-ee522257-4a3c-4802-877e-a9b77b117410.png)
 
 
 Useful links:
