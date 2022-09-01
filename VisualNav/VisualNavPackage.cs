@@ -2,6 +2,7 @@
 global using Microsoft.VisualStudio.Shell;
 global using System;
 global using Task = System.Threading.Tasks.Task;
+using EnvDTE;
 using System.Runtime.InteropServices;
 using System.Threading;
 using VisualNav.Options;
@@ -22,9 +23,16 @@ public sealed class VisualNavPackage : ToolkitPackage
 {
     protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
     {
+        await base.InitializeAsync(cancellationToken, progress);
+    
+
         await this.RegisterCommandsAsync();
         this.RegisterToolWindows();
         await LanguageMediator.InitializeAsync();
+        
+        await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+        DTE dte = (DTE)await GetServiceAsync(typeof(DTE));
+        Formatter.dte = dte;
 
     }
 }

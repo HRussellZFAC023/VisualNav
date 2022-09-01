@@ -1,8 +1,12 @@
 ﻿using CefSharp;
+using EnvDTE;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using VisualNav.Utilities;
+using static System.Windows.Forms.DataFormats;
 using Command = VisualNav.Schema.Command;
 
 namespace VisualNav.ToolWindows;
@@ -50,6 +54,8 @@ public partial class BuildingWindowControl
         }).FireAndForget();
     }
 
+
+    
     public void InsertCodeButton_Click(object sender, RoutedEventArgs e)
     {
         ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
@@ -68,20 +74,20 @@ public partial class BuildingWindowControl
                 var position = docView.TextView.Caret.Position.BufferPosition;
 
                 var spaceNum = docView.TextView.Caret.Position.VirtualSpaces;
-                var spaces = new StringBuilder();
+                //var spaces = new StringBuilder();
                 var newRes = new StringBuilder();
                 for (var i = 0; i < spaceNum; i++)
                 {
-                    spaces.Append(' ');
+                    //spaces.Append(' ');
                 }
 
-                newRes.Append(spaces);
+                //newRes.Append(spaces);
                 foreach (var c in re)
                 {
                     if (c == '\n')
                     {
                         newRes.Append(c);
-                        newRes.Append(spaces);
+                        //newRes.Append(spaces);
                     }
                     else
                     {
@@ -90,9 +96,16 @@ public partial class BuildingWindowControl
                 }
 
                 docView.TextBuffer?.Insert(position, newRes.ToString());
-                await InfoNotificationWrapper.ShowSimpleAsync("Inserted into Document.", "InsertPage", PackageGuids.BuildingWindowString, 1500);
+              
             }
+
+            await Task.Delay(100);
+            Formatter.Format();
+            await InfoNotificationWrapper.ShowSimpleAsync("Inserted into Document.", "InsertPage", PackageGuids.BuildingWindowString, 1500);
+
+
         }).FireAndForget();
+
     }
 
     public void ClipboardButton_Click(object sender, RoutedEventArgs e)

@@ -63,6 +63,7 @@
     <Compile Include="Commands\ZoomOutBuildingWindow.cs" />
     <Compile Include="Schema\Schema.cs" />
     <Compile Include="Utilities\BlocklyAdapter.cs" />
+    <Compile Include="Utilities\Formatter.cs" />
     <Compile Include="Utilities\InfoNotificationWrapper.cs" />
     <Compile Include="Utilities\LanguageMediator.cs" />
     <Compile Include="Utilities\FileReaderAdapter.cs" />
