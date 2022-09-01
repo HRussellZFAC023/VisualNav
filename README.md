@@ -42,6 +42,11 @@ The radial menu interface, preview and building windows enabling efficient code 
 
 ![mainScreenshot](https://user-images.githubusercontent.com/96876320/187952113-ee522257-4a3c-4802-877e-a9b77b117410.png)
 
+Example of created blocks using the radial menu:
+
+![block_example](https://user-images.githubusercontent.com/96876320/187952486-52fb1fae-4330-4415-86b3-fea184484129.png)
+
+
 
 Useful links:
 
