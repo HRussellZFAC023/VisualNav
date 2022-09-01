@@ -10,7 +10,7 @@ Its target users include motion input users who possess motor disability, second
 
 # How to install
 
-There are two methods for the installation process.
+To get started with VisualNav, there are two methods for the installation process:
 
 Option 1 - Manually: 
 After closing Visual Studio, go to the release section of the repository. Then double click on the .VSIX file and run the installer.
@@ -30,10 +30,6 @@ Setup instructions:
     
 To setup, simply navigate to the "Tools" bar and click on "open all windows".
     
-How to get started with VisualNav
-
-How to run examples provided
-    
 Screenshots:
 
 The radial menu interface, preview and building windows enabling efficient code block creation:
@@ -47,6 +43,7 @@ Example of created blocks using the radial menu:
 ![block_example](https://user-images.githubusercontent.com/96876320/187952486-52fb1fae-4330-4415-86b3-fea184484129.png)
 
 
+How to run examples provided
 
 Useful links:
 
