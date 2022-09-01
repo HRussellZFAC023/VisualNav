@@ -10,7 +10,7 @@ Its target users include motion input users who possess motor disability, second
 # Useful links:
 
 * Download: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
-* Website: https://hrussellzfac023.github.io/VisualNavWebsite/
+* Website: https://hrussellzfac023.github.io/VisualNav/
 * Examples: https://github.com/HRussellZFAC023/VisualNavExamples/settings/access
 * Secret Note: https://pastebin.com/x19YXsa8
 
