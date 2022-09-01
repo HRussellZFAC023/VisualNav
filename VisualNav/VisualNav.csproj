@@ -98,6 +98,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Docs\Controls.html" />
+    <Content Include="Docs\Documentation.html" />
+    <Content Include="Docs\Documentation\0b2a025d29a180dc421af3315e13f483.jpg" />
+    <Content Include="Docs\Documentation\12cf4b191cd5f6220feafd2efaad55b2.jpg" />
+    <Content Include="Docs\Documentation\41d7f04475491d5a589b16aea8b1f51e.jpg" />
+    <Content Include="Docs\Documentation\53207e70fe8042b09240648a104f8610.jpg" />
+    <Content Include="Docs\Documentation\ce7840079814d516d984a10c90be6ccc.jpg" />
+    <Content Include="Docs\Documentation\f20f861eee1583c00e4e0e0e88b250a6.jpg" />
+    <Content Include="Docs\Download.html" />
+    <Content Include="Docs\Download\9432dfb89b75b8b9bf07b1b0752719d8.jpg" />
+    <Content Include="Docs\Home.html" />
+    <Content Include="Docs\Home\2f349dad48e30d9880a1e09518a72ddd.jpg" />
+    <Content Include="Docs\index.html" />
     <Content Include="Resources\html\blocklyHTML.html">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
