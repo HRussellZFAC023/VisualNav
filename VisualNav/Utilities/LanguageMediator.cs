@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.Text;
+﻿using EnvDTE;
+using Microsoft.VisualStudio.Text;
 using System.IO;
 
 namespace VisualNav.Utilities;
-
 /// <summary>
 /// This class provides the GetCurrentActiveFileExtension() method, can be used to find out the current language;
 ///
@@ -22,6 +22,8 @@ internal static class LanguageMediator
         VS.Events.SelectionEvents.SelectionChanged += SelectionEventsOnSelectionChanged;
         var buffer = await VS.Documents.GetActiveDocumentViewAsync();
         _currentLanguage = buffer?.TextBuffer == null ? "" : Path.GetExtension(buffer.TextBuffer.GetFileName());
+
+  
     }
 
     // call GetCurrentActiveFileExtension() for the current language
