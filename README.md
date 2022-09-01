@@ -1,7 +1,7 @@
 # VisualNav
 
 * Download: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
-* Website: https://sites.google.com/view/visualnav/home
+* Website: https://hrussellzfac023.github.io/VisualNavWebsite/
 * Examples: https://github.com/HRussellZFAC023/VisualNavExamples/settings/access
 * Secret Note: https://pastebin.com/x19YXsa8
 
