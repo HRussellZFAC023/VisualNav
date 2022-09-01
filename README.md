@@ -49,6 +49,3 @@ Example of created blocks using the radial menu:
 
 ![block_example](https://user-images.githubusercontent.com/96876320/187952486-52fb1fae-4330-4415-86b3-fea184484129.png)
 
-
-How to run examples provided
-
