@@ -69,14 +69,22 @@ public partial class PreviewWindowControl
                     Width = RootGrid.Width,
                     FontSize = GetFontSize()
                 });
+
+
+            if ()
+            {
+         
+
             Descriptions.Children.Add(
-                new TextBlock
-                {
-                    Text = m.Description,
-                    TextWrapping = TextWrapping.Wrap,
-                    Width = RootGrid.Width,
-                    FontSize = m.Description.Contains("\n") ? Math.Max(GetFontSize() / 1.5, 12) : GetFontSize()
-                });
+                    new TextBlock
+                    {
+                        Text = m.Description,
+                        TextWrapping = TextWrapping.Wrap,
+                        Width = RootGrid.Width,
+                        FontSize = m.Description.Contains("\n") ? Math.Max(GetFontSize() / 1.5, 12) : GetFontSize()
+                    });
+            }
+
         }).FireAndForget();
     }
 
