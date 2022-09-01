@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Community.VisualStudio.Toolkit;
 using EnvDTE;
 
 namespace VisualNav.Utilities
@@ -16,8 +17,13 @@ namespace VisualNav.Utilities
             ThreadHelper.ThrowIfNotOnUIThread();
             var currentDoc = dte.ActiveDocument;
             currentDoc.Activate();
-            dte.ExecuteCommand("Edit.FormatSelection");
-            VS.MessageBox.Show("WOW");
+            if (dte.ActiveWindow.Kind == "Document")
+            {
+                dte.ExecuteCommand("Edit.FormatDocument");
+                VS.MessageBox.Show("WOW");
+            }
+
+
         }
     }
 }
