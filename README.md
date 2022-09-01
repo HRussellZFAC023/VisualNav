@@ -10,44 +10,37 @@ Its target users include motion input users who possess motor disability, second
 
 # How to install
 
- Manual - 
- Go to release section of repo
-    Close Visual Studio
-   
-    Double click on the .vsix file, run the installler and you are good to go.
+There are two methods for the installation process.
 
-Via the store 
+Option 1 - Manually: 
+After closing Visual Studio, go to the release section of the repository. Then double click on the .VSIX file and run the installer.
 
-    any prerequisite
-     Visual studio 
-     Ensure you have the required dependancies for cefsharp: https://cefsharp.github.io/
- [    
-     Microsoft .NET 4.5.2 or greater
-    Visual C++ Runtime 2019 or greater. (Visual C++ 2022 Runtime is backwards compatible)
-]
-     
-     
-     
-     Optional:
-     Motion input, use our custom build which can be found on the release section 
-     
-     https://github.com/HRussellZFAC023/VisualNav/releases
-     
-    Setup instructions
-    
-    Tools -> Open all windows
-    
-    
+Option 2 - Via the store:
 
+Prerequisites: 
+* Visual Studio installed.
+* Required dependancies for CefSharp installed (https://cefsharp.github.io/).
+* Microsoft .NET 4.5.2 or greater.
+* Visual C++ Runtime 2019 or greater (Visual C++ 2022 Runtime is backwards compatible).
+
+Optional prerequisites:
+* Presence of motion input, usage of our custom build which can be found on the release section at https://github.com/HRussellZFAC023/VisualNav/releases
+     
+Setup instructions:
+    
+To setup, simply naviage to the "Tools" bar and click on "open all windows".
+    
 How to get started with VisualNav
-
-    how to run examples provided
+How to run examples provided
     
-   Screenshots + descrriptions
+Screenshots:
+
+The radial menu interface, enabling efficient code block creation:
+![hierarchical](https://user-images.githubusercontent.com/96876320/187951335-05cff28b-045b-4fba-b289-031baa2efa4e.png)
 
 
+Useful links:
 
-# 
 * Download: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
 * Website: https://hrussellzfac023.github.io/VisualNavWebsite/
 * Examples: https://github.com/HRussellZFAC023/VisualNavExamples/settings/access
