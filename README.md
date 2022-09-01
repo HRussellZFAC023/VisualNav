@@ -7,6 +7,13 @@ Since existing tools do not provide enough support for those with disability, th
 
 Its target users include motion input users who possess motor disability, secondary school students taking their first steps into the world of programming, teachers, developers (especially those wanting to utilize CPU threads) and for the open-source community in general.
 
+# Useful links:
+
+* Download: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
+* Website: https://hrussellzfac023.github.io/VisualNavWebsite/
+* Examples: https://github.com/HRussellZFAC023/VisualNavExamples/settings/access
+* Secret Note: https://pastebin.com/x19YXsa8
+
 
 # How to install
 
@@ -45,9 +52,3 @@ Example of created blocks using the radial menu:
 
 How to run examples provided
 
-Useful links:
-
-* Download: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
-* Website: https://hrussellzfac023.github.io/VisualNavWebsite/
-* Examples: https://github.com/HRussellZFAC023/VisualNavExamples/settings/access
-* Secret Note: https://pastebin.com/x19YXsa8
