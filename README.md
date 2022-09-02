@@ -48,7 +48,7 @@ Open Visual Studio, then go to "extensions" and search for VisualNav.
 ## Prerequisites: 
 * Visual Studio installed.
 * Microsoft .NET 4.5.2 or greater.
-* Visual C++ Runtime 2019 or greater (Visual C++ 2022 Runtime is backwards compatible).
+* Visual C++ Runtime 2019 or greater.
 
      
 ## Setup instructions:
