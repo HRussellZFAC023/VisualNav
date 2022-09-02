@@ -1,11 +1,24 @@
 # VisualNav
 
+Working with Intel® UK and Microsoft we created VisualNav for Visual Studio, an extension that makes coding fun for disabled developers and young pupils.
 
-Welcome to the “Intel® Visual Guidance Suite for Student Developers & Visual Nav Plugin in Visual Studio” project, aiming to create an equitable development by evening the playing field, such that disabled developers can write code at the same productivity of their peers.  
+The WIMP  (windows, icons, menus and pointers) interface paradigm dominates modern computing systems, but disabled users may find it challenging to use. UCL's MotionInput enables voice and gesture controls of a computer with only a webcam and microphone. VisualNav for Visual Studio provides a touchless interface for writing code. It is designed for ease of use for beginners in the world of coding, from beginner through to advanced.
 
-Since existing tools do not provide enough support for those with disability, the use of visuals as a way of coding should be explored. Similar technologies include Visual Basic and Toolbox but we believe our solution is better. Our ideal end-goal is for developers with disability to work together in a live share environment at the same productivity level as their peers.
+The project adopts a Visual coding paradigm, this is where blocks of code can be pieced together in an analogy to Legos and will be familiar to children coming from a background in Microsoft Make code. We use CEFSharp, an embedded web browser based on chromium, to integrate ‘Blockly’, the JavaScript library that MakeCode is built upon, and render this panel directly within Visual Studio.
 
-Its target users include motion input users who possess motor disability, secondary school students taking their first steps into the world of programming, teachers, developers (especially those wanting to utilize CPU threads) and for the open-source community in general.
+## How does it work?
+
+Users can select a code block from an accessible command palette, with minimal motor movement via the use of a radial dial component. To ensure the correct block is selected, a preview gives a description and visualisation—finally, a building workspace to drag and assemble the blocks of code, to be compiled into code. Throughout the process, voice commands can be used to trigger shortcuts, as an accelerator.
+
+The project supports 9 kinds of blocks, contains 65 block elements supporting JavaScript, Python, PHP, Lua, and Dart and C#.  C# contains the extra feature of ‘custom blocks’, which allows library functions to can be added to the radial menu as blocks facilitating advanced developers to build more complex applications.
+
+It is now possible to write code with only facial movement.
+
+
+# MotionInput V3
+MotionInput V3 is an optional pre-requesite that....
+
+A release of motion input including voice shortcuts can be downloaded https://github.com/HRussellZFAC023/VisualNav/releases
 
 # Useful links:
 
@@ -30,8 +43,6 @@ Prerequisites:
 * Microsoft .NET 4.5.2 or greater.
 * Visual C++ Runtime 2019 or greater (Visual C++ 2022 Runtime is backwards compatible).
 
-Optional prerequisites:
-* Presence of motion input, usage of our custom build which can be found on the release section at https://github.com/HRussellZFAC023/VisualNav/releases
      
 Setup instructions:
     
