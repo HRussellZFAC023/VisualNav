@@ -43,10 +43,10 @@ Although fully standalone, the application is best used to be used with MotionIn
 
 To get started with VisualNav, there are two methods for the installation process:
 
-###Option 1 - Manually: 
+### Option 1 - Manually: 
 After closing Visual Studio, go to the release section of the repository. Then double click on the .VSIX file and run the installer.
 
-##Option 2 - Via the store:
+## Option 2 - Via the store:
 
 Prerequisites: 
 * Visual Studio installed.
@@ -55,11 +55,11 @@ Prerequisites:
 * Visual C++ Runtime 2019 or greater (Visual C++ 2022 Runtime is backwards compatible).
 
      
-##Setup instructions:
+## Setup instructions:
     
 To setup, simply navigate to the "Tools" bar and click on "open all windows".
 
-##Examples:
+## Examples:
 
 ![hierarchical](https://user-images.githubusercontent.com/96876320/187951335-05cff28b-045b-4fba-b289-031baa2efa4e.png)
 
