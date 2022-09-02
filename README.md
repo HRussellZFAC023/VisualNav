@@ -17,9 +17,9 @@ It is now possible to write code with only facial movement and speach commands.
 
 The radial menu interface, preview and building windows enabling efficient code block creation:
 
-![hierarchical](https://user-images.githubusercontent.com/96876320/187951335-05cff28b-045b-4fba-b289-031baa2efa4e.png)
+![hierarchical](https://user-images.githubusercontent.com/96876320/187951335-05cff28b-045b-4fba-b289-031baa2efa4e.png)![mainScreenshot](https://user-images.githubusercontent.com/96876320/187952113-ee522257-4a3c-4802-877e-a9b77b117410.png)
 
-![mainScreenshot](https://user-images.githubusercontent.com/96876320/187952113-ee522257-4a3c-4802-877e-a9b77b117410.png)
+
 
 Example of created blocks using the radial menu:
 
