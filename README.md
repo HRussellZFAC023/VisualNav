@@ -19,18 +19,12 @@ The radial menu interface, preview and building windows enabling efficient code 
 
 ![mainScreenshot](https://user-images.githubusercontent.com/96876320/187952113-ee522257-4a3c-4802-877e-a9b77b117410.png)
 
-
-
-
-
 # MotionInput V3
 Although fully standalone, the application is best used to be used with MotionInput V3 best done with nose based navigation plus speech, but also fully compatible with eyegase and multitouch availible from https://touchlesscomputing.org/. 
 
 ## What is motion input?
 
-
-
-# Useful links:
+# links:
 
 * Download: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
 * Website: https://hrussellzfac023.github.io/VisualNav/
@@ -47,7 +41,8 @@ To get started with VisualNav, there are two methods for the installation proces
 After closing Visual Studio, go to the release section of the repository. Then double click on the .VSIX file and run the installer.
 
 ## Option 2 - Via the store:
-https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
+Open Visual Studio, then go to "extensions" and search for VisualNav.
+![image](https://user-images.githubusercontent.com/22746105/188231082-5454a0bc-1b5c-49de-bbb0-2c7e3ac0ead9.png)
 
 ## Prerequisites: 
 * Visual Studio installed.
