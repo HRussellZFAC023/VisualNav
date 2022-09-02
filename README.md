@@ -12,7 +12,7 @@ Users can select a code block from an accessible command palette, with minimal m
 
 The project supports 9 kinds of blocks, contains 65 block elements supporting JavaScript, Python, PHP, Lua, and Dart and C#.  C# contains the extra feature of ‘custom blocks’, which allows library functions to can be added to the radial menu as blocks facilitating advanced developers to build more complex applications.
 
-It is now possible to write code with only facial movement.
+It is now possible to write code with only facial movement and speach commands.
 
 
 # MotionInput V3
