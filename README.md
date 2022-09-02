@@ -46,7 +46,8 @@ To get started with VisualNav, there are two methods for the installation proces
 ### Option 1 - Manually: 
 After closing Visual Studio, go to the release section of the repository. Then double click on the .VSIX file and run the installer.
 
-## Option 2 - Via the store: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
+## Option 2 - Via the store:
+https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
 
 ## Prerequisites: 
 * Visual Studio installed.
