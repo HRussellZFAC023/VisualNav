@@ -15,6 +15,18 @@ The project supports 9 kinds of blocks, contains 65 block elements supporting Ja
 It is now possible to write code with only facial movement and speach commands.
 
 
+The radial menu interface, preview and building windows enabling efficient code block creation:
+
+![hierarchical](https://user-images.githubusercontent.com/96876320/187951335-05cff28b-045b-4fba-b289-031baa2efa4e.png)
+
+![mainScreenshot](https://user-images.githubusercontent.com/96876320/187952113-ee522257-4a3c-4802-877e-a9b77b117410.png)
+
+Example of created blocks using the radial menu:
+
+![block_example](https://user-images.githubusercontent.com/96876320/187952486-52fb1fae-4330-4415-86b3-fea184484129.png)
+
+
+
 # MotionInput V3
 Although fully standalone, the application is best used to be used with MotionInput V3 best done with nose based navigation plus speech, but also fully compatible with eyegase and multitouch availible from https://touchlesscomputing.org/. 
 
@@ -50,16 +62,6 @@ Prerequisites:
 Setup instructions:
     
 To setup, simply navigate to the "Tools" bar and click on "open all windows".
-    
-Screenshots:
 
-The radial menu interface, preview and building windows enabling efficient code block creation:
 
-![hierarchical](https://user-images.githubusercontent.com/96876320/187951335-05cff28b-045b-4fba-b289-031baa2efa4e.png)
-
-![mainScreenshot](https://user-images.githubusercontent.com/96876320/187952113-ee522257-4a3c-4802-877e-a9b77b117410.png)
-
-Example of created blocks using the radial menu:
-
-![block_example](https://user-images.githubusercontent.com/96876320/187952486-52fb1fae-4330-4415-86b3-fea184484129.png)
 
