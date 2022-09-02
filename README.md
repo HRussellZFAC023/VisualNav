@@ -42,6 +42,7 @@ After closing Visual Studio, go to the release section of the repository. Then d
 
 ## Option 2 - Via the store:
 Open Visual Studio, then go to "extensions" and search for VisualNav.
+
 ![image](https://user-images.githubusercontent.com/22746105/188231082-5454a0bc-1b5c-49de-bbb0-2c7e3ac0ead9.png)
 
 ## Prerequisites: 
