@@ -16,15 +16,18 @@ It is now possible to write code with only facial movement.
 
 
 # MotionInput V3
-MotionInput V3 is an optional pre-requesite that....
+Although fully standalone, the application is best used to be used with MotionInput V3 best done with nose based navigation plus speech, but also fully compatible with eyegase and multitouch availible from https://touchlesscomputing.org/. 
 
-A release of motion input including voice shortcuts can be downloaded https://github.com/HRussellZFAC023/VisualNav/releases
+## What is motion input?
+
+
 
 # Useful links:
 
 * Download: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
 * Website: https://hrussellzfac023.github.io/VisualNav/
 * Examples: https://github.com/HRussellZFAC023/VisualNavExamples/settings/access
+* Motion input nose based navigation plus speech (including VS voice shortcuts): https://github.com/HRussellZFAC023/VisualNav/releases
 * Secret Note: https://pastebin.com/x19YXsa8
 
 
