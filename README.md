@@ -56,7 +56,7 @@ Open Visual Studio, then go to "extensions" and search for VisualNav.
 To setup, simply navigate to the "Tools" bar and click on "open all windows".
 
 ## Examples:
-Example navigating the command pallette:
+Example navigating the command palette:
 
 ![hierarchical](https://user-images.githubusercontent.com/96876320/187951335-05cff28b-045b-4fba-b289-031baa2efa4e.png)
 
