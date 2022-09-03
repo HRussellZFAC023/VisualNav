@@ -24,6 +24,8 @@ Although fully standalone, the application is best used to be used with MotionIn
 
 ## What is motion input?
 
+During the pandemic, academic & students from UCL developed UCL MotionInput 3. This technology uses computer vision with a regular webcam to control a computer like a mouse & keyboard. In addition, it uses natural language processing to control existing applications & shortcuts. This project uses this technology to enable young & mature developers with accessibility needs to design, write & test programs with Visual Studio. For example, one can move their hands or face to move the mouse. Or, one can say the words "click" and "double click" out loud to access the mouse's functionality.
+
 # links:
 
 * Download: https://marketplace.visualstudio.com/items?itemName=UCLFacialNavforVisualStudio.VisualNav
