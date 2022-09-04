@@ -32,8 +32,8 @@ During the pandemic, academic & students from UCL developed UCL MotionInput 3. T
 * Website: https://hrussellzfac023.github.io/VisualNav/
 * Examples: https://github.com/HRussellZFAC023/VisualNavExamples/settings/access
 * MI3 Facial Navigation v3.04 (Special Edition for VS accessibility): https://touchlesscomputing.org/
-* Secret Note: https://pastebin.com/x19YXsa8
 * Work published in Microsoft blog: https://techcommunity.microsoft.com/t5/educator-developer-blog/ucl-amp-intel-visualnav-v2-facial-navigation-for-visual-studio/ba-p/3616447
+* Secret Note: https://pastebin.com/x19YXsa8
 
 
 # How to install
